@@ -11,6 +11,11 @@
 		257959D82B04FB000033DFAB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257959D72B04FB000033DFAB /* ContentView.swift */; };
 		257959DA2B04FB010033DFAB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 257959D92B04FB010033DFAB /* Assets.xcassets */; };
 		257959DD2B04FB010033DFAB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 257959DC2B04FB010033DFAB /* Preview Assets.xcassets */; };
+		257959E62B04FBA10033DFAB /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257959E52B04FBA10033DFAB /* APICaller.swift */; };
+		257959E92B04FF420033DFAB /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257959E82B04FF420033DFAB /* DateFormatter.swift */; };
+		257959EB2B0501660033DFAB /* RaceTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257959EA2B0501660033DFAB /* RaceTitle.swift */; };
+		25EDC7932B054D2A0094DBBA /* SessionTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDC7922B054D2A0094DBBA /* SessionTimer.swift */; };
+		25EDC7952B054D320094DBBA /* TimerElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDC7942B054D320094DBBA /* TimerElement.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +24,11 @@
 		257959D72B04FB000033DFAB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		257959D92B04FB010033DFAB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		257959DC2B04FB010033DFAB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		257959E52B04FBA10033DFAB /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
+		257959E82B04FF420033DFAB /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
+		257959EA2B0501660033DFAB /* RaceTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceTitle.swift; sourceTree = "<group>"; };
+		25EDC7922B054D2A0094DBBA /* SessionTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTimer.swift; sourceTree = "<group>"; };
+		25EDC7942B054D320094DBBA /* TimerElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerElement.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +61,9 @@
 		257959D42B04FB000033DFAB /* f1-countdown-ios */ = {
 			isa = PBXGroup;
 			children = (
+				257959E72B04FF370033DFAB /* Helpers */,
+				257959E42B04FB840033DFAB /* API */,
+				257959E32B04FB410033DFAB /* Components */,
 				257959D52B04FB000033DFAB /* f1_countdown_iosApp.swift */,
 				257959D72B04FB000033DFAB /* ContentView.swift */,
 				257959D92B04FB010033DFAB /* Assets.xcassets */,
@@ -65,6 +78,40 @@
 				257959DC2B04FB010033DFAB /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		257959E32B04FB410033DFAB /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				25EDC7912B054D200094DBBA /* Timer */,
+				257959EA2B0501660033DFAB /* RaceTitle.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		257959E42B04FB840033DFAB /* API */ = {
+			isa = PBXGroup;
+			children = (
+				257959E52B04FBA10033DFAB /* APICaller.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		257959E72B04FF370033DFAB /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				257959E82B04FF420033DFAB /* DateFormatter.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		25EDC7912B054D200094DBBA /* Timer */ = {
+			isa = PBXGroup;
+			children = (
+				25EDC7922B054D2A0094DBBA /* SessionTimer.swift */,
+				25EDC7942B054D320094DBBA /* TimerElement.swift */,
+			);
+			path = Timer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,7 +184,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				257959E92B04FF420033DFAB /* DateFormatter.swift in Sources */,
 				257959D82B04FB000033DFAB /* ContentView.swift in Sources */,
+				257959E62B04FBA10033DFAB /* APICaller.swift in Sources */,
+				25EDC7932B054D2A0094DBBA /* SessionTimer.swift in Sources */,
+				25EDC7952B054D320094DBBA /* TimerElement.swift in Sources */,
+				257959EB2B0501660033DFAB /* RaceTitle.swift in Sources */,
 				257959D62B04FB000033DFAB /* f1_countdown_iosApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
