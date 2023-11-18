@@ -25,6 +25,10 @@ class deltaValues {
     init(date: String) {
         self.delta = Int(formatDate(dateString: date).timeIntervalSince1970 - Date().timeIntervalSince1970);
         
+        if (self.delta < 0) {
+            self.delta = 0;
+        }
+        
         self.days = self.delta / 86400;
         
         if (self.days > 7) {
@@ -34,7 +38,7 @@ class deltaValues {
         }
         
         self.hours = self.delta % 86400 / 3600;
-        self.hoursPct = Float(self.hours / 24);
+        self.hoursPct = Float(self.hours) / 24;
         
         self.minutes = self.delta % 86400 % 3600 / 60;
         self.minutesPct = Float(self.minutes) / 60;
@@ -56,13 +60,13 @@ struct SessionTimer: View {
     @State var delta: deltaValues = deltaValues(date: "1970-01-01T00:00:00Z");
     
     var body: some View {
-        VStack {
-            HStack {
+        Grid {
+            GridRow {
                 TimerElement(delta: delta.days, deltaPct: delta.daysPct, ringColor: .red, timeUnit: "days")
                 TimerElement(delta: delta.hours, deltaPct: delta.hoursPct, ringColor: .yellow, timeUnit: "hours")
             }
             
-            HStack {
+            GridRow {
                 TimerElement(delta: delta.minutes, deltaPct: delta.minutesPct, ringColor: .green, timeUnit: "minutes")
                 TimerElement(delta: delta.seconds, deltaPct: delta.secondsPct, ringColor: .blue, timeUnit: "seconds")
             }

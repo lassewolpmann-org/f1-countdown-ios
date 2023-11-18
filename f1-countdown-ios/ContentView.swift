@@ -9,43 +9,49 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var nextRaces: [RaceData] = [RaceData]();
-    @State var selectedSession: String = "fp1";
+    @State var selectedSession: String = "gp";
     
     var body: some View {
-        VStack {
-            if (nextRaces.isEmpty) {
-                Text("Data loading...")
-                ProgressView()
-            } else {
-                let nextRace = nextRaces.first;
-                let raceName = nextRace?.name ?? "Undefined";
-                let sessions = nextRace?.sessions ?? ["Undefined": "1970-01-01T00:00:00Z"];
-                let sortedSessions = sessions.sorted(by:{$0.value < $1.value});
-                let currentSessionDate = sessions[selectedSession]
-                
-                RaceTitle(raceName: raceName)
-                    .padding()
-                    .bold()
-                    .font(.title)
-                
-                Picker("Session", selection: $selectedSession) {
-                    ForEach(sortedSessions, id:\.key) {
-                        key, value in
-                        Text(key.uppercased())
+        NavigationStack {
+            List {
+                if (nextRaces.isEmpty) {
+                    Section {
+                        Text("Data loading...")
+                        ProgressView()
                     }
+                } else {
+                    let nextRace = nextRaces.first;
+                    let raceName = nextRace?.name ?? "Undefined";
+                    let sessions = nextRace?.sessions ?? ["Undefined": "1970-01-01T00:00:00Z"];
+                    let currentSessionDate = sessions[selectedSession];
+
+                    Section {
+                        VStack {
+                            SessionPicker(selectedSession: $selectedSession, sessions: sessions)
+                                .padding([.top, .bottom], 20.0)
+                            
+                            SessionTimer(currentSessionDate: currentSessionDate ?? "1970-01-01T00:00:00Z")
+                        }
+                    }
+                    
+                    Section {
+                        ForEach(nextRaces) { race in
+                            NavigationLink("\(race.name) Grand Prix") {
+                                RaceDetails(race: race)
+                            }
+                        }
+                    } header: {
+                        Text("Upcoming Grands Prix")
+                    }
+                    .navigationTitle("\(raceName) Grand Prix")
                 }
-                .padding()
-                .pickerStyle(.segmented)
-                
-                SessionTimer(currentSessionDate: currentSessionDate ?? "1970-01-01T00:00:00Z")
             }
-        }
-        .background(Color(UIColor.systemBackground))
-        .task {
-            do {
-                nextRaces = try await callAPI()
-            } catch {
-                print("Error calling API")
+            .task {
+                do {
+                    nextRaces = try await callAPI()
+                } catch {
+                    print("Error calling API")
+                }
             }
         }
     }
@@ -53,4 +59,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        //.preferredColorScheme(.dark)
 }

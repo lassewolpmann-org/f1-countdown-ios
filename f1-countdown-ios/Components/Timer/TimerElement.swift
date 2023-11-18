@@ -10,18 +10,20 @@ import SwiftUI
 struct TimerElement: View {
     var delta: Int = 0;
     var deltaPct: Float = 0.0;
-    var ringColor: Color = Color.white;
-    var timeUnit: String = "";
-    var lineWidth: CGFloat = 10.0;
+    var ringColor: Color = Color.pink;
+    var timeUnit: String = "unit";
+    var lineWidth: CGFloat = 7.5;
     
     var body: some View {
         ZStack {
             VStack {
                 Text(String(delta))
                     .bold()
-                    .font(.title)
+                    .font(.largeTitle)
                 
                 Text(timeUnit)
+                    .foregroundStyle(.gray)
+                    .font(.subheadline)
             }
             Circle()
                 .trim(from: 0, to: CGFloat(deltaPct))

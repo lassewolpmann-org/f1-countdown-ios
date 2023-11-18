@@ -9,7 +9,7 @@ struct APIData: Decodable {
     let races: [RaceData]
 }
 
-struct RaceData: Decodable {
+struct RaceData: Decodable, Identifiable, Hashable {
     var name: String
     var location: String
     var latitude: Double
@@ -18,6 +18,10 @@ struct RaceData: Decodable {
     var slug: String
     var localeKey: String
     var sessions: [String: String]
+    
+    var id: String {
+        name
+    }
 }
 
 import Foundation
@@ -58,5 +62,11 @@ func getNextRaces(races: [RaceData]) -> [RaceData] {
         return Date() < formatDate(dateString: raceDate)
     }
     
-    return nextRaces
+    if (nextRaces.isEmpty) {
+        let lastRace = races.last!
+        
+        return [lastRace]
+    } else {
+        return nextRaces
+    }
 }
