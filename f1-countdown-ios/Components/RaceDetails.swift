@@ -38,8 +38,26 @@ struct RaceDetails: View {
                     Text("Forecast becomes available within 10 days of session date.")
                 }
                 
-                NavigationLink("All Sessions") {
-                    RaceSessions(sessions: race.sessions)
+                
+                Section {
+                    ForEach(race.sessions.sorted(by:{$0.value < $1.value}), id: \.key) { session in
+                        VStack(alignment: .leading) {
+                            Text(parseSessionName(sessionName: session.key))
+                                .font(.title2)
+                                .padding(.bottom, 5)
+                            
+                            HStack(alignment: .center) {
+                                VStack(alignment: .leading) {
+                                    Text(getDay(dateString: session.value))
+                                    Text("from \(getTime(dateString: session.value))")
+                                }.frame(maxWidth: .infinity, alignment: .leading)
+                                
+                                NotificationButton(sessionDate: session.value)
+                            }
+                        }
+                    }
+                } header: {
+                    Text("All sessions")
                 }
             }
             .navigationTitle("\(race.name) Grand Prix")

@@ -48,6 +48,7 @@ struct SessionWeather: View {
                 let endDate = date!.addingTimeInterval(60 * 60 * 2);
                 
                 let weatherService = WeatherService();
+                
                 hourlyForecast = try await weatherService.weather(for: location, including: .hourly(startDate: startDate, endDate: endDate));
                 
                 let forecast = hourlyForecast?.first;
