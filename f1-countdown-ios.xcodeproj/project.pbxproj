@@ -27,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		25104C5C2B0A51E3001FDF49 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2521762A2B08BEB00023C9B3 /* SessionWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionWeather.swift; sourceTree = "<group>"; };
 		2521762C2B08C4270023C9B3 /* f1-countdown-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "f1-countdown-ios.entitlements"; sourceTree = "<group>"; };
 		2539F2EB2B07B5750041FF65 /* RaceDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceDetails.swift; sourceTree = "<group>"; };
@@ -78,6 +79,7 @@
 		257959D42B04FB000033DFAB /* f1-countdown-ios */ = {
 			isa = PBXGroup;
 			children = (
+				25104C5C2B0A51E3001FDF49 /* Info.plist */,
 				2521762C2B08C4270023C9B3 /* f1-countdown-ios.entitlements */,
 				257959E72B04FF370033DFAB /* Helpers */,
 				257959E42B04FB840033DFAB /* API */,
@@ -386,6 +388,7 @@
 				DEVELOPMENT_TEAM = UU6Y3A827V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "f1-countdown-ios/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "f1-countdown";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -419,6 +422,7 @@
 				DEVELOPMENT_TEAM = UU6Y3A827V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "f1-countdown-ios/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "f1-countdown";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
