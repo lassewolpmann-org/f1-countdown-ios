@@ -54,37 +54,58 @@ func calculateDelta(date: String) -> Int {
 
 struct SessionTimer: View {
     @Environment(\.scenePhase) var scenePhase
-    var currentSessionDate: String;
+    
+    var nextRaces: [RaceData] = [RaceData]();
+    
+    @State var selectedSession: String = "gp";
     
     @State var timer: Timer?;
     @State var delta: deltaValues = deltaValues(date: "1970-01-01T00:00:00Z");
     
     var body: some View {
-        Grid {
-            GridRow {
-                TimerElement(delta: delta.days, deltaPct: delta.daysPct, ringColor: .red, timeUnit: "days")
-                TimerElement(delta: delta.hours, deltaPct: delta.hoursPct, ringColor: .yellow, timeUnit: "hours")
-            }
+        let nextRace = nextRaces.first;
+        let sessions = nextRace?.sessions ?? RaceData().sessions;
+        let currentSessionDate = sessions[selectedSession] ?? "1970-01-01T00:00:00Z";
+        
+        VStack {
+            SessionPicker(selectedSession: $selectedSession, sessions: sessions)
+                .padding([.top, .bottom], 20.0)
             
-            GridRow {
-                TimerElement(delta: delta.minutes, deltaPct: delta.minutesPct, ringColor: .green, timeUnit: "minutes")
-                TimerElement(delta: delta.seconds, deltaPct: delta.secondsPct, ringColor: .blue, timeUnit: "seconds")
+            Grid {
+                if (UIScreen.main.bounds.width < 768) {
+                    GridRow {
+                        TimerElement(delta: delta.days, deltaPct: delta.daysPct, ringColor: .red, timeUnit: "days")
+                        TimerElement(delta: delta.hours, deltaPct: delta.hoursPct, ringColor: .yellow, timeUnit: "hours")
+                    }
+                    
+                    GridRow {
+                        TimerElement(delta: delta.minutes, deltaPct: delta.minutesPct, ringColor: .green, timeUnit: "minutes")
+                        TimerElement(delta: delta.seconds, deltaPct: delta.secondsPct, ringColor: .blue, timeUnit: "seconds")
+                    }
+                } else {
+                    GridRow {
+                        TimerElement(delta: delta.days, deltaPct: delta.daysPct, ringColor: .red, timeUnit: "days")
+                        TimerElement(delta: delta.hours, deltaPct: delta.hoursPct, ringColor: .yellow, timeUnit: "hours")
+                        TimerElement(delta: delta.minutes, deltaPct: delta.minutesPct, ringColor: .green, timeUnit: "minutes")
+                        TimerElement(delta: delta.seconds, deltaPct: delta.secondsPct, ringColor: .blue, timeUnit: "seconds")
+                    }
+                }
             }
-        }
-        .onChange(of: currentSessionDate, initial: true) {
-            delta = deltaValues(date: currentSessionDate);
-            
-            timer?.invalidate();
-            timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
+            .onChange(of: currentSessionDate, initial: true) {
                 delta = deltaValues(date: currentSessionDate);
-            })
-        }
-        .onChange(of: scenePhase) {
-            delta = deltaValues(date: currentSessionDate);
+                
+                timer?.invalidate();
+                timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
+                    delta = deltaValues(date: currentSessionDate);
+                })
+            }
+            .onChange(of: scenePhase) {
+                delta = deltaValues(date: currentSessionDate);
+            }
         }
     }
 }
 
 #Preview {
-    SessionTimer(currentSessionDate: "1970-01-01T00:00:00Z")
+    SessionTimer()
 }

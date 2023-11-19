@@ -28,14 +28,14 @@ struct TimerElement: View {
             Circle()
                 .trim(from: 0, to: CGFloat(deltaPct))
                 .stroke(ringColor, style: StrokeStyle(lineWidth: lineWidth, lineCap: .round))
-                .frame(width: 125, height: 125)
+                .frame(minWidth: 125, maxWidth: 500, minHeight: 125, maxHeight: 500)
                 .rotationEffect(.degrees(270))
                 .animation(.easeInOut(duration: 0.3), value: deltaPct)
             
             Circle()
                 .stroke(ringColor, lineWidth: lineWidth)
                 .opacity(0.5)
-                .frame(width: 125, height: 125)
+                .frame(minWidth: 125, maxWidth: 500, minHeight: 125, maxHeight: 500)
         }.padding(10)
     }
 }

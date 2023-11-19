@@ -20,18 +20,8 @@ struct ContentView: View {
                         ProgressView()
                     }
                 } else {
-                    let nextRace = nextRaces.first;
-                    let raceName = nextRace?.name ?? "Undefined";
-                    let sessions = nextRace?.sessions ?? ["Undefined": "1970-01-01T00:00:00Z"];
-                    let currentSessionDate = sessions[selectedSession];
-
                     Section {
-                        VStack {
-                            SessionPicker(selectedSession: $selectedSession, sessions: sessions)
-                                .padding([.top, .bottom], 20.0)
-                            
-                            SessionTimer(currentSessionDate: currentSessionDate ?? "1970-01-01T00:00:00Z")
-                        }
+                        SessionTimer(nextRaces: nextRaces)
                     }
                     
                     Section {
@@ -43,7 +33,7 @@ struct ContentView: View {
                     } header: {
                         Text("Upcoming Grands Prix")
                     }
-                    .navigationTitle("\(raceName) Grand Prix")
+                    .navigationTitle("\(nextRaces.first?.name ?? "Undefined") Grand Prix")
                 }
             }
             .task {
@@ -59,5 +49,4 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-        //.preferredColorScheme(.dark)
 }

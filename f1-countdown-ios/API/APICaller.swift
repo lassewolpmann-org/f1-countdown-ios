@@ -10,14 +10,14 @@ struct APIData: Decodable {
 }
 
 struct RaceData: Decodable, Identifiable, Hashable {
-    var name: String
-    var location: String
-    var latitude: Double
-    var longitude: Double
-    var round: Int
-    var slug: String
-    var localeKey: String
-    var sessions: [String: String]
+    var name: String = "undefined"
+    var location: String = "undefined place"
+    var latitude: Double = 0.0
+    var longitude: Double = 0.0
+    var round: Int = 0
+    var slug: String = "undefined-grand-prix"
+    var localeKey: String = "undefined-grand-prix"
+    var sessions: [String: String] = ["Undefined 1": "2023-01-01T00:00:00Z", "Undefined 2": "2023-01-02T00:00:00Z"]
     
     var id: String {
         name

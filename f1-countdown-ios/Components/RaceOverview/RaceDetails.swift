@@ -11,60 +11,42 @@ import WeatherKit
 
 struct RaceDetails: View {
     var race: RaceData;
+    
     @State var firstSessionName: String?;
     @State var firstSessionDate: String?;
+    
+    @State var futureSessions = RaceData().sessions.sorted(by:{$0.value < $1.value});
     
     var body: some View {
         NavigationStack {
             List {
                 Section {
-                    VStack(alignment: .leading) {
-                        Text(parseSessionName(sessionName: firstSessionName))
-                            .font(.title)
-                            .padding(.bottom, 5)
-                        
-                        Text(getDay(dateString: firstSessionDate ?? "1970-01-01T00:00:00Z"))
-                        Text("from \(getTime(dateString: firstSessionDate ?? "1970-01-01T00:00:00Z"))")
-                    }
+                    SessionDetails(raceName: race.name, sessionName: firstSessionName, sessionDate: firstSessionDate)
                 } header: {
                     Text("Upcoming Session")
                 }
                 
                 Section {
-                    SessionWeather(latitude: race.latitude, longitude: race.longitude, sessionDate: firstSessionDate);
+                    SessionWeather(latitude: race.latitude, longitude: race.longitude, raceLocation: race.location, sessionDate: firstSessionDate);
                 } header: {
                     Text("Forecast for \(parseSessionName(sessionName: firstSessionName))")
                 } footer: {
                     Text("Forecast becomes available within 10 days of session date.")
                 }
                 
-                
-                Section {
-                    ForEach(race.sessions.sorted(by:{$0.value < $1.value}), id: \.key) { session in
-                        VStack(alignment: .leading) {
-                            Text(parseSessionName(sessionName: session.key))
-                                .font(.title2)
-                                .padding(.bottom, 5)
-                            
-                            HStack(alignment: .center) {
-                                VStack(alignment: .leading) {
-                                    Text(getDay(dateString: session.value))
-                                    Text("from \(getTime(dateString: session.value))")
-                                }.frame(maxWidth: .infinity, alignment: .leading)
-                                
-                                NotificationButton(sessionDate: session.value)
-                            }
+                if (futureSessions.count > 0) {
+                    Section(header: Text("Following sessions")) {
+                        ForEach(futureSessions.sorted(by:{$0.value < $1.value}), id: \.key) { session in
+                            SessionDetails(raceName: race.name, sessionName: session.key, sessionDate: session.value)
                         }
                     }
-                } header: {
-                    Text("All sessions")
                 }
             }
             .navigationTitle("\(race.name) Grand Prix")
             .onAppear {
                 let sortedSessions = race.sessions.sorted(by:{$0.value < $1.value});
-                
-                let futureSessions = sortedSessions.filter { (key: String, value: String) in
+
+                futureSessions = sortedSessions.filter { (key: String, value: String) in
                     let currentDate = Date();
                     let sessionDate = formatDate(dateString: value);
                     
@@ -74,10 +56,18 @@ struct RaceDetails: View {
                     return currentTimestamp < sessionTimestamp
                 }
                 
-                let firstSession = futureSessions.first;
                 
-                firstSessionName = firstSession?.key;
-                firstSessionDate = firstSession?.value;
+                if (futureSessions.count > 0) {
+                    let firstSession = futureSessions.removeFirst();
+                    
+                    firstSessionName = firstSession.key;
+                    firstSessionDate = firstSession.value;
+                } else {
+                    let firstSession = sortedSessions.first;
+                    
+                    firstSessionName = firstSession?.key;
+                    firstSessionDate = firstSession?.value;
+                }
             }
         }
     }
@@ -122,5 +112,5 @@ func getTime(dateString: String) -> String {
 }
 
 #Preview {
-    RaceDetails(race: RaceData(name: "Preview", location: "Preview location", latitude: 0.0, longitude: 0.0, round: 0, slug: "preview-grand-prix", localeKey: "preview", sessions: ["fp1" : "1970-01-01T00:00:00Z", "fp2" : "1970-01-01T00:00:01Z"]))
+    RaceDetails(race: RaceData())
 }

@@ -18,6 +18,10 @@
 		257959E92B04FF420033DFAB /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257959E82B04FF420033DFAB /* DateFormatter.swift */; };
 		257959EB2B0501660033DFAB /* RaceTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257959EA2B0501660033DFAB /* RaceTitle.swift */; };
 		25DE90792B09168A00632B61 /* NotificationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DE90782B09168A00632B61 /* NotificationButton.swift */; };
+		25E301902B0A11C5008CC1BE /* SessionDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E3018F2B0A11C5008CC1BE /* SessionDetails.swift */; };
+		25E301932B0A2A1A008CC1BE /* DisabledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E301922B0A2A1A008CC1BE /* DisabledButton.swift */; };
+		25E301952B0A2A38008CC1BE /* CreateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E301942B0A2A38008CC1BE /* CreateButton.swift */; };
+		25E301972B0A2A40008CC1BE /* DeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E301962B0A2A40008CC1BE /* DeleteButton.swift */; };
 		25EDC7932B054D2A0094DBBA /* SessionTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDC7922B054D2A0094DBBA /* SessionTimer.swift */; };
 		25EDC7952B054D320094DBBA /* TimerElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDC7942B054D320094DBBA /* TimerElement.swift */; };
 /* End PBXBuildFile section */
@@ -36,6 +40,10 @@
 		257959E82B04FF420033DFAB /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		257959EA2B0501660033DFAB /* RaceTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceTitle.swift; sourceTree = "<group>"; };
 		25DE90782B09168A00632B61 /* NotificationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationButton.swift; sourceTree = "<group>"; };
+		25E3018F2B0A11C5008CC1BE /* SessionDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetails.swift; sourceTree = "<group>"; };
+		25E301922B0A2A1A008CC1BE /* DisabledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisabledButton.swift; sourceTree = "<group>"; };
+		25E301942B0A2A38008CC1BE /* CreateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateButton.swift; sourceTree = "<group>"; };
+		25E301962B0A2A40008CC1BE /* DeleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteButton.swift; sourceTree = "<group>"; };
 		25EDC7922B054D2A0094DBBA /* SessionTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTimer.swift; sourceTree = "<group>"; };
 		25EDC7942B054D320094DBBA /* TimerElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerElement.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -93,12 +101,10 @@
 		257959E32B04FB410033DFAB /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				25E3018D2B0A1144008CC1BE /* RaceOverview */,
 				25EDC7912B054D200094DBBA /* Timer */,
-				2539F2EB2B07B5750041FF65 /* RaceDetails.swift */,
 				257959EA2B0501660033DFAB /* RaceTitle.swift */,
 				2539F2ED2B0811930041FF65 /* SessionPicker.swift */,
-				2521762A2B08BEB00023C9B3 /* SessionWeather.swift */,
-				25DE90782B09168A00632B61 /* NotificationButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -117,6 +123,36 @@
 				257959E82B04FF420033DFAB /* DateFormatter.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		25E3018D2B0A1144008CC1BE /* RaceOverview */ = {
+			isa = PBXGroup;
+			children = (
+				25E3018E2B0A11B8008CC1BE /* SessionsOverview */,
+				2539F2EB2B07B5750041FF65 /* RaceDetails.swift */,
+			);
+			path = RaceOverview;
+			sourceTree = "<group>";
+		};
+		25E3018E2B0A11B8008CC1BE /* SessionsOverview */ = {
+			isa = PBXGroup;
+			children = (
+				25E301912B0A2A0F008CC1BE /* Buttons */,
+				25E3018F2B0A11C5008CC1BE /* SessionDetails.swift */,
+				2521762A2B08BEB00023C9B3 /* SessionWeather.swift */,
+				25DE90782B09168A00632B61 /* NotificationButton.swift */,
+			);
+			path = SessionsOverview;
+			sourceTree = "<group>";
+		};
+		25E301912B0A2A0F008CC1BE /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				25E301922B0A2A1A008CC1BE /* DisabledButton.swift */,
+				25E301942B0A2A38008CC1BE /* CreateButton.swift */,
+				25E301962B0A2A40008CC1BE /* DeleteButton.swift */,
+			);
+			path = Buttons;
 			sourceTree = "<group>";
 		};
 		25EDC7912B054D200094DBBA /* Timer */ = {
@@ -199,16 +235,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				257959E92B04FF420033DFAB /* DateFormatter.swift in Sources */,
+				25E301952B0A2A38008CC1BE /* CreateButton.swift in Sources */,
+				25E301932B0A2A1A008CC1BE /* DisabledButton.swift in Sources */,
 				2539F2EE2B0811930041FF65 /* SessionPicker.swift in Sources */,
 				257959D82B04FB000033DFAB /* ContentView.swift in Sources */,
 				257959E62B04FBA10033DFAB /* APICaller.swift in Sources */,
 				25DE90792B09168A00632B61 /* NotificationButton.swift in Sources */,
+				25E301902B0A11C5008CC1BE /* SessionDetails.swift in Sources */,
 				25EDC7932B054D2A0094DBBA /* SessionTimer.swift in Sources */,
 				25EDC7952B054D320094DBBA /* TimerElement.swift in Sources */,
 				2521762B2B08BEB00023C9B3 /* SessionWeather.swift in Sources */,
 				257959EB2B0501660033DFAB /* RaceTitle.swift in Sources */,
 				257959D62B04FB000033DFAB /* f1_countdown_iosApp.swift in Sources */,
 				2539F2EC2B07B5750041FF65 /* RaceDetails.swift in Sources */,
+				25E301972B0A2A40008CC1BE /* DeleteButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,6 +393,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -385,6 +426,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

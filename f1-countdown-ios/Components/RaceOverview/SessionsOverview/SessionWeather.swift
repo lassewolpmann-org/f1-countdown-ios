@@ -10,8 +10,9 @@ import CoreLocation
 import WeatherKit
 
 struct SessionWeather: View {
-    var latitude: Double;
-    var longitude: Double;
+    var latitude: Double = RaceData().latitude;
+    var longitude: Double = RaceData().longitude;
+    var raceLocation: String = RaceData().location;
     var sessionDate: String?;
     
     @State var hourlyForecast: Forecast<HourWeather>?;
@@ -25,10 +26,11 @@ struct SessionWeather: View {
     var body: some View {
         VStack(alignment: .leading) {
             if ((temp) != nil) {
-                Text(temp ?? "Temperature")
-                    .font(.title)
+                Text(raceLocation)
+                    .font(.title2)
                     .padding(.bottom, 5)
                 
+                Text(temp ?? "Temperature")
                 HStack {
                     Text(Image(systemName: weatherSymbol ?? "questionmark"))
                     Text(weatherDescription ?? "Description")
@@ -67,5 +69,5 @@ struct SessionWeather: View {
 }
 
 #Preview {
-    SessionWeather(latitude: 0.0, longitude: 0.0)
+    SessionWeather()
 }
