@@ -17,7 +17,7 @@ struct RaceData: Decodable, Identifiable, Hashable {
     var round: Int = 0
     var slug: String = "undefined-grand-prix"
     var localeKey: String = "undefined-grand-prix"
-    var sessions: [String: String] = ["Undefined 1": "2023-01-01T00:00:00Z", "Undefined 2": "2023-01-02T00:00:00Z"]
+    var sessions: [String: String] = ["Undefined 1": "2024-01-01T00:00:00Z", "Undefined 2": "2024-01-02T00:00:00Z", "Undefined 3": "2024-01-03T00:00:00Z"]
     
     var id: String {
         name

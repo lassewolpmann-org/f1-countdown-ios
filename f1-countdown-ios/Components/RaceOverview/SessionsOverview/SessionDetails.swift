@@ -17,8 +17,9 @@ struct SessionDetails: View {
         VStack(alignment: .leading) {
             Text(parseSessionName(sessionName: sessionName ?? "fp1"))
                 .font(.title2)
-                .padding(.bottom, 5)
-            
+        }
+        
+        VStack(alignment: .leading) {
             HStack(alignment: .center) {
                 VStack(alignment: .leading) {
                     Text(getDay(dateString: sessionDate ?? "1970-01-01T00:00:00Z"))
@@ -32,5 +33,5 @@ struct SessionDetails: View {
 }
 
 #Preview {
-    SessionDetails(raceName: "undefined")
+    SessionDetails(raceName: RaceData().name)
 }

@@ -42,7 +42,7 @@ struct RaceDetails: View {
                     }
                 }
             }
-            .navigationTitle("\(race.name) Grand Prix")
+            .navigationTitle(getRaceTitle(race: race))
             .onAppear {
                 let sortedSessions = race.sessions.sorted(by:{$0.value < $1.value});
 

@@ -26,14 +26,14 @@ struct ContentView: View {
                     
                     Section {
                         ForEach(nextRaces) { race in
-                            NavigationLink("\(race.name) Grand Prix") {
+                            NavigationLink(getRaceTitle(race: race)) {
                                 RaceDetails(race: race)
                             }
                         }
                     } header: {
                         Text("Upcoming Grands Prix")
                     }
-                    .navigationTitle("\(nextRaces.first?.name ?? "Undefined") Grand Prix")
+                    .navigationTitle(getRaceTitle(race: nextRaces.first))
                 }
             }
             .task {

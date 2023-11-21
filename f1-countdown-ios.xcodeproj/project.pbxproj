@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2521762B2B08BEB00023C9B3 /* SessionWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2521762A2B08BEB00023C9B3 /* SessionWeather.swift */; };
+		252B278F2B0CAA77001866C3 /* getRaceTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252B278E2B0CAA77001866C3 /* getRaceTitle.swift */; };
 		2539F2EC2B07B5750041FF65 /* RaceDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2539F2EB2B07B5750041FF65 /* RaceDetails.swift */; };
 		2539F2EE2B0811930041FF65 /* SessionPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2539F2ED2B0811930041FF65 /* SessionPicker.swift */; };
 		257959D62B04FB000033DFAB /* f1_countdown_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257959D52B04FB000033DFAB /* f1_countdown_iosApp.swift */; };
@@ -16,7 +17,6 @@
 		257959DD2B04FB010033DFAB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 257959DC2B04FB010033DFAB /* Preview Assets.xcassets */; };
 		257959E62B04FBA10033DFAB /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257959E52B04FBA10033DFAB /* APICaller.swift */; };
 		257959E92B04FF420033DFAB /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257959E82B04FF420033DFAB /* DateFormatter.swift */; };
-		257959EB2B0501660033DFAB /* RaceTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257959EA2B0501660033DFAB /* RaceTitle.swift */; };
 		25DE90792B09168A00632B61 /* NotificationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DE90782B09168A00632B61 /* NotificationButton.swift */; };
 		25E301902B0A11C5008CC1BE /* SessionDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E3018F2B0A11C5008CC1BE /* SessionDetails.swift */; };
 		25E301932B0A2A1A008CC1BE /* DisabledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E301922B0A2A1A008CC1BE /* DisabledButton.swift */; };
@@ -30,6 +30,7 @@
 		25104C5C2B0A51E3001FDF49 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2521762A2B08BEB00023C9B3 /* SessionWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionWeather.swift; sourceTree = "<group>"; };
 		2521762C2B08C4270023C9B3 /* f1-countdown-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "f1-countdown-ios.entitlements"; sourceTree = "<group>"; };
+		252B278E2B0CAA77001866C3 /* getRaceTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getRaceTitle.swift; sourceTree = "<group>"; };
 		2539F2EB2B07B5750041FF65 /* RaceDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceDetails.swift; sourceTree = "<group>"; };
 		2539F2ED2B0811930041FF65 /* SessionPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionPicker.swift; sourceTree = "<group>"; };
 		257959D22B04FB000033DFAB /* f1-countdown-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "f1-countdown-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -39,7 +40,6 @@
 		257959DC2B04FB010033DFAB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		257959E52B04FBA10033DFAB /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
 		257959E82B04FF420033DFAB /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
-		257959EA2B0501660033DFAB /* RaceTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceTitle.swift; sourceTree = "<group>"; };
 		25DE90782B09168A00632B61 /* NotificationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationButton.swift; sourceTree = "<group>"; };
 		25E3018F2B0A11C5008CC1BE /* SessionDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetails.swift; sourceTree = "<group>"; };
 		25E301922B0A2A1A008CC1BE /* DisabledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisabledButton.swift; sourceTree = "<group>"; };
@@ -105,7 +105,6 @@
 			children = (
 				25E3018D2B0A1144008CC1BE /* RaceOverview */,
 				25EDC7912B054D200094DBBA /* Timer */,
-				257959EA2B0501660033DFAB /* RaceTitle.swift */,
 				2539F2ED2B0811930041FF65 /* SessionPicker.swift */,
 			);
 			path = Components;
@@ -123,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				257959E82B04FF420033DFAB /* DateFormatter.swift */,
+				252B278E2B0CAA77001866C3 /* getRaceTitle.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -246,8 +246,8 @@
 				25E301902B0A11C5008CC1BE /* SessionDetails.swift in Sources */,
 				25EDC7932B054D2A0094DBBA /* SessionTimer.swift in Sources */,
 				25EDC7952B054D320094DBBA /* TimerElement.swift in Sources */,
+				252B278F2B0CAA77001866C3 /* getRaceTitle.swift in Sources */,
 				2521762B2B08BEB00023C9B3 /* SessionWeather.swift in Sources */,
-				257959EB2B0501660033DFAB /* RaceTitle.swift in Sources */,
 				257959D62B04FB000033DFAB /* f1_countdown_iosApp.swift in Sources */,
 				2539F2EC2B07B5750041FF65 /* RaceDetails.swift in Sources */,
 				25E301972B0A2A40008CC1BE /* DeleteButton.swift in Sources */,
