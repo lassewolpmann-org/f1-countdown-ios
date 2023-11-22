@@ -29,7 +29,12 @@ struct SessionWeather: View {
         Section {
             if ((weather) != nil) {
                 HStack(alignment: .center) {
-                    Text(flag ?? "🇺🇳");
+                    if ((flag) != nil) {
+                        Text(flag ?? "🇺🇳");
+                    } else {
+                        ProgressView()
+                    }
+                    
                     Text(raceLocation)
                         .font(.title2)
                 }

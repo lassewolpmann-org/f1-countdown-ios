@@ -24,13 +24,10 @@ struct SessionPicker: View {
             let sortedSessions = sessions.sorted(by:{$0.value < $1.value});
             
             let futureSessions = sortedSessions.filter { (key: String, value: String) in
-                let currentDate = Date();
-                let sessionDate = formatDate(dateString: value);
+                let formatter = ISO8601DateFormatter();
+                let date = formatter.date(from: value)!;
                 
-                let currentTimestamp = currentDate.timeIntervalSince1970;
-                let sessionTimestamp = sessionDate.timeIntervalSince1970;
-                
-                return currentTimestamp < sessionTimestamp
+                return date.timeIntervalSinceNow > 0
             }
             
             let firstSession = futureSessions.first?.key;

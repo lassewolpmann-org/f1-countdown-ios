@@ -23,6 +23,7 @@ struct ContentView: View {
                     Section {
                         SessionTimer(nextRaces: nextRaces)
                     }
+                    .navigationTitle(getRaceTitle(race: nextRaces.first))
                     
                     Section {
                         ForEach(nextRaces) { race in
@@ -32,8 +33,14 @@ struct ContentView: View {
                         }
                     } header: {
                         Text("Upcoming Grands Prix")
+                    } footer: {
+                        VStack(alignment: .leading) {
+                            Text("This app is unofficial and is not associated in any way with the Formula 1 companies.")
+                            Spacer()
+                            Text("F1, FORMULA ONE, FORMULA 1, FIA FORMULA ONE WORLD CHAMPIONSHIP, GRAND PRIX and related marks are trade marks of Formula One Licensing B.V.")
+                        }.padding(.top, 20)
                     }
-                    .navigationTitle(getRaceTitle(race: nextRaces.first))
+                    
                 }
             }
             .task {

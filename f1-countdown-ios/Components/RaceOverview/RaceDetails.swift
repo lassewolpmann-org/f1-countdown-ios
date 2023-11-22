@@ -47,13 +47,10 @@ struct RaceDetails: View {
                 let sortedSessions = race.sessions.sorted(by:{$0.value < $1.value});
 
                 futureSessions = sortedSessions.filter { (key: String, value: String) in
-                    let currentDate = Date();
-                    let sessionDate = formatDate(dateString: value);
+                    let formatter = ISO8601DateFormatter();
+                    let date = formatter.date(from: value)!;
                     
-                    let currentTimestamp = currentDate.timeIntervalSince1970;
-                    let sessionTimestamp = sessionDate.timeIntervalSince1970;
-                    
-                    return currentTimestamp < sessionTimestamp
+                    return date.timeIntervalSinceNow > 0
                 }
                 
                 
@@ -94,7 +91,7 @@ func parseSessionName(sessionName: String?) -> String {
 }
 
 func getDay(dateString: String) -> String {
-    let date = formatDate(dateString: dateString);
+    let date = ISO8601DateFormatter().date(from: dateString)!;
     
     let formatter = DateFormatter();
     formatter.dateFormat = "EEEE dd. MMM YYYY";
@@ -103,7 +100,7 @@ func getDay(dateString: String) -> String {
 }
 
 func getTime(dateString: String) -> String {
-    let date = formatDate(dateString: dateString);
+    let date = ISO8601DateFormatter().date(from: dateString)!;
     
     let formatter = DateFormatter();
     formatter.dateFormat = "HH:mm"

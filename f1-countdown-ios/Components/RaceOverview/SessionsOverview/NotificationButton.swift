@@ -18,11 +18,11 @@ struct NotificationButton: View {
     var body: some View {
         let notificationCenter = UNUserNotificationCenter.current();
         
-        let sessionTimestamp = formatDate(dateString: sessionDate).timeIntervalSince1970;
-        let currentTimestamp = Date().timeIntervalSince1970;
+        let formatter = ISO8601DateFormatter();
+        let date = formatter.date(from: sessionDate);
         
         VStack {
-            if (sessionTimestamp > currentTimestamp) {
+            if (date!.timeIntervalSinceNow > 0) {
                 if (notificationEnabled) {
                     DeleteButton(notificationEnabled: $notificationEnabled, sessionDate: sessionDate)
                 } else {

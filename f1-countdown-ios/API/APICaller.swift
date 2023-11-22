@@ -59,7 +59,10 @@ func getNextRaces(races: [RaceData]) -> [RaceData] {
             return false
         };
         
-        return Date() < formatDate(dateString: raceDate)
+        let formatter = ISO8601DateFormatter();
+        let date = formatter.date(from: raceDate)!
+        
+        return Date() < date
     }
     
     if (nextRaces.isEmpty) {

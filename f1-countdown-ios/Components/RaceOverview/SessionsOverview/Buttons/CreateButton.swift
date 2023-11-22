@@ -31,7 +31,8 @@ struct CreateButton: View {
                         }
 
                         if settings.alertSetting == .enabled {
-                            let date = formatDate(dateString: sessionDate);
+                            let formatter = ISO8601DateFormatter();
+                            let date = formatter.date(from: sessionDate)!;
                             let calendarDate = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: date)
                             
                             let trigger = UNCalendarNotificationTrigger(dateMatching: calendarDate, repeats: false);
