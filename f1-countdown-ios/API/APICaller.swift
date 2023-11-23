@@ -5,6 +5,12 @@
 //  Created by Lasse Wolpmann on 15.11.2023.
 //
 
+struct APIConfig: Decodable {
+    var availableYears: [Int] = [1970]
+    var sessions: [String] = ["undefined 1", "undefined 2"]
+    var sessionLengths: [String: Int] = ["undefined 1": 60, "undefined 2": 30]
+}
+
 struct APIData: Decodable {
     let races: [RaceData]
 }
@@ -17,7 +23,7 @@ struct RaceData: Decodable, Identifiable, Hashable {
     var round: Int = 0
     var slug: String = "undefined-grand-prix"
     var localeKey: String = "undefined-grand-prix"
-    var sessions: [String: String] = ["Undefined 1": "2024-01-01T00:00:00Z", "Undefined 2": "2024-01-02T00:00:00Z", "Undefined 3": "2024-01-03T00:00:00Z"]
+    var sessions: [String: String] = ["Undefined 1": "1970-01-01T00:00:00Z", "Undefined 2": "1970-01-02T00:00:00Z", "Undefined 3": "1970-01-03T00:00:00Z"]
     
     var id: String {
         name
@@ -26,11 +32,7 @@ struct RaceData: Decodable, Identifiable, Hashable {
 
 import Foundation
 
-func callAPI() async throws -> [RaceData] {
-    let date = Date();
-    let calendar = Calendar.current;
-    let year = calendar.component(.year, from:date);
-    
+func callAPI(year: Int) async throws -> [RaceData] {
     let series = "f1";
     
     guard let url = URL(string: "https://raw.githubusercontent.com/sportstimes/f1/main/_db/\(series)/\(year).json") else {
@@ -46,8 +48,31 @@ func callAPI() async throws -> [RaceData] {
         return getNextRaces(races: fetchedData.races)
     } catch {
         print("Error calling API!")
+        print(error)
         
         return [RaceData]()
+    }
+}
+
+func getAPIConfig() async throws -> APIConfig {
+    let series = "f1";
+    
+    guard let url = URL(string: "https://raw.githubusercontent.com/sportstimes/f1/main/_db/\(series)/config.json") else {
+        return APIConfig()
+    };
+    
+    let request  = URLRequest(url: url);
+    
+    do {
+        let (data, _) = try await URLSession.shared.data(for: request);
+        let config = try JSONDecoder().decode(APIConfig.self, from: data);
+        
+        return config
+    } catch {
+        print("Error calling API!")
+        print(error)
+        
+        return APIConfig()
     }
 }
 
@@ -60,16 +85,10 @@ func getNextRaces(races: [RaceData]) -> [RaceData] {
         };
         
         let formatter = ISO8601DateFormatter();
-        let date = formatter.date(from: raceDate)!
+        let date = formatter.date(from: raceDate)!;
         
-        return Date() < date
+        return date.timeIntervalSinceNow > 0
     }
     
-    if (nextRaces.isEmpty) {
-        let lastRace = races.last!
-        
-        return [lastRace]
-    } else {
-        return nextRaces
-    }
+    return nextRaces
 }

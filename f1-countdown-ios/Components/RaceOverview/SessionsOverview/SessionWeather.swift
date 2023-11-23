@@ -40,11 +40,11 @@ struct SessionWeather: View {
                 }
                 
                 VStack(alignment: .leading) {
-                    Text(weather?.temp ?? "0.0 °C")
-                    Text("\(weather?.rain ?? "0.0 mm") per hour" )
+                    Text(weather?.temp ?? "- °C")
+                    Text("\(weather?.rain ?? "- mm") per hour" )
                     HStack {
                         Text(Image(systemName: weather?.symbol ?? "questionmark"))
-                        Text(weather?.description ?? "Weather description")
+                        Text(weather?.description ?? "-")
                     }
                 }
             } else {
