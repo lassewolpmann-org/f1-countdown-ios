@@ -11,14 +11,9 @@ struct Large: View {
     let entry: TimerEntry;
     
     var body: some View {
-        VStack {
-            VStack(alignment: .leading) {
-                Text("\(entry.flag) \(entry.raceName) Grand Prix".uppercased())
-                    .fontWeight(.semibold)
-                    .font(.title3)
-                
-                
-            }.frame(maxWidth: .infinity, alignment: .leading)
+        VStack(alignment: .leading) {
+            Text("\(entry.flag) \(entry.raceName) Grand Prix".uppercased())
+                .font(.headline)
             
             ForEach(entry.sessions.sorted(by:{$0.value < $1.value}), id: \.key) { session in
                 let name = session.key;
@@ -29,29 +24,32 @@ struct Large: View {
                 VStack(alignment: .leading) {
                     HStack {
                         Text(getDayName(date: date))
+                            .font(.subheadline)
                             .foregroundStyle(.red)
                         
                         Spacer()
                         
                         Text(parseSessionName(name: name))
-                            .fontWeight(.semibold)
+                            .font(.headline)
                             .foregroundStyle(.secondary)
                     }
                     
                     HStack {
                         Text(getOnlyDay(date: date))
-                            .font(.title2)
+                            .font(.headline)
+                        
                         Spacer()
+                        
                         Text("from \(getTime(date: date))")
-                            .font(.title2)
+                            .font(.headline)
                     }
-                }.frame(maxWidth: .infinity, alignment: .leading)
+                }
             }
-        }
-        .containerBackground(for: .widget) {
-            
+        }.containerBackground(for: .widget) {
+            Color.clear
         }
     }
+        
 }
 
 #Preview {

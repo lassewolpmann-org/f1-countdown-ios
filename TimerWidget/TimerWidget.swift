@@ -91,7 +91,7 @@ struct TimerTimelineProvider: TimelineProvider {
 
 struct TimerWidget: Widget {
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: "com.lassewolpmann.f1-countdown-ios", provider: TimerTimelineProvider()) { entry in
+        StaticConfiguration(kind: "com.lassewolpmann.f1-countdown-ios.TimerWidget", provider: TimerTimelineProvider()) { entry in
             TimerWidgetView(entry: entry)
         }
         .configurationDisplayName("Timer")

@@ -12,36 +12,36 @@ struct Medium: View {
     let entry: TimerEntry;
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             VStack(alignment: .leading) {
                 Text("\(entry.flag) \(entry.raceName) Grand Prix".uppercased())
+                    .font(.title3)
                     .fontWeight(.semibold)
                     .foregroundStyle(.secondary)
                 
                 Text(parseSessionName(name: entry.sessionName))
-                    .font(.title)
-            }.frame(maxWidth: .infinity, alignment: .leading)
+                    .font(.title3)
+                    .fontWeight(.semibold)
+            }
             
-            Spacer()
+            Divider()
             
             VStack(alignment: .leading) {
                 Text(getDayName(date: entry.sessionDate))
+                    .font(.subheadline)
                     .foregroundStyle(.red)
                 
                 HStack {
                     Text(getOnlyDay(date: entry.sessionDate))
-                        .font(.title)
+                        .font(.headline)
                     Spacer()
                     Text("from \(getTime(date: entry.sessionDate))")
-                        .font(.title)
+                        .font(.headline)
                 }
-            }.frame(maxWidth: .infinity, alignment: .leading)
+            }
         }
         .containerBackground(for: .widget) {
-            VStack(spacing: 0) {
-                Color(uiColor: .systemBackground)
-                Color(uiColor: .secondarySystemBackground)
-            }
+            Color.clear
         }
     }
 }
