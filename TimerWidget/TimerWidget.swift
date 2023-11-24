@@ -96,7 +96,7 @@ struct TimerWidget: Widget {
         }
         .configurationDisplayName("Timer")
         .description("Timer Widget to next F1 Grand Prix")
-        .supportedFamilies([.systemMedium])
+        .supportedFamilies([.systemMedium, .systemLarge])
     }
 }
 
