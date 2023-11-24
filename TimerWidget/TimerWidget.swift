@@ -11,6 +11,7 @@ import SwiftUI
 struct TimerEntry: TimelineEntry {
     let date: Date;
     let raceName: String;
+    let sessions: [String: String];
     let sessionDate: Date;
     let sessionName: String;
     let flag: String;
@@ -18,38 +19,28 @@ struct TimerEntry: TimelineEntry {
 
 struct TimerWidgetView: View {
     let entry: TimerEntry;
-    
+
+    @Environment(\.widgetFamily) var family: WidgetFamily;
+
+    @ViewBuilder
     var body: some View {
-        VStack {
-            VStack(alignment: .leading) {
-                Text("\(entry.flag) \(entry.raceName) Grand Prix".uppercased())
-                    .fontWeight(.semibold)
-                    .foregroundStyle(.secondary)
-                
-                Text(parseSessionName(name: entry.sessionName))
-                    .font(.title)
-            }.frame(maxWidth: .infinity, alignment: .leading)
-            
-            Spacer()
-            
-            VStack(alignment: .leading) {
-                Text(getDayName(date: entry.sessionDate))
-                    .foregroundStyle(.red)
-                
-                HStack {
-                    Text(getOnlyDay(date: entry.sessionDate))
-                        .font(.title)
-                    Spacer()
-                    Text("from \(getTime(date: entry.sessionDate))")
-                        .font(.title)
-                }
-            }.frame(maxWidth: .infinity, alignment: .leading)
-        }
-        .containerBackground(for: .widget) {
-            VStack(spacing: 0) {
-                Color(uiColor: .systemBackground)
-                Color(uiColor: .secondarySystemBackground)
-            }
+        switch family {
+        /*
+        case .accessoryCircular:
+            print("circular")
+        case .accessoryRectangular:
+            print("rect")
+        case .accessoryInline:
+            print("inline")
+        case .systemSmall:
+            print("small")
+         */
+        case .systemLarge:
+            Large(entry: entry)
+        case .systemMedium:
+            Medium(entry: entry)
+        default:
+            Medium(entry: entry)
         }
     }
 }
@@ -60,19 +51,23 @@ struct TimerTimelineProvider: TimelineProvider {
         let sessionDate = ISO8601DateFormatter().date(from: RaceData().sessions.first!.value)!
         let sessionName = RaceData().sessions.first!.key;
         
-        let entry = TimerEntry(date: date, raceName: RaceData().name, sessionDate: sessionDate, sessionName: sessionName, flag: "🇺🇳");
+        let entry = TimerEntry(date: date, raceName: RaceData().name, sessions: RaceData().sessions, sessionDate: sessionDate, sessionName: sessionName, flag: "🇺🇳");
         
         return entry
     }
     
     func getSnapshot(in context: Context, completion: @escaping (TimerEntry) -> Void) {
-        let date = Date();
-        let sessionDate = ISO8601DateFormatter().date(from: RaceData().sessions.first!.value)!
-        let sessionName = RaceData().sessions.first!.key;
-        
-        let entry = TimerEntry(date: date, raceName: RaceData().name, sessionDate: sessionDate, sessionName: sessionName, flag: "🇺🇳");
-        
-        completion(entry)
+        Task {
+            let nextRace = await getNextRace();
+            let sessionDate = getSessionDate(race: nextRace);
+            let sessionName = getSessionName(race: nextRace);
+            let flag = await getCountryFlag(latitude: nextRace.latitude, longitude: nextRace.longitude);
+
+            let date = Date();
+            let entry = TimerEntry(date: date, raceName: nextRace.name, sessions: nextRace.sessions, sessionDate: sessionDate, sessionName: sessionName, flag: flag);
+            
+            completion(entry)
+        }
     }
     
     func getTimeline(in context: Context, completion: @escaping (Timeline<TimerEntry>) -> Void) {
@@ -83,7 +78,7 @@ struct TimerTimelineProvider: TimelineProvider {
             let flag = await getCountryFlag(latitude: nextRace.latitude, longitude: nextRace.longitude);
 
             let date = Date();
-            let entry = TimerEntry(date: date, raceName: nextRace.name, sessionDate: sessionDate, sessionName: sessionName, flag: flag);
+            let entry = TimerEntry(date: date, raceName: nextRace.name, sessions: nextRace.sessions, sessionDate: sessionDate, sessionName: sessionName, flag: flag);
             
             let nextUpdateDate = sessionDate;
             
@@ -111,5 +106,5 @@ struct TimerWidget: Widget {
     let sessionDate = ISO8601DateFormatter().date(from: RaceData().sessions.first!.value)!
     let sessionName = RaceData().sessions.first!.key;
     
-    TimerEntry(date: .now, raceName: RaceData().name, sessionDate: sessionDate, sessionName: sessionName, flag: "🇺🇳")
+    TimerEntry(date: .now, raceName: RaceData().name, sessions: RaceData().sessions, sessionDate: sessionDate, sessionName: sessionName, flag: "🇺🇳")
 }
