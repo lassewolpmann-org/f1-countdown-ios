@@ -13,27 +13,27 @@ struct Medium: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            VStack(alignment: .leading) {
-                Text("\(entry.flag) \(entry.raceName) Grand Prix".uppercased())
-                    .font(.title3)
-                    .fontWeight(.semibold)
-                    .foregroundStyle(.secondary)
-                
-                Text(parseSessionName(name: entry.sessionName))
-                    .font(.title3)
-                    .fontWeight(.semibold)
-            }
+            Text("\(entry.flag) \(entry.raceName) Grand Prix".uppercased())
+                .font(.headline)
             
             Divider()
             
             VStack(alignment: .leading) {
-                Text(getDayName(date: entry.sessionDate))
-                    .font(.subheadline)
-                    .foregroundStyle(.red)
+                HStack {
+                    Text(getDayName(date: entry.sessionDate))
+                        .font(.subheadline)
+                        .foregroundStyle(.red)
+                    
+                    Spacer()
+                    
+                    Text(parseSessionName(name: entry.sessionName))
+                        .font(.headline)
+                        .foregroundStyle(.secondary)
+                }
                 
                 HStack {
                     Text(getOnlyDay(date: entry.sessionDate))
-                        .font(.headline)
+                        .font(.subheadline)
                     Spacer()
                     Text("from \(getTime(date: entry.sessionDate))")
                         .font(.headline)
