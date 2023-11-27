@@ -17,7 +17,20 @@
 		<key>f1-countdown-ios.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>1</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>2505E6942B0F843E00876783</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>257959D12B04FB000033DFAB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

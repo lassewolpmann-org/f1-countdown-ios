@@ -69,22 +69,23 @@ struct SessionWeather: View {
 func getWeatherForecast(latitude: Double, longitude: Double, sessionDate: String?) async -> WeatherData {
     let location = CLLocation(latitude: CLLocationDegrees(latitude), longitude: CLLocationDegrees(longitude));
 
-    let dateFormatter = ISO8601DateFormatter();
-    let date = dateFormatter.date(from: sessionDate ?? "2023-11-28T10:00:00Z");
+    let date = ISO8601DateFormatter().date(from: sessionDate ?? "2023-11-28T18:00:00Z")!;
+    let startDate = date;
+    let endDate = date.addingTimeInterval(60 * 60 * 2);
     
-    let startDate = date!;
-    let endDate = date!.addingTimeInterval(60 * 60 * 2);
     
-    let weatherService = WeatherService();
-    
-    do {
-        let hourlyForecast = try await weatherService.weather(for: location, including: .hourly(startDate: startDate, endDate: endDate));
-        let forecast = hourlyForecast.first;
-        
-        let weather = WeatherData(symbol: forecast?.symbolName, temp: forecast?.temperature.description, rain: forecast?.precipitationAmount.description, description: forecast?.condition.description)
-        
-        return weather
-    } catch {
+    if (date.timeIntervalSinceNow < (60 * 60 * 24 * 10)) {
+        do {
+            let hourlyForecast = try await WeatherService().weather(for: location, including: .hourly(startDate: startDate, endDate: endDate));
+            let forecast = hourlyForecast.first;
+            
+            let weather = WeatherData(symbol: forecast?.symbolName, temp: forecast?.temperature.description, rain: forecast?.precipitationAmount.description, description: forecast?.condition.description)
+            
+            return weather
+        } catch {
+            return WeatherData()
+        }
+    } else {
         return WeatherData()
     }
 }

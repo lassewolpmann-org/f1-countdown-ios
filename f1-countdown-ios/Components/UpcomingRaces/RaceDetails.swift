@@ -23,7 +23,7 @@ struct RaceDetails: View {
                 SessionDetails(race: race, sessionName: firstSessionName, sessionDate: firstSessionDate)
                 
                 if (futureSessions.count > 0) {
-                    Section(header: Text("Following sessions")) {
+                    Section {
                         ForEach(futureSessions.sorted(by:{$0.value < $1.value}), id: \.key) { session in
                             NavigationLink(parseSessionName(sessionName: session.key)) {
                                 List {
@@ -31,6 +31,8 @@ struct RaceDetails: View {
                                 }.navigationTitle("Session information")
                             }
                         }
+                    } header: {
+                        Text("Following sessions")
                     }
                 }
             }

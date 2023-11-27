@@ -12,12 +12,9 @@ struct DeleteButton: View {
     var sessionDate: String;
     
     var body: some View {
-        let notificationCenter = UNUserNotificationCenter.current();
-        
-        Button(role: ButtonRole.destructive) {
+        Button(role: .destructive) {
+            deleteNotification(sessionDate: sessionDate)
             notificationEnabled = false;
-            
-            notificationCenter.removePendingNotificationRequests(withIdentifiers: [sessionDate])
         } label: {
             Label("Delete Alert", systemImage: "bell.slash")
         }
