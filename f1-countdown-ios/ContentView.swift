@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
-    var nextRaces: [RaceData];
+    let nextRaces: [RaceData];
+    let flags: [String: String];
+    
     @State var selectedSession: String = "gp";
     
     var body: some View {
@@ -30,7 +32,7 @@ struct ContentView: View {
                 
                 Section {
                     ForEach(nextRaces) { race in
-                        RaceNavigationLink(race: race);
+                        RaceNavigationLink(race: race, flags: flags);
                     }
                 } header: {
                     Text("Upcoming Grands Prix")
@@ -47,5 +49,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(nextRaces: [RaceData()])
+    ContentView(nextRaces: [RaceData()], flags: [:])
 }

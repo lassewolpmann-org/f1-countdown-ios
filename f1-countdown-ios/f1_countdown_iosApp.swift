@@ -10,18 +10,19 @@ import SwiftUI
 @main
 struct f1_countdown_iosApp: App {
     @State var nextRaces: [RaceData] = [RaceData]();
-    @State var validData: Bool = false;
+    @State var flags: [String: String] = [:]
+    
+    @State var dataLoaded: Bool = false;
     
     var body: some Scene {
         WindowGroup {
             Group {
-                if (nextRaces.isEmpty) {
-                    ProgressView()
+                if (dataLoaded) {
+                    ContentView(nextRaces: nextRaces, flags: flags)
                 } else {
-                    if (validData) {
-                        ContentView(nextRaces: nextRaces)
-                    } else {
-                        Text("No data available.")
+                    VStack {
+                        Text("Loading data...")
+                        ProgressView()
                     }
                 }
             }.task {
@@ -39,14 +40,16 @@ struct f1_countdown_iosApp: App {
                         
                         if (config.availableYears.contains(year)) {
                             nextRaces = try await callAPI(year: year);
-                            validData = true;
                         } else {
-                            nextRaces = [RaceData()]
-                            validData = false;
+                            nextRaces = [RaceData()];
                         }
-                    } else {
-                        validData = true;
                     }
+                    
+                    for race in nextRaces {
+                        flags[race.localeKey] = await getCountryFlag(latitude: race.latitude, longitude: race.longitude)
+                    }
+                    
+                    dataLoaded = true;
                 } catch {
                     print("Error calling API")
                 }

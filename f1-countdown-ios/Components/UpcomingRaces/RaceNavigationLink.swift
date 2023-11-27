@@ -9,14 +9,21 @@ import SwiftUI
 
 struct RaceNavigationLink: View {
     let race: RaceData;
+    let flags: [String: String];
     
     var body: some View {
-        NavigationLink(getRaceTitle(race: race)) {
-            RaceDetails(race: race)
+        NavigationLink {
+            RaceDetails(race: race, flags: flags)
+        } label: {
+            Label {
+                Text(getRaceTitle(race: race))
+            } icon: {
+                Text(flags[race.localeKey] ?? "")
+            }
         }
     }
 }
 
 #Preview {
-    RaceNavigationLink(race: RaceData())
+    RaceNavigationLink(race: RaceData(), flags: [:])
 }

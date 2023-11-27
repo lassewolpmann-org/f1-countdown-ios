@@ -8,29 +8,32 @@
 import SwiftUI
 
 struct SessionDetails: View {
-    var race: RaceData;
+    let race: RaceData;
+    let flags: [String: String]
     
-    var sessionName: String?;
-    var sessionDate: String?;
+    var sessionName: String;
+    var sessionDate: String;
     
     var body: some View {
         Section {
             VStack(alignment: .leading) {
                 HStack(alignment: .center) {
                     VStack(alignment: .leading) {
-                        Text(getDay(dateString: sessionDate ?? "1970-01-01T00:00:00Z"))
-                        Text("from \(getTime(dateString: sessionDate ?? "1970-01-01T00:00:00Z"))")
-                    }.frame(maxWidth: .infinity, alignment: .leading)
+                        Text(getDay(dateString: sessionDate))
+                        Text("from \(getTime(dateString: sessionDate))")
+                    }
                     
-                    NotificationButton(raceName: race.name, sessionName: sessionName ?? "fp1", sessionDate: sessionDate ?? "1970-01-01T00:00:00Z")
+                    Spacer()
+                    
+                    NotificationButton(raceName: race.name, sessionName: sessionName, sessionDate: sessionDate)
                 }
             }
         } header: {
-            Text(parseSessionName(sessionName: sessionName ?? ""))
+            Text(parseSessionName(sessionName: sessionName))
         }
         
         Section {
-            SessionWeather(latitude: race.latitude, longitude: race.longitude, raceLocation: race.location, sessionDate: sessionDate);
+            SessionWeather(race: race, flags: flags, sessionDate: sessionDate);
         } header: {
             Text("Forecast for \(parseSessionName(sessionName: sessionName))")
         }
@@ -38,5 +41,5 @@ struct SessionDetails: View {
 }
 
 #Preview {
-    SessionDetails(race: RaceData())
+    SessionDetails(race: RaceData(), flags: [:], sessionName: RaceData().sessions.first!.key, sessionDate: RaceData().sessions.first!.value)
 }

@@ -10,24 +10,31 @@ import CoreLocation
 import WeatherKit
 
 struct RaceDetails: View {
-    var race: RaceData;
-    
-    @State var firstSessionName: String?;
-    @State var firstSessionDate: String?;
-    
-    @State var futureSessions = RaceData().sessions.sorted(by:{$0.value < $1.value});
+    let race: RaceData;
+    let flags: [String: String];
     
     var body: some View {
         NavigationStack {
             List {
-                SessionDetails(race: race, sessionName: firstSessionName, sessionDate: firstSessionDate)
+                let sortedSessions = race.sessions.sorted(by:{$0.value < $1.value});
+                let futureSessions = sortedSessions.filter { (key: String, value: String) in
+                    let formatter = ISO8601DateFormatter();
+                    let date = formatter.date(from: value)!;
+                    
+                    return date.timeIntervalSinceNow > 0
+                }
                 
-                if (futureSessions.count > 0) {
+                let firstSession = futureSessions.first!;
+                let followingSessions = futureSessions.dropFirst();
+                
+                SessionDetails(race: race, flags: flags, sessionName: firstSession.key, sessionDate: firstSession.value)
+                
+                if (followingSessions.count > 0) {
                     Section {
-                        ForEach(futureSessions.sorted(by:{$0.value < $1.value}), id: \.key) { session in
+                        ForEach(followingSessions, id: \.key) { session in
                             NavigationLink(parseSessionName(sessionName: session.key)) {
                                 List {
-                                    SessionDetails(race: race, sessionName: session.key, sessionDate: session.value)
+                                    SessionDetails(race: race, flags: flags, sessionName: session.key, sessionDate: session.value)
                                 }.navigationTitle("Session information")
                             }
                         }
@@ -37,29 +44,6 @@ struct RaceDetails: View {
                 }
             }
             .navigationTitle(getRaceTitle(race: race))
-            .onAppear {
-                let sortedSessions = race.sessions.sorted(by:{$0.value < $1.value});
-
-                futureSessions = sortedSessions.filter { (key: String, value: String) in
-                    let formatter = ISO8601DateFormatter();
-                    let date = formatter.date(from: value)!;
-                    
-                    return date.timeIntervalSinceNow > 0
-                }
-                
-                
-                if (futureSessions.count > 0) {
-                    let firstSession = futureSessions.removeFirst();
-                    
-                    firstSessionName = firstSession.key;
-                    firstSessionDate = firstSession.value;
-                } else {
-                    let firstSession = sortedSessions.first;
-                    
-                    firstSessionName = firstSession?.key;
-                    firstSessionDate = firstSession?.value;
-                }
-            }
         }
     }
 }
@@ -103,5 +87,5 @@ func getTime(dateString: String) -> String {
 }
 
 #Preview {
-    RaceDetails(race: RaceData())
+    RaceDetails(race: RaceData(), flags: [:])
 }
