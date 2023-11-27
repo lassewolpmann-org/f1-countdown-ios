@@ -14,9 +14,14 @@ func getNextRace() async -> RaceData {
         let year = calendar.component(.year, from:date);
         
         let nextRaces = try await callAPI(year: year);
-        let nextRace = nextRaces.first!;
         
-        return nextRace
+        if (nextRaces.isEmpty) {
+            let nextYearRaces = try await callAPI(year: year + 1);
+            
+            return nextYearRaces.first!
+        } else {
+            return nextRaces.first!
+        }
     } catch {
         print("Error calling API")
         

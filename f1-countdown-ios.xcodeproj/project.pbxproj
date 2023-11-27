@@ -29,6 +29,7 @@
 		25B404192B10B3D7007EF384 /* Medium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B404182B10B3D7007EF384 /* Medium.swift */; };
 		25B4041B2B10B660007EF384 /* Large.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B4041A2B10B660007EF384 /* Large.swift */; };
 		25BFB0322B0F68D90062E4BC /* AppInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BFB0312B0F68D90062E4BC /* AppInformation.swift */; };
+		25CC38552B1480BA009209BE /* RaceNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CC38542B1480BA009209BE /* RaceNavigationLink.swift */; };
 		25DE90792B09168A00632B61 /* NotificationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DE90782B09168A00632B61 /* NotificationButton.swift */; };
 		25E301902B0A11C5008CC1BE /* SessionDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E3018F2B0A11C5008CC1BE /* SessionDetails.swift */; };
 		25E301932B0A2A1A008CC1BE /* DisabledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E301922B0A2A1A008CC1BE /* DisabledButton.swift */; };
@@ -89,6 +90,7 @@
 		25B404182B10B3D7007EF384 /* Medium.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Medium.swift; sourceTree = "<group>"; };
 		25B4041A2B10B660007EF384 /* Large.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Large.swift; sourceTree = "<group>"; };
 		25BFB0312B0F68D90062E4BC /* AppInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformation.swift; sourceTree = "<group>"; };
+		25CC38542B1480BA009209BE /* RaceNavigationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceNavigationLink.swift; sourceTree = "<group>"; };
 		25DE90782B09168A00632B61 /* NotificationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationButton.swift; sourceTree = "<group>"; };
 		25E3018F2B0A11C5008CC1BE /* SessionDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetails.swift; sourceTree = "<group>"; };
 		25E301922B0A2A1A008CC1BE /* DisabledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisabledButton.swift; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 				25EDC7912B054D200094DBBA /* Timer */,
 				2539F2ED2B0811930041FF65 /* SessionPicker.swift */,
 				25BFB0312B0F68D90062E4BC /* AppInformation.swift */,
+				25CC38542B1480BA009209BE /* RaceNavigationLink.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -398,6 +401,7 @@
 				2539F2EE2B0811930041FF65 /* SessionPicker.swift in Sources */,
 				257959D82B04FB000033DFAB /* ContentView.swift in Sources */,
 				257959E62B04FBA10033DFAB /* APICaller.swift in Sources */,
+				25CC38552B1480BA009209BE /* RaceNavigationLink.swift in Sources */,
 				25BFB0322B0F68D90062E4BC /* AppInformation.swift in Sources */,
 				25DE90792B09168A00632B61 /* NotificationButton.swift in Sources */,
 				25E301902B0A11C5008CC1BE /* SessionDetails.swift in Sources */,

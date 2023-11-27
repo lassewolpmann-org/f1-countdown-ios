@@ -36,15 +36,24 @@ struct SessionWeather: View {
                     }
                     
                     Text(raceLocation)
-                        .font(.title2)
+                        .font(.title3)
                 }
                 
                 VStack(alignment: .leading) {
-                    Text(weather?.temp ?? "- °C")
-                    Text("\(weather?.rain ?? "- mm") per hour" )
-                    HStack {
-                        Text(Image(systemName: weather?.symbol ?? "questionmark"))
-                        Text(weather?.description ?? "-")
+                    if (weather?.temp != nil && weather?.rain != nil && weather?.description != nil && weather?.symbol != nil) {
+                        Text(weather!.temp!)
+                        Text("\(weather!.rain!) per hour" )
+                        HStack {
+                            Text(Image(systemName: weather!.symbol!))
+                            Text(weather!.description!)
+                        }
+                    } else {
+                        HStack(alignment: .center) {
+                            Image(systemName: "info.circle.fill").opacity(0.15)
+                            Text("Weather forecast becomes available within 10 days of session date.")
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                        }
                     }
                 }
             } else {
@@ -61,7 +70,7 @@ func getWeatherForecast(latitude: Double, longitude: Double, sessionDate: String
     let location = CLLocation(latitude: CLLocationDegrees(latitude), longitude: CLLocationDegrees(longitude));
 
     let dateFormatter = ISO8601DateFormatter();
-    let date = dateFormatter.date(from: sessionDate ?? "2023-11-19T10:00:00Z");
+    let date = dateFormatter.date(from: sessionDate ?? "2023-11-28T10:00:00Z");
     
     let startDate = date!;
     let endDate = date!.addingTimeInterval(60 * 60 * 2);

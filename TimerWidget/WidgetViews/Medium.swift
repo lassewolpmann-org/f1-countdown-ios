@@ -17,6 +17,7 @@ struct Medium: View {
                 .font(.headline)
             
             Divider()
+                .padding([.top, .bottom], 10)
             
             VStack(alignment: .leading) {
                 HStack {
@@ -27,7 +28,7 @@ struct Medium: View {
                     Spacer()
                     
                     Text(parseSessionName(name: entry.sessionName))
-                        .font(.headline)
+                        .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }
                 
@@ -36,12 +37,12 @@ struct Medium: View {
                         .font(.subheadline)
                     Spacer()
                     Text("from \(getTime(date: entry.sessionDate))")
-                        .font(.headline)
+                        .font(.subheadline)
                 }
             }
         }
         .containerBackground(for: .widget) {
-            Color.clear
+            Color(uiColor: .systemBackground)
         }
     }
 }

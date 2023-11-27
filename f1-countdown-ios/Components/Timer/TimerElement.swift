@@ -33,7 +33,6 @@ struct TimerElement: View {
                     .foregroundStyle(.gray)
                     .font(.subheadline)
             }
-                
         }
     }
 }

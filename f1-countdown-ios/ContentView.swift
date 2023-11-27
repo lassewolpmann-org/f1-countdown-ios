@@ -38,9 +38,7 @@ struct ContentView: View {
                         
                         Section {
                             ForEach(nextRaces) { race in
-                                NavigationLink(getRaceTitle(race: race)) {
-                                    RaceDetails(race: race)
-                                }
+                                RaceNavigationLink(race: race);
                             }
                         } header: {
                             Text("Upcoming Grands Prix")

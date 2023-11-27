@@ -20,24 +20,16 @@ struct RaceDetails: View {
     var body: some View {
         NavigationStack {
             List {
-                Section {
-                    SessionDetails(raceName: race.name, sessionName: firstSessionName, sessionDate: firstSessionDate)
-                } header: {
-                    Text("Upcoming Session")
-                }
-                
-                Section {
-                    SessionWeather(latitude: race.latitude, longitude: race.longitude, raceLocation: race.location, sessionDate: firstSessionDate);
-                } header: {
-                    Text("Forecast for \(parseSessionName(sessionName: firstSessionName))")
-                } footer: {
-                    Text("Forecast becomes available within 10 days of session date.")
-                }
+                SessionDetails(race: race, sessionName: firstSessionName, sessionDate: firstSessionDate)
                 
                 if (futureSessions.count > 0) {
                     Section(header: Text("Following sessions")) {
                         ForEach(futureSessions.sorted(by:{$0.value < $1.value}), id: \.key) { session in
-                            SessionDetails(raceName: race.name, sessionName: session.key, sessionDate: session.value)
+                            NavigationLink(parseSessionName(sessionName: session.key)) {
+                                List {
+                                    SessionDetails(race: race, sessionName: session.key, sessionDate: session.value)
+                                }.navigationTitle("Session information")
+                            }
                         }
                     }
                 }

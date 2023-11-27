@@ -20,6 +20,7 @@ struct Large: View {
                 let date = ISO8601DateFormatter().date(from: session.value)!
                 
                 Divider()
+                    .padding([.top, .bottom], 2)
                 
                 VStack(alignment: .leading) {
                     HStack {
@@ -30,7 +31,7 @@ struct Large: View {
                         Spacer()
                         
                         Text(parseSessionName(name: name))
-                            .font(.headline)
+                            .font(.subheadline)
                             .foregroundStyle(.secondary)
                     }
                     
@@ -41,12 +42,12 @@ struct Large: View {
                         Spacer()
                         
                         Text("from \(getTime(date: date))")
-                            .font(.headline)
+                            .font(.subheadline)
                     }
                 }
             }
         }.containerBackground(for: .widget) {
-            Color.clear
+            Color(uiColor: .systemBackground)
         }
     }
         
