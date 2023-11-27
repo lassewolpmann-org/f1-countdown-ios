@@ -10,5 +10,9 @@ import Foundation
 func getRaceTitle(race: RaceData?) -> String {
     let name = race?.name ?? "undefined";
     
-    return "\(name) Grand Prix"
+    if (name.contains("Grand Prix")) {
+        return name
+    } else {
+        return "\(name) Grand Prix"
+    }
 }

@@ -16,6 +16,8 @@
 		2505E6AB2B0F8C2E00876783 /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2505E6AA2B0F8C2E00876783 /* APICaller.swift */; };
 		2505E6B32B10842700876783 /* SessionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2505E6B22B10842700876783 /* SessionData.swift */; };
 		2505E6B52B10884B00876783 /* CountryFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2505E6B42B10884B00876783 /* CountryFlag.swift */; };
+		25125EFC2B14914400CA10EE /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 25125EFB2B14914400CA10EE /* Config.xcconfig */; };
+		25125EFD2B14914400CA10EE /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 25125EFB2B14914400CA10EE /* Config.xcconfig */; };
 		2521762B2B08BEB00023C9B3 /* SessionWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2521762A2B08BEB00023C9B3 /* SessionWeather.swift */; };
 		252B278F2B0CAA77001866C3 /* getRaceTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252B278E2B0CAA77001866C3 /* getRaceTitle.swift */; };
 		2539F2EC2B07B5750041FF65 /* RaceDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2539F2EB2B07B5750041FF65 /* RaceDetails.swift */; };
@@ -75,6 +77,7 @@
 		2505E6B22B10842700876783 /* SessionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionData.swift; sourceTree = "<group>"; };
 		2505E6B42B10884B00876783 /* CountryFlag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryFlag.swift; sourceTree = "<group>"; };
 		25104C5C2B0A51E3001FDF49 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		25125EFB2B14914400CA10EE /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		2521762A2B08BEB00023C9B3 /* SessionWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionWeather.swift; sourceTree = "<group>"; };
 		2521762C2B08C4270023C9B3 /* f1-countdown-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "f1-countdown-ios.entitlements"; sourceTree = "<group>"; };
 		252B278E2B0CAA77001866C3 /* getRaceTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getRaceTitle.swift; sourceTree = "<group>"; };
@@ -163,6 +166,7 @@
 		257959C92B04FB000033DFAB = {
 			isa = PBXGroup;
 			children = (
+				25125EFB2B14914400CA10EE /* Config.xcconfig */,
 				257959D42B04FB000033DFAB /* f1-countdown-ios */,
 				2505E69B2B0F843E00876783 /* TimerWidget */,
 				2505E6962B0F843E00876783 /* Frameworks */,
@@ -361,6 +365,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25125EFD2B14914400CA10EE /* Config.xcconfig in Resources */,
 				2505E6A12B0F844000876783 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -370,6 +375,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				257959DD2B04FB010033DFAB /* Preview Assets.xcassets in Resources */,
+				25125EFC2B14914400CA10EE /* Config.xcconfig in Resources */,
 				257959DA2B04FB010033DFAB /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -428,11 +434,12 @@
 /* Begin XCBuildConfiguration section */
 		2505E6A72B0F844000876783 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 25125EFB2B14914400CA10EE /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = "$(BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = UU6Y3A827V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TimerWidget/Info.plist;
@@ -443,7 +450,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = "$(VERSION)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lassewolpmann.f1-countdown-ios.TimerWidget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -455,11 +462,12 @@
 		};
 		2505E6A82B0F844000876783 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 25125EFB2B14914400CA10EE /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = "$(BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = UU6Y3A827V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TimerWidget/Info.plist;
@@ -470,7 +478,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = "$(VERSION)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lassewolpmann.f1-countdown-ios.TimerWidget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -482,6 +490,7 @@
 		};
 		257959DE2B04FB010033DFAB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 25125EFB2B14914400CA10EE /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -545,6 +554,7 @@
 		};
 		257959DF2B04FB010033DFAB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 25125EFB2B14914400CA10EE /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -601,13 +611,14 @@
 		};
 		257959E12B04FB010033DFAB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 25125EFB2B14914400CA10EE /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "f1-countdown-ios/f1-countdown-ios.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = "$(BUILD_NUMBER)";
 				DEVELOPMENT_ASSET_PATHS = "\"f1-countdown-ios/Preview Content\"";
 				DEVELOPMENT_TEAM = UU6Y3A827V;
 				ENABLE_PREVIEWS = YES;
@@ -625,7 +636,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = "$(VERSION)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lassewolpmann.f1-countdown-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -636,13 +647,14 @@
 		};
 		257959E22B04FB010033DFAB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 25125EFB2B14914400CA10EE /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "f1-countdown-ios/f1-countdown-ios.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = "$(BUILD_NUMBER)";
 				DEVELOPMENT_ASSET_PATHS = "\"f1-countdown-ios/Preview Content\"";
 				DEVELOPMENT_TEAM = UU6Y3A827V;
 				ENABLE_PREVIEWS = YES;
@@ -660,7 +672,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = "$(VERSION)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lassewolpmann.f1-countdown-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

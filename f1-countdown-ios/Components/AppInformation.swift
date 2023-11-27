@@ -13,6 +13,8 @@ struct AppInformation: View {
     var body: some View {
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String;
         
+        let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String;
+        
         List {
             Section {
                 Button {
@@ -23,7 +25,7 @@ struct AppInformation: View {
                     Label("Visit Data Source License", systemImage: "globe")
                 }
             } footer: {
-                Text("App version \(version ?? "undefined")")
+                Text("App version \(version ?? "undefined")-\(build ?? "undefined")")
             }
         }
     }

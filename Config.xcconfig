@@ -1,0 +1,12 @@
+//
+//  Config.xcconfig
+//  f1-countdown-ios
+//
+//  Created by Lasse Wolpmann on 27.11.2023.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+VERSION = 1.4
+BUILD_NUMBER = 20231127
