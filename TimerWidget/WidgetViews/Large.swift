@@ -47,7 +47,7 @@ struct Large: View {
                 }
             }
         }.containerBackground(for: .widget) {
-            Color(uiColor: .systemBackground)
+            Color(.systemBackground)
         }
     }
         

@@ -42,7 +42,7 @@ struct Medium: View {
             }
         }
         .containerBackground(for: .widget) {
-            Color(uiColor: .systemBackground)
+            Color(.systemBackground)
         }
     }
 }
