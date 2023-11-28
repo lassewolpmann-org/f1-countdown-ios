@@ -11,35 +11,39 @@ struct SessionDetails: View {
     let race: RaceData;
     let flags: [String: String]
     
-    var sessionName: String;
-    var sessionDate: String;
+    var name: String;
+    var date: Date;
     
     var body: some View {
         Section {
             VStack(alignment: .leading) {
                 HStack(alignment: .center) {
                     VStack(alignment: .leading) {
-                        Text(getDay(dateString: sessionDate))
-                        Text("from \(getTime(dateString: sessionDate))")
+                        
+                        Text(getDayName(date: date))
+                            .foregroundStyle(.red)
+                        
+                        Text(getOnlyDay(date: date))
+                        
+                        Text("from \(getTime(date: date))")
+                            .foregroundStyle(.secondary)
                     }
                     
                     Spacer()
                     
-                    NotificationButton(raceName: race.name, sessionName: sessionName, sessionDate: sessionDate)
+                    NotificationButton(raceName: race.name, sessionName: name, sessionDate: date)
                 }
             }
-        } header: {
-            Text(parseSessionName(sessionName: sessionName))
         }
         
         Section {
-            SessionWeather(race: race, flags: flags, sessionDate: sessionDate);
+            SessionWeather(race: race, flags: flags, sessionDate: date);
         } header: {
-            Text("Forecast for \(parseSessionName(sessionName: sessionName))")
+            Text("Forecast for \(name)")
         }
     }
 }
 
 #Preview {
-    SessionDetails(race: RaceData(), flags: [:], sessionName: RaceData().sessions.first!.key, sessionDate: RaceData().sessions.first!.value)
+    SessionDetails(race: RaceData(), flags: [:], name: parseSessionName(sessionName: RaceData().sessions.first!.key), date: ISO8601DateFormatter().date(from: RaceData().sessions.first!.value)!)
 }

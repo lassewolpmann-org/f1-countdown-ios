@@ -11,7 +11,7 @@ struct CreateButton: View {
     @Binding var notificationEnabled: Bool;
     
     var sessionName: String;
-    var sessionDate: String;
+    var sessionDate: Date;
     var raceName: String;
     
     var body: some View {
@@ -27,5 +27,5 @@ struct CreateButton: View {
 }
 
 #Preview {
-    CreateButton(notificationEnabled: .constant(false), sessionName: "fp1", sessionDate: "1970-01-01T00:00:00Z", raceName: "undefined")
+    CreateButton(notificationEnabled: .constant(false), sessionName: parseSessionName(sessionName: RaceData().sessions.first!.key), sessionDate: ISO8601DateFormatter().date(from: RaceData().sessions.first!.value)!, raceName: RaceData().name)
 }

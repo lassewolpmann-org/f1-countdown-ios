@@ -27,7 +27,7 @@ struct Medium: View {
                     
                     Spacer()
                     
-                    Text(parseSessionName(name: entry.sessionName))
+                    Text(parseSessionName(sessionName: entry.sessionName))
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }

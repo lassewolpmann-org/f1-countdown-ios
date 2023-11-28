@@ -30,7 +30,7 @@ struct Large: View {
                         
                         Spacer()
                         
-                        Text(parseSessionName(name: name))
+                        Text(parseSessionName(sessionName: name))
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                     }

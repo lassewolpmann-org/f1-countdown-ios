@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DeleteButton: View {
     @Binding var notificationEnabled: Bool;
-    var sessionDate: String;
+    var sessionDate: Date;
     
     var body: some View {
         Button(role: .destructive) {
@@ -24,5 +24,5 @@ struct DeleteButton: View {
 }
 
 #Preview {
-    DeleteButton(notificationEnabled: .constant(true), sessionDate: "1970-01-01T00:00:00Z")
+    DeleteButton(notificationEnabled: .constant(true), sessionDate: ISO8601DateFormatter().date(from: RaceData().sessions.first!.value)!)
 }

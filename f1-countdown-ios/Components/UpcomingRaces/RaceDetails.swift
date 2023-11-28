@@ -16,74 +16,26 @@ struct RaceDetails: View {
     var body: some View {
         NavigationStack {
             List {
-                let sortedSessions = race.sessions.sorted(by:{$0.value < $1.value});
-                let futureSessions = sortedSessions.filter { (key: String, value: String) in
-                    let formatter = ISO8601DateFormatter();
-                    let date = formatter.date(from: value)!;
-                    
-                    return date.timeIntervalSinceNow > 0
-                }
+                // First Session
+                FirstSession(race: race, flags: flags)
                 
-                let firstSession = futureSessions.first!;
-                let followingSessions = futureSessions.dropFirst();
-                
-                SessionDetails(race: race, flags: flags, sessionName: firstSession.key, sessionDate: firstSession.value)
-                
-                if (followingSessions.count > 0) {
-                    Section {
-                        ForEach(followingSessions, id: \.key) { session in
-                            NavigationLink(parseSessionName(sessionName: session.key)) {
-                                List {
-                                    SessionDetails(race: race, flags: flags, sessionName: session.key, sessionDate: session.value)
-                                }.navigationTitle("Session information")
-                            }
-                        }
-                    } header: {
-                        Text("Following sessions")
-                    }
-                }
+                // Future Sessions
+                FollowingSessions(race: race, flags: flags)
             }
-            .navigationTitle(getRaceTitle(race: race))
-        }
+        }.navigationTitle(parseSessionName(sessionName: getFirstSession(race: race).key))
     }
 }
 
-func parseSessionName(sessionName: String?) -> String {
-    let name = sessionName ?? "undefined"
-    
-    if (name == "fp1") {
-        return "Free Practice 1"
-    } else if (name == "fp2") {
-        return "Free Practice 2"
-    } else if (name == "fp3") {
-        return "Free Practice 3"
-    } else if (name == "qualifying") {
-        return "Qualifying"
-    } else if (name == "sprintQualifying") {
-        return "Sprint Qualifying"
-    } else if (name == "gp") {
-        return "Race"
-    } else {
-        return "undefined"
+func getFirstSession(race: RaceData) -> Dictionary<String, String>.Element {
+    let sortedSessions = race.sessions.sorted(by:{$0.value < $1.value});
+    let futureSessions = sortedSessions.filter { (key: String, value: String) in
+        let formatter = ISO8601DateFormatter();
+        let date = formatter.date(from: value)!;
+        
+        return date.timeIntervalSinceNow > 0
     }
-}
-
-func getDay(dateString: String) -> String {
-    let date = ISO8601DateFormatter().date(from: dateString)!;
     
-    let formatter = DateFormatter();
-    formatter.dateFormat = "EEEE dd. MMM YYYY";
-    
-    return formatter.string(from: date)
-}
-
-func getTime(dateString: String) -> String {
-    let date = ISO8601DateFormatter().date(from: dateString)!;
-    
-    let formatter = DateFormatter();
-    formatter.dateFormat = "HH:mm"
-    
-    return formatter.string(from: date)
+    return futureSessions.first!
 }
 
 #Preview {

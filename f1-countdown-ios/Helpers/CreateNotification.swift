@@ -8,7 +8,7 @@
 import Foundation
 import UserNotifications
 
-func createNotification(sessionDate: String, raceName: String, sessionName: String) -> Void {
+func createNotification(sessionDate: Date, raceName: String, sessionName: String) -> Void {
     let notificationCenter = UNUserNotificationCenter.current();
     
     notificationCenter.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
@@ -24,19 +24,17 @@ func createNotification(sessionDate: String, raceName: String, sessionName: Stri
                 }
 
                 if settings.alertSetting == .enabled {
-                    let formatter = ISO8601DateFormatter();
-                    let date = formatter.date(from: sessionDate)!;
-                    let calendarDate = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: date)
+                    let calendarDate = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: sessionDate)
                     
                     let trigger = UNCalendarNotificationTrigger(dateMatching: calendarDate, repeats: false);
 
                     let content = UNMutableNotificationContent();
                     
                     content.title = "\(raceName) Grand Prix";
-                    content.subtitle = "\(parseSessionName(sessionName: sessionName)) is now live!"
+                    content.subtitle = "\(sessionName) is now live!"
                     content.sound = UNNotificationSound.default;
                     
-                    let request = UNNotificationRequest(identifier: sessionDate, content: content, trigger: trigger);
+                    let request = UNNotificationRequest(identifier: sessionDate.description, content: content, trigger: trigger);
                     
                     notificationCenter.add(request) { (error) in
                         if error != nil {

@@ -8,8 +8,8 @@
 import Foundation
 import UserNotifications
 
-func deleteNotification(sessionDate: String) -> Void {
+func deleteNotification(sessionDate: Date) -> Void {
     let notificationCenter = UNUserNotificationCenter.current();
     
-    notificationCenter.removePendingNotificationRequests(withIdentifiers: [sessionDate])
+    notificationCenter.removePendingNotificationRequests(withIdentifiers: [sessionDate.description])
 }

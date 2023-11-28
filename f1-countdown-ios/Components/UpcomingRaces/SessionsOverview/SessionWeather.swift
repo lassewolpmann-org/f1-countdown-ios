@@ -19,7 +19,7 @@ struct WeatherData {
 struct SessionWeather: View {
     let race: RaceData;
     let flags: [String: String];
-    let sessionDate: String;
+    let sessionDate: Date;
     
     @State var weather: WeatherData?;
     @State var weatherAvailable: Bool = false;
@@ -50,10 +50,8 @@ struct SessionWeather: View {
                 }
             }
         }.task {
-            let date = ISO8601DateFormatter().date(from: sessionDate)!;
-            
-            if (date.timeIntervalSinceNow < (60 * 60 * 24 * 10)) {
-                weather = await getWeatherForecast(latitude: race.latitude, longitude: race.longitude, date: date);
+            if (sessionDate.timeIntervalSinceNow < (60 * 60 * 24 * 10)) {
+                weather = await getWeatherForecast(latitude: race.latitude, longitude: race.longitude, date: sessionDate);
                 weatherAvailable = true;
             } else {
                 weather = WeatherData();
@@ -82,5 +80,5 @@ func getWeatherForecast(latitude: Double, longitude: Double, date: Date) async -
 }
 
 #Preview {
-    SessionWeather(race: RaceData(), flags: [:], sessionDate: RaceData().sessions.first!.value)
+    SessionWeather(race: RaceData(), flags: [:], sessionDate: ISO8601DateFormatter().date(from: RaceData().sessions.first!.value)!)
 }
