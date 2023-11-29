@@ -12,9 +12,8 @@ struct TimerEntry: TimelineEntry {
     let date: Date;
     let raceName: String;
     let sessions: [String: String];
-    let sessionDate: Date;
-    let sessionName: String;
     let flag: String;
+    let sessionLengths: [String: Int];
 }
 
 struct TimerWidgetView: View {
@@ -48,23 +47,34 @@ struct TimerWidgetView: View {
 struct TimerTimelineProvider: TimelineProvider {
     func placeholder(in context: Context) -> TimerEntry {
         let date = Date();
-        let sessionDate = ISO8601DateFormatter().date(from: RaceData().sessions.first!.value)!
-        let sessionName = RaceData().sessions.first!.key;
-        
-        let entry = TimerEntry(date: date, raceName: RaceData().name, sessions: RaceData().sessions, sessionDate: sessionDate, sessionName: sessionName, flag: "🇺🇳");
+        let entry = TimerEntry(date: date, raceName: RaceData().name, sessions: RaceData().sessions, flag: "", sessionLengths: APIConfig().sessionLengths);
         
         return entry
     }
     
     func getSnapshot(in context: Context, completion: @escaping (TimerEntry) -> Void) {
         Task {
-            let nextRace = await getNextRace();
-            let sessionDate = getSessionDate(race: nextRace);
-            let sessionName = getSessionName(race: nextRace);
-            let flag = await getCountryFlag(latitude: nextRace.latitude, longitude: nextRace.longitude);
-
+            let config = try await getAPIConfig();
+            
             let date = Date();
-            let entry = TimerEntry(date: date, raceName: nextRace.name, sessions: nextRace.sessions, sessionDate: sessionDate, sessionName: sessionName, flag: flag);
+            let calendar = Calendar.current;
+            var year = calendar.component(.year, from:date);
+            
+            var nextRaces = try await callAPI(year: year);
+            
+            if (nextRaces.isEmpty) {
+                year += 1;
+                
+                if (config.availableYears.contains(year)) {
+                    nextRaces = try await callAPI(year: year);
+                } else {
+                    nextRaces = [RaceData()];
+                }
+            }
+            
+            let nextRace = nextRaces.first ?? RaceData();
+            let flag = await getCountryFlag(latitude: nextRace.latitude, longitude: nextRace.longitude);
+            let entry = TimerEntry(date: date, raceName: nextRace.name, sessions: nextRace.sessions, flag: flag, sessionLengths: config.sessionLengths);
             
             completion(entry)
         }
@@ -72,16 +82,28 @@ struct TimerTimelineProvider: TimelineProvider {
     
     func getTimeline(in context: Context, completion: @escaping (Timeline<TimerEntry>) -> Void) {
         Task {
-            let nextRace = await getNextRace();
-            let sessionDate = getSessionDate(race: nextRace);
-            let sessionName = getSessionName(race: nextRace);
-            let flag = await getCountryFlag(latitude: nextRace.latitude, longitude: nextRace.longitude);
-
+            let config = try await getAPIConfig();
+            
             let date = Date();
-            let entry = TimerEntry(date: date, raceName: nextRace.name, sessions: nextRace.sessions, sessionDate: sessionDate, sessionName: sessionName, flag: flag);
+            let calendar = Calendar.current;
+            var year = calendar.component(.year, from:date);
             
-            let nextUpdateDate = sessionDate;
+            var nextRaces = try await callAPI(year: year);
             
+            if (nextRaces.isEmpty) {
+                year += 1;
+                
+                if (config.availableYears.contains(year)) {
+                    nextRaces = try await callAPI(year: year);
+                } else {
+                    nextRaces = [RaceData()];
+                }
+            }
+            
+            let nextRace = nextRaces.first ?? RaceData();
+            let flag = await getCountryFlag(latitude: nextRace.latitude, longitude: nextRace.longitude);
+            let entry = TimerEntry(date: date, raceName: nextRace.name, sessions: nextRace.sessions, flag: flag, sessionLengths: config.sessionLengths);
+            let nextUpdateDate = getNextUpdateDate(race: nextRace);
             let timeline = Timeline(entries: [entry], policy: .after(nextUpdateDate));
             
             completion(timeline)
@@ -103,8 +125,5 @@ struct TimerWidget: Widget {
 #Preview(as: .systemMedium) {
     TimerWidget()
 } timeline: {
-    let sessionDate = ISO8601DateFormatter().date(from: RaceData().sessions.first!.value)!
-    let sessionName = RaceData().sessions.first!.key;
-    
-    TimerEntry(date: .now, raceName: RaceData().name, sessions: RaceData().sessions, sessionDate: sessionDate, sessionName: sessionName, flag: "🇺🇳")
+    TimerEntry(date: .now, raceName: RaceData().name, sessions: RaceData().sessions, flag: "", sessionLengths: APIConfig().sessionLengths)
 }

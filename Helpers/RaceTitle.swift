@@ -1,8 +1,8 @@
 //
-//  getRaceTitle.swift
+//  RaceTitle.swift
 //  f1-countdown-ios
 //
-//  Created by Lasse Wolpmann on 21.11.2023.
+//  Created by Lasse Wolpmann on 29.11.2023.
 //
 
 import Foundation

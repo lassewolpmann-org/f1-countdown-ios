@@ -2,7 +2,7 @@
 //  CountryFlag.swift
 //  f1-countdown-ios
 //
-//  Created by Lasse Wolpmann on 27.11.2023.
+//  Created by Lasse Wolpmann on 29.11.2023.
 //
 
 import Foundation
@@ -25,6 +25,6 @@ func getCountryFlag(latitude: Double, longitude: Double) async -> String {
         
         return s
     } catch {
-        return "🇺🇳"
+        return ""
     }
 }

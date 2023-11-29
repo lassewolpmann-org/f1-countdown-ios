@@ -12,34 +12,15 @@ struct Medium: View {
     let entry: TimerEntry;
     
     var body: some View {
+        let firstSession = entry.sessions.first ?? RaceData().sessions.first!;
+        let name = firstSession.key;
+        let date = ISO8601DateFormatter().date(from: firstSession.value)!
+        
         VStack(alignment: .leading) {
             Text("\(entry.flag) \(entry.raceName) Grand Prix".uppercased())
                 .font(.headline)
-            
-            Divider()
-                .padding([.top, .bottom], 10)
-            
-            VStack(alignment: .leading) {
-                HStack {
-                    Text(getDayName(date: entry.sessionDate))
-                        .font(.subheadline)
-                        .foregroundStyle(.red)
-                    
-                    Spacer()
-                    
-                    Text(parseSessionName(sessionName: entry.sessionName))
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                }
-                
-                HStack {
-                    Text(getDate(date: entry.sessionDate))
-                        .font(.subheadline)
-                    Spacer()
-                    Text("from \(getTime(date: entry.sessionDate))")
-                        .font(.subheadline)
-                }
-            }
+
+            SessionInfo(date: date, name: name, dividerPadding: 10.0, sessionLengths: entry.sessionLengths)
         }
         .containerBackground(for: .widget) {
             Color(.systemBackground)
@@ -48,5 +29,5 @@ struct Medium: View {
 }
 
 #Preview {
-    Medium(entry: TimerEntry(date: Date(), raceName: RaceData().name, sessions: RaceData().sessions, sessionDate: ISO8601DateFormatter().date(from: RaceData().sessions.first!.value)!, sessionName: "fp1", flag: ""))
+    Medium(entry: TimerEntry(date: Date(), raceName: RaceData().name, sessions: RaceData().sessions, flag: "", sessionLengths: APIConfig().sessionLengths))
 }

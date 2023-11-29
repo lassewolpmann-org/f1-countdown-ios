@@ -18,33 +18,8 @@ struct Large: View {
             ForEach(entry.sessions.sorted(by:{$0.value < $1.value}), id: \.key) { session in
                 let name = session.key;
                 let date = ISO8601DateFormatter().date(from: session.value)!
-                
-                Divider()
-                    .padding([.top, .bottom], 2)
-                
-                VStack(alignment: .leading) {
-                    HStack {
-                        Text(getDayName(date: date))
-                            .font(.subheadline)
-                            .foregroundStyle(.red)
-                        
-                        Spacer()
-                        
-                        Text(parseSessionName(sessionName: name))
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                    }
-                    
-                    HStack {
-                        Text(getDate(date: date))
-                            .font(.subheadline)
-                        
-                        Spacer()
-                        
-                        Text("from \(getTime(date: date))")
-                            .font(.subheadline)
-                    }
-                }
+
+                SessionInfo(date: date, name: name, dividerPadding: 2.0, sessionLengths: entry.sessionLengths)
             }
         }.containerBackground(for: .widget) {
             Color(.systemBackground)
@@ -54,5 +29,5 @@ struct Large: View {
 }
 
 #Preview {
-    Large(entry: TimerEntry(date: Date(), raceName: RaceData().name, sessions: RaceData().sessions, sessionDate: ISO8601DateFormatter().date(from: RaceData().sessions.first!.value)!, sessionName: "fp1", flag: ""))
+    Large(entry: TimerEntry(date: Date(), raceName: RaceData().name, sessions: RaceData().sessions, flag: "", sessionLengths: APIConfig().sessionLengths))
 }

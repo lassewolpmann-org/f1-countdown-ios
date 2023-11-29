@@ -18,9 +18,10 @@ struct SessionDetails: View {
     var body: some View {
         let day = getDayName(date: date);
         let dateString = getDate(date: date);
+        
         let startTime = getTime(date: date);
-        let sessionLength = Double(config.sessionLengths[name] ?? Int(60.0))
-        let endTime = getTime(date: date.addingTimeInterval(60 * sessionLength))
+        let sessionLength = Double(config.sessionLengths[name] ?? Int(60.0));
+        let endTime = getTime(date: date.addingTimeInterval(60 * sessionLength));
         
         Section {
             VStack(alignment: .leading) {
