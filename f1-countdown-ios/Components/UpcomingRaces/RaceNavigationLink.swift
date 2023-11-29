@@ -10,10 +10,11 @@ import SwiftUI
 struct RaceNavigationLink: View {
     let race: RaceData;
     let flags: [String: String];
+    let config: APIConfig;
     
     var body: some View {
         NavigationLink {
-            RaceDetails(race: race, flags: flags)
+            RaceDetails(race: race, flags: flags, config: config)
         } label: {
             Label {
                 Text(getRaceTitle(race: race))
@@ -25,5 +26,5 @@ struct RaceNavigationLink: View {
 }
 
 #Preview {
-    RaceNavigationLink(race: RaceData(), flags: [:])
+    RaceNavigationLink(race: RaceData(), flags: [:], config: APIConfig())
 }

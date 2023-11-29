@@ -12,15 +12,16 @@ import WeatherKit
 struct RaceDetails: View {
     let race: RaceData;
     let flags: [String: String];
+    let config: APIConfig;
     
     var body: some View {
         NavigationStack {
             List {
                 // First Session
-                FirstSession(race: race, flags: flags)
+                FirstSession(race: race, flags: flags, config: config)
                 
                 // Future Sessions
-                FollowingSessions(race: race, flags: flags)
+                FollowingSessions(race: race, flags: flags, config: config)
             }
         }.navigationTitle(parseSessionName(sessionName: getFirstSession(race: race).key))
     }
@@ -39,5 +40,5 @@ func getFirstSession(race: RaceData) -> Dictionary<String, String>.Element {
 }
 
 #Preview {
-    RaceDetails(race: RaceData(), flags: [:])
+    RaceDetails(race: RaceData(), flags: [:], config: APIConfig())
 }

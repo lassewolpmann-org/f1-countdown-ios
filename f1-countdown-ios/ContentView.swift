@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     let nextRaces: [RaceData];
     let flags: [String: String];
+    let config: APIConfig;
     
     @State var selectedSession: String = "gp";
     
@@ -32,7 +33,7 @@ struct ContentView: View {
                 
                 Section {
                     ForEach(nextRaces) { race in
-                        RaceNavigationLink(race: race, flags: flags);
+                        RaceNavigationLink(race: race, flags: flags, config: config);
                     }
                 } header: {
                     Text("Upcoming Grands Prix")
@@ -49,5 +50,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(nextRaces: [RaceData()], flags: [:])
+    ContentView(nextRaces: [RaceData()], flags: [:], config: APIConfig())
 }

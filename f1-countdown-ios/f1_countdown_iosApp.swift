@@ -9,6 +9,7 @@ import SwiftUI
 
 @main
 struct f1_countdown_iosApp: App {
+    @State var config: APIConfig = APIConfig();
     @State var nextRaces: [RaceData] = [RaceData]();
     @State var flags: [String: String] = [:]
     
@@ -18,7 +19,7 @@ struct f1_countdown_iosApp: App {
         WindowGroup {
             Group {
                 if (dataLoaded) {
-                    ContentView(nextRaces: nextRaces, flags: flags)
+                    ContentView(nextRaces: nextRaces, flags: flags, config: config)
                 } else {
                     VStack {
                         Text("Loading data...")
@@ -27,7 +28,7 @@ struct f1_countdown_iosApp: App {
                 }
             }.task {
                 do {
-                    let config = try await getAPIConfig();
+                    config = try await getAPIConfig();
                     
                     let date = Date();
                     let calendar = Calendar.current;

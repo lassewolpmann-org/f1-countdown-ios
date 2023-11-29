@@ -10,6 +10,7 @@ import SwiftUI
 struct FollowingSessions: View {
     let race: RaceData;
     let flags: [String: String];
+    let config: APIConfig;
     
     var body: some View {
         let sortedSessions = race.sessions.sorted(by:{$0.value < $1.value});
@@ -25,13 +26,14 @@ struct FollowingSessions: View {
         if (followingSessions.count > 0) {
             Section {
                 ForEach(followingSessions, id:\.key) { session in
-                    let name = parseSessionName(sessionName: session.key);
+                    let name = session.key;
+                    let parsedName = parseSessionName(sessionName: session.key);
                     let date = ISO8601DateFormatter().date(from: session.value)!;
                     
-                    NavigationLink(name) {
+                    NavigationLink(parsedName) {
                         List {
-                            SessionDetails(race: race, flags: flags, name: name, date: date)
-                        }.navigationTitle(name)
+                            SessionDetails(race: race, flags: flags, name: name, parsedName: parsedName, date: date, config: config)
+                        }.navigationTitle(parsedName)
                     }
                 }
             } header: {
@@ -42,5 +44,5 @@ struct FollowingSessions: View {
 }
 
 #Preview {
-    FollowingSessions(race: RaceData(), flags: [:])
+    FollowingSessions(race: RaceData(), flags: [:], config: APIConfig())
 }

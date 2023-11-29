@@ -33,7 +33,7 @@ struct Medium: View {
                 }
                 
                 HStack {
-                    Text(getOnlyDay(date: entry.sessionDate))
+                    Text(getDate(date: entry.sessionDate))
                         .font(.subheadline)
                     Spacer()
                     Text("from \(getTime(date: entry.sessionDate))")

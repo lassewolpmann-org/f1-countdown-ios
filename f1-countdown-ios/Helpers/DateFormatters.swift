@@ -7,13 +7,6 @@
 
 import Foundation
 
-func getDay(date: Date) -> String {
-    let formatter = DateFormatter();
-    formatter.dateFormat = "EEEE dd. MMM YYYY";
-    
-    return formatter.string(from: date)
-}
-
 func getTime(date: Date) -> String {
     let formatter = DateFormatter();
     formatter.dateFormat = "HH:mm"
@@ -21,7 +14,7 @@ func getTime(date: Date) -> String {
     return formatter.string(from: date)
 }
 
-func getOnlyDay(date: Date) -> String {
+func getDate(date: Date) -> String {
     let formatter = DateFormatter();
     formatter.dateFormat = "dd. MMM YYYY";
     

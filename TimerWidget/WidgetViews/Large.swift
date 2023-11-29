@@ -36,7 +36,7 @@ struct Large: View {
                     }
                     
                     HStack {
-                        Text(getOnlyDay(date: date))
+                        Text(getDate(date: date))
                             .font(.subheadline)
                         
                         Spacer()

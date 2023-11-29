@@ -33,9 +33,7 @@ struct RaceData: Decodable, Identifiable, Hashable {
 import Foundation
 
 func callAPI(year: Int) async throws -> [RaceData] {
-    let series = "f1";
-    
-    guard let url = URL(string: "https://raw.githubusercontent.com/sportstimes/f1/main/_db/\(series)/\(year).json") else {
+    guard let url = URL(string: "https://raw.githubusercontent.com/sportstimes/f1/main/_db/f1/\(year).json") else {
         return [RaceData]()
     };
     
@@ -55,9 +53,7 @@ func callAPI(year: Int) async throws -> [RaceData] {
 }
 
 func getAPIConfig() async throws -> APIConfig {
-    let series = "f1";
-    
-    guard let url = URL(string: "https://raw.githubusercontent.com/sportstimes/f1/main/_db/\(series)/config.json") else {
+    guard let url = URL(string: "https://raw.githubusercontent.com/sportstimes/f1/main/_db/f1/config.json") else {
         return APIConfig()
     };
     
