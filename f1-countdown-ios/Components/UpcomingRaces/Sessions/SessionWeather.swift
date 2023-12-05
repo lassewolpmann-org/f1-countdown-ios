@@ -18,7 +18,6 @@ struct WeatherData {
 
 struct SessionWeather: View {
     let race: RaceData;
-    let flags: [String: String];
     let name: String;
     let date: Date;
     let config: APIConfig;
@@ -27,28 +26,20 @@ struct SessionWeather: View {
     @State var weatherAvailable: Bool = false;
     
     var body: some View {
-        Section {
-            HStack(alignment: .center) {
-                Text(flags[race.localeKey] ?? "")
-                Text(race.location)
-                    .font(.title3)
-            }
-
-            VStack(alignment: .leading) {
-                if (weatherAvailable) {
-                    Text(weather!.temp!)
-                    Text("\(weather!.rain!) per hour")
-                    HStack {
-                        Text(Image(systemName: weather!.symbol!))
-                        Text(weather!.description!)
-                    }
-                } else {
-                    HStack(alignment: .center) {
-                        Image(systemName: "info.circle.fill").opacity(0.15)
-                        Text("Weather forecast becomes available within 10 days of session date.")
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                    }
+        VStack(alignment: .leading) {
+            if (weatherAvailable) {
+                Text(weather!.temp!)
+                Text("\(weather!.rain!) per hour")
+                HStack {
+                    Text(Image(systemName: weather!.symbol!))
+                    Text(weather!.description!)
+                }
+            } else {
+                HStack(alignment: .center) {
+                    Image(systemName: "info.circle.fill").opacity(0.15)
+                    Text("Weather forecast becomes available within 10 days of session date.")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
                 }
             }
         }.task {
@@ -84,6 +75,8 @@ func getWeatherForecast(latitude: Double, longitude: Double, date: Date, config:
 
 #Preview {
     List {
-        SessionWeather(race: RaceData(), flags: [:], name: RaceData().sessions.first!.key, date: ISO8601DateFormatter().date(from: RaceData().sessions.first!.value)!, config: APIConfig())
+        Section {
+            SessionWeather(race: RaceData(), name: RaceData().sessions.first!.key, date: ISO8601DateFormatter().date(from: RaceData().sessions.first!.value)!, config: APIConfig())
+        }
     }
 }

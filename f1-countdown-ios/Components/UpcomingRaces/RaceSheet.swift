@@ -26,13 +26,15 @@ struct RaceSheet: View {
         }.sheet(isPresented: $isShowingRaceSheet, content: {
             let sessions = race.sessions.sorted(by:{$0.value < $1.value});
             
-            List {
-                ForEach(sessions, id:\.key) { session in
-                    let name = session.key;
-                    let parsedName = parseSessionName(sessionName: session.key);
-                    let date = ISO8601DateFormatter().date(from: session.value)!;
-                    
-                    SessionDetails(race: race, flags: flags, name: name, parsedName: parsedName, date: date, config: config)
+            VStack(alignment: .leading) {
+                List {
+                    ForEach(sessions, id:\.key) { session in
+                        let name = session.key;
+                        let parsedName = parseSessionName(sessionName: session.key);
+                        let date = ISO8601DateFormatter().date(from: session.value)!;
+                        
+                        SessionDetails(race: race, name: name, parsedName: parsedName, date: date, config: config)
+                    }
                 }
             }
         })

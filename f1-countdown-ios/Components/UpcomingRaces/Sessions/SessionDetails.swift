@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SessionDetails: View {
     let race: RaceData;
-    let flags: [String: String]
     let name: String;
     let parsedName: String;
     let date: Date;
@@ -27,13 +26,9 @@ struct SessionDetails: View {
             VStack(alignment: .leading) {
                 HStack(alignment: .center) {
                     VStack(alignment: .leading) {
-                        HStack {
-                            Text(day)
-                                .foregroundStyle(.red)
-                            
-                            Text(dateString)
-                        }
-                    
+                        Text(day)
+                            .foregroundStyle(.red)
+                        Text(dateString)
                         Text("from \(startTime) to \(endTime)")
                             .foregroundStyle(.secondary)
                     }
@@ -45,7 +40,7 @@ struct SessionDetails: View {
                 
                 Divider()
                 
-                SessionWeather(race: race, flags: flags, name: name, date: date, config: config);
+                SessionWeather(race: race, name: name, date: date, config: config);
             }
         } header: {
             Text(parsedName)
@@ -57,6 +52,6 @@ struct SessionDetails: View {
 
 #Preview {
     List {
-        SessionDetails(race: RaceData(), flags: [:], name: RaceData().sessions.first!.key, parsedName: parseSessionName(sessionName: RaceData().sessions.first!.key), date: ISO8601DateFormatter().date(from: RaceData().sessions.first!.value)!, config: APIConfig())
+        SessionDetails(race: RaceData(), name: RaceData().sessions.first!.key, parsedName: parseSessionName(sessionName: RaceData().sessions.first!.key), date: ISO8601DateFormatter().date(from: RaceData().sessions.first!.value)!, config: APIConfig())
     }
 }
