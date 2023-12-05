@@ -42,17 +42,21 @@ struct SessionDetails: View {
                     
                     NotificationButton(raceName: race.name, sessionName: parsedName, sessionDate: date)
                 }
+                
+                Divider()
+                
+                SessionWeather(race: race, flags: flags, name: name, date: date, config: config);
             }
+        } header: {
+            Text(parsedName)
+                .font(.headline)
         }
         
-        Section {
-            SessionWeather(race: race, flags: flags, sessionDate: date);
-        } header: {
-            Text("Forecast for \(parsedName)")
-        }
     }
 }
 
 #Preview {
-    SessionDetails(race: RaceData(), flags: [:], name: RaceData().sessions.first!.key, parsedName: parseSessionName(sessionName: RaceData().sessions.first!.key), date: ISO8601DateFormatter().date(from: RaceData().sessions.first!.value)!, config: APIConfig())
+    List {
+        SessionDetails(race: RaceData(), flags: [:], name: RaceData().sessions.first!.key, parsedName: parseSessionName(sessionName: RaceData().sessions.first!.key), date: ISO8601DateFormatter().date(from: RaceData().sessions.first!.value)!, config: APIConfig())
+    }
 }

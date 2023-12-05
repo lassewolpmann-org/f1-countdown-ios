@@ -14,8 +14,8 @@ struct APIData: Decodable {
 struct RaceData: Decodable, Identifiable, Hashable {
     var name: String = "undefined"
     var location: String = "undefined place"
-    var latitude: Double = 0.0
-    var longitude: Double = 0.0
+    var latitude: Double = 53.5
+    var longitude: Double = 9.5
     var round: Int = 0
     var slug: String = "undefined-grand-prix"
     var localeKey: String = "undefined-grand-prix"

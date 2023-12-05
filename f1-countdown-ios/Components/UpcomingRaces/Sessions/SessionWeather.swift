@@ -19,7 +19,9 @@ struct WeatherData {
 struct SessionWeather: View {
     let race: RaceData;
     let flags: [String: String];
-    let sessionDate: Date;
+    let name: String;
+    let date: Date;
+    let config: APIConfig;
     
     @State var weather: WeatherData?;
     @State var weatherAvailable: Bool = false;
@@ -50,8 +52,8 @@ struct SessionWeather: View {
                 }
             }
         }.task {
-            if (sessionDate.timeIntervalSinceNow < (60 * 60 * 24 * 10)) {
-                weather = await getWeatherForecast(latitude: race.latitude, longitude: race.longitude, date: sessionDate);
+            if (date.timeIntervalSinceNow < (60 * 60 * 24 * 10)) {
+                weather = await getWeatherForecast(latitude: race.latitude, longitude: race.longitude, date: date, config: config, name: name);
                 weatherAvailable = true;
             } else {
                 weather = WeatherData();
@@ -61,11 +63,12 @@ struct SessionWeather: View {
     }
 }
 
-func getWeatherForecast(latitude: Double, longitude: Double, date: Date) async -> WeatherData {
+func getWeatherForecast(latitude: Double, longitude: Double, date: Date, config: APIConfig, name: String) async -> WeatherData {
     let location = CLLocation(latitude: CLLocationDegrees(latitude), longitude: CLLocationDegrees(longitude));
     
     let startDate = date;
-    let endDate = date.addingTimeInterval(60 * 60 * 2);
+    let sessionLength = Double(config.sessionLengths[name] ?? Int(60.0));
+    let endDate = date.addingTimeInterval(60 * sessionLength);
 
     do {
         let hourlyForecast = try await WeatherService().weather(for: location, including: .hourly(startDate: startDate, endDate: endDate));
@@ -80,5 +83,7 @@ func getWeatherForecast(latitude: Double, longitude: Double, date: Date) async -
 }
 
 #Preview {
-    SessionWeather(race: RaceData(), flags: [:], sessionDate: ISO8601DateFormatter().date(from: RaceData().sessions.first!.value)!)
+    List {
+        SessionWeather(race: RaceData(), flags: [:], name: RaceData().sessions.first!.key, date: ISO8601DateFormatter().date(from: RaceData().sessions.first!.value)!, config: APIConfig())
+    }
 }

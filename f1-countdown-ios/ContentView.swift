@@ -13,6 +13,7 @@ struct ContentView: View {
     let config: APIConfig;
     
     @State var selectedSession: String = "gp";
+    @State private var isShowingInfoSheet = false;
     
     var body: some View {
         NavigationStack {
@@ -23,8 +24,8 @@ struct ContentView: View {
                 .navigationTitle(getRaceTitle(race: nextRaces.first))
                 .toolbar {
                     ToolbarItem {
-                        NavigationLink {
-                            AppInformation()
+                        Button {
+                            isShowingInfoSheet.toggle();
                         } label: {
                             Label("Information", systemImage: "info.circle")
                         }
@@ -33,7 +34,7 @@ struct ContentView: View {
                 
                 Section {
                     ForEach(nextRaces) { race in
-                        RaceNavigationLink(race: race, flags: flags, config: config);
+                        RaceSheet(race: race, flags: flags, config: config);
                     }
                 } header: {
                     Text("Upcoming Grands Prix")
@@ -45,7 +46,11 @@ struct ContentView: View {
                     }.padding(.top, 20)
                 }
             }
-        }
+        }.sheet(isPresented: $isShowingInfoSheet, content: {
+            VStack {
+                AppInformation()
+            }
+        })
     }
 }
 
