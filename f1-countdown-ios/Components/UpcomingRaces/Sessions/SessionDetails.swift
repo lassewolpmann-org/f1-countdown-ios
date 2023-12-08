@@ -24,6 +24,11 @@ struct SessionDetails: View {
         
         Section {
             VStack(alignment: .leading) {
+                Text(parsedName)
+                    .font(.headline)
+                
+                Divider()
+                
                 HStack(alignment: .center) {
                     VStack(alignment: .leading) {
                         Text(day)
@@ -42,11 +47,7 @@ struct SessionDetails: View {
                 
                 SessionWeather(race: race, name: name, date: date, config: config);
             }
-        } header: {
-            Text(parsedName)
-                .font(.headline)
         }
-        
     }
 }
 

@@ -7,64 +7,25 @@
 
 import SwiftUI
 
-class deltaValues {
-    var delta: Int;
-    
-    var days: Int;
-    var daysPct: Float;
-    
-    var hours: Int;
-    var hoursPct: Float;
-    
-    var minutes: Int;
-    var minutesPct: Float;
-    
-    var seconds: Int;
-    var secondsPct: Float;
-    
-    init(dateString: String) {
-        let formatter = ISO8601DateFormatter();
-        let date = formatter.date(from: dateString)!;
-        
-        self.delta = Int(date.timeIntervalSinceNow);
-        
-        if (self.delta < 0) {
-            self.delta = 0;
-        }
-        
-        self.days = self.delta / 86400;
-        
-        if (self.days > 7) {
-            daysPct = Float(self.days % 7) / 7;
-        } else {
-            daysPct = Float(self.days) / 7
-        }
-        
-        self.hours = self.delta % 86400 / 3600;
-        self.hoursPct = Float(self.hours) / 24;
-        
-        self.minutes = self.delta % 86400 % 3600 / 60;
-        self.minutesPct = Float(self.minutes) / 60;
-        
-        self.seconds = self.delta % 86400 % 3600 % 60;
-        self.secondsPct = Float(self.seconds) / 60;
-    }
-}
-
 struct SessionTimer: View {
-    @Environment(\.scenePhase) var scenePhase
+    @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.colorScheme) private var colorScheme
     
-    var nextRaces: [RaceData] = [RaceData]();
-    
+    let nextRaces: [RaceData];
     @State var selectedSession: String = "gp";
     
     @State var timer: Timer?;
-    @State var delta: deltaValues = deltaValues(dateString: "1970-01-01T00:00:00Z");
+    @State var delta = deltaValues(dateString: RaceData().sessions.first!.value);
     
     var body: some View {
         let nextRace = nextRaces.first;
-        let sessions = nextRace?.sessions ?? RaceData().sessions;
-        let currentSessionDate = sessions[selectedSession] ?? "1970-01-01T00:00:00Z";
+        let sessions = nextRace!.sessions;
+        let currentSessionDate = sessions[selectedSession]!;
+        
+        let firstRingColor = colorScheme == .dark ? Color(red: 0.85, green: 0.85, blue: 0.85) : Color(red: 0.15, green: 0.15, blue: 0.15);
+        let secondRingColor = colorScheme == .dark ? Color.red : Color(red: 0.85, green: 0, blue: 0);
+        let thirdRingColor = colorScheme == .dark ? Color.green : Color(red: 0, green: 0.5, blue: 0);
+        let fourthRingColor = colorScheme == .dark ? Color.blue : Color(red: 0, green: 0, blue: 1);
         
         VStack {
             SessionPicker(selectedSession: $selectedSession, sessions: sessions)
@@ -73,20 +34,20 @@ struct SessionTimer: View {
             Grid {
                 if (UIScreen.main.bounds.width < 768) {
                     GridRow {
-                        TimerElement(delta: delta.days, deltaPct: delta.daysPct, ringColor: .red, timeUnit: "days")
-                        TimerElement(delta: delta.hours, deltaPct: delta.hoursPct, ringColor: .yellow, timeUnit: "hours")
+                        TimerElement(delta: delta.days, deltaPct: delta.daysPct, ringColor: firstRingColor, timeUnit: "days")
+                        TimerElement(delta: delta.hours, deltaPct: delta.hoursPct, ringColor: secondRingColor, timeUnit: "hours")
                     }
                     
                     GridRow {
-                        TimerElement(delta: delta.minutes, deltaPct: delta.minutesPct, ringColor: .green, timeUnit: "minutes")
-                        TimerElement(delta: delta.seconds, deltaPct: delta.secondsPct, ringColor: .blue, timeUnit: "seconds")
+                        TimerElement(delta: delta.minutes, deltaPct: delta.minutesPct, ringColor: thirdRingColor, timeUnit: "minutes")
+                        TimerElement(delta: delta.seconds, deltaPct: delta.secondsPct, ringColor: fourthRingColor, timeUnit: "seconds")
                     }
                 } else {
                     GridRow {
-                        TimerElement(delta: delta.days, deltaPct: delta.daysPct, ringColor: .red, timeUnit: "days")
-                        TimerElement(delta: delta.hours, deltaPct: delta.hoursPct, ringColor: .yellow, timeUnit: "hours")
-                        TimerElement(delta: delta.minutes, deltaPct: delta.minutesPct, ringColor: .green, timeUnit: "minutes")
-                        TimerElement(delta: delta.seconds, deltaPct: delta.secondsPct, ringColor: .blue, timeUnit: "seconds")
+                        TimerElement(delta: delta.days, deltaPct: delta.daysPct, ringColor: firstRingColor, timeUnit: "days")
+                        TimerElement(delta: delta.hours, deltaPct: delta.hoursPct, ringColor: secondRingColor, timeUnit: "hours")
+                        TimerElement(delta: delta.minutes, deltaPct: delta.minutesPct, ringColor: thirdRingColor, timeUnit: "minutes")
+                        TimerElement(delta: delta.seconds, deltaPct: delta.secondsPct, ringColor: fourthRingColor, timeUnit: "seconds")
                     }
                 }
             }
@@ -106,5 +67,5 @@ struct SessionTimer: View {
 }
 
 #Preview {
-    SessionTimer()
+    SessionTimer(nextRaces: [RaceData()], delta: deltaValues(dateString: RaceData().sessions.first!.value))
 }

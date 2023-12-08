@@ -28,11 +28,15 @@ struct SessionWeather: View {
     var body: some View {
         VStack(alignment: .leading) {
             if (weatherAvailable) {
-                Text(weather!.temp!)
-                Text("\(weather!.rain!) per hour")
-                HStack {
-                    Text(Image(systemName: weather!.symbol!))
-                    Text(weather!.description!)
+                if ((weather) != nil) {
+                    Text(weather!.temp!)
+                    Text("\(weather!.rain!) per hour")
+                    HStack {
+                        Text(Image(systemName: weather!.symbol!))
+                        Text(weather!.description!)
+                    }
+                } else {
+                    ProgressView()
                 }
             } else {
                 HStack(alignment: .center) {
@@ -44,8 +48,8 @@ struct SessionWeather: View {
             }
         }.task {
             if (date.timeIntervalSinceNow < (60 * 60 * 24 * 10)) {
-                weather = await getWeatherForecast(latitude: race.latitude, longitude: race.longitude, date: date, config: config, name: name);
                 weatherAvailable = true;
+                weather = await getWeatherForecast(latitude: race.latitude, longitude: race.longitude, date: date, config: config, name: name);
             } else {
                 weather = WeatherData();
             }

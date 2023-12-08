@@ -13,7 +13,6 @@ struct ContentView: View {
     let config: APIConfig;
     
     @State var selectedSession: String = "gp";
-    @State private var isShowingInfoSheet = false;
     
     var body: some View {
         NavigationStack {
@@ -24,11 +23,7 @@ struct ContentView: View {
                 .navigationTitle(getRaceTitle(race: nextRaces.first))
                 .toolbar {
                     ToolbarItem {
-                        Button {
-                            isShowingInfoSheet.toggle();
-                        } label: {
-                            Label("Information", systemImage: "info.circle")
-                        }
+                        InformationLink()
                     }
                 }
                 
@@ -46,11 +41,7 @@ struct ContentView: View {
                     }.padding(.top, 20)
                 }
             }
-        }.sheet(isPresented: $isShowingInfoSheet, content: {
-            VStack {
-                AppInformation()
-            }
-        })
+        }
     }
 }
 
