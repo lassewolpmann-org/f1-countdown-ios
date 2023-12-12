@@ -9,31 +9,46 @@ import SwiftUI
 
 struct RaceSheet: View {
     let race: RaceData;
-    let flags: [String: String];
     let config: APIConfig;
     
     @State private var isShowingRaceSheet = false;
     
     var body: some View {
+        let flag = CountryFlags().flags[race.localeKey] ?? "";
+        
         Button {
             isShowingRaceSheet.toggle();
         } label: {
             Label {
                 Text(getRaceTitle(race: race))
             } icon: {
-                Text(flags[race.localeKey] ?? "")
+                Text(flag)
             }
-        }.sheet(isPresented: $isShowingRaceSheet, content: {
-            let sessions = race.sessions.sorted(by:{$0.value < $1.value});
-            
-            VStack(alignment: .leading) {
-                List {
-                    ForEach(sessions, id:\.key) { session in
-                        let name = session.key;
-                        let parsedName = parseSessionName(sessionName: session.key);
-                        let date = ISO8601DateFormatter().date(from: session.value)!;
-                        
-                        SessionDetails(race: race, name: name, parsedName: parsedName, date: date, config: config)
+        }
+        .sheet(isPresented: $isShowingRaceSheet, content: {
+            NavigationStack {
+                let sessions = race.sessions.sorted(by:{$0.value < $1.value});
+                
+                VStack(alignment: .leading) {
+                    List {
+                        ForEach(sessions, id:\.key) { session in
+                            let name = session.key;
+                            let parsedName = parseSessionName(sessionName: session.key);
+                            let date = ISO8601DateFormatter().date(from: session.value)!;
+                            
+                            SessionDetails(race: race, name: name, parsedName: parsedName, date: date, config: config)
+                        }
+                    }
+                }
+                .navigationTitle("\(flag) \(getRaceTitle(race: race))")
+                .toolbar {
+                    ToolbarItem {
+                        Button(role: .cancel) {
+                            isShowingRaceSheet.toggle();
+                        } label: {
+                            Label("Close", systemImage: "xmark.circle.fill")
+                        }
+                        .tint(.secondary)
                     }
                 }
             }
@@ -42,5 +57,7 @@ struct RaceSheet: View {
 }
 
 #Preview {
-    RaceSheet(race: RaceData(), flags: [:], config: APIConfig())
+    List {
+        RaceSheet(race: RaceData(), config: APIConfig())
+    }
 }

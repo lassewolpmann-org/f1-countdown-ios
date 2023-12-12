@@ -73,7 +73,7 @@ struct TimerTimelineProvider: TimelineProvider {
             }
             
             let nextRace = nextRaces.first ?? RaceData();
-            let flag = await getCountryFlag(latitude: nextRace.latitude, longitude: nextRace.longitude);
+            let flag = CountryFlags().flags[nextRace.localeKey] ?? "";
             let entry = TimerEntry(date: date, raceName: nextRace.name, sessions: nextRace.sessions, flag: flag, sessionLengths: config.sessionLengths);
             
             completion(entry)
@@ -101,7 +101,7 @@ struct TimerTimelineProvider: TimelineProvider {
             }
             
             let nextRace = nextRaces.first ?? RaceData();
-            let flag = await getCountryFlag(latitude: nextRace.latitude, longitude: nextRace.longitude);
+            let flag = CountryFlags().flags[nextRace.localeKey] ?? "";
             let entry = TimerEntry(date: date, raceName: nextRace.name, sessions: nextRace.sessions, flag: flag, sessionLengths: config.sessionLengths);
             let nextUpdateDate = getNextUpdateDate(race: nextRace);
             let timeline = Timeline(entries: [entry], policy: .after(nextUpdateDate));

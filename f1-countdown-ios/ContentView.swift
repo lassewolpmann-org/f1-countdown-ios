@@ -9,18 +9,21 @@ import SwiftUI
 
 struct ContentView: View {
     let nextRaces: [RaceData];
-    let flags: [String: String];
     let config: APIConfig;
     
     @State var selectedSession: String = "gp";
     
     var body: some View {
+        let nextRace = nextRaces.first;
+        let raceTitle = getRaceTitle(race: nextRace);
+        let flag = CountryFlags().flags[nextRace?.localeKey ?? ""] ?? "";
+        
         NavigationStack {
             List {
                 Section {
                     SessionTimer(nextRaces: nextRaces)
                 }
-                .navigationTitle(getRaceTitle(race: nextRaces.first))
+                .navigationTitle("\(flag) \(raceTitle)")
                 .toolbar {
                     ToolbarItem {
                         InformationLink()
@@ -29,7 +32,7 @@ struct ContentView: View {
                 
                 Section {
                     ForEach(nextRaces) { race in
-                        RaceSheet(race: race, flags: flags, config: config);
+                        RaceSheet(race: race, config: config);
                     }
                 } header: {
                     Text("Upcoming Grands Prix")
@@ -46,5 +49,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(nextRaces: [RaceData()], flags: [:], config: APIConfig())
+    ContentView(nextRaces: [RaceData()], config: APIConfig())
 }

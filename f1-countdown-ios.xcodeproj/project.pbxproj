@@ -18,6 +18,8 @@
 		25125EFC2B14914400CA10EE /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 25125EFB2B14914400CA10EE /* Config.xcconfig */; };
 		25125EFD2B14914400CA10EE /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 25125EFB2B14914400CA10EE /* Config.xcconfig */; };
 		2521762B2B08BEB00023C9B3 /* SessionWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2521762A2B08BEB00023C9B3 /* SessionWeather.swift */; };
+		2534A14B2B287279003B0BE3 /* CountryFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2534A14A2B287279003B0BE3 /* CountryFlags.swift */; };
+		2534A14C2B287279003B0BE3 /* CountryFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2534A14A2B287279003B0BE3 /* CountryFlags.swift */; };
 		2539F2EE2B0811930041FF65 /* SessionPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2539F2ED2B0811930041FF65 /* SessionPicker.swift */; };
 		257959D62B04FB000033DFAB /* f1_countdown_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257959D52B04FB000033DFAB /* f1_countdown_iosApp.swift */; };
 		257959D82B04FB000033DFAB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257959D72B04FB000033DFAB /* ContentView.swift */; };
@@ -39,8 +41,6 @@
 		25C6C54A2B1779BA00818265 /* CreateNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C5482B1779BA00818265 /* CreateNotification.swift */; };
 		25C6C54C2B1779CE00818265 /* DeleteNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C54B2B1779CE00818265 /* DeleteNotification.swift */; };
 		25C6C54D2B1779CE00818265 /* DeleteNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C54B2B1779CE00818265 /* DeleteNotification.swift */; };
-		25C6C54F2B1779E400818265 /* CountryFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C54E2B1779E400818265 /* CountryFlag.swift */; };
-		25C6C5502B1779E400818265 /* CountryFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C54E2B1779E400818265 /* CountryFlag.swift */; };
 		25C6C5522B1779FC00818265 /* DateFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C5512B1779FC00818265 /* DateFormatters.swift */; };
 		25C6C5532B1779FC00818265 /* DateFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C5512B1779FC00818265 /* DateFormatters.swift */; };
 		25C6C5552B177A0F00818265 /* SessionName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C5542B177A0F00818265 /* SessionName.swift */; };
@@ -94,6 +94,7 @@
 		25125EFB2B14914400CA10EE /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		2521762A2B08BEB00023C9B3 /* SessionWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionWeather.swift; sourceTree = "<group>"; };
 		2521762C2B08C4270023C9B3 /* f1-countdown-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "f1-countdown-ios.entitlements"; sourceTree = "<group>"; };
+		2534A14A2B287279003B0BE3 /* CountryFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryFlags.swift; sourceTree = "<group>"; };
 		2539F2ED2B0811930041FF65 /* SessionPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionPicker.swift; sourceTree = "<group>"; };
 		257959D22B04FB000033DFAB /* f1-countdown-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "f1-countdown-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		257959D52B04FB000033DFAB /* f1_countdown_iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = f1_countdown_iosApp.swift; sourceTree = "<group>"; };
@@ -110,7 +111,6 @@
 		25C6C5442B17799500818265 /* RaceTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceTitle.swift; sourceTree = "<group>"; };
 		25C6C5482B1779BA00818265 /* CreateNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNotification.swift; sourceTree = "<group>"; };
 		25C6C54B2B1779CE00818265 /* DeleteNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteNotification.swift; sourceTree = "<group>"; };
-		25C6C54E2B1779E400818265 /* CountryFlag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryFlag.swift; sourceTree = "<group>"; };
 		25C6C5512B1779FC00818265 /* DateFormatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatters.swift; sourceTree = "<group>"; };
 		25C6C5542B177A0F00818265 /* SessionName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionName.swift; sourceTree = "<group>"; };
 		25C6C5582B177DB400818265 /* SessionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionInfo.swift; sourceTree = "<group>"; };
@@ -263,7 +263,6 @@
 				25C6C5472B1779A900818265 /* Notifications */,
 				25C6C53A2B17791E00818265 /* API.swift */,
 				25C6C5442B17799500818265 /* RaceTitle.swift */,
-				25C6C54E2B1779E400818265 /* CountryFlag.swift */,
 				25C6C5512B1779FC00818265 /* DateFormatters.swift */,
 				25C6C5542B177A0F00818265 /* SessionName.swift */,
 			);
@@ -275,6 +274,7 @@
 			children = (
 				25C6C53E2B17794600818265 /* APIConfig.swift */,
 				25C6C5412B17795B00818265 /* APIData.swift */,
+				2534A14A2B287279003B0BE3 /* CountryFlags.swift */,
 			);
 			path = Structs;
 			sourceTree = "<group>";
@@ -445,13 +445,13 @@
 				25C6C5402B17794600818265 /* APIConfig.swift in Sources */,
 				2505E69D2B0F843E00876783 /* TimerWidgetBundle.swift in Sources */,
 				25C6C5532B1779FC00818265 /* DateFormatters.swift in Sources */,
-				25C6C5502B1779E400818265 /* CountryFlag.swift in Sources */,
 				25C6C5592B177DB400818265 /* SessionInfo.swift in Sources */,
 				25C6C5562B177A0F00818265 /* SessionName.swift in Sources */,
 				25C6C54A2B1779BA00818265 /* CreateNotification.swift in Sources */,
 				25C6C53C2B17791E00818265 /* API.swift in Sources */,
 				25B4041B2B10B660007EF384 /* Large.swift in Sources */,
 				2505E6B32B10842700876783 /* NextUpdateDate.swift in Sources */,
+				2534A14C2B287279003B0BE3 /* CountryFlags.swift in Sources */,
 				2505E69F2B0F843E00876783 /* TimerWidget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -475,8 +475,8 @@
 				25EDC7932B054D2A0094DBBA /* SessionTimer.swift in Sources */,
 				25C6C5552B177A0F00818265 /* SessionName.swift in Sources */,
 				25C6C5522B1779FC00818265 /* DateFormatters.swift in Sources */,
+				2534A14B2B287279003B0BE3 /* CountryFlags.swift in Sources */,
 				25C6C5422B17795B00818265 /* APIData.swift in Sources */,
-				25C6C54F2B1779E400818265 /* CountryFlag.swift in Sources */,
 				25EDC7952B054D320094DBBA /* TimerElement.swift in Sources */,
 				2521762B2B08BEB00023C9B3 /* SessionWeather.swift in Sources */,
 				257959D62B04FB000033DFAB /* f1_countdown_iosApp.swift in Sources */,

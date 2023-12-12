@@ -11,7 +11,6 @@ import SwiftUI
 struct f1_countdown_iosApp: App {
     @State var config: APIConfig = APIConfig();
     @State var nextRaces: [RaceData] = [RaceData]();
-    @State var flags: [String: String] = [:]
     
     @State var dataLoaded: Bool = false;
     
@@ -19,7 +18,7 @@ struct f1_countdown_iosApp: App {
         WindowGroup {
             Group {
                 if (dataLoaded) {
-                    ContentView(nextRaces: nextRaces, flags: flags, config: config)
+                    ContentView(nextRaces: nextRaces, config: config)
                 } else {
                     VStack {
                         Text("Loading data...")
@@ -44,10 +43,6 @@ struct f1_countdown_iosApp: App {
                         } else {
                             nextRaces = [RaceData()];
                         }
-                    }
-                    
-                    for race in nextRaces {
-                        flags[race.localeKey] = await getCountryFlag(latitude: race.latitude, longitude: race.longitude)
                     }
                     
                     dataLoaded = true;

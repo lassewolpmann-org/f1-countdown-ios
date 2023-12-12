@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct NotificationButton: View {
-    var raceName: String;
-    var sessionName: String;
-    var sessionDate: Date;
+    let raceName: String;
+    let sessionName: String;
+    let sessionDate: Date;
     
     @State var notificationEnabled: Bool = false;
     
