@@ -1,41 +1,14 @@
 //
-//  APICaller.swift
+//  API.swift
 //  f1-countdown-ios
 //
-//  Created by Lasse Wolpmann on 15.11.2023.
+//  Created by Lasse Wolpmann on 29.11.2023.
 //
-
-struct APIConfig: Decodable {
-    var availableYears: [Int] = [1970]
-    var sessions: [String] = ["undefined 1", "undefined 2"]
-    var sessionLengths: [String: Int] = ["undefined 1": 60, "undefined 2": 30]
-}
-
-struct APIData: Decodable {
-    let races: [RaceData]
-}
-
-struct RaceData: Decodable, Identifiable, Hashable {
-    var name: String = "undefined"
-    var location: String = "undefined place"
-    var latitude: Double = 0.0
-    var longitude: Double = 0.0
-    var round: Int = 0
-    var slug: String = "undefined-grand-prix"
-    var localeKey: String = "undefined-grand-prix"
-    var sessions: [String: String] = ["Undefined 1": "1970-01-01T00:00:00Z", "Undefined 2": "1970-01-02T00:00:00Z", "Undefined 3": "1970-01-03T00:00:00Z"]
-    
-    var id: String {
-        name
-    }
-}
 
 import Foundation
 
 func callAPI(year: Int) async throws -> [RaceData] {
-    let series = "f1";
-    
-    guard let url = URL(string: "https://raw.githubusercontent.com/sportstimes/f1/main/_db/\(series)/\(year).json") else {
+    guard let url = URL(string: "https://raw.githubusercontent.com/sportstimes/f1/main/_db/f1/\(year).json") else {
         return [RaceData]()
     };
     
@@ -55,9 +28,7 @@ func callAPI(year: Int) async throws -> [RaceData] {
 }
 
 func getAPIConfig() async throws -> APIConfig {
-    let series = "f1";
-    
-    guard let url = URL(string: "https://raw.githubusercontent.com/sportstimes/f1/main/_db/\(series)/config.json") else {
+    guard let url = URL(string: "https://raw.githubusercontent.com/sportstimes/f1/main/_db/f1/config.json") else {
         return APIConfig()
     };
     

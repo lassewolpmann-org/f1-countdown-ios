@@ -8,21 +8,17 @@
 import SwiftUI
 
 struct NotificationButton: View {
-    var raceName: String;
-    
-    var sessionName: String;
-    var sessionDate: String;
+    let raceName: String;
+    let sessionName: String;
+    let sessionDate: Date;
     
     @State var notificationEnabled: Bool = false;
     
     var body: some View {
         let notificationCenter = UNUserNotificationCenter.current();
         
-        let formatter = ISO8601DateFormatter();
-        let date = formatter.date(from: sessionDate);
-        
         VStack {
-            if (date!.timeIntervalSinceNow > 0) {
+            if (sessionDate.timeIntervalSinceNow > 0) {
                 if (notificationEnabled) {
                     DeleteButton(notificationEnabled: $notificationEnabled, sessionDate: sessionDate)
                 } else {
@@ -34,7 +30,7 @@ struct NotificationButton: View {
         }.onAppear {
             notificationCenter.getPendingNotificationRequests { requestList in
                 let requestsWithSameID = requestList.filter { request in
-                    return request.identifier == sessionDate
+                    return request.identifier == sessionDate.description
                 }
                 
                 if (requestsWithSameID.isEmpty) {
@@ -48,5 +44,5 @@ struct NotificationButton: View {
 }
 
 #Preview {
-    NotificationButton(raceName: "undefined", sessionName: "fp1", sessionDate: "1970-01-01T00:00:00Z")
+    NotificationButton(raceName: RaceData().name, sessionName: parseSessionName(sessionName: RaceData().sessions.first!.key), sessionDate: ISO8601DateFormatter().date(from: RaceData().sessions.first!.value)!)
 }

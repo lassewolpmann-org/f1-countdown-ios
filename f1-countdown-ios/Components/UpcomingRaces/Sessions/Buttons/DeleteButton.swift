@@ -9,15 +9,12 @@ import SwiftUI
 
 struct DeleteButton: View {
     @Binding var notificationEnabled: Bool;
-    var sessionDate: String;
+    var sessionDate: Date;
     
     var body: some View {
-        let notificationCenter = UNUserNotificationCenter.current();
-        
-        Button(role: ButtonRole.destructive) {
+        Button(role: .destructive) {
+            deleteNotification(sessionDate: sessionDate)
             notificationEnabled = false;
-            
-            notificationCenter.removePendingNotificationRequests(withIdentifiers: [sessionDate])
         } label: {
             Label("Delete Alert", systemImage: "bell.slash")
         }
@@ -27,5 +24,5 @@ struct DeleteButton: View {
 }
 
 #Preview {
-    DeleteButton(notificationEnabled: .constant(true), sessionDate: "1970-01-01T00:00:00Z")
+    DeleteButton(notificationEnabled: .constant(true), sessionDate: ISO8601DateFormatter().date(from: RaceData().sessions.first!.value)!)
 }

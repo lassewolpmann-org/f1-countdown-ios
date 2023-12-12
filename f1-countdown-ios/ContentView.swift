@@ -8,77 +8,40 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var nextRaces: [RaceData] = [RaceData]();
+    let nextRaces: [RaceData];
+    let config: APIConfig;
+    
     @State var selectedSession: String = "gp";
-    @State var validData: Bool = false;
     
     var body: some View {
+        let nextRace = nextRaces.first;
+        let raceTitle = getRaceTitle(race: nextRace);
+        let flag = CountryFlags().flags[nextRace?.localeKey ?? ""] ?? "";
+        
         NavigationStack {
             List {
-                if (nextRaces.isEmpty) {
-                    Section {
-                        Text("Data loading...")
-                        ProgressView()
-                    }
-                } else {
-                    if (validData) {
-                        Section {
-                            SessionTimer(nextRaces: nextRaces)
-                        }
-                        .navigationTitle(getRaceTitle(race: nextRaces.first))
-                        .toolbar {
-                            ToolbarItem {
-                                NavigationLink {
-                                    AppInformation()
-                                } label: {
-                                    Label("Information", systemImage: "info.circle")
-                                }
-                            }
-                        }
-                        
-                        Section {
-                            ForEach(nextRaces) { race in
-                                RaceNavigationLink(race: race);
-                            }
-                        } header: {
-                            Text("Upcoming Grands Prix")
-                        } footer: {
-                            VStack(alignment: .leading) {
-                                Text("This app is unofficial and is not associated in any way with the Formula 1 companies.")
-                                Spacer()
-                                Text("F1, FORMULA ONE, FORMULA 1, FIA FORMULA ONE WORLD CHAMPIONSHIP, GRAND PRIX and related marks are trade marks of Formula One Licensing B.V.")
-                            }.padding(.top, 20)
-                        }
-                    } else {
-                        Text("No data available.")
+                Section {
+                    SessionTimer(nextRaces: nextRaces)
+                }
+                .navigationTitle("\(flag) \(raceTitle)")
+                .toolbar {
+                    ToolbarItem {
+                        InformationLink()
                     }
                 }
-            }
-            .task {
-                do {
-                    let config = try await getAPIConfig();
-                    
-                    let date = Date();
-                    let calendar = Calendar.current;
-                    var year = calendar.component(.year, from:date);
-                    
-                    nextRaces = try await callAPI(year: year);
-                    
-                    if (nextRaces.isEmpty) {
-                        year += 1;
-                        
-                        if (config.availableYears.contains(year)) {
-                            nextRaces = try await callAPI(year: year);
-                            validData = true;
-                        } else {
-                            nextRaces = [RaceData()]
-                            validData = false;
-                        }
-                    } else {
-                        validData = true;
+                
+                Section {
+                    ForEach(nextRaces) { race in
+                        RaceSheet(race: race, config: config);
                     }
-                } catch {
-                    print("Error calling API")
+                } header: {
+                    Text("Upcoming Grands Prix")
+                } footer: {
+                    VStack(alignment: .leading) {
+                        Text("This app is unofficial and is not associated in any way with the Formula 1 companies.")
+                        Spacer()
+                        Text("F1, FORMULA ONE, FORMULA 1, FIA FORMULA ONE WORLD CHAMPIONSHIP, GRAND PRIX and related marks are trade marks of Formula One Licensing B.V.")
+                    }.padding(.top, 20)
                 }
             }
         }
@@ -86,5 +49,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ContentView(nextRaces: [RaceData()], config: APIConfig())
 }

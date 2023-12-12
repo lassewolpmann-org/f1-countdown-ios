@@ -22,7 +22,7 @@ struct AppInformation: View {
                         openURL(url);
                     }
                 } label: {
-                    Label("Visit Data Source License", systemImage: "globe")
+                    Label("Data Source License", systemImage: "globe")
                 }
             } footer: {
                 Text("App version \(version ?? "undefined")-\(build ?? "undefined")")
