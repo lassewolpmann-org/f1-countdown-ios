@@ -15,8 +15,6 @@
 		2505E6A12B0F844000876783 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2505E6A02B0F844000876783 /* Assets.xcassets */; };
 		2505E6A52B0F844000876783 /* TimerWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 2505E6952B0F843E00876783 /* TimerWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2505E6B32B10842700876783 /* NextUpdateDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2505E6B22B10842700876783 /* NextUpdateDate.swift */; };
-		25125EFC2B14914400CA10EE /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 25125EFB2B14914400CA10EE /* Config.xcconfig */; };
-		25125EFD2B14914400CA10EE /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 25125EFB2B14914400CA10EE /* Config.xcconfig */; };
 		2521762B2B08BEB00023C9B3 /* SessionWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2521762A2B08BEB00023C9B3 /* SessionWeather.swift */; };
 		2534A14B2B287279003B0BE3 /* CountryFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2534A14A2B287279003B0BE3 /* CountryFlags.swift */; };
 		2534A14C2B287279003B0BE3 /* CountryFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2534A14A2B287279003B0BE3 /* CountryFlags.swift */; };
@@ -382,7 +380,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1510;
 				TargetAttributes = {
 					2505E6942B0F843E00876783 = {
 						CreatedOnToolsVersion = 15.0.1;
@@ -416,7 +414,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				25125EFD2B14914400CA10EE /* Config.xcconfig in Resources */,
 				2505E6A12B0F844000876783 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -426,7 +423,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				257959DD2B04FB010033DFAB /* Preview Assets.xcassets in Resources */,
-				25125EFC2B14914400CA10EE /* Config.xcconfig in Resources */,
 				257959DA2B04FB010033DFAB /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
