@@ -12,8 +12,12 @@ struct Large: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("\(entry.flag) \(entry.raceName) Grand Prix".uppercased())
-                .font(.headline)
+            HStack {
+                Text("\(entry.flag) \(entry.raceName) Grand Prix".uppercased())
+                    .font(.headline)
+                Spacer()
+                Text(entry.tbc == true ? "TBC" : "")
+            }
             
             ForEach(entry.sessions.sorted(by:{$0.value < $1.value}), id: \.key) { session in
                 let name = session.key;
@@ -29,5 +33,5 @@ struct Large: View {
 }
 
 #Preview {
-    Large(entry: TimerEntry(date: Date(), raceName: RaceData().name, sessions: RaceData().sessions, flag: "", sessionLengths: APIConfig().sessionLengths))
+    Large(entry: TimerEntry(date: Date(), raceName: RaceData().name, sessions: RaceData().sessions, tbc: false, flag: "", sessionLengths: APIConfig().sessionLengths))
 }
