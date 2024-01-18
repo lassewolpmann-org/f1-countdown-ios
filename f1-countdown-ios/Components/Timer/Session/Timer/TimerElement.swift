@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct TimerElement: View {
-    var delta: Int = 0;
-    var deltaPct: Float = 0.5;
-    var ringColor: Color = Color.green;
-    var timeUnit: String = "unit";
-    var lineWidth: CGFloat = 5;
+    var delta: Int;
+    var deltaPct: Float;
+    var ringColor: Color;
+    var timeUnit: String;
+    
+    let lineWidth: CGFloat = 5;
     
     var body: some View {
         ZStack {
@@ -41,5 +42,5 @@ struct TimerElement: View {
 }
 
 #Preview {
-    TimerElement()
+    TimerElement(delta: 30, deltaPct: 0.5, ringColor: .pink, timeUnit: "unit")
 }

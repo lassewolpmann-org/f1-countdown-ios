@@ -14,23 +14,19 @@ struct Session: View {
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect();
     let name: String;
     let date: String;
-    
-    var body: some View {
-        let firstRingColor = colorScheme == .dark ? Color(red: 0.85, green: 0.85, blue: 0.85) : Color(red: 0.15, green: 0.15, blue: 0.15);
-        let secondRingColor = colorScheme == .dark ? Color.red : Color(red: 0.85, green: 0, blue: 0);
-        let thirdRingColor = colorScheme == .dark ? Color.green : Color(red: 0, green: 0.5, blue: 0);
-        let fourthRingColor = colorScheme == .dark ? Color.blue : Color(red: 0, green: 0, blue: 1);
         
+    var body: some View {
         Section {
             HStack {
-                TimerElement(delta: delta.days, deltaPct: delta.daysPct, ringColor: firstRingColor, timeUnit: "days")
-                TimerElement(delta: delta.hours, deltaPct: delta.hoursPct, ringColor: secondRingColor, timeUnit: "hr")
-                TimerElement(delta: delta.minutes, deltaPct: delta.minutesPct, ringColor: thirdRingColor, timeUnit: "min")
-                TimerElement(delta: delta.seconds, deltaPct: delta.secondsPct, ringColor: fourthRingColor, timeUnit: "sec")
+                TimerElement(delta: delta.days, deltaPct: delta.daysPct, ringColor: Color.primary, timeUnit: "days")
+                TimerElement(delta: delta.hours, deltaPct: delta.hoursPct, ringColor: Color.red, timeUnit: "hr")
+                TimerElement(delta: delta.minutes, deltaPct: delta.minutesPct, ringColor: Color.green, timeUnit: "min")
+                TimerElement(delta: delta.seconds, deltaPct: delta.secondsPct, ringColor: Color.blue, timeUnit: "sec")
             }
         } header: {
             Text(parseSessionName(sessionName: name))
-        }.onReceive(timer) { _ in
+        }
+        .onReceive(timer) { _ in
             delta = deltaValues(dateString: date);
         }
     }
@@ -38,6 +34,7 @@ struct Session: View {
 
 #Preview {
     List {
+        Session(name: RaceData().sessions.first!.key, date: RaceData().sessions.first!.value)
         Session(name: RaceData().sessions.first!.key, date: RaceData().sessions.first!.value)
     }
 }
