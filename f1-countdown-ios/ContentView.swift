@@ -14,35 +14,20 @@ struct ContentView: View {
     @State var selectedSession: String = "gp";
     
     var body: some View {
-        let nextRace = nextRaces.first;
-        let raceTitle = getRaceTitle(race: nextRace);
-        let flag = CountryFlags().flags[nextRace?.localeKey ?? ""] ?? "";
-        
-        NavigationStack {
-            List {
-                Section {
-                    SessionTimer(nextRaces: nextRaces)
-                }
-                .navigationTitle("\(flag) \(raceTitle)")
-                .toolbar {
-                    ToolbarItem {
-                        InformationLink()
-                    }
-                }
-                
-                Section {
-                    ForEach(nextRaces) { race in
-                        RaceSheet(race: race, config: config);
-                    }
-                } header: {
-                    Text("Upcoming Grands Prix")
-                } footer: {
-                    VStack(alignment: .leading) {
-                        Text("This app is unofficial and is not associated in any way with the Formula 1 companies.")
-                        Spacer()
-                        Text("F1, FORMULA ONE, FORMULA 1, FIA FORMULA ONE WORLD CHAMPIONSHIP, GRAND PRIX and related marks are trade marks of Formula One Licensing B.V.")
-                    }.padding(.top, 20)
-                }
+        TabView {
+            TimerTab(nextRace: nextRaces.first!)
+            .tabItem {
+                Label("Timer", systemImage: "stopwatch")
+            }
+            
+            CalendarTab(nextRaces: nextRaces, config: config)
+            .tabItem {
+                Label("Calendar", systemImage: "calendar")
+            }
+            
+            InfoTab()
+            .tabItem {
+                Label("Information", systemImage: "info.circle")
             }
         }
     }

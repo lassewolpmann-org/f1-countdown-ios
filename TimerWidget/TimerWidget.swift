@@ -12,6 +12,7 @@ struct TimerEntry: TimelineEntry {
     let date: Date;
     let raceName: String;
     let sessions: [String: String];
+    let tbc: Bool;
     let flag: String;
     let sessionLengths: [String: Int];
 }
@@ -47,7 +48,7 @@ struct TimerWidgetView: View {
 struct TimerTimelineProvider: TimelineProvider {
     func placeholder(in context: Context) -> TimerEntry {
         let date = Date();
-        let entry = TimerEntry(date: date, raceName: RaceData().name, sessions: RaceData().sessions, flag: "", sessionLengths: APIConfig().sessionLengths);
+        let entry = TimerEntry(date: date, raceName: RaceData().name, sessions: RaceData().sessions, tbc: false, flag: "", sessionLengths: APIConfig().sessionLengths);
         
         return entry
     }
@@ -74,7 +75,8 @@ struct TimerTimelineProvider: TimelineProvider {
             
             let nextRace = nextRaces.first ?? RaceData();
             let flag = CountryFlags().flags[nextRace.localeKey] ?? "";
-            let entry = TimerEntry(date: date, raceName: nextRace.name, sessions: nextRace.sessions, flag: flag, sessionLengths: config.sessionLengths);
+            let tbc = nextRace.tbc ?? false;
+            let entry = TimerEntry(date: date, raceName: nextRace.name, sessions: nextRace.sessions, tbc: tbc, flag: flag, sessionLengths: config.sessionLengths);
             
             completion(entry)
         }
@@ -102,7 +104,8 @@ struct TimerTimelineProvider: TimelineProvider {
             
             let nextRace = nextRaces.first ?? RaceData();
             let flag = CountryFlags().flags[nextRace.localeKey] ?? "";
-            let entry = TimerEntry(date: date, raceName: nextRace.name, sessions: nextRace.sessions, flag: flag, sessionLengths: config.sessionLengths);
+            let tbc = nextRace.tbc ?? false;
+            let entry = TimerEntry(date: date, raceName: nextRace.name, sessions: nextRace.sessions, tbc: tbc, flag: flag, sessionLengths: config.sessionLengths);
             let nextUpdateDate = getNextUpdateDate(race: nextRace);
             let timeline = Timeline(entries: [entry], policy: .after(nextUpdateDate));
             
@@ -125,5 +128,5 @@ struct TimerWidget: Widget {
 #Preview(as: .systemMedium) {
     TimerWidget()
 } timeline: {
-    TimerEntry(date: .now, raceName: RaceData().name, sessions: RaceData().sessions, flag: "", sessionLengths: APIConfig().sessionLengths)
+    TimerEntry(date: .now, raceName: RaceData().name, sessions: RaceData().sessions, tbc: true, flag: "", sessionLengths: APIConfig().sessionLengths)
 }

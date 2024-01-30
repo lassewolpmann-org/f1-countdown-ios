@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct TimerElement: View {
-    var delta: Int = 0;
-    var deltaPct: Float = 0.5;
-    var ringColor: Color = Color.green;
-    var timeUnit: String = "unit";
-    var lineWidth: CGFloat = 10;
+    var delta: Int;
+    var deltaPct: Float;
+    var ringColor: Color;
+    var timeUnit: String;
+    
+    let lineWidth: CGFloat = 5;
     
     var body: some View {
         ZStack {
@@ -22,7 +23,7 @@ struct TimerElement: View {
             
             Circle()
                 .trim(from: 0, to: CGFloat(deltaPct))
-                .stroke(ringColor.shadow(.drop(color: ringColor, radius: 5)), style: StrokeStyle(lineWidth: lineWidth, lineCap: .round))
+                .stroke(ringColor, style: StrokeStyle(lineWidth: lineWidth, lineCap: .round))
                 .opacity(0.75)
                 .animation(.easeInOut(duration: 0.5), value: deltaPct)
                 .rotationEffect(.degrees(270))
@@ -30,18 +31,16 @@ struct TimerElement: View {
             
             VStack {
                 Text(String(delta))
-                    .font(.title)
-                    .bold()
-                    .foregroundStyle(.primary)
+                    .font(.headline)
                 
                 Text(timeUnit)
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }
-        }.padding(5)
+        }
     }
 }
 
 #Preview {
-    TimerElement()
+    TimerElement(delta: 30, deltaPct: 0.5, ringColor: .pink, timeUnit: "unit")
 }
