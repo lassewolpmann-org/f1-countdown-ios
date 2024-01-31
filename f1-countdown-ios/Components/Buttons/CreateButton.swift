@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CreateButton: View {
     @Binding var notificationEnabled: Bool;
+    @State private var showAlert = false;
     
     var sessionName: String;
     var sessionDate: Date;
@@ -16,13 +17,24 @@ struct CreateButton: View {
     
     var body: some View {
         Button {
-            createNotification(sessionDate: sessionDate, raceName: raceName, sessionName: sessionName);
-            notificationEnabled = true;
+            Task {
+                notificationEnabled = await createNotification(sessionDate: sessionDate, raceName: raceName, sessionName: sessionName);
+                
+                if (notificationEnabled == false) {
+                    showAlert = true;
+                }
+            }
         } label: {
-                Label("Create Alert", systemImage: "bell")
+            Label("Create Alert", systemImage: "bell")
         }
         .buttonStyle(.bordered)
         .labelStyle(.iconOnly)
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("Notifications disabled"),
+                message: Text("Please enable Notifications for the App in the System Settings")
+            )
+        }
     }
 }
 

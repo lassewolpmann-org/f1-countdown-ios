@@ -2,49 +2,41 @@
 //  CreateNotification.swift
 //  f1-countdown-ios
 //
-//  Created by Lasse Wolpmann on 29.11.2023.
+//  Created by Lasse Wolpmann on 31.1.2024.
 //
 
 import Foundation
 import UserNotifications
 
-func createNotification(sessionDate: Date, raceName: String, sessionName: String) -> Void {
-    let notificationCenter = UNUserNotificationCenter.current();
+func createNotification(sessionDate: Date, raceName: String, sessionName: String) async -> Bool {
+    let center = UNUserNotificationCenter.current();
+    let allowed = await checkForPermission();
     
-    notificationCenter.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-        if let error = error {
-            print(error)
-        } else if (granted) {
-            notificationCenter.getNotificationSettings { settings in
-                guard (settings.authorizationStatus == .authorized) ||
-                        (settings.authorizationStatus == .provisional) else {
-                    print("Notifications not allowed")
-                    
-                    return
-                }
-
-                if settings.alertSetting == .enabled {
-                    let calendarDate = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: sessionDate)
-                    
-                    let trigger = UNCalendarNotificationTrigger(dateMatching: calendarDate, repeats: false);
-
-                    let content = UNMutableNotificationContent();
-                    
-                    content.title = "\(raceName) Grand Prix";
-                    content.subtitle = "\(sessionName) is now live!"
-                    content.sound = UNNotificationSound.default;
-                    
-                    let request = UNNotificationRequest(identifier: sessionDate.description, content: content, trigger: trigger);
-                    
-                    notificationCenter.add(request) { (error) in
-                        if error != nil {
-                            print("Error while creating notification")
-                        } else {
-                            print("Notifcation created")
-                        }
-                    }
-                }
-            }
+    if (!allowed) {
+        await createNotificationPermission();
+    }
+    
+    if (await checkForPermission()) {
+        let calendarDate = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: sessionDate)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: calendarDate, repeats: false);
+        
+        let content = UNMutableNotificationContent();
+        content.title = "\(raceName) Grand Prix";
+        content.subtitle = "\(sessionName) is now live!"
+        content.sound = UNNotificationSound.default;
+        
+        let notification = UNNotificationRequest(identifier: sessionDate.description, content: content, trigger: trigger);
+        
+        do {
+            try await center.add(notification);
+            print("Notifcation created")
+            
+            return true
+        } catch {
+            print("Error while creating notification")
+            return false
         }
+    } else {
+        return false
     }
 }

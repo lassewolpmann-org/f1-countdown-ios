@@ -15,8 +15,6 @@ struct NotificationButton: View {
     @State var notificationEnabled: Bool = false;
     
     var body: some View {
-        let notificationCenter = UNUserNotificationCenter.current();
-        
         VStack {
             if (sessionDate.timeIntervalSinceNow > 0) {
                 if (notificationEnabled) {
@@ -27,18 +25,8 @@ struct NotificationButton: View {
             } else {
                 DisabledButton()
             }
-        }.onAppear {
-            notificationCenter.getPendingNotificationRequests { requestList in
-                let requestsWithSameID = requestList.filter { request in
-                    return request.identifier == sessionDate.description
-                }
-                
-                if (requestsWithSameID.isEmpty) {
-                    notificationEnabled = false;
-                } else {
-                    notificationEnabled = true;
-                }
-            }
+        }.task {
+            notificationEnabled = await checkForExistingNotification(sessionDate: sessionDate);
         }
     }
 }

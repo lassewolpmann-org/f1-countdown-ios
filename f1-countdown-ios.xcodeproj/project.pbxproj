@@ -18,6 +18,7 @@
 		2534A14B2B287279003B0BE3 /* CountryFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2534A14A2B287279003B0BE3 /* CountryFlags.swift */; };
 		2534A14C2B287279003B0BE3 /* CountryFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2534A14A2B287279003B0BE3 /* CountryFlags.swift */; };
 		254019252B343CBC007AEAE1 /* SheetContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254019242B343CBC007AEAE1 /* SheetContent.swift */; };
+		254DCC552B6A6EDB00493CDD /* CreateNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254DCC542B6A6EDB00493CDD /* CreateNotification.swift */; };
 		257959D62B04FB000033DFAB /* f1_countdown_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257959D52B04FB000033DFAB /* f1_countdown_iosApp.swift */; };
 		257959D82B04FB000033DFAB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257959D72B04FB000033DFAB /* ContentView.swift */; };
 		257959DA2B04FB010033DFAB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 257959D92B04FB010033DFAB /* Assets.xcassets */; };
@@ -28,7 +29,7 @@
 		25B404192B10B3D7007EF384 /* Medium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B404182B10B3D7007EF384 /* Medium.swift */; };
 		25B4041B2B10B660007EF384 /* Large.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B4041A2B10B660007EF384 /* Large.swift */; };
 		25BE0E482B2349E20089B5BA /* DeltaValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BE0E472B2349E20089B5BA /* DeltaValues.swift */; };
-		25BFB0322B0F68D90062E4BC /* InfoTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BFB0312B0F68D90062E4BC /* InfoTab.swift */; };
+		25BFB0322B0F68D90062E4BC /* SettingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BFB0312B0F68D90062E4BC /* SettingsTab.swift */; };
 		25C6C53B2B17791E00818265 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C53A2B17791E00818265 /* API.swift */; };
 		25C6C53C2B17791E00818265 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C53A2B17791E00818265 /* API.swift */; };
 		25C6C53F2B17794600818265 /* APIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C53E2B17794600818265 /* APIConfig.swift */; };
@@ -37,8 +38,6 @@
 		25C6C5432B17795B00818265 /* APIData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C5412B17795B00818265 /* APIData.swift */; };
 		25C6C5452B17799500818265 /* RaceTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C5442B17799500818265 /* RaceTitle.swift */; };
 		25C6C5462B17799500818265 /* RaceTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C5442B17799500818265 /* RaceTitle.swift */; };
-		25C6C5492B1779BA00818265 /* CreateNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C5482B1779BA00818265 /* CreateNotification.swift */; };
-		25C6C54A2B1779BA00818265 /* CreateNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C5482B1779BA00818265 /* CreateNotification.swift */; };
 		25C6C54C2B1779CE00818265 /* DeleteNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C54B2B1779CE00818265 /* DeleteNotification.swift */; };
 		25C6C54D2B1779CE00818265 /* DeleteNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C54B2B1779CE00818265 /* DeleteNotification.swift */; };
 		25C6C5522B1779FC00818265 /* DateFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C5512B1779FC00818265 /* DateFormatters.swift */; };
@@ -52,6 +51,7 @@
 		25E301932B0A2A1A008CC1BE /* DisabledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E301922B0A2A1A008CC1BE /* DisabledButton.swift */; };
 		25E301952B0A2A38008CC1BE /* CreateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E301942B0A2A38008CC1BE /* CreateButton.swift */; };
 		25E301972B0A2A40008CC1BE /* DeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E301962B0A2A40008CC1BE /* DeleteButton.swift */; };
+		25EA78922B6A5FA200EA9C5A /* NotificationPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EA78912B6A5FA200EA9C5A /* NotificationPermission.swift */; };
 		25EDC7952B054D320094DBBA /* TimerElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDC7942B054D320094DBBA /* TimerElement.swift */; };
 /* End PBXBuildFile section */
 
@@ -94,6 +94,7 @@
 		2521762C2B08C4270023C9B3 /* f1-countdown-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "f1-countdown-ios.entitlements"; sourceTree = "<group>"; };
 		2534A14A2B287279003B0BE3 /* CountryFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryFlags.swift; sourceTree = "<group>"; };
 		254019242B343CBC007AEAE1 /* SheetContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetContent.swift; sourceTree = "<group>"; };
+		254DCC542B6A6EDB00493CDD /* CreateNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNotification.swift; sourceTree = "<group>"; };
 		257959D22B04FB000033DFAB /* f1-countdown-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "f1-countdown-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		257959D52B04FB000033DFAB /* f1_countdown_iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = f1_countdown_iosApp.swift; sourceTree = "<group>"; };
 		257959D72B04FB000033DFAB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -105,12 +106,11 @@
 		25B404182B10B3D7007EF384 /* Medium.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Medium.swift; sourceTree = "<group>"; };
 		25B4041A2B10B660007EF384 /* Large.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Large.swift; sourceTree = "<group>"; };
 		25BE0E472B2349E20089B5BA /* DeltaValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaValues.swift; sourceTree = "<group>"; };
-		25BFB0312B0F68D90062E4BC /* InfoTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTab.swift; sourceTree = "<group>"; };
+		25BFB0312B0F68D90062E4BC /* SettingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTab.swift; sourceTree = "<group>"; };
 		25C6C53A2B17791E00818265 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		25C6C53E2B17794600818265 /* APIConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConfig.swift; sourceTree = "<group>"; };
 		25C6C5412B17795B00818265 /* APIData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIData.swift; sourceTree = "<group>"; };
 		25C6C5442B17799500818265 /* RaceTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceTitle.swift; sourceTree = "<group>"; };
-		25C6C5482B1779BA00818265 /* CreateNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNotification.swift; sourceTree = "<group>"; };
 		25C6C54B2B1779CE00818265 /* DeleteNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteNotification.swift; sourceTree = "<group>"; };
 		25C6C5512B1779FC00818265 /* DateFormatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatters.swift; sourceTree = "<group>"; };
 		25C6C5542B177A0F00818265 /* SessionName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionName.swift; sourceTree = "<group>"; };
@@ -121,6 +121,7 @@
 		25E301922B0A2A1A008CC1BE /* DisabledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisabledButton.swift; sourceTree = "<group>"; };
 		25E301942B0A2A38008CC1BE /* CreateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateButton.swift; sourceTree = "<group>"; };
 		25E301962B0A2A40008CC1BE /* DeleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteButton.swift; sourceTree = "<group>"; };
+		25EA78912B6A5FA200EA9C5A /* NotificationPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermission.swift; sourceTree = "<group>"; };
 		25EDC7942B054D320094DBBA /* TimerElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerElement.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -144,12 +145,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		250087082B21FFB20014AF27 /* Information */ = {
+		250087082B21FFB20014AF27 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				25BFB0312B0F68D90062E4BC /* InfoTab.swift */,
+				25BFB0312B0F68D90062E4BC /* SettingsTab.swift */,
 			);
-			path = Information;
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		2505E6962B0F843E00876783 /* Frameworks */ = {
@@ -231,9 +232,10 @@
 		257959E32B04FB410033DFAB /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				25E301912B0A2A0F008CC1BE /* Buttons */,
 				25AF345D2B2F985100E7D83A /* Timer */,
 				25E3018D2B0A1144008CC1BE /* Calendar */,
-				250087082B21FFB20014AF27 /* Information */,
+				250087082B21FFB20014AF27 /* Settings */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -316,8 +318,9 @@
 		25C6C5472B1779A900818265 /* Notifications */ = {
 			isa = PBXGroup;
 			children = (
-				25C6C5482B1779BA00818265 /* CreateNotification.swift */,
 				25C6C54B2B1779CE00818265 /* DeleteNotification.swift */,
+				25EA78912B6A5FA200EA9C5A /* NotificationPermission.swift */,
+				254DCC542B6A6EDB00493CDD /* CreateNotification.swift */,
 			);
 			path = Notifications;
 			sourceTree = "<group>";
@@ -342,10 +345,8 @@
 		25E3018E2B0A11B8008CC1BE /* Sessions */ = {
 			isa = PBXGroup;
 			children = (
-				25E301912B0A2A0F008CC1BE /* Buttons */,
 				25E3018F2B0A11C5008CC1BE /* SessionDetails.swift */,
 				2521762A2B08BEB00023C9B3 /* SessionWeather.swift */,
-				25DE90782B09168A00632B61 /* NotificationButton.swift */,
 			);
 			path = Sessions;
 			sourceTree = "<group>";
@@ -353,6 +354,7 @@
 		25E301912B0A2A0F008CC1BE /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				25DE90782B09168A00632B61 /* NotificationButton.swift */,
 				25E301922B0A2A1A008CC1BE /* DisabledButton.swift */,
 				25E301942B0A2A38008CC1BE /* CreateButton.swift */,
 				25E301962B0A2A40008CC1BE /* DeleteButton.swift */,
@@ -470,7 +472,6 @@
 				25C6C5532B1779FC00818265 /* DateFormatters.swift in Sources */,
 				25C6C5592B177DB400818265 /* SessionInfo.swift in Sources */,
 				25C6C5562B177A0F00818265 /* SessionName.swift in Sources */,
-				25C6C54A2B1779BA00818265 /* CreateNotification.swift in Sources */,
 				25C6C53C2B17791E00818265 /* API.swift in Sources */,
 				25B4041B2B10B660007EF384 /* Large.swift in Sources */,
 				2505E6B32B10842700876783 /* NextUpdateDate.swift in Sources */,
@@ -485,17 +486,18 @@
 			files = (
 				25E301952B0A2A38008CC1BE /* CreateButton.swift in Sources */,
 				25E301932B0A2A1A008CC1BE /* DisabledButton.swift in Sources */,
-				25C6C5492B1779BA00818265 /* CreateNotification.swift in Sources */,
 				25AF34682B2FA79F00E7D83A /* CalendarTab.swift in Sources */,
 				254019252B343CBC007AEAE1 /* SheetContent.swift in Sources */,
 				257959D82B04FB000033DFAB /* ContentView.swift in Sources */,
 				25AF34612B2F98CA00E7D83A /* TimerTab.swift in Sources */,
+				254DCC552B6A6EDB00493CDD /* CreateNotification.swift in Sources */,
 				25C6C53F2B17794600818265 /* APIConfig.swift in Sources */,
 				25BE0E482B2349E20089B5BA /* DeltaValues.swift in Sources */,
 				25CC38552B1480BA009209BE /* RaceSheet.swift in Sources */,
-				25BFB0322B0F68D90062E4BC /* InfoTab.swift in Sources */,
+				25BFB0322B0F68D90062E4BC /* SettingsTab.swift in Sources */,
 				25DE90792B09168A00632B61 /* NotificationButton.swift in Sources */,
 				25E301902B0A11C5008CC1BE /* SessionDetails.swift in Sources */,
+				25EA78922B6A5FA200EA9C5A /* NotificationPermission.swift in Sources */,
 				25C6C54C2B1779CE00818265 /* DeleteNotification.swift in Sources */,
 				25C6C5552B177A0F00818265 /* SessionName.swift in Sources */,
 				25C6C5522B1779FC00818265 /* DateFormatters.swift in Sources */,

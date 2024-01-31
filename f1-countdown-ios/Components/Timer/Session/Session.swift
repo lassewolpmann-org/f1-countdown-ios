@@ -16,16 +16,36 @@ struct Session: View {
     let date: String;
         
     var body: some View {
-        Section {
-            HStack {
-                TimerElement(delta: delta.days, deltaPct: delta.daysPct, ringColor: Color.primary, timeUnit: "days")
-                TimerElement(delta: delta.hours, deltaPct: delta.hoursPct, ringColor: Color.red, timeUnit: "hr")
-                TimerElement(delta: delta.minutes, deltaPct: delta.minutesPct, ringColor: Color.green, timeUnit: "min")
-                TimerElement(delta: delta.seconds, deltaPct: delta.secondsPct, ringColor: Color.blue, timeUnit: "sec")
-            }
-        } header: {
+        VStack(alignment: .leading) {
             Text(parseSessionName(sessionName: name))
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+                .bold()
+                .padding(.leading, 10)
+            
+            ZStack {
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(Color(UIColor.systemFill))
+                    .stroke(.secondary, lineWidth: 1)
+                    
+                VStack {
+                    HStack {
+                        TimerElement(delta: delta.days, deltaPct: delta.daysPct, ringColor: Color.primary, timeUnit: "days")
+                        TimerElement(delta: delta.hours, deltaPct: delta.hoursPct, ringColor: Color.red, timeUnit: "hr")
+                        TimerElement(delta: delta.minutes, deltaPct: delta.minutesPct, ringColor: Color.green, timeUnit: "min")
+                        TimerElement(delta: delta.seconds, deltaPct: delta.secondsPct, ringColor: Color.blue, timeUnit: "sec")
+                        
+                        Divider()
+                        
+                        NotificationButton(raceName: name, sessionName: name, sessionDate: ISO8601DateFormatter().date(from: date)!)
+                    }
+                    .padding(5)
+                }
+                .padding(.horizontal, 10)
+                .padding(.vertical, 5)
+            }
         }
+        .padding(10)
         .onReceive(timer) { _ in
             delta = deltaValues(dateString: date);
         }
@@ -33,7 +53,7 @@ struct Session: View {
 }
 
 #Preview {
-    List {
+    ScrollView {
         Session(name: RaceData().sessions.first!.key, date: RaceData().sessions.first!.value)
         Session(name: RaceData().sessions.first!.key, date: RaceData().sessions.first!.value)
     }
