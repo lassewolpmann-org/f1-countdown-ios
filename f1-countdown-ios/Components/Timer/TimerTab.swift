@@ -23,7 +23,8 @@ struct TimerTab: View {
                 ForEach(sessions, id: \.key) { key, value in
                     Session(name: key, date: value)
                 }
-            }.navigationTitle("\(flag) \(raceTitle)")
+            }
+            .navigationTitle("\(flag) \(raceTitle)")
         }
     }
 }

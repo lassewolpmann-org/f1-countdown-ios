@@ -25,9 +25,9 @@ struct ContentView: View {
                 Label("Calendar", systemImage: "calendar")
             }
             
-            InfoTab()
+            SettingsTab()
             .tabItem {
-                Label("Information", systemImage: "info.circle")
+                Label("Settings", systemImage: "gear")
             }
         }
     }

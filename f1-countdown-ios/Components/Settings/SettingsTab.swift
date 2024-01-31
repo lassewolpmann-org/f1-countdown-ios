@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct InfoTab: View {
+struct SettingsTab: View {
     @Environment(\.openURL) private var openURL;
     
     var body: some View {
@@ -17,6 +17,19 @@ struct InfoTab: View {
         NavigationStack {
             List {
                 Section {
+                    Button(role: .destructive) {
+                        let center = UNUserNotificationCenter.current();
+                        center.removeAllPendingNotificationRequests();
+                        center.removeAllDeliveredNotifications();
+                        print("Removed all Notifications")
+                    } label: {
+                        Label("Remove all Notifications", systemImage: "bell.slash")
+                    }
+                } header: {
+                    Text("Notifications")
+                }
+                
+                Section {
                     Button {
                         if let url = URL(string: "https://github.com/sportstimes/f1/blob/main/LICENSE") {
                             openURL(url);
@@ -24,14 +37,17 @@ struct InfoTab: View {
                     } label: {
                         Label("Data Source License", systemImage: "globe")
                     }
+                } header: {
+                    Text("Legal")
                 } footer: {
                     Text("App version \(version ?? "undefined")-\(build ?? "undefined")")
                 }
-            }.navigationTitle("Information")
+            }
+            .navigationTitle("Settings")
         }
     }
 }
 
 #Preview {
-    InfoTab()
+    SettingsTab()
 }

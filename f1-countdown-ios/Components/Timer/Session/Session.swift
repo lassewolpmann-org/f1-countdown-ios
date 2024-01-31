@@ -24,8 +24,10 @@ struct Session: View {
                 .padding(.leading, 10)
             
             ZStack {
-                RoundedRectangle(cornerRadius: 10).fill(.background.shadow(.drop(radius: 5)))
-                
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(Color(UIColor.systemFill))
+                    .stroke(.secondary, lineWidth: 1)
+                    
                 VStack {
                     HStack {
                         TimerElement(delta: delta.days, deltaPct: delta.daysPct, ringColor: Color.primary, timeUnit: "days")
