@@ -105,6 +105,8 @@
 		25AF34672B2FA79F00E7D83A /* CalendarTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTab.swift; sourceTree = "<group>"; };
 		25B404182B10B3D7007EF384 /* Medium.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Medium.swift; sourceTree = "<group>"; };
 		25B4041A2B10B660007EF384 /* Large.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Large.swift; sourceTree = "<group>"; };
+		25BC66F72B6A9310006DCE8D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		25BC66F82B6A9384006DCE8D /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		25BE0E472B2349E20089B5BA /* DeltaValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaValues.swift; sourceTree = "<group>"; };
 		25BFB0312B0F68D90062E4BC /* SettingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTab.swift; sourceTree = "<group>"; };
 		25C6C53A2B17791E00818265 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
@@ -187,6 +189,8 @@
 		257959C92B04FB000033DFAB = {
 			isa = PBXGroup;
 			children = (
+				25BC66F82B6A9384006DCE8D /* LICENSE.md */,
+				25BC66F72B6A9310006DCE8D /* README.md */,
 				25125EFB2B14914400CA10EE /* Config.xcconfig */,
 				25BE0E462B2349BC0089B5BA /* Classes */,
 				25C6C53D2B17793B00818265 /* Structs */,
