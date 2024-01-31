@@ -19,7 +19,7 @@ struct TimerTab: View {
             return date!.timeIntervalSinceNow > 0
         };
         NavigationStack {
-            List {
+            ScrollView {
                 ForEach(sessions, id: \.key) { key, value in
                     Session(name: key, date: value)
                 }

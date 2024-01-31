@@ -13,6 +13,7 @@ struct NotificationButton: View {
     let sessionDate: Date;
     
     @State var notificationEnabled: Bool = false;
+    @State var notificationsAllowed: Bool = false;
     
     var body: some View {
         let notificationCenter = UNUserNotificationCenter.current();
@@ -28,15 +29,21 @@ struct NotificationButton: View {
                 DisabledButton()
             }
         }.onAppear {
-            notificationCenter.getPendingNotificationRequests { requestList in
-                let requestsWithSameID = requestList.filter { request in
-                    return request.identifier == sessionDate.description
-                }
-                
-                if (requestsWithSameID.isEmpty) {
-                    notificationEnabled = false;
-                } else {
-                    notificationEnabled = true;
+            notificationCenter.getNotificationSettings { settings in
+                if (settings.authorizationStatus == .authorized) {
+                    notificationsAllowed = true
+                    
+                    notificationCenter.getPendingNotificationRequests { requestList in
+                        let requestsWithSameID = requestList.filter { request in
+                            return request.identifier == sessionDate.description
+                        }
+                        
+                        if (requestsWithSameID.isEmpty) {
+                            notificationEnabled = false;
+                        } else {
+                            notificationEnabled = true;
+                        }
+                    }
                 }
             }
         }

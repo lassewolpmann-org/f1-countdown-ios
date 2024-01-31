@@ -231,6 +231,7 @@
 		257959E32B04FB410033DFAB /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				25E301912B0A2A0F008CC1BE /* Buttons */,
 				25AF345D2B2F985100E7D83A /* Timer */,
 				25E3018D2B0A1144008CC1BE /* Calendar */,
 				250087082B21FFB20014AF27 /* Information */,
@@ -342,10 +343,8 @@
 		25E3018E2B0A11B8008CC1BE /* Sessions */ = {
 			isa = PBXGroup;
 			children = (
-				25E301912B0A2A0F008CC1BE /* Buttons */,
 				25E3018F2B0A11C5008CC1BE /* SessionDetails.swift */,
 				2521762A2B08BEB00023C9B3 /* SessionWeather.swift */,
-				25DE90782B09168A00632B61 /* NotificationButton.swift */,
 			);
 			path = Sessions;
 			sourceTree = "<group>";
@@ -353,6 +352,7 @@
 		25E301912B0A2A0F008CC1BE /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				25DE90782B09168A00632B61 /* NotificationButton.swift */,
 				25E301922B0A2A1A008CC1BE /* DisabledButton.swift */,
 				25E301942B0A2A38008CC1BE /* CreateButton.swift */,
 				25E301962B0A2A40008CC1BE /* DeleteButton.swift */,
