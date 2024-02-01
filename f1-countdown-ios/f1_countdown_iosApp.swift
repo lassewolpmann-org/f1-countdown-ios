@@ -28,7 +28,10 @@ struct f1_countdown_iosApp: App {
                             Text("Loading data...")
                             ProgressView()
                         } else {
-                            Text("No network connection, cannot load data.")
+                            HStack {
+                                Image(systemName: "network.slash")
+                                Text("No network connection, cannot load data.")
+                            }
                         }
                     }
                 }
