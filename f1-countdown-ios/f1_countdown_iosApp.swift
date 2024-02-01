@@ -15,17 +15,12 @@ struct f1_countdown_iosApp: App {
     @State var delta: deltaValues?;
     
     @State private var dataLoaded: Bool = false;
-    @State private var networkStatus: NWPath.Status = .unsatisfied;
+    @State private var networkAvailable: Bool = false;
     
     var body: some Scene {
         WindowGroup {
             Group {
-                if (networkStatus == .unsatisfied) {
-                    HStack {
-                        Image(systemName: "network.slash")
-                        Text("No network connection, cannot load data.")
-                    }
-                } else {
+                if (networkAvailable) {
                     if (dataLoaded) {
                         ContentView(nextRaces: nextRaces ?? [RaceData()], config: config ?? APIConfig(), delta: delta ?? deltaValues(dateString: [RaceData()].first!.sessions.first!.value))
                     } else {
@@ -34,14 +29,19 @@ struct f1_countdown_iosApp: App {
                             ProgressView()
                         }
                     }
+                } else {
+                    HStack {
+                        Image(systemName: "network.slash")
+                        Text("No network connection, cannot load data.")
+                    }
                 }
             }.task {
                 // Start monitoring network status
                 let monitor = NWPathMonitor()
                 monitor.pathUpdateHandler = { path in
-                    networkStatus = path.status;
-                    
                     if (path.status == .satisfied) {
+                        networkAvailable = true;
+                        
                         // Load data once network is established
                         Task {
                             do {
@@ -78,6 +78,7 @@ struct f1_countdown_iosApp: App {
                         }
                     } else {
                         dataLoaded = false;
+                        networkAvailable = false;
                     }
                 };
                 
