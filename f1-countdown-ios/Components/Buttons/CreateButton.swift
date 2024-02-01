@@ -20,7 +20,7 @@ struct CreateButton: View {
             Task {
                 notificationEnabled = await createNotification(sessionDate: sessionDate, raceName: raceName, sessionName: sessionName);
                 
-                if (notificationEnabled == false) {
+                if (!notificationEnabled) {
                     showAlert = true;
                 }
             }
@@ -29,11 +29,15 @@ struct CreateButton: View {
         }
         .buttonStyle(.bordered)
         .labelStyle(.iconOnly)
-        .alert(isPresented: $showAlert) {
-            Alert(
-                title: Text("Notifications disabled"),
-                message: Text("Please enable Notifications for the App in the System Settings")
-            )
+        .alert(
+            Text("Notifications disabled"),
+            isPresented: $showAlert
+        ) {
+            Button("OK") {
+                showAlert.toggle()
+            }
+        } message: {
+            Text("Please enable Notifications for the App in the System Settings")
         }
     }
 }
