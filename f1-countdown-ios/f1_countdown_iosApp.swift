@@ -14,24 +14,24 @@ struct f1_countdown_iosApp: App {
     @State var nextRaces: [RaceData]?;
     @State var delta: deltaValues?;
     
-    @State var dataLoaded: Bool = false;
-    @State var networkStatus: NWPath.Status = .unsatisfied;
+    @State private var dataLoaded: Bool = false;
+    @State private var networkStatus: NWPath.Status = .unsatisfied;
     
     var body: some Scene {
         WindowGroup {
             Group {
-                if (dataLoaded) {
-                    ContentView(nextRaces: nextRaces ?? [RaceData()], config: config ?? APIConfig(), delta: delta ?? deltaValues(dateString: [RaceData()].first!.sessions.first!.value))
+                if (networkStatus == .unsatisfied) {
+                    HStack {
+                        Image(systemName: "network.slash")
+                        Text("No network connection, cannot load data.")
+                    }
                 } else {
-                    VStack {
-                        if (networkStatus == .satisfied) {
+                    if (dataLoaded) {
+                        ContentView(nextRaces: nextRaces ?? [RaceData()], config: config ?? APIConfig(), delta: delta ?? deltaValues(dateString: [RaceData()].first!.sessions.first!.value))
+                    } else {
+                        VStack {
                             Text("Loading data...")
                             ProgressView()
-                        } else {
-                            HStack {
-                                Image(systemName: "network.slash")
-                                Text("No network connection, cannot load data.")
-                            }
                         }
                     }
                 }
@@ -40,7 +40,6 @@ struct f1_countdown_iosApp: App {
                 let monitor = NWPathMonitor()
                 monitor.pathUpdateHandler = { path in
                     networkStatus = path.status;
-                    print(networkStatus)
                 };
                 
                 let queue = DispatchQueue(label: "NetworkMonitor")
