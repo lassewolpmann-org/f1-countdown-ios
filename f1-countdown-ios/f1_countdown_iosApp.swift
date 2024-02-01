@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Network
 
 @main
 struct f1_countdown_iosApp: App {
@@ -14,6 +15,7 @@ struct f1_countdown_iosApp: App {
     @State var delta: deltaValues?;
     
     @State var dataLoaded: Bool = false;
+    @State var networkStatus: NWPath.Status = .unsatisfied;
     
     var body: some Scene {
         WindowGroup {
@@ -22,11 +24,26 @@ struct f1_countdown_iosApp: App {
                     ContentView(nextRaces: nextRaces ?? [RaceData()], config: config ?? APIConfig(), delta: delta ?? deltaValues(dateString: [RaceData()].first!.sessions.first!.value))
                 } else {
                     VStack {
-                        Text("Loading data...")
-                        ProgressView()
+                        if (networkStatus == .satisfied) {
+                            Text("Loading data...")
+                            ProgressView()
+                        } else {
+                            Text("No network connection, cannot load data.")
+                        }
                     }
                 }
             }.task {
+                // Start monitoring network status
+                let monitor = NWPathMonitor()
+                monitor.pathUpdateHandler = { path in
+                    networkStatus = path.status;
+                    print(networkStatus)
+                };
+                
+                let queue = DispatchQueue(label: "NetworkMonitor")
+                monitor.start(queue: queue)
+                
+                // Get data
                 do {
                     config = try await getAPIConfig();
                     

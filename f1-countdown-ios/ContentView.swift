@@ -30,7 +30,8 @@ struct ContentView: View {
             .tabItem {
                 Label("Settings", systemImage: "gear")
             }
-        }.task {
+        }
+        .task {
             // Ask for permission to send Notifications
             await createNotificationPermission()
         }
