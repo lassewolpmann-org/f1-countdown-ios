@@ -37,6 +37,14 @@ struct SettingsTab: View {
                     } label: {
                         Label("Data Source License", systemImage: "globe")
                     }
+                    
+                    Button {
+                        if let url = URL(string: "https://github.com/lassewolpmann-org/f1-countdown-ios/blob/development/LICENSE.md") {
+                            openURL(url);
+                        }
+                    } label: {
+                        Label("App License", systemImage: "globe")
+                    }
                 } header: {
                     Text("Legal")
                 } footer: {

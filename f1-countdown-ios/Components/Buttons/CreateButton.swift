@@ -20,7 +20,7 @@ struct CreateButton: View {
             Task {
                 notificationEnabled = await createNotification(sessionDate: sessionDate, raceName: raceName, sessionName: sessionName);
                 
-                if (notificationEnabled == false) {
+                if (!notificationEnabled) {
                     showAlert = true;
                 }
             }

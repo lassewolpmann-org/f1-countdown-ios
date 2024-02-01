@@ -10,13 +10,8 @@ import UserNotifications
 
 func createNotification(sessionDate: Date, raceName: String, sessionName: String) async -> Bool {
     let center = UNUserNotificationCenter.current();
-    let allowed = await checkForPermission();
     
-    if (!allowed) {
-        await createNotificationPermission();
-    }
-    
-    if (await checkForPermission()) {
+    if (await checkForPermission() == true) {
         let calendarDate = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: sessionDate)
         let trigger = UNCalendarNotificationTrigger(dateMatching: calendarDate, repeats: false);
         

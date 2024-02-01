@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Session: View {
-    @State var delta = deltaValues(dateString: RaceData().sessions.first!.value);
+    @State var delta: deltaValues;
     @Environment(\.colorScheme) private var colorScheme;
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect();
@@ -54,7 +54,8 @@ struct Session: View {
 
 #Preview {
     ScrollView {
-        Session(name: RaceData().sessions.first!.key, date: RaceData().sessions.first!.value)
-        Session(name: RaceData().sessions.first!.key, date: RaceData().sessions.first!.value)
+        let firstSession = RaceData().sessions.first!;
+        Session(delta: deltaValues(dateString: firstSession.value), name: firstSession.key, date: firstSession.value)
+        Session(delta: deltaValues(dateString: firstSession.value), name: firstSession.key, date: firstSession.value)
     }
 }
