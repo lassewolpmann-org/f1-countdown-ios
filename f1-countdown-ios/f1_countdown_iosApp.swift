@@ -40,43 +40,49 @@ struct f1_countdown_iosApp: App {
                 let monitor = NWPathMonitor()
                 monitor.pathUpdateHandler = { path in
                     networkStatus = path.status;
+                    
+                    if (path.status == .satisfied) {
+                        // Load data once network is established
+                        Task {
+                            do {
+                                config = try await getAPIConfig();
+                                
+                                let date = Date();
+                                let calendar = Calendar.current;
+                                var year = calendar.component(.year, from:date);
+                                
+                                nextRaces = try await callAPI(year: year);
+                                
+                                if (nextRaces!.isEmpty) {
+                                    year += 1;
+                                    
+                                    if (config!.availableYears.contains(year)) {
+                                        nextRaces = try await callAPI(year: year);
+                                    } else {
+                                        nextRaces = [RaceData()];
+                                    }
+                                }
+                                
+                                let nextRace = nextRaces!.first!;
+                                let sessions = nextRace.sessions.sorted(by:{$0.value < $1.value}).filter { key, value in
+                                    let date = ISO8601DateFormatter().date(from: value);
+                                    
+                                    return date!.timeIntervalSinceNow > 0
+                                };
+                                
+                                delta = deltaValues(dateString: sessions.first!.value);
+                                dataLoaded = true;
+                            } catch {
+                                print("Error calling API")
+                            }
+                        }
+                    } else {
+                        dataLoaded = false;
+                    }
                 };
                 
                 let queue = DispatchQueue(label: "NetworkMonitor")
                 monitor.start(queue: queue)
-                
-                // Get data
-                do {
-                    config = try await getAPIConfig();
-                    
-                    let date = Date();
-                    let calendar = Calendar.current;
-                    var year = calendar.component(.year, from:date);
-                    
-                    nextRaces = try await callAPI(year: year);
-                    
-                    if (nextRaces!.isEmpty) {
-                        year += 1;
-                        
-                        if (config!.availableYears.contains(year)) {
-                            nextRaces = try await callAPI(year: year);
-                        } else {
-                            nextRaces = [RaceData()];
-                        }
-                    }
-                    
-                    let nextRace = nextRaces!.first!;
-                    let sessions = nextRace.sessions.sorted(by:{$0.value < $1.value}).filter { key, value in
-                        let date = ISO8601DateFormatter().date(from: value);
-                        
-                        return date!.timeIntervalSinceNow > 0
-                    };
-                    
-                    delta = deltaValues(dateString: sessions.first!.value);
-                    dataLoaded = true;
-                } catch {
-                    print("Error calling API")
-                }
             }
         }
     }
