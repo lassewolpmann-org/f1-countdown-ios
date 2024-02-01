@@ -8,9 +8,18 @@
 import SwiftUI
 
 struct SettingsTab: View {
+    let networkAvailable: Bool;
+    
     var body: some View {
         NavigationStack {
             List {
+                if (!networkAvailable) {
+                    Section {
+                        Text("No Network connection available. Data may not be up-to-date.")
+                            .foregroundStyle(.red)
+                    }
+                }
+                
                 Section {
                     RemoveNotificationsButton()
                 } header: {
@@ -32,5 +41,5 @@ struct SettingsTab: View {
 }
 
 #Preview {
-    SettingsTab()
+    SettingsTab(networkAvailable: false)
 }

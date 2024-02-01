@@ -12,6 +12,8 @@ struct ContentView: View {
     let config: APIConfig;
     let delta: deltaValues;
     
+    let networkAvailable: Bool;
+    
     @State var selectedSession: String = "gp";
     
     var body: some View {
@@ -26,9 +28,17 @@ struct ContentView: View {
                 Label("Calendar", systemImage: "calendar")
             }
             
-            SettingsTab()
-            .tabItem {
-                Label("Settings", systemImage: "gear")
+            if (networkAvailable) {
+                SettingsTab(networkAvailable: networkAvailable)
+                .tabItem {
+                    Label("Settings", systemImage: "gear")
+                }
+            } else {
+                SettingsTab(networkAvailable: networkAvailable)
+                .badge("!")
+                .tabItem {
+                    Label("Settings", systemImage: "gear")
+                }
             }
         }
         .task {
@@ -39,5 +49,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(nextRaces: [RaceData()], config: APIConfig(), delta: deltaValues(dateString: [RaceData()].first!.sessions.first!.value))
+    ContentView(nextRaces: [RaceData()], config: APIConfig(), delta: deltaValues(dateString: [RaceData()].first!.sessions.first!.value), networkAvailable: false)
 }

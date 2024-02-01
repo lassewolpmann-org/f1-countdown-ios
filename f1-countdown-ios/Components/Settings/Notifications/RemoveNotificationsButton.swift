@@ -11,7 +11,7 @@ struct RemoveNotificationsButton: View {
     @State var showAlert: Bool = false;
     
     var body: some View {
-        Button(role: .destructive) {
+        Button {
             let center = UNUserNotificationCenter.current();
             center.removeAllPendingNotificationRequests();
             center.removeAllDeliveredNotifications();

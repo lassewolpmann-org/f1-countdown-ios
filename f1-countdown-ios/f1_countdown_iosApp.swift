@@ -15,21 +15,21 @@ struct f1_countdown_iosApp: App {
     @State var delta: deltaValues?;
     
     @State private var dataLoaded: Bool = false;
-    @State private var networkAvailable: Bool = false;
+    @State var networkAvailable: Bool = false;
     
     var body: some Scene {
         WindowGroup {
             Group {
-                if (networkAvailable) {
-                    if (dataLoaded) {
-                        ContentView(nextRaces: nextRaces ?? [RaceData()], config: config ?? APIConfig(), delta: delta ?? deltaValues(dateString: [RaceData()].first!.sessions.first!.value))
-                    } else {
-                        VStack {
-                            Text("Loading data...")
-                            ProgressView()
-                        }
+                if ((networkAvailable && dataLoaded) || (!networkAvailable && dataLoaded)) {
+                    ContentView(nextRaces: nextRaces ?? [RaceData()], config: config ?? APIConfig(), delta: delta ?? deltaValues(dateString: [RaceData()].first!.sessions.first!.value), networkAvailable: networkAvailable)
+                } else if (networkAvailable && !dataLoaded) {
+                    // Network available but Data not loaded yet
+                    VStack {
+                        Text("Loading data...")
+                        ProgressView()
                     }
                 } else {
+                    // No Network available and Data not loaded yet
                     HStack {
                         Image(systemName: "network.slash")
                         Text("No network connection, cannot load data.")
@@ -42,7 +42,7 @@ struct f1_countdown_iosApp: App {
                     if (path.status == .satisfied) {
                         networkAvailable = true;
                         
-                        // Load data once network is established
+                        // Load data every time network is established
                         Task {
                             do {
                                 config = try await getAPIConfig();
@@ -77,7 +77,6 @@ struct f1_countdown_iosApp: App {
                             }
                         }
                     } else {
-                        dataLoaded = false;
                         networkAvailable = false;
                     }
                 };
