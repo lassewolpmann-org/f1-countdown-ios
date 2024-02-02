@@ -10,6 +10,7 @@ import SwiftUI
 struct TimerTab: View {
     let nextRace: RaceData;
     let delta: deltaValues;
+    let config: APIConfig;
     
     var body: some View {
         let flag = CountryFlags().flags[nextRace.localeKey] ?? "🏳️";
@@ -23,7 +24,7 @@ struct TimerTab: View {
         NavigationStack {
             ScrollView {
                 ForEach(sessions, id: \.key) { key, value in
-                    Session(delta: delta, name: key, date: value)
+                    Session(delta: delta, race: nextRace, config: config, name: key, date: value)
                 }
             }
             .navigationTitle("\(flag) \(raceTitle)")
@@ -32,5 +33,5 @@ struct TimerTab: View {
 }
 
 #Preview {
-    TimerTab(nextRace: RaceData(), delta: deltaValues(dateString: [RaceData()].first!.sessions.first!.value))
+    TimerTab(nextRace: RaceData(), delta: deltaValues(dateString: [RaceData()].first!.sessions.first!.value), config: APIConfig())
 }

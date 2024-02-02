@@ -11,9 +11,14 @@ struct Session: View {
     @State var delta: deltaValues;
     @Environment(\.colorScheme) private var colorScheme;
     
+    let race: RaceData;
+    let config: APIConfig;
+    
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect();
     let name: String;
     let date: String;
+    
+    @State var showWeatherForecast: Bool = false;
         
     var body: some View {
         VStack(alignment: .leading) {
@@ -30,27 +35,42 @@ struct Session: View {
                 
                 Divider()
                 
-                NotificationButton(raceName: name, sessionName: name, sessionDate: ISO8601DateFormatter().date(from: date)!)
+                VStack(spacing: 10) {
+                    NotificationButton(raceName: name, sessionName: name, sessionDate: ISO8601DateFormatter().date(from: date)!)
+                    
+                    Button {
+                        showWeatherForecast.toggle()
+                    } label: {
+                        Label("Weather", systemImage: "cloud.sun")
+                    }
+                    .buttonStyle(.bordered)
+                    .labelStyle(.iconOnly)
+                }
             }
             .padding(.horizontal, 10)
             .padding(.vertical, 5)
             .background(
                 RoundedRectangle(cornerRadius: 10)
                     .fill(.tertiary.opacity(0.5).shadow(.drop(color: .primary, radius: 5)))
-                    .stroke(.tertiary, lineWidth: 1)
             )
         }
         .padding(10)
         .onReceive(timer) { _ in
             delta = deltaValues(dateString: date);
         }
+        .sheet(isPresented: $showWeatherForecast, content: {
+            let sessionDate = ISO8601DateFormatter().date(from: date)!;
+            SessionWeather(race: race, name: name, date: sessionDate, config: config)
+                .presentationDetents([.medium])
+        })
     }
 }
 
 #Preview {
     ScrollView {
         let firstSession = RaceData().sessions.first!;
-        Session(delta: deltaValues(dateString: firstSession.value), name: firstSession.key, date: firstSession.value)
-        Session(delta: deltaValues(dateString: firstSession.value), name: firstSession.key, date: firstSession.value)
+        
+        Session(delta: deltaValues(dateString: firstSession.value), race: RaceData(), config: APIConfig(), name: firstSession.key, date: firstSession.value)
+        Session(delta: deltaValues(dateString: firstSession.value), race: RaceData(), config: APIConfig(), name: firstSession.key, date: firstSession.value)
     }
 }

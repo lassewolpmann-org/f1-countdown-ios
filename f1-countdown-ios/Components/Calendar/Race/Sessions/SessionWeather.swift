@@ -115,7 +115,9 @@ struct SessionWeather: View {
                 }
                 .frame(
                   minWidth: 0,
-                  maxWidth: .infinity
+                  maxWidth: .infinity,
+                  minHeight: 0,
+                  maxHeight: .infinity
                 )
                 .padding(.vertical, 10)
                 .background(

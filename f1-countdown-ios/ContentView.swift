@@ -18,7 +18,7 @@ struct ContentView: View {
     
     var body: some View {
         TabView {
-            TimerTab(nextRace: nextRaces.first!, delta: delta)
+            TimerTab(nextRace: nextRaces.first!, delta: delta, config: config)
             .tabItem {
                 Label("Timer", systemImage: "stopwatch")
             }
