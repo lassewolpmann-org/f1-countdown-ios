@@ -12,6 +12,7 @@ import WeatherKit
 struct WeatherData {
     var symbol: String?;
     var temp: String?;
+    var apparentTemp: String?;
     var rain: String?;
     var description: String?;
 }
@@ -29,11 +30,78 @@ struct SessionWeather: View {
         VStack(alignment: .leading) {
             if (weatherAvailable) {
                 if ((weather) != nil) {
-                    Text(weather!.temp!)
-                    Text("\(weather!.rain!) per hour")
-                    HStack {
-                        Text(Image(systemName: weather!.symbol!))
-                        Text(weather!.description!)
+                    VStack(spacing: 5) {
+                        HStack(spacing: 5) {
+                            Text("\(Image(systemName: weather!.symbol!)) \(weather!.description!)")
+                                .font(.title2)
+                                .frame(
+                                  minWidth: 0,
+                                  maxWidth: .infinity,
+                                  minHeight: 0,
+                                  maxHeight: .infinity
+                                )
+                                .padding(.vertical, 10)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .fill(.tertiary.opacity(0.2).shadow(.drop(color: .primary, radius: 5)))
+                                )
+                            
+                            VStack(alignment: .leading) {
+                                Text("\(Image(systemName: "drop")) Precipation")
+                                    .foregroundStyle(.secondary)
+                                Text(weather!.rain!)
+                                    .font(.title2)
+                            }
+                            .frame(
+                              minWidth: 0,
+                              maxWidth: .infinity,
+                              minHeight: 0,
+                              maxHeight: .infinity
+                            )
+                            .padding(.vertical, 10)
+                            .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(.tertiary.opacity(0.2).shadow(.drop(color: .primary, radius: 5)))
+                            )
+                        }
+                        
+                        HStack(spacing: 5) {
+                            VStack(alignment: .leading) {
+                                Text("\(Image(systemName: "thermometer.medium")) Temperature")
+                                    .foregroundStyle(.secondary)
+                                Text(weather!.temp!)
+                                    .font(.title2)
+                            }
+                            .frame(
+                              minWidth: 0,
+                              maxWidth: .infinity,
+                              minHeight: 0,
+                              maxHeight: .infinity
+                            )
+                            .padding(.vertical, 10)
+                            .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(.tertiary.opacity(0.2).shadow(.drop(color: .primary, radius: 5)))
+                            )
+                            
+                            VStack(alignment: .leading) {
+                                Text("\(Image(systemName: "thermometer.medium")) Feels like")
+                                    .foregroundStyle(.secondary)
+                                Text(weather!.apparentTemp!)
+                                    .font(.title2)
+                            }
+                            .frame(
+                              minWidth: 0,
+                              maxWidth: .infinity,
+                              minHeight: 0,
+                              maxHeight: .infinity
+                            )
+                            .padding(.vertical, 10)
+                            .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(.tertiary.opacity(0.2).shadow(.drop(color: .primary, radius: 5)))
+                            )
+                        }
                     }
                 } else {
                     ProgressView()
@@ -45,6 +113,17 @@ struct SessionWeather: View {
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }
+                .frame(
+                  minWidth: 0,
+                  maxWidth: .infinity,
+                  minHeight: 0,
+                  maxHeight: .infinity
+                )
+                .padding(.vertical, 10)
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(.tertiary.opacity(0.2).shadow(.drop(color: .primary, radius: 5)))
+                )
             }
         }.task {
             if (date.timeIntervalSinceNow < (60 * 60 * 24 * 10)) {
@@ -69,7 +148,7 @@ func getWeatherForecast(latitude: Double, longitude: Double, date: Date, config:
         let hourlyForecast = try await WeatherService().weather(for: location, including: .hourly(startDate: startDate, endDate: endDate));
         let forecast = hourlyForecast.first;
         
-        let weather = WeatherData(symbol: forecast?.symbolName, temp: forecast?.temperature.description, rain: forecast?.precipitationAmount.description, description: forecast?.condition.description)
+        let weather = WeatherData(symbol: forecast?.symbolName, temp: forecast?.temperature.description, apparentTemp: forecast?.apparentTemperature.description, rain: forecast?.precipitationAmount.description, description: forecast?.condition.description)
         
         return weather
     } catch {
