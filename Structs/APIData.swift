@@ -20,7 +20,7 @@ struct RaceData: Decodable, Identifiable, Hashable {
     var slug: String = "undefined-grand-prix"
     var localeKey: String = "undefined-grand-prix"
     var tbc: Bool?
-    var sessions: [String: String] = ["fp1": "2025-01-01T00:00:00Z", "qualifying": "2025-01-01T01:00:00Z", "fp2": "2025-01-02T00:00:00Z", "sprintQualifying": "2025-01-02T01:00:00Z", "gp": "2025-01-03T00:00:00Z"]
+    var sessions: [String: String] = ["fp1": "2024-02-10T00:00:00Z", "qualifying": "2024-02-10T01:00:00Z", "fp2": "2024-02-10T00:00:00Z", "sprintQualifying": "2024-02-10T01:00:00Z", "gp": "2024-02-10T00:00:00Z"]
     
     var id: String {
         name

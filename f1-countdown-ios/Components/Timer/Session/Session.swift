@@ -21,29 +21,24 @@ struct Session: View {
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .bold()
-                .padding(.leading, 10)
             
-            ZStack {
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(Color(UIColor.systemFill))
-                    .stroke(.secondary, lineWidth: 1)
-                    
-                VStack {
-                    HStack {
-                        TimerElement(delta: delta.days, deltaPct: delta.daysPct, ringColor: Color.primary, timeUnit: "days")
-                        TimerElement(delta: delta.hours, deltaPct: delta.hoursPct, ringColor: Color.red, timeUnit: "hr")
-                        TimerElement(delta: delta.minutes, deltaPct: delta.minutesPct, ringColor: Color.green, timeUnit: "min")
-                        TimerElement(delta: delta.seconds, deltaPct: delta.secondsPct, ringColor: Color.blue, timeUnit: "sec")
-                        
-                        Divider()
-                        
-                        NotificationButton(raceName: name, sessionName: name, sessionDate: ISO8601DateFormatter().date(from: date)!)
-                    }
-                    .padding(5)
-                }
-                .padding(.horizontal, 10)
-                .padding(.vertical, 5)
+            HStack {
+                TimerElement(delta: delta.days, deltaPct: delta.daysPct, ringColor: Color.primary, timeUnit: "days")
+                TimerElement(delta: delta.hours, deltaPct: delta.hoursPct, ringColor: Color.red, timeUnit: "hr")
+                TimerElement(delta: delta.minutes, deltaPct: delta.minutesPct, ringColor: Color.green, timeUnit: "min")
+                TimerElement(delta: delta.seconds, deltaPct: delta.secondsPct, ringColor: Color.blue, timeUnit: "sec")
+                
+                Divider()
+                
+                NotificationButton(raceName: name, sessionName: name, sessionDate: ISO8601DateFormatter().date(from: date)!)
             }
+            .padding(.horizontal, 10)
+            .padding(.vertical, 5)
+            .background(
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(Color(UIColor.systemFill).shadow(.drop(color: .primary, radius: 5)))
+                    .stroke(.secondary, lineWidth: 1)
+            )
         }
         .padding(10)
         .onReceive(timer) { _ in
