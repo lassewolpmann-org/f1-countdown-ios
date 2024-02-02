@@ -36,8 +36,8 @@ struct Session: View {
             .padding(.vertical, 5)
             .background(
                 RoundedRectangle(cornerRadius: 10)
-                    .fill(Color(UIColor.systemFill).shadow(.drop(color: .primary, radius: 5)))
-                    .stroke(.secondary, lineWidth: 1)
+                    .fill(.tertiary.opacity(0.5).shadow(.drop(color: .primary, radius: 5)))
+                    .stroke(.tertiary, lineWidth: 1)
             )
         }
         .padding(10)

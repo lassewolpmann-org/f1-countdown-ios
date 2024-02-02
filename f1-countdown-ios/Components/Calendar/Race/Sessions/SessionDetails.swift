@@ -23,11 +23,13 @@ struct SessionDetails: View {
         let endTime = getTime(date: date.addingTimeInterval(60 * sessionLength));
         
         Section {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 5) {
                 Text(parsedName)
                     .font(.headline)
-                
-                Divider()
+                    .frame(
+                      minWidth: 0,
+                      maxWidth: .infinity
+                    )
                 
                 HStack(alignment: .center) {
                     VStack(alignment: .leading) {
@@ -42,11 +44,19 @@ struct SessionDetails: View {
                     
                     NotificationButton(raceName: race.name, sessionName: parsedName, sessionDate: date)
                 }
-                
-                Divider()
+                .frame(
+                  minWidth: 0,
+                  maxWidth: .infinity
+                )
+                .padding(10)
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(.tertiary.opacity(0.2).shadow(.drop(color: .primary, radius: 5)))
+                        .stroke(.tertiary, lineWidth: 1)
+                )
                 
                 SessionWeather(race: race, name: name, date: date, config: config);
-            }
+            }.padding(.vertical, 10)
         }
     }
 }
