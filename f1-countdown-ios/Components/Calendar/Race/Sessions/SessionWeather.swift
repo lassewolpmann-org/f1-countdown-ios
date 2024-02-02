@@ -44,7 +44,6 @@ struct SessionWeather: View {
                                 .background(
                                     RoundedRectangle(cornerRadius: 10)
                                         .fill(.tertiary.opacity(0.2).shadow(.drop(color: .primary, radius: 5)))
-                                        .stroke(.tertiary, lineWidth: 1)
                                 )
                             
                             VStack(alignment: .leading) {
@@ -63,7 +62,6 @@ struct SessionWeather: View {
                             .background(
                                 RoundedRectangle(cornerRadius: 10)
                                     .fill(.tertiary.opacity(0.2).shadow(.drop(color: .primary, radius: 5)))
-                                    .stroke(.tertiary, lineWidth: 1)
                             )
                         }
                         
@@ -84,7 +82,6 @@ struct SessionWeather: View {
                             .background(
                                 RoundedRectangle(cornerRadius: 10)
                                     .fill(.tertiary.opacity(0.2).shadow(.drop(color: .primary, radius: 5)))
-                                    .stroke(.tertiary, lineWidth: 1)
                             )
                             
                             VStack(alignment: .leading) {
@@ -103,7 +100,6 @@ struct SessionWeather: View {
                             .background(
                                 RoundedRectangle(cornerRadius: 10)
                                     .fill(.tertiary.opacity(0.2).shadow(.drop(color: .primary, radius: 5)))
-                                    .stroke(.tertiary, lineWidth: 1)
                             )
                         }
                     }
@@ -125,7 +121,6 @@ struct SessionWeather: View {
                 .background(
                     RoundedRectangle(cornerRadius: 10)
                         .fill(.tertiary.opacity(0.2).shadow(.drop(color: .primary, radius: 5)))
-                        .stroke(.tertiary, lineWidth: 1)
                 )
             }
         }.task {

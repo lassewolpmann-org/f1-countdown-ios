@@ -23,13 +23,11 @@ struct SessionDetails: View {
         let endTime = getTime(date: date.addingTimeInterval(60 * sessionLength));
         
         Section {
-            VStack(alignment: .leading, spacing: 5) {
+            VStack(alignment: .leading, spacing: 15) {
                 Text(parsedName)
                     .font(.headline)
-                    .frame(
-                      minWidth: 0,
-                      maxWidth: .infinity
-                    )
+                
+                Divider()
                 
                 HStack(alignment: .center) {
                     VStack(alignment: .leading) {
@@ -52,7 +50,6 @@ struct SessionDetails: View {
                 .background(
                     RoundedRectangle(cornerRadius: 10)
                         .fill(.tertiary.opacity(0.2).shadow(.drop(color: .primary, radius: 5)))
-                        .stroke(.tertiary, lineWidth: 1)
                 )
                 
                 SessionWeather(race: race, name: name, date: date, config: config);
