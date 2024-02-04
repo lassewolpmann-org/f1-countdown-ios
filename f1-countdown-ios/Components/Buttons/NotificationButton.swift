@@ -13,19 +13,40 @@ struct NotificationButton: View {
     let sessionDate: Date;
     
     @State var notificationEnabled: Bool = false;
+    @State private var showAlert = false;
     
     var body: some View {
-        VStack {
-            if (sessionDate.timeIntervalSinceNow > 0) {
-                if (notificationEnabled) {
-                    DeleteButton(notificationEnabled: $notificationEnabled, sessionDate: sessionDate)
-                } else {
-                    CreateButton(notificationEnabled: $notificationEnabled, sessionName: sessionName, sessionDate: sessionDate, raceName: raceName)
-                }
+        Button {
+            if (notificationEnabled) {
+                notificationEnabled = deleteNotification(sessionDate: sessionDate)
             } else {
-                DisabledButton()
+                Task {
+                    notificationEnabled = await createNotification(sessionDate: sessionDate, raceName: raceName, sessionName: sessionName);
+                    showAlert = !notificationEnabled;
+                }
             }
-        }.task {
+        } label: {
+            Label(
+                notificationEnabled ? "Disable Notification" : "Enable Notification",
+                systemImage: notificationEnabled ? "bell.slash" : "bell"
+            )
+            .symbolRenderingMode(notificationEnabled ? .multicolor : .monochrome)
+            .contentTransition(.symbolEffect(.replace))
+        }
+        .buttonStyle(.bordered)
+        .labelStyle(.iconOnly)
+        .disabled(sessionDate.timeIntervalSinceNow <= 0)
+        .alert(
+            Text("Notifications disabled"),
+            isPresented: $showAlert
+        ) {
+            Button("OK") {
+                showAlert.toggle()
+            }
+        } message: {
+            Text("Please enable Notifications for the App in the System Settings")
+        }
+        .task {
             notificationEnabled = await checkForExistingNotification(sessionDate: sessionDate);
         }
     }

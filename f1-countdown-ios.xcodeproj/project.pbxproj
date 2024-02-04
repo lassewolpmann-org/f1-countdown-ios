@@ -52,9 +52,6 @@
 		25CC38552B1480BA009209BE /* RaceSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CC38542B1480BA009209BE /* RaceSheet.swift */; };
 		25DE90792B09168A00632B61 /* NotificationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DE90782B09168A00632B61 /* NotificationButton.swift */; };
 		25E301902B0A11C5008CC1BE /* SessionDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E3018F2B0A11C5008CC1BE /* SessionDetails.swift */; };
-		25E301932B0A2A1A008CC1BE /* DisabledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E301922B0A2A1A008CC1BE /* DisabledButton.swift */; };
-		25E301952B0A2A38008CC1BE /* CreateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E301942B0A2A38008CC1BE /* CreateButton.swift */; };
-		25E301972B0A2A40008CC1BE /* DeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E301962B0A2A40008CC1BE /* DeleteButton.swift */; };
 		25EA78922B6A5FA200EA9C5A /* NotificationPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EA78912B6A5FA200EA9C5A /* NotificationPermission.swift */; };
 		25EDC7952B054D320094DBBA /* TimerElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDC7942B054D320094DBBA /* TimerElement.swift */; };
 /* End PBXBuildFile section */
@@ -128,9 +125,6 @@
 		25CC38542B1480BA009209BE /* RaceSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceSheet.swift; sourceTree = "<group>"; };
 		25DE90782B09168A00632B61 /* NotificationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationButton.swift; sourceTree = "<group>"; };
 		25E3018F2B0A11C5008CC1BE /* SessionDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetails.swift; sourceTree = "<group>"; };
-		25E301922B0A2A1A008CC1BE /* DisabledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisabledButton.swift; sourceTree = "<group>"; };
-		25E301942B0A2A38008CC1BE /* CreateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateButton.swift; sourceTree = "<group>"; };
-		25E301962B0A2A40008CC1BE /* DeleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteButton.swift; sourceTree = "<group>"; };
 		25EA78912B6A5FA200EA9C5A /* NotificationPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermission.swift; sourceTree = "<group>"; };
 		25EDC7942B054D320094DBBA /* TimerElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerElement.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -395,9 +389,6 @@
 			isa = PBXGroup;
 			children = (
 				25DE90782B09168A00632B61 /* NotificationButton.swift */,
-				25E301922B0A2A1A008CC1BE /* DisabledButton.swift */,
-				25E301942B0A2A38008CC1BE /* CreateButton.swift */,
-				25E301962B0A2A40008CC1BE /* DeleteButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -524,8 +515,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				25E301952B0A2A38008CC1BE /* CreateButton.swift in Sources */,
-				25E301932B0A2A1A008CC1BE /* DisabledButton.swift in Sources */,
 				25B5C3F12B6B7CFA00057E4D /* AppLicense.swift in Sources */,
 				25AF34682B2FA79F00E7D83A /* CalendarTab.swift in Sources */,
 				254019252B343CBC007AEAE1 /* SheetContent.swift in Sources */,
@@ -552,7 +541,6 @@
 				257959D62B04FB000033DFAB /* f1_countdown_iosApp.swift in Sources */,
 				25C6C53B2B17791E00818265 /* API.swift in Sources */,
 				25B5C3EF2B6B7CF400057E4D /* DataLicense.swift in Sources */,
-				25E301972B0A2A40008CC1BE /* DeleteButton.swift in Sources */,
 				25C6C5452B17799500818265 /* RaceTitle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
