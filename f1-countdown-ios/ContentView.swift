@@ -14,8 +14,6 @@ struct ContentView: View {
     
     let networkAvailable: Bool;
     
-    @State var selectedSession: String = "gp";
-    
     var body: some View {
         TabView {
             TimerTab(nextRace: nextRaces.first!, delta: delta, config: config)
@@ -28,17 +26,10 @@ struct ContentView: View {
                 Label("Calendar", systemImage: "calendar")
             }
             
-            if (networkAvailable) {
-                SettingsTab(networkAvailable: networkAvailable)
-                .tabItem {
-                    Label("Settings", systemImage: "gear")
-                }
-            } else {
-                SettingsTab(networkAvailable: networkAvailable)
-                .badge("!")
-                .tabItem {
-                    Label("Settings", systemImage: "gear")
-                }
+            SettingsTab(networkAvailable: networkAvailable)
+            .badge(networkAvailable ? "!" : nil)
+            .tabItem {
+                Label("Settings", systemImage: "gear")
             }
         }
         .task {
