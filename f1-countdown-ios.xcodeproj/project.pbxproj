@@ -50,6 +50,7 @@
 		25C6C5562B177A0F00818265 /* SessionName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C5542B177A0F00818265 /* SessionName.swift */; };
 		25C6C5592B177DB400818265 /* SessionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C5582B177DB400818265 /* SessionInfo.swift */; };
 		25CC38552B1480BA009209BE /* RaceSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CC38542B1480BA009209BE /* RaceSheet.swift */; };
+		25DA1FB42B70C659008615FD /* TrademarkNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DA1FB32B70C659008615FD /* TrademarkNotice.swift */; };
 		25DE90792B09168A00632B61 /* NotificationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DE90782B09168A00632B61 /* NotificationButton.swift */; };
 		25E301902B0A11C5008CC1BE /* SessionDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E3018F2B0A11C5008CC1BE /* SessionDetails.swift */; };
 		25EA78922B6A5FA200EA9C5A /* NotificationPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EA78912B6A5FA200EA9C5A /* NotificationPermission.swift */; };
@@ -123,6 +124,7 @@
 		25C6C5542B177A0F00818265 /* SessionName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionName.swift; sourceTree = "<group>"; };
 		25C6C5582B177DB400818265 /* SessionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionInfo.swift; sourceTree = "<group>"; };
 		25CC38542B1480BA009209BE /* RaceSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceSheet.swift; sourceTree = "<group>"; };
+		25DA1FB32B70C659008615FD /* TrademarkNotice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrademarkNotice.swift; sourceTree = "<group>"; };
 		25DE90782B09168A00632B61 /* NotificationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationButton.swift; sourceTree = "<group>"; };
 		25E3018F2B0A11C5008CC1BE /* SessionDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetails.swift; sourceTree = "<group>"; };
 		25EA78912B6A5FA200EA9C5A /* NotificationPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermission.swift; sourceTree = "<group>"; };
@@ -307,6 +309,7 @@
 			children = (
 				25B5C3EE2B6B7CF400057E4D /* DataLicense.swift */,
 				25B5C3F02B6B7CFA00057E4D /* AppLicense.swift */,
+				25DA1FB32B70C659008615FD /* TrademarkNotice.swift */,
 			);
 			path = Legal;
 			sourceTree = "<group>";
@@ -528,6 +531,7 @@
 				25DE90792B09168A00632B61 /* NotificationButton.swift in Sources */,
 				25E301902B0A11C5008CC1BE /* SessionDetails.swift in Sources */,
 				25EA78922B6A5FA200EA9C5A /* NotificationPermission.swift in Sources */,
+				25DA1FB42B70C659008615FD /* TrademarkNotice.swift in Sources */,
 				25B5C3F42B6B7D4300057E4D /* SettingsFooter.swift in Sources */,
 				25C6C54C2B1779CE00818265 /* DeleteNotification.swift in Sources */,
 				25C6C5552B177A0F00818265 /* SessionName.swift in Sources */,
