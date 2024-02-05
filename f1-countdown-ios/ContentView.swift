@@ -27,7 +27,7 @@ struct ContentView: View {
             }
             
             SettingsTab(networkAvailable: networkAvailable)
-            .badge(networkAvailable ? "!" : nil)
+            .badge(networkAvailable ? nil : "!")
             .tabItem {
                 Label("Settings", systemImage: "gear")
             }
@@ -40,5 +40,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(nextRaces: [RaceData()], config: APIConfig(), delta: deltaValues(dateString: [RaceData()].first!.sessions.first!.value), networkAvailable: false)
+    ContentView(nextRaces: [RaceData()], config: APIConfig(), delta: deltaValues(dateString: [RaceData()].first!.sessions.first!.value), networkAvailable: true)
 }
