@@ -13,17 +13,19 @@ struct Large: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Text("\(entry.flag) \(entry.raceName) Grand Prix".uppercased())
+                Text(getRaceTitle(race: entry.race))
                     .font(.headline)
                 Spacer()
                 Text(entry.tbc == true ? "TBC" : "")
             }
             
-            ForEach(entry.sessions.sorted(by:{$0.value < $1.value}), id: \.key) { session in
+            Divider()
+            
+            ForEach(entry.race.sortedSessions, id: \.key) { session in
                 let name = session.key;
                 let date = ISO8601DateFormatter().date(from: session.value)!
 
-                SessionInfo(date: date, name: name, dividerPadding: 2.0, sessionLengths: entry.sessionLengths)
+                SessionInfo(date: date, name: name, sessionLengths: entry.sessionLengths)
             }
         }.containerBackground(for: .widget) {
             Color(.systemBackground)
@@ -33,5 +35,5 @@ struct Large: View {
 }
 
 #Preview {
-    Large(entry: TimerEntry(date: Date(), raceName: RaceData().name, sessions: RaceData().sessions, tbc: false, flag: "", sessionLengths: APIConfig().sessionLengths))
+    Large(entry: TimerEntry(race: RaceData(), tbc: false, flag: "", sessionLengths: DataConfig().sessionLengths))
 }

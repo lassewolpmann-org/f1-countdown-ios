@@ -9,22 +9,15 @@ import SwiftUI
 
 struct SheetContent: View {
     let race: RaceData;
-    let config: APIConfig;
-    let flag: String;
+    let config: DataConfig;
+    
     @Binding var isShowingRaceSheet: Bool;
     
     var body: some View {
         NavigationStack {
-            let sessions = race.sessions.sorted(by:{$0.value < $1.value});
-            let futureSessions = sessions.filter { (key: String, value: String) in
-                let date = ISO8601DateFormatter().date(from: value)!;
-                
-                return date.timeIntervalSinceNow > 0
-            }
-            
             VStack(alignment: .leading) {
                 List {
-                    ForEach(futureSessions, id:\.key) { session in
+                    ForEach(race.futureSessions, id:\.key) { session in
                         let name = session.key;
                         let parsedName = parseSessionName(sessionName: session.key);
                         let date = ISO8601DateFormatter().date(from: session.value)!;
@@ -33,7 +26,7 @@ struct SheetContent: View {
                     }
                 }
             }
-            .navigationTitle("\(flag) \(getRaceTitle(race: race))")
+            .navigationTitle(getRaceTitle(race: race))
             .toolbar {
                 ToolbarItem {
                     Button {
@@ -49,5 +42,5 @@ struct SheetContent: View {
 }
 
 #Preview {
-    SheetContent(race: RaceData(), config: APIConfig(), flag: "🇫🇮", isShowingRaceSheet: .constant(false))
+    SheetContent(race: RaceData(), config: DataConfig(), isShowingRaceSheet: .constant(false))
 }

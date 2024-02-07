@@ -8,7 +8,7 @@
 import Foundation
 import UserNotifications
 
-func createNotification(sessionDate: Date, raceName: String, sessionName: String) async -> Bool {
+func createNotification(sessionDate: Date, sessionName: String) async -> Bool {
     let center = UNUserNotificationCenter.current();
     
     if (await checkForPermission()) {
@@ -16,8 +16,7 @@ func createNotification(sessionDate: Date, raceName: String, sessionName: String
         let trigger = UNCalendarNotificationTrigger(dateMatching: calendarDate, repeats: false);
         
         let content = UNMutableNotificationContent();
-        content.title = "\(raceName) Grand Prix";
-        content.subtitle = "\(sessionName) is now live!"
+        content.title = "\(sessionName) is now live!"
         content.sound = UNNotificationSound.default;
         
         let notification = UNNotificationRequest(identifier: sessionDate.description, content: content, trigger: trigger);

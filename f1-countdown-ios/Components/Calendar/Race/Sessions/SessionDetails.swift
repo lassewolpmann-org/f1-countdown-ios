@@ -12,7 +12,7 @@ struct SessionDetails: View {
     let name: String;
     let parsedName: String;
     let date: Date;
-    let config: APIConfig;
+    let config: DataConfig;
     
     var body: some View {
         let day = getDayName(date: date);
@@ -40,7 +40,7 @@ struct SessionDetails: View {
                     
                     Spacer()
                     
-                    NotificationButton(raceName: race.name, sessionName: parsedName, sessionDate: date)
+                    NotificationButton(sessionName: parsedName, sessionDate: date)
                 }
                 .frame(
                   minWidth: 0,
@@ -60,6 +60,9 @@ struct SessionDetails: View {
 
 #Preview {
     List {
-        SessionDetails(race: RaceData(), name: RaceData().sessions.first!.key, parsedName: parseSessionName(sessionName: RaceData().sessions.first!.key), date: ISO8601DateFormatter().date(from: RaceData().sessions.first!.value)!, config: APIConfig())
+        let race = RaceData();
+        let firstSession = race.futureSessions.first!;
+        
+        SessionDetails(race: race, name: firstSession.key, parsedName: parseSessionName(sessionName: firstSession.key), date: ISO8601DateFormatter().date(from: firstSession.value)!, config: DataConfig())
     }
 }

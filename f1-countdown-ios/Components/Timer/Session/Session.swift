@@ -8,21 +8,19 @@
 import SwiftUI
 
 struct Session: View {
-    @State var delta: deltaValues;
-    @Environment(\.colorScheme) private var colorScheme;
-    
-    let race: RaceData;
-    let config: APIConfig;
+    let nextRace: RaceData;
+    let dataConfig: DataConfig;
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect();
-    let name: String;
-    let date: String;
+    let sessionName: String;
+    let sessionDate: String;
     
     @State var showWeatherForecast: Bool = false;
+    @State var delta: deltaValues = deltaValues(dateString: Date().ISO8601Format());
         
     var body: some View {
         VStack(alignment: .leading) {
-            Text(parseSessionName(sessionName: name))
+            Text(parseSessionName(sessionName: sessionName))
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .bold()
@@ -36,7 +34,7 @@ struct Session: View {
                 Divider()
                 
                 VStack(spacing: 10) {
-                    NotificationButton(raceName: name, sessionName: name, sessionDate: ISO8601DateFormatter().date(from: date)!)
+                    NotificationButton(sessionName: sessionName, sessionDate: ISO8601DateFormatter().date(from: sessionDate)!)
                     
                     Button {
                         showWeatherForecast.toggle()
@@ -56,11 +54,11 @@ struct Session: View {
         }
         .padding(10)
         .onReceive(timer) { _ in
-            delta = deltaValues(dateString: date);
+            delta = deltaValues(dateString: sessionDate);
         }
         .sheet(isPresented: $showWeatherForecast, content: {
-            let sessionDate = ISO8601DateFormatter().date(from: date)!;
-            SessionWeather(race: race, name: name, date: sessionDate, config: config)
+            let sessionDate = ISO8601DateFormatter().date(from: sessionDate)!;
+            SessionWeather(race: nextRace, name: sessionName, date: sessionDate, config: dataConfig)
                 .presentationDetents([.medium])
         })
     }
@@ -68,9 +66,10 @@ struct Session: View {
 
 #Preview {
     ScrollView {
-        let firstSession = RaceData().sessions.first!;
+        let nextRace = AppData().nextRaces.first!;
+        let firstSession = nextRace.sortedSessions.first!;
         
-        Session(delta: deltaValues(dateString: firstSession.value), race: RaceData(), config: APIConfig(), name: firstSession.key, date: firstSession.value)
-        Session(delta: deltaValues(dateString: firstSession.value), race: RaceData(), config: APIConfig(), name: firstSession.key, date: firstSession.value)
+        Session(nextRace: nextRace, dataConfig: DataConfig(), sessionName: firstSession.key, sessionDate: firstSession.value)
+        Session(nextRace: nextRace, dataConfig: DataConfig(), sessionName: firstSession.key, sessionDate: firstSession.value)
     }
 }

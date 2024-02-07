@@ -8,30 +8,23 @@
 import SwiftUI
 
 struct TimerTab: View {
-    let nextRace: RaceData;
-    let delta: deltaValues;
-    let config: APIConfig;
+    let appData: AppData;
+    let dataConfig: DataConfig;
     
     var body: some View {
-        let flag = CountryFlags().flags[nextRace.localeKey] ?? "🏳️";
-        let raceTitle = getRaceTitle(race: nextRace);
-        let sessions = nextRace.sessions.sorted(by:{$0.value < $1.value}).filter { key, value in
-            let date = ISO8601DateFormatter().date(from: value);
-            
-            return date!.timeIntervalSinceNow > 0
-        };
+        let nextRace = appData.nextRaces.first!;
         
         NavigationStack {
             ScrollView {
-                ForEach(sessions, id: \.key) { key, value in
-                    Session(delta: delta, race: nextRace, config: config, name: key, date: value)
+                ForEach(nextRace.futureSessions, id: \.key) { key, value in
+                    Session(nextRace: nextRace, dataConfig: dataConfig, sessionName: key, sessionDate: value)
                 }
             }
-            .navigationTitle("\(flag) \(raceTitle)")
+            .navigationTitle(getRaceTitle(race: nextRace))
         }
     }
 }
 
 #Preview {
-    TimerTab(nextRace: RaceData(), delta: deltaValues(dateString: [RaceData()].first!.sessions.first!.value), config: APIConfig())
+    TimerTab(appData: AppData(), dataConfig: DataConfig())
 }

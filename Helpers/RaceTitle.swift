@@ -7,12 +7,13 @@
 
 import Foundation
 
-func getRaceTitle(race: RaceData?) -> String {
-    let name = race?.name ?? "undefined";
+func getRaceTitle(race: RaceData) -> String {
+    let name = race.name;
+    let flag = CountryFlags().flags[race.localeKey] ?? "🏳️";
     
     if (name.contains("Grand Prix")) {
-        return name
+        return "\(flag) \(name)"
     } else {
-        return "\(name) Grand Prix"
+        return "\(flag) \(name) Grand Prix"
     }
 }

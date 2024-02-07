@@ -9,34 +9,28 @@ import SwiftUI
 
 struct RaceSheet: View {
     let race: RaceData;
-    let config: APIConfig;
+    let config: DataConfig;
     
     @State private var isShowingRaceSheet = false;
     
     var body: some View {
-        let flag = CountryFlags().flags[race.localeKey] ?? "";
-        
         Button {
             isShowingRaceSheet.toggle();
         } label: {
-            Label {
-                HStack {
-                    Text(getRaceTitle(race: race))
-                    Spacer()
-                    Text(race.tbc == true ? "TBC" : "")
-                }
-            } icon: {
-                Text(flag)
+            HStack {
+                Text(getRaceTitle(race: race))
+                Spacer()
+                Text(race.tbc == true ? "TBC" : "")
             }
         }
         .sheet(isPresented: $isShowingRaceSheet, content: {
-            SheetContent(race: race, config: config, flag: flag, isShowingRaceSheet: $isShowingRaceSheet)
+            SheetContent(race: race, config: config, isShowingRaceSheet: $isShowingRaceSheet)
         })
     }
 }
 
 #Preview {
     List {
-        RaceSheet(race: RaceData(), config: APIConfig())
+        RaceSheet(race: RaceData(), config: DataConfig())
     }
 }

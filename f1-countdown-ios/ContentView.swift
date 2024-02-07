@@ -8,26 +8,22 @@
 import SwiftUI
 
 struct ContentView: View {
-    let nextRaces: [RaceData];
-    let config: APIConfig;
-    let delta: deltaValues;
-    
-    let networkAvailable: Bool;
+    let appData: AppData;
+    let dataConfig: DataConfig;
     
     var body: some View {
         TabView {
-            TimerTab(nextRace: nextRaces.first!, delta: delta, config: config)
+            TimerTab(appData: appData, dataConfig: dataConfig)
             .tabItem {
                 Label("Timer", systemImage: "stopwatch")
             }
             
-            CalendarTab(nextRaces: nextRaces, config: config)
+            CalendarTab(nextRaces: appData.nextRaces, config: dataConfig)
             .tabItem {
                 Label("Calendar", systemImage: "calendar")
             }
             
-            SettingsTab(networkAvailable: networkAvailable)
-            .badge(networkAvailable ? nil : "!")
+            SettingsTab()
             .tabItem {
                 Label("Settings", systemImage: "gear")
             }
@@ -40,5 +36,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(nextRaces: [RaceData()], config: APIConfig(), delta: deltaValues(dateString: [RaceData()].first!.sessions.first!.value), networkAvailable: true)
+    ContentView(appData: AppData(), dataConfig: DataConfig())
 }

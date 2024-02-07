@@ -12,19 +12,21 @@ struct Medium: View {
     let entry: TimerEntry;
     
     var body: some View {
-        let firstSession = entry.sessions.first ?? RaceData().sessions.first!;
+        let firstSession = entry.race.futureSessions.first!;
         let name = firstSession.key;
         let date = ISO8601DateFormatter().date(from: firstSession.value)!
         
         VStack(alignment: .leading) {
             HStack {
-                Text("\(entry.flag) \(entry.raceName) Grand Prix".uppercased())
+                Text(getRaceTitle(race: entry.race))
                     .font(.headline)
                 Spacer()
                 Text(entry.tbc == true ? "TBC" : "")
             }
+            
+            Divider()
 
-            SessionInfo(date: date, name: name, dividerPadding: 10.0, sessionLengths: entry.sessionLengths)
+            SessionInfo(date: date, name: name, sessionLengths: entry.sessionLengths)
         }
         .containerBackground(for: .widget) {
             Color(.systemBackground)
@@ -33,5 +35,5 @@ struct Medium: View {
 }
 
 #Preview {
-    Medium(entry: TimerEntry(date: Date(), raceName: RaceData().name, sessions: RaceData().sessions, tbc: false, flag: "", sessionLengths: APIConfig().sessionLengths))
+    Medium(entry: TimerEntry(race: RaceData(), tbc: false, flag: "", sessionLengths: DataConfig().sessionLengths))
 }

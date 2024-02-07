@@ -21,7 +21,7 @@ struct SessionWeather: View {
     let race: RaceData;
     let name: String;
     let date: Date;
-    let config: APIConfig;
+    let config: DataConfig;
     
     @State var weather: WeatherData?;
     @State var weatherAvailable: Bool = false;
@@ -137,7 +137,7 @@ struct SessionWeather: View {
     }
 }
 
-func getWeatherForecast(latitude: Double, longitude: Double, date: Date, config: APIConfig, name: String) async -> WeatherData {
+func getWeatherForecast(latitude: Double, longitude: Double, date: Date, config: DataConfig, name: String) async -> WeatherData {
     let location = CLLocation(latitude: CLLocationDegrees(latitude), longitude: CLLocationDegrees(longitude));
     
     let startDate = date;
@@ -159,7 +159,7 @@ func getWeatherForecast(latitude: Double, longitude: Double, date: Date, config:
 #Preview {
     List {
         Section {
-            SessionWeather(race: RaceData(), name: RaceData().sessions.first!.key, date: ISO8601DateFormatter().date(from: RaceData().sessions.first!.value)!, config: APIConfig())
+            SessionWeather(race: RaceData(), name: RaceData().sessions.first!.key, date: ISO8601DateFormatter().date(from: RaceData().sessions.first!.value)!, config: DataConfig())
         }
     }
 }

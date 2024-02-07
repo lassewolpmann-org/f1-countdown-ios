@@ -7,16 +7,9 @@
 
 import Foundation
 
-func getNextUpdateDate(race: RaceData) -> Date {
-    let sessions = race.sessions.filter { session in
-        let date = ISO8601DateFormatter().date(from: session.value)!
-        
-        return date.timeIntervalSinceNow > 0
-    }
-    
-    let sortedSessions = sessions.sorted(by:{$0.value < $1.value});
-    
-    let firstSession = sortedSessions.first ?? RaceData().sessions.first!;
+func getNextUpdateDate(data: AppData) -> Date {
+    let nextRace = data.nextRaces.first ?? RaceData();
+    let firstSession = nextRace.futureSessions.first!;
     let sessionDate = ISO8601DateFormatter().date(from: firstSession.value)!;
     
     return sessionDate

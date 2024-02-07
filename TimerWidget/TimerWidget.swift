@@ -9,9 +9,8 @@ import WidgetKit
 import SwiftUI
 
 struct TimerEntry: TimelineEntry {
-    let date: Date;
-    let raceName: String;
-    let sessions: [String: String];
+    let race: RaceData;
+    let date: Date = Date();
     let tbc: Bool;
     let flag: String;
     let sessionLengths: [String: Int];
@@ -47,67 +46,24 @@ struct TimerWidgetView: View {
 
 struct TimerTimelineProvider: TimelineProvider {
     func placeholder(in context: Context) -> TimerEntry {
-        let date = Date();
-        let entry = TimerEntry(date: date, raceName: RaceData().name, sessions: RaceData().sessions, tbc: false, flag: "", sessionLengths: APIConfig().sessionLengths);
-        
-        return entry
+        return TimerEntry(race: RaceData(), tbc: false, flag: "", sessionLengths: DataConfig().sessionLengths)
     }
     
     func getSnapshot(in context: Context, completion: @escaping (TimerEntry) -> Void) {
         Task {
-            let config = try await getAPIConfig();
-            
-            let date = Date();
-            let calendar = Calendar.current;
-            var year = calendar.component(.year, from:date);
-            
-            var nextRaces = try await callAPI(year: year);
-            
-            if (nextRaces.isEmpty) {
-                year += 1;
-                
-                if (config.availableYears.contains(year)) {
-                    nextRaces = try await callAPI(year: year);
-                } else {
-                    nextRaces = [RaceData()];
-                }
-            }
-            
-            let nextRace = nextRaces.first ?? RaceData();
-            let flag = CountryFlags().flags[nextRace.localeKey] ?? "";
-            let tbc = nextRace.tbc ?? false;
-            let entry = TimerEntry(date: date, raceName: nextRace.name, sessions: nextRace.sessions, tbc: tbc, flag: flag, sessionLengths: config.sessionLengths);
-            
-            completion(entry)
+            completion(await createEntry())
         }
     }
     
     func getTimeline(in context: Context, completion: @escaping (Timeline<TimerEntry>) -> Void) {
         Task {
-            let config = try await getAPIConfig();
+            let config = DataConfig();
+            await config.getConfig();
             
-            let date = Date();
-            let calendar = Calendar.current;
-            var year = calendar.component(.year, from:date);
+            let data = AppData();
+            await data.getData(config: config);
             
-            var nextRaces = try await callAPI(year: year);
-            
-            if (nextRaces.isEmpty) {
-                year += 1;
-                
-                if (config.availableYears.contains(year)) {
-                    nextRaces = try await callAPI(year: year);
-                } else {
-                    nextRaces = [RaceData()];
-                }
-            }
-            
-            let nextRace = nextRaces.first ?? RaceData();
-            let flag = CountryFlags().flags[nextRace.localeKey] ?? "";
-            let tbc = nextRace.tbc ?? false;
-            let entry = TimerEntry(date: date, raceName: nextRace.name, sessions: nextRace.sessions, tbc: tbc, flag: flag, sessionLengths: config.sessionLengths);
-            let nextUpdateDate = getNextUpdateDate(race: nextRace);
-            let timeline = Timeline(entries: [entry], policy: .after(nextUpdateDate));
+            let timeline = Timeline(entries: [await createEntry()], policy: .after(getNextUpdateDate(data: data)));
             
             completion(timeline)
         }
@@ -128,5 +84,5 @@ struct TimerWidget: Widget {
 #Preview(as: .systemMedium) {
     TimerWidget()
 } timeline: {
-    TimerEntry(date: .now, raceName: RaceData().name, sessions: RaceData().sessions, tbc: true, flag: "", sessionLengths: APIConfig().sessionLengths)
+    TimerEntry(race: RaceData(), tbc: true, flag: "", sessionLengths: DataConfig().sessionLengths)
 }

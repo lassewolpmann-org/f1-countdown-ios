@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct NotificationButton: View {
-    let raceName: String;
     let sessionName: String;
     let sessionDate: Date;
     
@@ -21,7 +20,7 @@ struct NotificationButton: View {
                 notificationEnabled = deleteNotification(sessionDate: sessionDate)
             } else {
                 Task {
-                    notificationEnabled = await createNotification(sessionDate: sessionDate, raceName: raceName, sessionName: sessionName);
+                    notificationEnabled = await createNotification(sessionDate: sessionDate, sessionName: sessionName);
                     showAlert = !notificationEnabled;
                 }
             }
@@ -53,5 +52,5 @@ struct NotificationButton: View {
 }
 
 #Preview {
-    NotificationButton(raceName: RaceData().name, sessionName: parseSessionName(sessionName: RaceData().sessions.first!.key), sessionDate: ISO8601DateFormatter().date(from: RaceData().sessions.first!.value)!)
+    NotificationButton(sessionName: parseSessionName(sessionName: AppData().nextRaces.first!.sortedSessions.first!.key), sessionDate: ISO8601DateFormatter().date(from: AppData().nextRaces.first!.sortedSessions.first!.value)!)
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-class deltaValues {
+struct deltaValues {
     var delta: Int;
     
     var days: Int;

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CalendarTab: View {
     let nextRaces: [RaceData];
-    let config: APIConfig;
+    let config: DataConfig;
     
     var body: some View {
         let calendar = Calendar.current;
@@ -22,11 +22,12 @@ struct CalendarTab: View {
                 ForEach(nextRaces) { race in
                     RaceSheet(race: race, config: config);
                 }
-            }.navigationTitle("\(year) Calendar")
+            }
+            .navigationTitle("\(year) Calendar")
         }
     }
 }
 
 #Preview {
-    CalendarTab(nextRaces: [RaceData()], config: APIConfig())
+    CalendarTab(nextRaces: [RaceData()], config: DataConfig())
 }
