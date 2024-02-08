@@ -25,9 +25,9 @@ struct SessionDetails: View {
         Section {
             VStack(alignment: .leading, spacing: 15) {
                 Text(parsedName)
-                    .font(.headline)
-                
-                Divider()
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .bold()
                 
                 HStack(alignment: .center) {
                     VStack(alignment: .leading) {
@@ -51,6 +51,8 @@ struct SessionDetails: View {
                     RoundedRectangle(cornerRadius: 10)
                         .fill(.tertiary.opacity(0.2).shadow(.drop(color: .primary, radius: 5)))
                 )
+                
+                Divider()
                 
                 SessionWeather(race: race, name: name, date: date, config: config);
             }.padding(.vertical, 10)

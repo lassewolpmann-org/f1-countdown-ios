@@ -16,7 +16,6 @@ class AppData {
     
     init() {
         nextRaces = [RaceData()];
-        print("Data init")
     }
     
     func getData(config: DataConfig) async {

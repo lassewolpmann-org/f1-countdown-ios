@@ -11,6 +11,7 @@ struct ContentView: View {
     let appData: AppData;
     let dataConfig: DataConfig;
     
+    
     var body: some View {
         TabView {
             TimerTab(appData: appData, dataConfig: dataConfig)

@@ -32,7 +32,7 @@ struct Session: View {
                 TimerElement(delta: delta.seconds, deltaPct: delta.secondsPct, ringColor: Color.blue, timeUnit: "sec")
                 
                 Divider()
-                
+                                
                 VStack(spacing: 10) {
                     NotificationButton(sessionName: sessionName, sessionDate: ISO8601DateFormatter().date(from: sessionDate)!)
                     
@@ -57,9 +57,22 @@ struct Session: View {
             delta = deltaValues(dateString: sessionDate);
         }
         .sheet(isPresented: $showWeatherForecast, content: {
-            let sessionDate = ISO8601DateFormatter().date(from: sessionDate)!;
-            SessionWeather(race: nextRace, name: sessionName, date: sessionDate, config: dataConfig)
-                .presentationDetents([.medium])
+            NavigationStack {
+                let sessionDate = ISO8601DateFormatter().date(from: sessionDate)!;
+                SessionWeather(race: nextRace, name: sessionName, date: sessionDate, config: dataConfig)
+                    .padding(20)
+                    .toolbar {
+                        ToolbarItem {
+                            Button {
+                                showWeatherForecast.toggle()
+                            } label: {
+                                Label("Close", systemImage: "xmark.circle.fill")
+                            }
+                            .tint(.secondary)
+                        }
+                    }
+            }
+            .presentationDetents([.medium])
         })
     }
 }

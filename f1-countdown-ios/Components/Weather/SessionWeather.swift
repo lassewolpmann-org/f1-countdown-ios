@@ -27,105 +27,64 @@ struct SessionWeather: View {
     @State var weatherAvailable: Bool = false;
     
     var body: some View {
-        VStack(alignment: .leading) {
+        Grid(alignment: .leading) {
+            GridRow {
+                Text("Weather Forecast")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .bold()
+            }
+            
             if (weatherAvailable) {
                 if ((weather) != nil) {
-                    VStack(spacing: 5) {
-                        HStack(spacing: 5) {
-                            Text("\(Image(systemName: weather!.symbol!)) \(weather!.description!)")
-                                .font(.title2)
-                                .frame(
-                                  minWidth: 0,
-                                  maxWidth: .infinity,
-                                  minHeight: 0,
-                                  maxHeight: .infinity
-                                )
-                                .padding(.vertical, 10)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .fill(.tertiary.opacity(0.2).shadow(.drop(color: .primary, radius: 5)))
-                                )
-                            
-                            VStack(alignment: .leading) {
-                                Text("\(Image(systemName: "drop")) Precipation")
-                                    .foregroundStyle(.secondary)
-                                Text(weather!.rain!)
-                                    .font(.title2)
-                            }
-                            .frame(
-                              minWidth: 0,
-                              maxWidth: .infinity,
-                              minHeight: 0,
-                              maxHeight: .infinity
-                            )
-                            .padding(.vertical, 10)
-                            .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(.tertiary.opacity(0.2).shadow(.drop(color: .primary, radius: 5)))
-                            )
-                        }
+                    GridRow {
+                        Text("\(Image(systemName: weather!.symbol!)) \(weather!.description!)").font(.title2)
                         
-                        HStack(spacing: 5) {
-                            VStack(alignment: .leading) {
-                                Text("\(Image(systemName: "thermometer.medium")) Temperature")
-                                    .foregroundStyle(.secondary)
-                                Text(weather!.temp!)
-                                    .font(.title2)
-                            }
-                            .frame(
-                              minWidth: 0,
-                              maxWidth: .infinity,
-                              minHeight: 0,
-                              maxHeight: .infinity
-                            )
-                            .padding(.vertical, 10)
-                            .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(.tertiary.opacity(0.2).shadow(.drop(color: .primary, radius: 5)))
-                            )
-                            
-                            VStack(alignment: .leading) {
-                                Text("\(Image(systemName: "thermometer.medium")) Feels like")
-                                    .foregroundStyle(.secondary)
-                                Text(weather!.apparentTemp!)
-                                    .font(.title2)
-                            }
-                            .frame(
-                              minWidth: 0,
-                              maxWidth: .infinity,
-                              minHeight: 0,
-                              maxHeight: .infinity
-                            )
-                            .padding(.vertical, 10)
-                            .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(.tertiary.opacity(0.2).shadow(.drop(color: .primary, radius: 5)))
-                            )
+                        VStack(alignment: .leading) {
+                            Text("\(Image(systemName: "drop")) Precipation")
+                                .foregroundStyle(.secondary)
+                            Text(weather!.rain!).font(.title2)
                         }
                     }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .padding(.vertical, 10)
+                    .background(containerBackground)
+                    
+                    GridRow {
+                        VStack(alignment: .leading) {
+                            Text("\(Image(systemName: "thermometer.medium")) Temperature")
+                                .foregroundStyle(.secondary)
+                            Text(weather!.temp!).font(.title2)
+                        }
+                        
+                        VStack(alignment: .leading) {
+                            Text("\(Image(systemName: "thermometer.medium")) Feels like")
+                                .foregroundStyle(.secondary)
+                            Text(weather!.apparentTemp!).font(.title2)
+                        }
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .padding(.vertical, 10)
+                    .background(containerBackground)
                 } else {
                     ProgressView()
                 }
             } else {
-                HStack(alignment: .center) {
-                    Image(systemName: "info.circle.fill").opacity(0.15)
-                    Text("Weather forecast becomes available within 10 days of session date.")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                GridRow {
+                    HStack(alignment: .center) {
+                        Image(systemName: "info.circle.fill").opacity(0.15)
+                        Text("Weather forecast becomes available within 10 days of session date.")
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                    }
                 }
-                .frame(
-                  minWidth: 0,
-                  maxWidth: .infinity,
-                  minHeight: 0,
-                  maxHeight: .infinity
-                )
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .font(.title2)
                 .padding(.vertical, 10)
-                .background(
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(.tertiary.opacity(0.2).shadow(.drop(color: .primary, radius: 5)))
-                )
+                .background(containerBackground)
             }
-        }.task {
+        }
+        .task {
             if (date.timeIntervalSinceNow < (60 * 60 * 24 * 10)) {
                 weatherAvailable = true;
                 weather = await getWeatherForecast(latitude: race.latitude, longitude: race.longitude, date: date, config: config, name: name);
@@ -134,6 +93,11 @@ struct SessionWeather: View {
             }
             
         }
+    }
+    
+    private var containerBackground: some View {
+        RoundedRectangle(cornerRadius: 10)
+            .fill(.tertiary.opacity(0.2).shadow(.drop(color: .primary, radius: 5)))
     }
 }
 

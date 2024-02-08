@@ -10,7 +10,7 @@ import SwiftUI
 struct TimerTab: View {
     let appData: AppData;
     let dataConfig: DataConfig;
-    
+            
     var body: some View {
         let nextRace = appData.nextRaces.first!;
         
@@ -21,6 +21,9 @@ struct TimerTab: View {
                 }
             }
             .navigationTitle(getRaceTitle(race: nextRace))
+        }
+        .refreshable {
+            await appData.getData(config: dataConfig)
         }
     }
 }
