@@ -9,114 +9,63 @@ import SwiftUI
 import CoreLocation
 import WeatherKit
 
-struct WeatherData {
-    var symbol: String?;
-    var temp: String?;
-    var apparentTemp: String?;
-    var rain: String?;
-    var description: String?;
-}
-
 struct SessionWeather: View {
     let race: RaceData;
     let name: String;
     let date: Date;
     let config: DataConfig;
     
-    @State var weather: WeatherData?;
-    @State var weatherAvailable: Bool = false;
-    
+    @State private var weather = WeatherData();
+
     var body: some View {
-        Grid(alignment: .leading) {
-            GridRow {
+        let sessionLength = Double(config.sessionLengths[name] ?? Int(60.0));
+        let endDate = date.addingTimeInterval(60 * sessionLength);
+        
+        // Making sure that the end date is within 10 days (240 hours)
+        if (date.timeIntervalSinceNow >= 238 * 60 * 60) {
+            Label("Weather forecast is not available yet.", systemImage: "info.circle.fill")
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+        } else {
+            VStack(alignment: .leading, spacing: 15) {
                 Text("Weather Forecast")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                     .bold()
+                
+                HStack {
+                    Spacer()
+                    Label(weather.condition, systemImage: weather.symbol)
+                        .font(.title2)
+                }
+                Divider()
+                HStack {
+                    Label("Chance of Rain", systemImage: "drop")
+                        .foregroundStyle(.secondary)
+                    Spacer()
+                    Text(weather.rainChance).font(.title2)
+                }
+                Divider()
+                HStack {
+                    Text("\(Image(systemName: "thermometer.medium")) Temperature")
+                        .foregroundStyle(.secondary)
+                    Spacer()
+                    Text(weather.temp).font(.title2)
+                }
+                Divider()
+                HStack {
+                    Text("\(Image(systemName: "thermometer.medium")) Feels like")
+                        .foregroundStyle(.secondary)
+                    Spacer()
+                    Text(weather.apparentTemp).font(.title2)
+                }
             }
-            
-            if (weatherAvailable) {
-                if ((weather) != nil) {
-                    GridRow {
-                        Text("\(Image(systemName: weather!.symbol!)) \(weather!.description!)").font(.title2)
-                        
-                        VStack(alignment: .leading) {
-                            Text("\(Image(systemName: "drop")) Precipation")
-                                .foregroundStyle(.secondary)
-                            Text(weather!.rain!).font(.title2)
-                        }
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .padding(.vertical, 10)
-                    .background(containerBackground)
-                    
-                    GridRow {
-                        VStack(alignment: .leading) {
-                            Text("\(Image(systemName: "thermometer.medium")) Temperature")
-                                .foregroundStyle(.secondary)
-                            Text(weather!.temp!).font(.title2)
-                        }
-                        
-                        VStack(alignment: .leading) {
-                            Text("\(Image(systemName: "thermometer.medium")) Feels like")
-                                .foregroundStyle(.secondary)
-                            Text(weather!.apparentTemp!).font(.title2)
-                        }
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .padding(.vertical, 10)
-                    .background(containerBackground)
-                } else {
-                    ProgressView()
-                }
-            } else {
-                GridRow {
-                    HStack(alignment: .center) {
-                        Image(systemName: "info.circle.fill").opacity(0.15)
-                        Text("Weather forecast becomes available within 10 days of session date.")
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                    }
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .font(.title2)
-                .padding(.vertical, 10)
-                .background(containerBackground)
+            .task {
+                await weather.getWeather(latitude: race.latitude, longitude: race.longitude, startDate: date, endDate: endDate, config: config, name: name);
             }
         }
-        .task {
-            if (date.timeIntervalSinceNow < (60 * 60 * 24 * 10)) {
-                weatherAvailable = true;
-                weather = await getWeatherForecast(latitude: race.latitude, longitude: race.longitude, date: date, config: config, name: name);
-            } else {
-                weather = WeatherData();
-            }
-            
-        }
-    }
-    
-    private var containerBackground: some View {
-        RoundedRectangle(cornerRadius: 10)
-            .fill(.tertiary.opacity(0.2).shadow(.drop(color: .primary, radius: 5)))
-    }
-}
-
-func getWeatherForecast(latitude: Double, longitude: Double, date: Date, config: DataConfig, name: String) async -> WeatherData {
-    let location = CLLocation(latitude: CLLocationDegrees(latitude), longitude: CLLocationDegrees(longitude));
-    
-    let startDate = date;
-    let sessionLength = Double(config.sessionLengths[name] ?? Int(60.0));
-    let endDate = date.addingTimeInterval(60 * sessionLength);
-
-    do {
-        let hourlyForecast = try await WeatherService().weather(for: location, including: .hourly(startDate: startDate, endDate: endDate));
-        let forecast = hourlyForecast.first;
         
-        let weather = WeatherData(symbol: forecast?.symbolName, temp: forecast?.temperature.description, apparentTemp: forecast?.apparentTemperature.description, rain: forecast?.precipitationAmount.description, description: forecast?.condition.description)
         
-        return weather
-    } catch {
-        return WeatherData()
     }
 }
 

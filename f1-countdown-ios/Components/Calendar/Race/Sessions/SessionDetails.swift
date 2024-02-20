@@ -23,39 +23,22 @@ struct SessionDetails: View {
         let endTime = getTime(date: date.addingTimeInterval(60 * sessionLength));
         
         Section {
-            VStack(alignment: .leading, spacing: 15) {
-                Text(parsedName)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-                    .bold()
-                
-                HStack(alignment: .center) {
-                    VStack(alignment: .leading) {
-                        Text(day)
-                            .foregroundStyle(.red)
-                        Text(dateString)
-                        Text("from \(startTime) to \(endTime)")
-                            .foregroundStyle(.secondary)
-                    }
-                    
-                    Spacer()
-                    
-                    NotificationButton(sessionName: parsedName, sessionDate: date)
+            HStack(alignment: .center) {
+                VStack(alignment: .leading) {
+                    Text(day)
+                        .foregroundStyle(.red)
+                    Text(dateString)
+                    Text("from \(startTime) to \(endTime)")
+                        .foregroundStyle(.secondary)
                 }
-                .frame(
-                  minWidth: 0,
-                  maxWidth: .infinity
-                )
-                .padding(10)
-                .background(
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(.tertiary.opacity(0.2).shadow(.drop(color: .primary, radius: 5)))
-                )
                 
+                Spacer()
                 Divider()
                 
-                SessionWeather(race: race, name: name, date: date, config: config);
-            }.padding(.vertical, 10)
+                NotificationButton(sessionName: parsedName, sessionDate: date)
+            }
+        } header: {
+            Text(parsedName)
         }
     }
 }

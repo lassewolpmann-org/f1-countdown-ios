@@ -15,15 +15,13 @@ struct SheetContent: View {
     
     var body: some View {
         NavigationStack {
-            VStack(alignment: .leading) {
-                List {
-                    ForEach(race.futureSessions, id:\.key) { session in
-                        let name = session.key;
-                        let parsedName = parseSessionName(sessionName: session.key);
-                        let date = ISO8601DateFormatter().date(from: session.value)!;
-                        
-                        SessionDetails(race: race, name: name, parsedName: parsedName, date: date, config: config)
-                    }
+            List {
+                ForEach(race.futureSessions, id:\.key) { session in
+                    let name = session.key;
+                    let parsedName = parseSessionName(sessionName: session.key);
+                    let date = ISO8601DateFormatter().date(from: session.value)!;
+                    
+                    SessionDetails(race: race, name: name, parsedName: parsedName, date: date, config: config)
                 }
             }
             .navigationTitle(getRaceTitle(race: race))
