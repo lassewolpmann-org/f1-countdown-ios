@@ -21,58 +21,33 @@ struct SessionWeather: View {
         let sessionLength = Double(config.sessionLengths[name] ?? Int(60.0));
         let endDate = date.addingTimeInterval(60 * sessionLength);
         
-        // Making sure that the end date is within 10 days (240 hours)
-        if (date.timeIntervalSinceNow >= 238 * 60 * 60) {
-            Label("Weather forecast is not available yet.", systemImage: "info.circle.fill")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
+        // Making sure that the end date is within 7 days
+        let sevenDaysInSeconds: Double = 7 * 24 * 60 * 60;
+        if (date.timeIntervalSinceNow >= sevenDaysInSeconds) {
+            VStack(alignment: .leading) {
+                let weatherAvailabilityDate = date.addingTimeInterval(-sevenDaysInSeconds);
+                Label("Weather Forecast will be available from \(Text(weatherAvailabilityDate, style: .date)), \(Text(weatherAvailabilityDate, style: .time)).", systemImage: "info.circle.fill")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+            }
         } else {
             VStack(alignment: .leading, spacing: 15) {
                 Text("Weather Forecast")
-                    .font(.subheadline)
+                    .font(.title)
                     .foregroundStyle(.secondary)
-                    .bold()
                 
-                HStack {
-                    Spacer()
-                    Label(weather.condition, systemImage: weather.symbol)
-                        .font(.title2)
-                }
-                Divider()
-                HStack {
-                    Label("Chance of Rain", systemImage: "drop")
-                        .foregroundStyle(.secondary)
-                    Spacer()
-                    Text(weather.rainChance).font(.title2)
-                }
-                Divider()
-                HStack {
-                    Text("\(Image(systemName: "thermometer.medium")) Temperature")
-                        .foregroundStyle(.secondary)
-                    Spacer()
-                    Text(weather.temp).font(.title2)
-                }
-                Divider()
-                HStack {
-                    Text("\(Image(systemName: "thermometer.medium")) Feels like")
-                        .foregroundStyle(.secondary)
-                    Spacer()
-                    Text(weather.apparentTemp).font(.title2)
-                }
+                WeatherElement(labelText: "Conditions", systemImage: weather.symbol, weatherText: weather.condition)
+                WeatherElement(labelText: "Chance of Rain", systemImage: "drop", weatherText: weather.rainChance)
+                WeatherElement(labelText: "Temperature", systemImage: "thermometer.medium", weatherText: weather.temp)
+                WeatherElement(labelText: "Feels like", systemImage: "thermometer.medium", weatherText: weather.apparentTemp)
             }
             .task {
                 await weather.getWeather(latitude: race.latitude, longitude: race.longitude, startDate: date, endDate: endDate, config: config, name: name);
             }
         }
-        
-        
     }
 }
 
 #Preview {
-    List {
-        Section {
-            SessionWeather(race: RaceData(), name: RaceData().sessions.first!.key, date: ISO8601DateFormatter().date(from: RaceData().sessions.first!.value)!, config: DataConfig())
-        }
-    }
+    SessionWeather(race: RaceData(), name: RaceData().futureSessions.first!.key, date: ISO8601DateFormatter().date(from: RaceData().futureSessions.first!.value)!, config: DataConfig())
 }

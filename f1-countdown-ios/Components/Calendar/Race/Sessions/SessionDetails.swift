@@ -16,19 +16,15 @@ struct SessionDetails: View {
     
     var body: some View {
         let day = getDayName(date: date);
-        let dateString = getDate(date: date);
-        
-        let startTime = getTime(date: date);
         let sessionLength = Double(config.sessionLengths[name] ?? Int(60.0));
-        let endTime = getTime(date: date.addingTimeInterval(60 * sessionLength));
         
         Section {
             HStack(alignment: .center) {
                 VStack(alignment: .leading) {
                     Text(day)
                         .foregroundStyle(.red)
-                    Text(dateString)
-                    Text("from \(startTime) to \(endTime)")
+                    Text(date, style: .date)
+                    Text(DateInterval(start: date, end: date.addingTimeInterval(60 * sessionLength)))
                         .foregroundStyle(.secondary)
                 }
                 

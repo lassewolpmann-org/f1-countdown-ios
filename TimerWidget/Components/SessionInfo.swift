@@ -13,9 +13,7 @@ struct SessionInfo: View {
     let sessionLengths: [String: Int];
     
     var body: some View {
-        let startTime = getTime(date: date);
         let sessionLength = Double(sessionLengths[name] ?? Int(60.0));
-        let endTime = getTime(date: date.addingTimeInterval(60 * sessionLength));
         
         VStack(alignment: .leading) {
             HStack {
@@ -31,12 +29,12 @@ struct SessionInfo: View {
             }
             
             HStack {
-                Text(getDate(date: date))
+                Text(date, style: .date)
                     .font(.subheadline)
                 
                 Spacer()
                 
-                Text("from \(startTime) to \(endTime)")
+                Text(DateInterval(start: date, end: date.addingTimeInterval(60 * sessionLength)))
                     .font(.subheadline)
             }
         }

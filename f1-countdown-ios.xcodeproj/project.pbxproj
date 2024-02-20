@@ -58,6 +58,7 @@
 		25E301902B0A11C5008CC1BE /* SessionDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E3018F2B0A11C5008CC1BE /* SessionDetails.swift */; };
 		25EA78922B6A5FA200EA9C5A /* NotificationPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EA78912B6A5FA200EA9C5A /* NotificationPermission.swift */; };
 		25EDC7952B054D320094DBBA /* TimerElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDC7942B054D320094DBBA /* TimerElement.swift */; };
+		25F1D8732B853A53007D360F /* WeatherElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F1D8722B853A53007D360F /* WeatherElement.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -134,6 +135,7 @@
 		25E3018F2B0A11C5008CC1BE /* SessionDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetails.swift; sourceTree = "<group>"; };
 		25EA78912B6A5FA200EA9C5A /* NotificationPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermission.swift; sourceTree = "<group>"; };
 		25EDC7942B054D320094DBBA /* TimerElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerElement.swift; sourceTree = "<group>"; };
+		25F1D8722B853A53007D360F /* WeatherElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherElement.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,6 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				2521762A2B08BEB00023C9B3 /* SessionWeather.swift */,
+				25F1D8722B853A53007D360F /* WeatherElement.swift */,
 			);
 			path = Weather;
 			sourceTree = "<group>";
@@ -546,6 +549,7 @@
 				251C655F2B73779B003E4A13 /* AppData.swift in Sources */,
 				25CC38552B1480BA009209BE /* RaceSheet.swift in Sources */,
 				25BFB0322B0F68D90062E4BC /* SettingsTab.swift in Sources */,
+				25F1D8732B853A53007D360F /* WeatherElement.swift in Sources */,
 				25DE90792B09168A00632B61 /* NotificationButton.swift in Sources */,
 				25E301902B0A11C5008CC1BE /* SessionDetails.swift in Sources */,
 				25EA78922B6A5FA200EA9C5A /* NotificationPermission.swift in Sources */,
