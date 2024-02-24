@@ -15,8 +15,10 @@ struct Session: View {
     let sessionName: String;
     let sessionDate: String;
     
-    @State var showWeatherForecast: Bool = false;
     @State var delta: deltaValues = deltaValues(dateString: Date().ISO8601Format());
+    
+    @State var showWeatherForecast: Bool = false;
+    @State var weatherForecast: WeatherData = WeatherData();
         
     var body: some View {
         VStack(alignment: .leading) {
@@ -53,13 +55,15 @@ struct Session: View {
             )
         }
         .padding(10)
+        .task {
+            await weatherForecast.getWeather(latitude: nextRace.latitude, longitude: nextRace.longitude, sessionDate: sessionDate, sessionName: sessionName, config: dataConfig)
+        }
         .onReceive(timer) { _ in
             delta = deltaValues(dateString: sessionDate);
         }
         .sheet(isPresented: $showWeatherForecast, content: {
             NavigationStack {
-                let sessionDate = ISO8601DateFormatter().date(from: sessionDate)!;
-                SessionWeather(race: nextRace, name: sessionName, date: sessionDate, config: dataConfig)
+                SessionWeather(date: sessionDate, weather: weatherForecast)
                     .padding(20)
                     .toolbar {
                         ToolbarItem {

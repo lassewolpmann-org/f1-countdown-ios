@@ -13,7 +13,11 @@ class WeatherData {
     private let service = WeatherService();
     var weather: HourWeather?
     
-    func getWeather(latitude: Double, longitude: Double, startDate: Date, endDate: Date, config: DataConfig, name: String) async {
+    func getWeather(latitude: Double, longitude: Double, sessionDate: String, sessionName: String, config: DataConfig) async {
+        let startDate = ISO8601DateFormatter().date(from: sessionDate)!;
+        let sessionLength = Double(config.sessionLengths[sessionName] ?? Int(60.0));
+        let endDate = startDate.addingTimeInterval(60 * sessionLength);
+        
         let location = CLLocation(latitude: CLLocationDegrees(latitude), longitude: CLLocationDegrees(longitude));
         
         do {
