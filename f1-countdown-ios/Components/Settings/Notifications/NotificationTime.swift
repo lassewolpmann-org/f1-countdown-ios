@@ -24,7 +24,6 @@ struct NotificationTime: View {
         .onAppear {
             // Retrieve saved option
             selectionOption = UserDefaults.standard.integer(forKey: "Notification");
-            print(selectionOption)
         }
         .onChange(of: selectionOption) {
             Task {

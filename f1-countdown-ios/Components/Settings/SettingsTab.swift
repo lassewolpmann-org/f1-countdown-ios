@@ -16,6 +16,8 @@ struct SettingsTab: View {
                     RemoveNotificationsButton()
                 } header: {
                     Text("Notifications")
+                } footer: {
+                    Text("Changing Notification Time option updates all existing Notifications automatically")
                 }
                 
                 Section {
