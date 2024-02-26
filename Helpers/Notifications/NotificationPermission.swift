@@ -35,12 +35,12 @@ func checkForPermission() async -> Bool {
     }
 }
 
-func checkForExistingNotification(sessionDate: Date) async -> Bool {
+func checkForExistingNotification(sessionDate: String) async -> Bool {
     let center = UNUserNotificationCenter.current();
     let requests = await center.pendingNotificationRequests();
     
     let requestsWithSameID = requests.filter { request in
-        return request.identifier == sessionDate.description
+        return request.identifier == sessionDate
     }
     
     if (requestsWithSameID.isEmpty) {

@@ -36,7 +36,7 @@ struct Session: View {
                 Divider()
                                 
                 VStack(spacing: 10) {
-                    NotificationButton(sessionName: sessionName, sessionDate: ISO8601DateFormatter().date(from: sessionDate)!)
+                    NotificationButton(sessionName: sessionName, sessionDate: sessionDate)
                     
                     Button {
                         showWeatherForecast.toggle()

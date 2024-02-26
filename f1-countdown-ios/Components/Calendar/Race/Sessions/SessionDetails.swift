@@ -31,7 +31,7 @@ struct SessionDetails: View {
                 Spacer()
                 Divider()
                 
-                NotificationButton(sessionName: parsedName, sessionDate: date)
+                NotificationButton(sessionName: parsedName, sessionDate: ISO8601DateFormatter().string(from: date))
             }
         } header: {
             Text(parsedName)

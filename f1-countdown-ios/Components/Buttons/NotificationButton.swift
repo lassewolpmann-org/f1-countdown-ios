@@ -9,12 +9,14 @@ import SwiftUI
 
 struct NotificationButton: View {
     let sessionName: String;
-    let sessionDate: Date;
+    let sessionDate: String;
     
     @State var notificationEnabled: Bool = false;
     @State private var showAlert = false;
     
     var body: some View {
+        let date = ISO8601DateFormatter().date(from: sessionDate)!;
+        
         Button {
             if (notificationEnabled) {
                 notificationEnabled = deleteNotification(sessionDate: sessionDate)
@@ -34,7 +36,7 @@ struct NotificationButton: View {
         }
         .buttonStyle(.bordered)
         .labelStyle(.iconOnly)
-        .disabled(sessionDate.timeIntervalSinceNow <= 0)
+        .disabled(date.timeIntervalSinceNow <= 0)
         .alert(
             Text("Notifications disabled"),
             isPresented: $showAlert
@@ -52,5 +54,5 @@ struct NotificationButton: View {
 }
 
 #Preview {
-    NotificationButton(sessionName: parseSessionName(sessionName: AppData().nextRaces.first!.sortedSessions.first!.key), sessionDate: ISO8601DateFormatter().date(from: AppData().nextRaces.first!.sortedSessions.first!.value)!)
+    NotificationButton(sessionName: parseSessionName(sessionName: RaceData().futureSessions.first!.key), sessionDate: RaceData().futureSessions.first!.value)
 }
