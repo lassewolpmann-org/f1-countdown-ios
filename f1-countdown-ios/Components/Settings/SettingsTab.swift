@@ -12,6 +12,7 @@ struct SettingsTab: View {
         NavigationStack {
             List {
                 Section {
+                    NotificationTime()
                     RemoveNotificationsButton()
                 } header: {
                     Text("Notifications")

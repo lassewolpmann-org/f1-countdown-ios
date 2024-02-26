@@ -3,4 +3,22 @@
    uuid = "3B76659D-DF7D-4A3A-BF06-1FC939CBE26F"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "32218692-D427-4FB3-ADA3-34BFB92A646B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../../var/folders/6p/6d_6gmx533qcl3wh3v12m71w0000gn/T/swift-generated-sources/@__swiftmacro_16f1_countdown_ios16NotificationTimeV0D05ModelfMm_.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1"
+            endingLineNumber = "1"
+            landmarkName = "unknown"
+            landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
