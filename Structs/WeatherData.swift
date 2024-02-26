@@ -14,9 +14,13 @@ class WeatherData {
     var weather: HourWeather?
     
     func getWeather(latitude: Double, longitude: Double, sessionDate: String, sessionName: String, config: DataConfig) async {
+        print("Loading Weather Forecast")
+        
         let startDate = ISO8601DateFormatter().date(from: sessionDate)!;
         let sessionLength = Double(config.sessionLengths[sessionName] ?? Int(60.0));
         let endDate = startDate.addingTimeInterval(60 * sessionLength);
+        
+        if (endDate.timeIntervalSinceNow >= 10 * 24 * 60 * 60) { return }
         
         let location = CLLocation(latitude: CLLocationDegrees(latitude), longitude: CLLocationDegrees(longitude));
         

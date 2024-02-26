@@ -18,7 +18,7 @@ struct Session: View {
     @State var delta: deltaValues = deltaValues(dateString: Date().ISO8601Format());
     
     @State var showWeatherForecast: Bool = false;
-    @State var weatherForecast: WeatherData = WeatherData();
+    let weatherForecast: WeatherData = WeatherData();
         
     var body: some View {
         VStack(alignment: .leading) {
@@ -62,20 +62,7 @@ struct Session: View {
             delta = deltaValues(dateString: sessionDate);
         }
         .sheet(isPresented: $showWeatherForecast, content: {
-            NavigationStack {
-                SessionWeather(date: sessionDate, weather: weatherForecast)
-                    .padding(20)
-                    .toolbar {
-                        ToolbarItem {
-                            Button {
-                                showWeatherForecast.toggle()
-                            } label: {
-                                Label("Close", systemImage: "xmark.circle.fill")
-                            }
-                            .tint(.secondary)
-                        }
-                    }
-            }
+            SessionWeather(weather: weatherForecast, showWeatherForecast: $showWeatherForecast, nextRace: nextRace, sessionDate: sessionDate, sessionName: sessionName, dataConfig: dataConfig)
             .presentationDetents([.medium])
         })
     }
@@ -84,9 +71,8 @@ struct Session: View {
 #Preview {
     ScrollView {
         let nextRace = AppData().nextRaces.first!;
-        let firstSession = nextRace.sortedSessions.first!;
+        let firstSession = nextRace.futureSessions.first!;
         
-        Session(nextRace: nextRace, dataConfig: DataConfig(), sessionName: firstSession.key, sessionDate: firstSession.value)
         Session(nextRace: nextRace, dataConfig: DataConfig(), sessionName: firstSession.key, sessionDate: firstSession.value)
     }
 }
