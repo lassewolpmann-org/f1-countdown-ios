@@ -6,18 +6,14 @@
 //
 
 import SwiftUI
+import WidgetKit
 
 struct Large: View {
     let entry: TimerEntry;
     
     var body: some View {
         VStack(alignment: .leading) {
-            HStack {
-                Text(getRaceTitle(race: entry.race))
-                    .font(.headline)
-                Spacer()
-                Text(entry.tbc == true ? "TBC" : "")
-            }
+            WidgetHeader(entry: entry)
             
             Divider()
             
@@ -34,6 +30,9 @@ struct Large: View {
         
 }
 
-#Preview {
-    Large(entry: TimerEntry(race: RaceData(), tbc: false, flag: "", sessionLengths: DataConfig().sessionLengths))
+#Preview(as: .systemLarge) {
+    TimerWidget()
+} timeline: {
+    TimerEntry(race: RaceData(), tbc: true, flag: "", sessionLengths: DataConfig().sessionLengths)
 }
+

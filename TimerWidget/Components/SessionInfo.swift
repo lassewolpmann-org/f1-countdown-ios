@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import WidgetKit
 
 struct SessionInfo: View {
     let date: Date;
@@ -17,42 +18,39 @@ struct SessionInfo: View {
         
         VStack(alignment: .leading) {
             HStack {
-                Text(getDayName(date: date))
-                    .font(.subheadline)
+                Text(parseSessionName(sessionName: name))
                     .foregroundStyle(.red)
                 
                 Spacer()
                 
-                Text(parseSessionName(sessionName: name))
-                    .font(.subheadline)
+                Text(getDayName(date: date))
                     .foregroundStyle(.secondary)
             }
             
             HStack {
-                Text(date, style: .date)
-                    .font(.subheadline)
-                
-                Spacer()
-                
-                Text(DateInterval(start: date, end: date.addingTimeInterval(60 * sessionLength)))
-                    .font(.subheadline)
+                if (date.timeIntervalSinceNow <  60 * 60) {
+                    Text("Session starts in \(date, style: .timer)")
+                } else {
+                    Text(date, style: .date)
+                    
+                    Spacer()
+                    
+                    Text(DateInterval(start: date, end: date.addingTimeInterval(60 * sessionLength)))
+                }
             }
         }
-        .frame(
-          minWidth: 0,
-          maxWidth: .infinity,
-          minHeight: 0,
-          maxHeight: .infinity
-        )
+        .font(.subheadline)
         .padding(.horizontal, 10)
         .padding(.vertical, 5)
         .background(
-            RoundedRectangle(cornerRadius: 10)
+            RoundedRectangle(cornerRadius: 5)
                 .fill(.tertiary.opacity(0.5).shadow(.drop(color: .primary, radius: 5)))
         )
     }
 }
 
-#Preview {
-    SessionInfo(date: ISO8601DateFormatter().date(from: RaceData().sessions.first!.value)!, name: parseSessionName(sessionName: RaceData().sessions.first!.key), sessionLengths: DataConfig().sessionLengths)
+#Preview(as: .systemLarge) {
+    TimerWidget()
+} timeline: {
+    TimerEntry(race: RaceData(), tbc: true, flag: "", sessionLengths: DataConfig().sessionLengths)
 }

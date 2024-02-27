@@ -17,12 +17,7 @@ struct Medium: View {
         let date = ISO8601DateFormatter().date(from: firstSession.value)!
         
         VStack(alignment: .leading) {
-            HStack {
-                Text(getRaceTitle(race: entry.race))
-                    .font(.headline)
-                Spacer()
-                Text(entry.tbc == true ? "TBC" : "")
-            }
+            WidgetHeader(entry: entry)
             
             Divider()
 
@@ -34,6 +29,9 @@ struct Medium: View {
     }
 }
 
-#Preview {
-    Medium(entry: TimerEntry(race: RaceData(), tbc: false, flag: "", sessionLengths: DataConfig().sessionLengths))
+#Preview(as: .systemMedium) {
+    TimerWidget()
+} timeline: {
+    TimerEntry(race: RaceData(), tbc: true, flag: "", sessionLengths: DataConfig().sessionLengths)
 }
+
