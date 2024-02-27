@@ -33,6 +33,8 @@ struct f1_countdown_iosApp: App {
                 await dataConfig?.getConfig();
                 await appData?.getData(config: dataConfig!);
                 
+                await removeInvalidNotifications(races: appData!.nextRaces);
+                
                 dataLoaded = true;
             }
         }

@@ -23,6 +23,7 @@
 		2534A14C2B287279003B0BE3 /* CountryFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2534A14A2B287279003B0BE3 /* CountryFlags.swift */; };
 		254019252B343CBC007AEAE1 /* SheetContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254019242B343CBC007AEAE1 /* SheetContent.swift */; };
 		254DCC552B6A6EDB00493CDD /* CreateNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254DCC542B6A6EDB00493CDD /* CreateNotification.swift */; };
+		255E71C72B8DD9F600F21348 /* RemoveInvalidNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255E71C62B8DD9F600F21348 /* RemoveInvalidNotifications.swift */; };
 		2571837C2B73B241003D12F9 /* DeltaValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BE0E472B2349E20089B5BA /* DeltaValues.swift */; };
 		2571837E2B73B264003D12F9 /* RaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2571837D2B73B264003D12F9 /* RaceData.swift */; };
 		2571837F2B73B264003D12F9 /* RaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2571837D2B73B264003D12F9 /* RaceData.swift */; };
@@ -105,6 +106,7 @@
 		2534A14A2B287279003B0BE3 /* CountryFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryFlags.swift; sourceTree = "<group>"; };
 		254019242B343CBC007AEAE1 /* SheetContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetContent.swift; sourceTree = "<group>"; };
 		254DCC542B6A6EDB00493CDD /* CreateNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNotification.swift; sourceTree = "<group>"; };
+		255E71C62B8DD9F600F21348 /* RemoveInvalidNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveInvalidNotifications.swift; sourceTree = "<group>"; };
 		2571837D2B73B264003D12F9 /* RaceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceData.swift; sourceTree = "<group>"; };
 		257183802B73B457003D12F9 /* CreateEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEntry.swift; sourceTree = "<group>"; };
 		2575791F2B84C4FA00FC1A81 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
@@ -383,6 +385,7 @@
 				25EA78912B6A5FA200EA9C5A /* NotificationPermission.swift */,
 				254DCC542B6A6EDB00493CDD /* CreateNotification.swift */,
 				25E56FDA2B8CD3450001D94E /* RescheduleNotifications.swift */,
+				255E71C62B8DD9F600F21348 /* RemoveInvalidNotifications.swift */,
 			);
 			path = Notifications;
 			sourceTree = "<group>";
@@ -569,6 +572,7 @@
 				2534A14B2B287279003B0BE3 /* CountryFlags.swift in Sources */,
 				25B5C3EC2B6B7CA300057E4D /* RemoveNotificationsButton.swift in Sources */,
 				25EDC7952B054D320094DBBA /* TimerElement.swift in Sources */,
+				255E71C72B8DD9F600F21348 /* RemoveInvalidNotifications.swift in Sources */,
 				25AF34662B2F9D0200E7D83A /* Session.swift in Sources */,
 				2521762B2B08BEB00023C9B3 /* SessionWeather.swift in Sources */,
 				251C65622B7377CA003E4A13 /* DataConfig.swift in Sources */,

@@ -12,10 +12,9 @@ func createNotificationPermission() async -> Void {
     let center = UNUserNotificationCenter.current();
     
     do {
-        let granted: Bool = try await center.requestAuthorization(options: [.alert, .sound, .badge])
-        print("Granted", granted)
+        try await center.requestAuthorization(options: [.alert, .sound, .badge])
     } catch {
-        print("Error")
+        print("Error while granting Notification Permission")
     }
 }
 
@@ -23,14 +22,11 @@ func checkForPermission() async -> Bool {
     let center = UNUserNotificationCenter.current()
     do {
          if try await center.requestAuthorization() == true {
-             print("App has permission")
             return true
          } else {
-             print("App does not have permission")
             return false
          }
     } catch {
-        print("Error")
         return false
     }
 }
