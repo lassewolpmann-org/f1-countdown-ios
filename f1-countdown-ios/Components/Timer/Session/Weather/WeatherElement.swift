@@ -10,7 +10,7 @@ import SwiftUI
 struct WeatherElement: View {
     let labelText: String;
     let systemImage: String;
-    let weatherText: String ;
+    let weatherText: String;
     
     var body: some View {
         Divider()

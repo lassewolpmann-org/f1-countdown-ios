@@ -16,9 +16,7 @@ struct Session: View {
     let sessionDate: String;
     
     @State var delta: deltaValues = deltaValues(dateString: Date().ISO8601Format());
-    
     @State var showWeatherForecast: Bool = false;
-    let weatherForecast: WeatherData = WeatherData();
         
     var body: some View {
         VStack(alignment: .leading) {
@@ -55,14 +53,11 @@ struct Session: View {
             )
         }
         .padding(10)
-        .task {
-            await weatherForecast.getWeather(latitude: nextRace.latitude, longitude: nextRace.longitude, sessionDate: sessionDate, sessionName: sessionName, config: dataConfig)
-        }
         .onReceive(timer) { _ in
             delta = deltaValues(dateString: sessionDate);
         }
         .sheet(isPresented: $showWeatherForecast, content: {
-            SessionWeather(weather: weatherForecast, showWeatherForecast: $showWeatherForecast, nextRace: nextRace, sessionDate: sessionDate, sessionName: sessionName, dataConfig: dataConfig)
+            SessionWeather(showWeatherForecast: $showWeatherForecast, nextRace: nextRace, sessionDate: sessionDate, sessionName: sessionName, dataConfig: dataConfig)
             .presentationDetents([.medium])
         })
     }

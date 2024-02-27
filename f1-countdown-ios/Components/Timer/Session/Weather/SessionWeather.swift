@@ -10,7 +10,7 @@ import CoreLocation
 import WeatherKit
 
 struct SessionWeather: View {
-    @State var weather: WeatherData;
+    @State var weather: WeatherData = WeatherData();
     @Binding var showWeatherForecast: Bool;
     
     let nextRace: RaceData;
@@ -21,7 +21,7 @@ struct SessionWeather: View {
     var body: some View {
         let date = ISO8601DateFormatter().date(from: sessionDate)!;
 
-        // Making sure that the end date is within 7 days
+        // Making sure that the end date is within 10 days
         let forecastAvailability: Double = 10 * 24 * 60 * 60;
         NavigationStack {
             Group {
@@ -50,18 +50,11 @@ struct SessionWeather: View {
                 }
             }
             .padding(20)
+            .task {
+                await weather.getWeather(latitude: nextRace.latitude, longitude: nextRace.longitude, sessionDate: sessionDate, sessionName: sessionName, config: dataConfig)
+            }
             .toolbar {
-                ToolbarItemGroup {
-                    Button {
-                        Task {
-                            print("Refresh Weather");
-                            await weather.getWeather(latitude: nextRace.latitude, longitude: nextRace.longitude, sessionDate: sessionDate, sessionName: sessionName, config: dataConfig)
-                        }
-                    } label: {
-                        Label("Refresh Weather Forecast", systemImage: "arrow.clockwise.circle.fill")
-                    }
-                    .tint(.secondary)
-                    
+                ToolbarItem {
                     Button {
                         showWeatherForecast.toggle();
                     } label: {
