@@ -19,7 +19,7 @@ func createNotification(sessionDate: String, sessionName: String) async -> Bool 
         let trigger = UNCalendarNotificationTrigger(dateMatching: calendarDate, repeats: false);
         
         let content = UNMutableNotificationContent();
-        content.title = "\(sessionName) is now live!"
+        content.title = "\(sessionName.uppercased()) is now live!"
         content.sound = UNNotificationSound.default;
         
         let notification = UNNotificationRequest(identifier: sessionDate, content: content, trigger: trigger);

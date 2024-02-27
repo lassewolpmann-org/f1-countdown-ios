@@ -19,19 +19,26 @@ func rescheduleNotifications(time: Int) async {
     for notification in notifications {
         // Step 1: Get Current Identifier which is the Date in ISO8601 format
         let notificationIdentifier = notification.identifier;
+        let notificationTitle = notification.content.title;
+        let sessionName = notificationTitle.components(separatedBy: " ").first ?? "N/A";
         
         // Step 2: Remove current Notification
         center.removePendingNotificationRequests(withIdentifiers: [notificationIdentifier]);
 
-        // Step 3: Create new Date with added Minutes
+        // Step 3: Create new Content for Notification
+        let content = UNMutableNotificationContent();
+        content.title = time == 0 ? "\(sessionName) is now live!" : "\(sessionName) starts in \(time.description) minutes!";
+        content.sound = UNNotificationSound.default;
+        
+        // Step 4: Create new Date with added Minutes
         let notificationDate = ISO8601DateFormatter().date(from: notificationIdentifier);
         let newNotificationDate = notificationDate!.addingTimeInterval(TimeInterval(time * 60));
         
         let calendarDate = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: newNotificationDate)
         let trigger = UNCalendarNotificationTrigger(dateMatching: calendarDate, repeats: false);
         
-        // Step 4: Create new Notification
-        let newNotification = UNNotificationRequest(identifier: notificationIdentifier, content: notification.content, trigger: trigger);
+        // Step 5: Create new Notification
+        let newNotification = UNNotificationRequest(identifier: notificationIdentifier, content: content, trigger: trigger);
         
         do {
             try await center.add(newNotification);

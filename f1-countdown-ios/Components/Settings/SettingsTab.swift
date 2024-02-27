@@ -17,7 +17,7 @@ struct SettingsTab: View {
                 } header: {
                     Text("Notifications")
                 } footer: {
-                    Text("Changing Notification Time option updates all existing Notifications automatically")
+                    Text("Changing Time of Notification reschedules all existing ones.")
                 }
                 
                 Section {
