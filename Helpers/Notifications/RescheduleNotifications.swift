@@ -32,10 +32,12 @@ func rescheduleNotifications(time: Int) async {
         
         // Step 4: Create new Date with added Minutes
         let notificationDate = ISO8601DateFormatter().date(from: notificationIdentifier);
-        let newNotificationDate = notificationDate!.addingTimeInterval(TimeInterval(time * 60));
+        let newNotificationDate = notificationDate!.addingTimeInterval(TimeInterval(-time * 60));
         
+        print(notification.trigger);
         let calendarDate = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: newNotificationDate)
         let trigger = UNCalendarNotificationTrigger(dateMatching: calendarDate, repeats: false);
+        print(trigger);
         
         // Step 5: Create new Notification
         let newNotification = UNNotificationRequest(identifier: notificationIdentifier, content: content, trigger: trigger);
