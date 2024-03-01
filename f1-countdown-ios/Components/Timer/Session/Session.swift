@@ -34,7 +34,7 @@ struct Session: View {
                 Divider()
                                 
                 VStack(spacing: 10) {
-                    NotificationButton(sessionName: sessionName, sessionDate: sessionDate)
+                    NotificationButton(race: nextRace, sessionName: sessionName, sessionDate: sessionDate)
                     
                     Button {
                         showWeatherForecast.toggle()

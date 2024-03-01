@@ -270,7 +270,6 @@
 				25AF345D2B2F985100E7D83A /* Timer */,
 				25E3018D2B0A1144008CC1BE /* Calendar */,
 				250087082B21FFB20014AF27 /* Settings */,
-				25E301912B0A2A0F008CC1BE /* Buttons */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -287,6 +286,7 @@
 		25AF34622B2F99BA00E7D83A /* Session */ = {
 			isa = PBXGroup;
 			children = (
+				25E301912B0A2A0F008CC1BE /* Buttons */,
 				25AF34692B2FA9AE00E7D83A /* Timer */,
 				251C655D2B737721003E4A13 /* Weather */,
 				25AF34652B2F9D0200E7D83A /* Session.swift */,

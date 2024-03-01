@@ -8,18 +8,19 @@
 import Foundation
 import UserNotifications
 
-func createNotification(sessionDate: String, sessionName: String) async -> Bool {
+func createNotification(race: RaceData, sessionDate: String, sessionName: String) async -> Bool {
     let center = UNUserNotificationCenter.current();
     let date = ISO8601DateFormatter().date(from: sessionDate)!;
     
     if (await checkForPermission()) {
         let notificationTimeSetting = UserDefaults.standard.integer(forKey: "Notification");
         
-        let calendarDate = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: date.addingTimeInterval(TimeInterval(notificationTimeSetting * 60)));
+        let calendarDate = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: date.addingTimeInterval(TimeInterval(-notificationTimeSetting * 60)));
         let trigger = UNCalendarNotificationTrigger(dateMatching: calendarDate, repeats: false);
         
         let content = UNMutableNotificationContent();
-        content.title = "\(sessionName.uppercased()) is now live!"
+        content.title = "\(getRaceTitle(race: race))";
+        content.body = notificationTimeSetting == 0 ? "\(sessionName.uppercased()) is now live!" : "\(sessionName.uppercased()) starts in \(notificationTimeSetting.description) minutes!";
         content.sound = UNNotificationSound.default;
         
         let notification = UNNotificationRequest(identifier: sessionDate, content: content, trigger: trigger);
