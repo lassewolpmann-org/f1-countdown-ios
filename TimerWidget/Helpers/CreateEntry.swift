@@ -8,15 +8,15 @@
 import Foundation
 
 func createEntry() async -> TimerEntry {
-    let config = DataConfig();
-    await config.getConfig()
-    
-    let data = AppData();
-    await data.getData(config: config)
-    
-    let nextRace = data.nextRaces.first!;
-    let flag = CountryFlags().flags[nextRace.localeKey] ?? "";
-    let tbc = nextRace.tbc ?? false;
-    
-    return TimerEntry(race: nextRace, tbc: tbc, flag: flag, sessionLengths: config.sessionLengths)
+    do {
+        let config = try await DataConfig().config;
+        let nextRace = try await AppData().nextRace;
+        
+        let flag = CountryFlags().flags[nextRace.localeKey] ?? "";
+        let tbc = nextRace.tbc ?? false;
+        
+        return TimerEntry(race: nextRace, tbc: tbc, flag: flag, sessionLengths: config.sessionLengths)
+    } catch {
+        return TimerEntry(race: RaceData(), tbc: false, flag: "", sessionLengths: DataConfig().sessionLengths)
+    }
 }

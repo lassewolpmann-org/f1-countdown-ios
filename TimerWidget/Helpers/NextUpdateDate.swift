@@ -7,8 +7,7 @@
 
 import Foundation
 
-func getNextUpdateDate(data: AppData) -> Date {
-    let nextRace = data.nextRaces.first ?? RaceData();
+func getNextUpdateDate(nextRace: RaceData) -> Date {
     let firstSession = nextRace.futureSessions.first!;
     let sessionDate = ISO8601DateFormatter().date(from: firstSession.value)!;
     

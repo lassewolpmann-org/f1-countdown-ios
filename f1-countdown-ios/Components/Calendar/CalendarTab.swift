@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CalendarTab: View {
-    let nextRaces: [RaceData];
+    @State var nextRaces: [RaceData];
     let config: DataConfig;
     
     var body: some View {
@@ -24,6 +24,13 @@ struct CalendarTab: View {
                 }
             }
             .navigationTitle("\(year) Calendar")
+        }
+        .refreshable {
+            do {
+                nextRaces = try await AppData().nextRaces;
+            } catch {
+                print("Error getting next Races")
+            }
         }
     }
 }

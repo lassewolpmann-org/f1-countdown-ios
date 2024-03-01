@@ -23,7 +23,7 @@ struct RaceData: Decodable, Identifiable, Hashable {
     var slug: String = "undefined-grand-prix"
     var localeKey: String = "undefined-grand-prix"
     var tbc: Bool?
-    var sessions: [String: String] = ["fp1": calcFutureDate(days: 6), "sprintQualifying": calcFutureDate(days: 7), "sprint": calcFutureDate(days: 8), "qualifying": calcFutureDate(days: 9), "gp": calcFutureDate(days: 10)]
+    var sessions: [String: String] = ["fp1": ISO8601DateFormatter().string(from: Date().addingTimeInterval(10)), "sprintQualifying": calcFutureDate(days: 7), "sprint": calcFutureDate(days: 8), "qualifying": calcFutureDate(days: 9), "gp": calcFutureDate(days: 10)]
     
     var fixedSessions: [(key: String, value: String)] {
         sessions.map {

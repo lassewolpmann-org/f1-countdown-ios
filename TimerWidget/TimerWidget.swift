@@ -57,15 +57,17 @@ struct TimerTimelineProvider: TimelineProvider {
     
     func getTimeline(in context: Context, completion: @escaping (Timeline<TimerEntry>) -> Void) {
         Task {
-            let config = DataConfig();
-            await config.getConfig();
-            
-            let data = AppData();
-            await data.getData(config: config);
-            
-            let timeline = Timeline(entries: [await createEntry()], policy: .after(getNextUpdateDate(data: data)));
-            
-            completion(timeline)
+            do {
+                let nextRace = try await AppData().nextRace;
+
+                let timeline = Timeline(entries: [await createEntry()], policy: .after(getNextUpdateDate(nextRace: nextRace)));
+                
+                completion(timeline)
+            } catch {
+                let timeline = Timeline(entries: [await createEntry()], policy: .after(getNextUpdateDate(nextRace: RaceData())));
+                
+                completion(timeline)
+            }
         }
     }
 }

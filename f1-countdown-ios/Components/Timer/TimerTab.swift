@@ -8,12 +8,10 @@
 import SwiftUI
 
 struct TimerTab: View {
-    let appData: AppData;
+    @State var nextRace: RaceData;
     let dataConfig: DataConfig;
-            
+
     var body: some View {
-        let nextRace = appData.nextRaces.first!;
-        
         NavigationStack {
             ScrollView {
                 ForEach(nextRace.futureSessions, id: \.key) { key, value in
@@ -23,11 +21,15 @@ struct TimerTab: View {
             .navigationTitle(getRaceTitle(race: nextRace))
         }
         .refreshable {
-            await appData.getData(config: dataConfig)
+            do {
+                nextRace = try await AppData().nextRace;
+            } catch {
+                print("Error getting next Race")
+            }
         }
     }
 }
 
 #Preview {
-    TimerTab(appData: AppData(), dataConfig: DataConfig())
+    TimerTab(nextRace: RaceData(), dataConfig: DataConfig())
 }

@@ -65,7 +65,7 @@ struct Session: View {
 
 #Preview {
     ScrollView {
-        let nextRace = AppData().nextRaces.first!;
+        let nextRace = RaceData();
         let firstSession = nextRace.futureSessions.first!;
         
         Session(nextRace: nextRace, dataConfig: DataConfig(), sessionName: firstSession.key, sessionDate: firstSession.value)

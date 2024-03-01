@@ -224,7 +224,6 @@
 				25BC66F82B6A9384006DCE8D /* LICENSE.md */,
 				25BC66F72B6A9310006DCE8D /* README.md */,
 				25125EFB2B14914400CA10EE /* Config.xcconfig */,
-				25BE0E462B2349BC0089B5BA /* Classes */,
 				25C6C53D2B17793B00818265 /* Structs */,
 				25C6C5382B1778D200818265 /* Helpers */,
 				257959D42B04FB000033DFAB /* f1-countdown-ios */,
@@ -349,15 +348,6 @@
 			path = Footer;
 			sourceTree = "<group>";
 		};
-		25BE0E462B2349BC0089B5BA /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				251C655E2B73779B003E4A13 /* AppData.swift */,
-				251C65612B7377CA003E4A13 /* DataConfig.swift */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
 		25C6C5382B1778D200818265 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -372,7 +362,9 @@
 		25C6C53D2B17793B00818265 /* Structs */ = {
 			isa = PBXGroup;
 			children = (
+				251C655E2B73779B003E4A13 /* AppData.swift */,
 				2534A14A2B287279003B0BE3 /* CountryFlags.swift */,
+				251C65612B7377CA003E4A13 /* DataConfig.swift */,
 				25BE0E472B2349E20089B5BA /* DeltaValues.swift */,
 				2571837D2B73B264003D12F9 /* RaceData.swift */,
 				2575791F2B84C4FA00FC1A81 /* WeatherData.swift */,

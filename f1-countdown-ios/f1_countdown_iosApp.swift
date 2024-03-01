@@ -6,12 +6,12 @@
 //
 
 import SwiftUI
-import Network
 
 @main
 struct f1_countdown_iosApp: App {
-    @State var dataConfig: DataConfig?;
-    @State var appData: AppData?;
+    @State var nextRace: RaceData = RaceData();
+    @State var nextRaces: [RaceData] = [RaceData()];
+    @State var dataConfig: DataConfig = DataConfig();
     
     @State private var dataLoaded: Bool = false;
     
@@ -19,7 +19,7 @@ struct f1_countdown_iosApp: App {
         WindowGroup {
             Group {
                 if (dataLoaded) {
-                    ContentView(appData: appData!, dataConfig: dataConfig!)
+                    ContentView(nextRace: nextRace, nextRaces: nextRaces, dataConfig: dataConfig)
                 } else {
                     VStack {
                         Text("Loading data...")
@@ -27,15 +27,15 @@ struct f1_countdown_iosApp: App {
                     }
                 }
             }.task {
-                dataConfig = DataConfig();
-                appData = AppData();
-                
-                await dataConfig?.getConfig();
-                await appData?.getData(config: dataConfig!);
-                
-                await removeInvalidNotifications(races: appData!.nextRaces);
-                
-                dataLoaded = true;
+                do {
+                    nextRaces = try await AppData().nextRaces;
+                    nextRace = try await AppData().nextRace;
+                    dataConfig = try await DataConfig().config;
+                    
+                    dataLoaded = true;
+                } catch {
+                    print("API Call failed")
+                }
             }
         }
     }
