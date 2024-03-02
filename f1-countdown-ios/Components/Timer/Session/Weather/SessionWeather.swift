@@ -16,7 +16,6 @@ struct SessionWeather: View {
     let nextRace: RaceData;
     let sessionDate: String;
     let sessionName: String;
-    let dataConfig: DataConfig;
 
     var body: some View {
         let date = ISO8601DateFormatter().date(from: sessionDate)!;
@@ -51,7 +50,7 @@ struct SessionWeather: View {
             }
             .padding(20)
             .task {
-                await weather.getWeather(latitude: nextRace.latitude, longitude: nextRace.longitude, sessionDate: sessionDate, sessionName: sessionName, config: dataConfig)
+                await weather.getWeather(race: nextRace, sessionDate: sessionDate, sessionName: sessionName)
             }
             .toolbar {
                 ToolbarItem {
@@ -74,7 +73,7 @@ struct SessionWeather: View {
     .sheet(isPresented: .constant(true), content: {
         let nextRace = RaceData();
         let nextSession = nextRace.futureSessions.first!;
-        SessionWeather(weather: WeatherData(), showWeatherForecast: .constant(true), nextRace: nextRace, sessionDate: nextSession.value, sessionName: nextSession.key, dataConfig: DataConfig())
+        SessionWeather(weather: WeatherData(), showWeatherForecast: .constant(true), nextRace: nextRace, sessionDate: nextSession.value, sessionName: nextSession.key)
         .presentationDetents([.medium])
     })
 }

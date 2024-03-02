@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SheetContent: View {
     let race: RaceData;
-    let config: DataConfig;
     
     @Binding var isShowingRaceSheet: Bool;
     
@@ -21,7 +20,7 @@ struct SheetContent: View {
                     let parsedName = parseSessionName(sessionName: session.key);
                     let date = ISO8601DateFormatter().date(from: session.value)!;
                     
-                    SessionDetails(race: race, name: name, parsedName: parsedName, date: date, config: config)
+                    SessionDetails(race: race, name: name, parsedName: parsedName, date: date)
                 }
             }
             .navigationTitle(getRaceTitle(race: race))
@@ -40,5 +39,5 @@ struct SheetContent: View {
 }
 
 #Preview {
-    SheetContent(race: RaceData(), config: DataConfig(), isShowingRaceSheet: .constant(false))
+    SheetContent(race: RaceData(), isShowingRaceSheet: .constant(false))
 }

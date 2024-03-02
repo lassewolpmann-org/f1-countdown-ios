@@ -13,7 +13,7 @@ struct TimerEntry: TimelineEntry {
     let date: Date = Date();
     let tbc: Bool;
     let flag: String;
-    let sessionLengths: [String: Int];
+    let sessionLengths: [String: Double];
 }
 
 struct TimerWidgetView: View {
@@ -46,7 +46,7 @@ struct TimerWidgetView: View {
 
 struct TimerTimelineProvider: TimelineProvider {
     func placeholder(in context: Context) -> TimerEntry {
-        return TimerEntry(race: RaceData(), tbc: false, flag: "", sessionLengths: DataConfig().sessionLengths)
+        return TimerEntry(race: RaceData(), tbc: false, flag: "", sessionLengths: RaceData().sessionLengths)
     }
     
     func getSnapshot(in context: Context, completion: @escaping (TimerEntry) -> Void) {
@@ -86,5 +86,5 @@ struct TimerWidget: Widget {
 #Preview(as: .systemMedium) {
     TimerWidget()
 } timeline: {
-    TimerEntry(race: RaceData(), tbc: true, flag: "", sessionLengths: DataConfig().sessionLengths)
+    TimerEntry(race: RaceData(), tbc: true, flag: "", sessionLengths: RaceData().sessionLengths)
 }

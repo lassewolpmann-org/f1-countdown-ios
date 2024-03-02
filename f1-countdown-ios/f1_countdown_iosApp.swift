@@ -11,7 +11,6 @@ import SwiftUI
 struct f1_countdown_iosApp: App {
     @State var nextRace: RaceData = RaceData();
     @State var nextRaces: [RaceData] = [RaceData()];
-    @State var dataConfig: DataConfig = DataConfig();
     
     @State private var dataLoaded: Bool = false;
     
@@ -19,7 +18,7 @@ struct f1_countdown_iosApp: App {
         WindowGroup {
             Group {
                 if (dataLoaded) {
-                    ContentView(nextRace: nextRace, nextRaces: nextRaces, dataConfig: dataConfig)
+                    ContentView(nextRace: nextRace, nextRaces: nextRaces)
                 } else {
                     VStack {
                         Text("Loading data...")
@@ -30,7 +29,6 @@ struct f1_countdown_iosApp: App {
                 do {
                     nextRaces = try await AppData().nextRaces;
                     nextRace = try await AppData().nextRace;
-                    dataConfig = try await DataConfig().config;
                     
                     dataLoaded = true;
                 } catch {

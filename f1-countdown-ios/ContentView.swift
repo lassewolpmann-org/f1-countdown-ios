@@ -10,16 +10,15 @@ import SwiftUI
 struct ContentView: View {
     @State var nextRace: RaceData;
     @State var nextRaces: [RaceData];
-    @State var dataConfig: DataConfig;
     
     var body: some View {
         TabView {
-            TimerTab(nextRace: nextRace, dataConfig: dataConfig)
+            TimerTab(nextRace: nextRace)
             .tabItem {
                 Label("Timer", systemImage: "stopwatch")
             }
             
-            CalendarTab(nextRaces: nextRaces, config: dataConfig)
+            CalendarTab(nextRaces: nextRaces)
             .tabItem {
                 Label("Calendar", systemImage: "calendar")
             }
@@ -37,5 +36,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(nextRace: RaceData(), nextRaces: [RaceData()], dataConfig: DataConfig())
+    ContentView(nextRace: RaceData(), nextRaces: [RaceData()])
 }

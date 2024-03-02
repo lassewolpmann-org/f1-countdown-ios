@@ -23,7 +23,7 @@ func parseSessionName(sessionName: String?) -> String {
     } else if (name == "sprint") {
         return "Sprint"
     } else if (name == "gp") {
-        return "Grand Prix"
+        return "Race"
     } else {
         return "Undefined Session"
     }

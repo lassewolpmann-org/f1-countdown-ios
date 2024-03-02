@@ -9,7 +9,7 @@ import Foundation
 
 func getRaceTitle(race: RaceData) -> String {
     let name = race.name;
-    let flag = CountryFlags().flags[race.localeKey] ?? "🏳️";
+    let flag = race.flag;
     
     if (name.contains("Grand Prix")) {
         return "\(flag) \(name)"

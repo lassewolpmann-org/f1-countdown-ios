@@ -9,7 +9,6 @@ import SwiftUI
 
 struct Session: View {
     @Binding var nextRace: RaceData;
-    let dataConfig: DataConfig;
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect();
     let sessionName: String;
@@ -68,7 +67,7 @@ struct Session: View {
             }
         }
         .sheet(isPresented: $showWeatherForecast, content: {
-            SessionWeather(showWeatherForecast: $showWeatherForecast, nextRace: nextRace, sessionDate: sessionDate, sessionName: sessionName, dataConfig: dataConfig)
+            SessionWeather(showWeatherForecast: $showWeatherForecast, nextRace: nextRace, sessionDate: sessionDate, sessionName: sessionName)
             .presentationDetents([.medium])
         })
     }
@@ -79,6 +78,6 @@ struct Session: View {
         let nextRace = RaceData();
         let firstSession = nextRace.futureSessions.first!;
         
-        Session(nextRace: .constant(RaceData()), dataConfig: DataConfig(), sessionName: firstSession.key, sessionDate: firstSession.value, delta: deltaValues(dateString: Date().ISO8601Format()))
+        Session(nextRace: .constant(RaceData()), sessionName: firstSession.key, sessionDate: firstSession.value, delta: deltaValues(dateString: Date().ISO8601Format()))
     }
 }

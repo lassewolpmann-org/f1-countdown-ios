@@ -9,7 +9,6 @@ import SwiftUI
 
 struct RaceSheet: View {
     let race: RaceData;
-    let config: DataConfig;
     
     @State private var isShowingRaceSheet = false;
     
@@ -24,13 +23,13 @@ struct RaceSheet: View {
             }
         }
         .sheet(isPresented: $isShowingRaceSheet, content: {
-            SheetContent(race: race, config: config, isShowingRaceSheet: $isShowingRaceSheet)
+            SheetContent(race: race, isShowingRaceSheet: $isShowingRaceSheet)
         })
     }
 }
 
 #Preview {
     List {
-        RaceSheet(race: RaceData(), config: DataConfig())
+        RaceSheet(race: RaceData())
     }
 }

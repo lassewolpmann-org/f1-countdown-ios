@@ -12,11 +12,10 @@ struct SessionDetails: View {
     let name: String;
     let parsedName: String;
     let date: Date;
-    let config: DataConfig;
     
     var body: some View {
         let day = getDayName(date: date);
-        let sessionLength = Double(config.sessionLengths[name] ?? Int(60.0));
+        let sessionLength = race.sessionLengths[name] ?? 0;
         
         Section {
             HStack(alignment: .center) {
@@ -44,6 +43,6 @@ struct SessionDetails: View {
         let race = RaceData();
         let firstSession = race.futureSessions.first!;
         
-        SessionDetails(race: race, name: firstSession.key, parsedName: parseSessionName(sessionName: firstSession.key), date: ISO8601DateFormatter().date(from: firstSession.value)!, config: DataConfig())
+        SessionDetails(race: race, name: firstSession.key, parsedName: parseSessionName(sessionName: firstSession.key), date: ISO8601DateFormatter().date(from: firstSession.value)!)
     }
 }

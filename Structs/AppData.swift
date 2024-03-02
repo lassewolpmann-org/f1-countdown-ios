@@ -23,7 +23,7 @@ struct AppData: Decodable {
     
     var nextRaces: [RaceData] {
         get async throws {
-            let allRaces = try await data.races;
+            let allRaces = try await self.data.races;
             let nextRaces = allRaces.filter { race in
                 let raceSessions = race.sessions.sorted(by:{$0.value < $1.value});
                 let date = ISO8601DateFormatter().date(from: raceSessions.last!.value)!;
@@ -32,7 +32,7 @@ struct AppData: Decodable {
             }
             
             if (nextRaces.isEmpty) {
-                return [allRaces.last!]
+                return [allRaces.last ?? RaceData()]
             } else {
                 return nextRaces
             }
@@ -41,7 +41,7 @@ struct AppData: Decodable {
         
     var nextRace: RaceData {
         get async throws {
-            return try await nextRaces.first!
+            return try await self.nextRaces.first ?? RaceData()
         }
     }
 }

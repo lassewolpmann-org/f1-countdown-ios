@@ -15,7 +15,7 @@ func calcFutureDate(days: Double) -> String {
 }
 
 struct RaceData: Decodable, Identifiable, Hashable {
-    var name: String = "undefined"
+    var name: String = "Undefined"
     var location: String = "undefined place"
     var latitude: Double = 53.5
     var longitude: Double = 9.5
@@ -24,6 +24,10 @@ struct RaceData: Decodable, Identifiable, Hashable {
     var localeKey: String = "undefined-grand-prix"
     var tbc: Bool?
     var sessions: [String: String] = ["fp1": ISO8601DateFormatter().string(from: Date().addingTimeInterval(10)), "sprintQualifying": calcFutureDate(days: 7), "sprint": calcFutureDate(days: 8), "qualifying": calcFutureDate(days: 9), "gp": calcFutureDate(days: 10)]
+    
+    var sessionLengths: [String: Double] {
+        return SessionLengths().lengths
+    }
     
     var fixedSessions: [(key: String, value: String)] {
         sessions.map {
@@ -38,7 +42,7 @@ struct RaceData: Decodable, Identifiable, Hashable {
     }
     
     var sortedSessions: [(key: String, value: String)] {
-        fixedSessions.sorted(by:{$0.value < $1.value})
+        return fixedSessions.sorted(by:{$0.value < $1.value})
     }
     
     var futureSessions: [(key: String, value: String)] {
@@ -47,6 +51,10 @@ struct RaceData: Decodable, Identifiable, Hashable {
             
             return date.timeIntervalSinceNow > 0
         }
+    }
+    
+    var flag: String {
+        return CountryFlags().flags[self.localeKey] ?? "🏳️"
     }
     
     var id: String {

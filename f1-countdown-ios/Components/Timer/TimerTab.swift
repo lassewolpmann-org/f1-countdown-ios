@@ -9,13 +9,12 @@ import SwiftUI
 
 struct TimerTab: View {
     @State var nextRace: RaceData;
-    let dataConfig: DataConfig;
 
     var body: some View {
         NavigationStack {
             ScrollView {
                 ForEach(nextRace.futureSessions, id: \.key) { key, value in
-                    Session(nextRace: $nextRace, dataConfig: dataConfig, sessionName: key, sessionDate: value, delta: deltaValues(dateString: value))
+                    Session(nextRace: $nextRace, sessionName: key, sessionDate: value, delta: deltaValues(dateString: value))
                 }
             }
             .navigationTitle(getRaceTitle(race: nextRace))
@@ -31,5 +30,5 @@ struct TimerTab: View {
 }
 
 #Preview {
-    TimerTab(nextRace: RaceData(), dataConfig: DataConfig())
+    TimerTab(nextRace: RaceData())
 }

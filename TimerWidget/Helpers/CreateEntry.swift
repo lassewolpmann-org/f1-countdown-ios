@@ -9,14 +9,13 @@ import Foundation
 
 func createEntry() async -> TimerEntry {
     do {
-        let config = try await DataConfig().config;
         let nextRace = try await AppData().nextRace;
         
         let flag = CountryFlags().flags[nextRace.localeKey] ?? "";
         let tbc = nextRace.tbc ?? false;
         
-        return TimerEntry(race: nextRace, tbc: tbc, flag: flag, sessionLengths: config.sessionLengths)
+        return TimerEntry(race: nextRace, tbc: tbc, flag: flag, sessionLengths: nextRace.sessionLengths)
     } catch {
-        return TimerEntry(race: RaceData(), tbc: false, flag: "", sessionLengths: DataConfig().sessionLengths)
+        return TimerEntry(race: RaceData(), tbc: false, flag: "", sessionLengths: RaceData().sessionLengths)
     }
 }

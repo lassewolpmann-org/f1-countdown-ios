@@ -9,7 +9,6 @@ import SwiftUI
 
 struct CalendarTab: View {
     @State var nextRaces: [RaceData];
-    let config: DataConfig;
     
     var body: some View {
         let calendar = Calendar.current;
@@ -20,7 +19,7 @@ struct CalendarTab: View {
         NavigationStack {
             List {
                 ForEach(nextRaces) { race in
-                    RaceSheet(race: race, config: config);
+                    RaceSheet(race: race);
                 }
             }
             .navigationTitle("\(year) Calendar")
@@ -36,5 +35,5 @@ struct CalendarTab: View {
 }
 
 #Preview {
-    CalendarTab(nextRaces: [RaceData()], config: DataConfig())
+    CalendarTab(nextRaces: [RaceData()])
 }

@@ -11,10 +11,10 @@ import WidgetKit
 struct SessionInfo: View {
     let date: Date;
     let name: String;
-    let sessionLengths: [String: Int];
+    let sessionLengths: [String: Double];
     
     var body: some View {
-        let sessionLength = Double(sessionLengths[name] ?? Int(60.0));
+        let sessionLength = sessionLengths[name] ?? 0;
         
         VStack(alignment: .leading) {
             HStack {
@@ -52,5 +52,5 @@ struct SessionInfo: View {
 #Preview(as: .systemLarge) {
     TimerWidget()
 } timeline: {
-    TimerEntry(race: RaceData(), tbc: false, flag: "", sessionLengths: DataConfig().sessionLengths)
+    TimerEntry(race: RaceData(), tbc: false, flag: "", sessionLengths: RaceData().sessionLengths)
 }
