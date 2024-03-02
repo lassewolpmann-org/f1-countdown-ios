@@ -17,7 +17,7 @@ struct Large: View {
             
             Divider()
             
-            ForEach(entry.race.futureSessions, id: \.key) { session in
+            ForEach(entry.race.sortedSessions, id: \.key) { session in
                 let name = session.key;
                 let date = ISO8601DateFormatter().date(from: session.value)!
 

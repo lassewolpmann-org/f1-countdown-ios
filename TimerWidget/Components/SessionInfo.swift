@@ -28,8 +28,8 @@ struct SessionInfo: View {
             }
             
             HStack {
-                if (date.timeIntervalSinceNow <  60 * 60) {
-                    Text("Session starts in \(date, style: .timer)")
+                if (date.timeIntervalSinceNow < 60 * 60) {
+                    Text("Session starts in \(timerInterval: Date.now...date, pauseTime: Date.now)")
                 } else {
                     Text(date, style: .date)
                     
