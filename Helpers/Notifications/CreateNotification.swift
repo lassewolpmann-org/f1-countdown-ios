@@ -11,10 +11,9 @@ import UserNotifications
 func createNotification(race: RaceData, sessionDate: String, sessionName: String) async -> Bool {
     let center = UNUserNotificationCenter.current();
     let date = ISO8601DateFormatter().date(from: sessionDate)!;
+    let notificationTimeSetting = UserDefaults.standard.integer(forKey: "Notification");
     
     if (await checkForPermission()) {
-        let notificationTimeSetting = UserDefaults.standard.integer(forKey: "Notification");
-        
         let calendarDate = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: date.addingTimeInterval(TimeInterval(-notificationTimeSetting * 60)));
         let trigger = UNCalendarNotificationTrigger(dateMatching: calendarDate, repeats: false);
         

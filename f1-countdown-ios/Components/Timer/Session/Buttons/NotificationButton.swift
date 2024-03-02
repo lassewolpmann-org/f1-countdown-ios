@@ -14,6 +14,7 @@ struct NotificationButton: View {
     
     @State var notificationEnabled: Bool = false;
     @State private var showAlert = false;
+    @State private var allowButton: Bool = false;
     
     var body: some View {
         let date = ISO8601DateFormatter().date(from: sessionDate)!;
@@ -37,7 +38,7 @@ struct NotificationButton: View {
         }
         .buttonStyle(.bordered)
         .labelStyle(.iconOnly)
-        .disabled(date.timeIntervalSinceNow <= 0)
+        .disabled(allowButton)
         .alert(
             Text("Notifications disabled"),
             isPresented: $showAlert
@@ -49,6 +50,7 @@ struct NotificationButton: View {
             Text("Please enable Notifications for the App in the System Settings")
         }
         .task {
+            allowButton = notificationButtonDisabled(sessionDate: date);
             notificationEnabled = await checkForExistingNotification(sessionDate: sessionDate);
         }
     }
