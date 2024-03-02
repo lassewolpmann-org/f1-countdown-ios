@@ -15,7 +15,7 @@ struct TimerTab: View {
         NavigationStack {
             ScrollView {
                 ForEach(nextRace.futureSessions, id: \.key) { key, value in
-                    Session(nextRace: nextRace, dataConfig: dataConfig, sessionName: key, sessionDate: value)
+                    Session(nextRace: $nextRace, dataConfig: dataConfig, sessionName: key, sessionDate: value, delta: deltaValues(dateString: value))
                 }
             }
             .navigationTitle(getRaceTitle(race: nextRace))

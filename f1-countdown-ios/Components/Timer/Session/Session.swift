@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct Session: View {
-    let nextRace: RaceData;
+    @Binding var nextRace: RaceData;
     let dataConfig: DataConfig;
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect();
     let sessionName: String;
     let sessionDate: String;
     
-    @State var delta: deltaValues = deltaValues(dateString: Date().ISO8601Format());
+    // @State var delta: deltaValues = deltaValues(dateString: Date().ISO8601Format());
+    @State var delta: deltaValues;
     @State var showWeatherForecast: Bool = false;
         
     var body: some View {
@@ -55,6 +56,16 @@ struct Session: View {
         .padding(10)
         .onReceive(timer) { _ in
             delta = deltaValues(dateString: sessionDate);
+            
+            if (delta.delta == 0) {
+                Task {
+                    do {
+                        nextRace = try await AppData().nextRace;
+                    } catch {
+                        print("Error getting next Race")
+                    }
+                }
+            }
         }
         .sheet(isPresented: $showWeatherForecast, content: {
             SessionWeather(showWeatherForecast: $showWeatherForecast, nextRace: nextRace, sessionDate: sessionDate, sessionName: sessionName, dataConfig: dataConfig)
@@ -68,6 +79,6 @@ struct Session: View {
         let nextRace = RaceData();
         let firstSession = nextRace.futureSessions.first!;
         
-        Session(nextRace: nextRace, dataConfig: DataConfig(), sessionName: firstSession.key, sessionDate: firstSession.value)
+        Session(nextRace: .constant(RaceData()), dataConfig: DataConfig(), sessionName: firstSession.key, sessionDate: firstSession.value, delta: deltaValues(dateString: Date().ISO8601Format()))
     }
 }
