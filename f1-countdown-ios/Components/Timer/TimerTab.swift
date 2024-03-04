@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TimerTab: View {
     @State var nextRace: RaceData;
+    @State var series: String = "f1";
 
     var body: some View {
         NavigationStack {
@@ -19,9 +20,21 @@ struct TimerTab: View {
             }
             .navigationTitle(getRaceTitle(race: nextRace))
         }
+        .onAppear {
+            series = UserDefaults.standard.string(forKey: "Series") ?? "f1";
+        }
+        .onChange(of: series, { oldValue, newValue in
+            Task {
+                do {
+                    nextRace = try await AppData(series: newValue).nextRace;
+                } catch {
+                    print("Error getting next Race")
+                }
+            }
+        })
         .refreshable {
             do {
-                nextRace = try await AppData().nextRace;
+                nextRace = try await AppData(series: series).nextRace;
             } catch {
                 print("Error getting next Race")
             }

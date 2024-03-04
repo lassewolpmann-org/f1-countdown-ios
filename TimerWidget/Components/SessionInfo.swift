@@ -11,10 +11,10 @@ import WidgetKit
 struct SessionInfo: View {
     let date: Date;
     let name: String;
-    let sessionLengths: [String: Double];
+    let sessionLengths: [String: [String: Double]];
     
     var body: some View {
-        let sessionLength = sessionLengths[name] ?? 0;
+        let sessionLength = sessionLengths["f1"]?[name] ?? 60;
         
         VStack(alignment: .leading) {
             HStack {

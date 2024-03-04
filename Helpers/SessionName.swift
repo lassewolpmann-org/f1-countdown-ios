@@ -7,24 +7,27 @@
 
 import Foundation
 
-func parseSessionName(sessionName: String?) -> String {
-    let name = sessionName ?? "undefined"
-    
-    if (name == "fp1") {
+func parseSessionName(sessionName: String?) -> String {    
+    switch (sessionName) {
+    case "fp1":
         return "Free Practice 1"
-    } else if (name == "fp2") {
+    case "fp2":
         return "Free Practice 2"
-    } else if (name == "fp3") {
+    case "fp3":
         return "Free Practice 3"
-    } else if (name == "qualifying") {
+    case "practice":
+        return "Practice"
+    case "qualifying":
         return "Qualifying"
-    } else if (name == "sprintQualifying") {
+    case "sprintQualifying":
         return "Sprint Shootout"
-    } else if (name == "sprint") {
+    case "sprint":
         return "Sprint"
-    } else if (name == "gp") {
+    case "gp":
         return "Race"
-    } else {
+    case "feature":
+        return "Race"
+    default:
         return "Undefined Session"
     }
 }

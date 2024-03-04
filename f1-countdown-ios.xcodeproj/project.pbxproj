@@ -26,6 +26,7 @@
 		254019252B343CBC007AEAE1 /* SheetContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254019242B343CBC007AEAE1 /* SheetContent.swift */; };
 		254DCC552B6A6EDB00493CDD /* CreateNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254DCC542B6A6EDB00493CDD /* CreateNotification.swift */; };
 		255E71C72B8DD9F600F21348 /* RemoveInvalidNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255E71C62B8DD9F600F21348 /* RemoveInvalidNotifications.swift */; };
+		2565E1EF2B95CDD100401407 /* SeriesPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2565E1EE2B95CDD100401407 /* SeriesPicker.swift */; };
 		2571837C2B73B241003D12F9 /* DeltaValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BE0E472B2349E20089B5BA /* DeltaValues.swift */; };
 		2571837E2B73B264003D12F9 /* RaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2571837D2B73B264003D12F9 /* RaceData.swift */; };
 		2571837F2B73B264003D12F9 /* RaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2571837D2B73B264003D12F9 /* RaceData.swift */; };
@@ -111,6 +112,7 @@
 		254019242B343CBC007AEAE1 /* SheetContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetContent.swift; sourceTree = "<group>"; };
 		254DCC542B6A6EDB00493CDD /* CreateNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNotification.swift; sourceTree = "<group>"; };
 		255E71C62B8DD9F600F21348 /* RemoveInvalidNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveInvalidNotifications.swift; sourceTree = "<group>"; };
+		2565E1EE2B95CDD100401407 /* SeriesPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesPicker.swift; sourceTree = "<group>"; };
 		2571837D2B73B264003D12F9 /* RaceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceData.swift; sourceTree = "<group>"; };
 		257183802B73B457003D12F9 /* CreateEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEntry.swift; sourceTree = "<group>"; };
 		2575791F2B84C4FA00FC1A81 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 		250087082B21FFB20014AF27 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				2565E1ED2B95CDC700401407 /* Series */,
 				25B5C3F22B6B7D3C00057E4D /* Footer */,
 				25B5C3ED2B6B7CD400057E4D /* Legal */,
 				25B5C3EA2B6B7C9300057E4D /* Notifications */,
@@ -219,6 +222,14 @@
 				25F1D8722B853A53007D360F /* WeatherElement.swift */,
 			);
 			path = Weather;
+			sourceTree = "<group>";
+		};
+		2565E1ED2B95CDC700401407 /* Series */ = {
+			isa = PBXGroup;
+			children = (
+				2565E1EE2B95CDD100401407 /* SeriesPicker.swift */,
+			);
+			path = Series;
 			sourceTree = "<group>";
 		};
 		257959C92B04FB000033DFAB = {
@@ -572,6 +583,7 @@
 				25C6C5552B177A0F00818265 /* SessionName.swift in Sources */,
 				25C6C5522B1779FC00818265 /* DateFormatters.swift in Sources */,
 				257579202B84C4FA00FC1A81 /* WeatherData.swift in Sources */,
+				2565E1EF2B95CDD100401407 /* SeriesPicker.swift in Sources */,
 				2534A14B2B287279003B0BE3 /* CountryFlags.swift in Sources */,
 				25B5C3EC2B6B7CA300057E4D /* RemoveNotificationsButton.swift in Sources */,
 				25EDC7952B054D320094DBBA /* TimerElement.swift in Sources */,

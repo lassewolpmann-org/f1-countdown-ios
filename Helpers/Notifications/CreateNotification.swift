@@ -18,9 +18,14 @@ func createNotification(race: RaceData, sessionDate: String, sessionName: String
         let trigger = UNCalendarNotificationTrigger(dateMatching: calendarDate, repeats: false);
         
         let content = UNMutableNotificationContent();
+        let series = UserDefaults.standard.string(forKey: "Series")?.uppercased() ?? "f1".uppercased();
+        let session = parseSessionName(sessionName: sessionName);
+        
         content.title = "\(getRaceTitle(race: race))";
-        content.body = notificationTimeSetting == 0 ? "\(sessionName.uppercased()) is now live!" : "\(sessionName.uppercased()) starts in \(notificationTimeSetting.description) minutes!";
+        content.body = notificationTimeSetting == 0 ? "\(series) \(session) is now live!" : "\(series) \(session) starts in \(notificationTimeSetting.description) minutes!";
         content.sound = UNNotificationSound.default;
+        
+        print(content.title, content.body, trigger)
         
         let notification = UNNotificationRequest(identifier: sessionDate, content: content, trigger: trigger);
         

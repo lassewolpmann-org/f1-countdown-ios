@@ -13,7 +13,7 @@ struct TimerEntry: TimelineEntry {
     let date: Date = Date();
     let tbc: Bool;
     let flag: String;
-    let sessionLengths: [String: Double];
+    let sessionLengths: [String: [String: Double]];
 }
 
 struct TimerWidgetView: View {

@@ -16,7 +16,8 @@ class WeatherData {
     func getWeather(race: RaceData, sessionDate: String, sessionName: String) async {
         let formatter = ISO8601DateFormatter();
         let startDate = formatter.date(from: sessionDate)!;
-        let sessionLength = race.sessionLengths[sessionName] ?? 0;
+        let series = UserDefaults.standard.string(forKey: "Series") ?? "f1";
+        let sessionLength = race.sessionLengths[series]?[sessionName] ?? 60;
         let endDate = startDate.addingTimeInterval(60 * sessionLength);
         
         if (endDate.timeIntervalSinceNow >= 10 * 24 * 60 * 60) { return }
