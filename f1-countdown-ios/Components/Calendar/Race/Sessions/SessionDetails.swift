@@ -15,8 +15,7 @@ struct SessionDetails: View {
     
     var body: some View {
         let day = getDayName(date: date);
-        let series = UserDefaults.standard.string(forKey: "Series") ?? "f1";
-        let sessionLength = race.sessionLengths[series]?[name] ?? 60;
+        let sessionLength = race.sessionLengths[name] ?? 60;
         
         Section {
             HStack(alignment: .center) {

@@ -9,7 +9,6 @@ import Foundation
 
 struct AppData: Decodable {
     var races: [RaceData] = [RaceData()]
-    var series: String?;
     
     var data: AppData {
         get async throws {
@@ -17,7 +16,7 @@ struct AppData: Decodable {
             let calendar = Calendar.current;
             let year = calendar.component(.year, from: date);
             
-            let (data, _) = try await URLSession.shared.data(from: URL(string: "https://raw.githubusercontent.com/sportstimes/f1/main/_db/\(series ?? "f1")/\(year).json")!);
+            let (data, _) = try await URLSession.shared.data(from: URL(string: "https://raw.githubusercontent.com/sportstimes/f1/main/_db/f1/\(year).json")!);
             return try JSONDecoder().decode(AppData.self, from: data)
         }
     }

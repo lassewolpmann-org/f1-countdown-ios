@@ -15,8 +15,6 @@ struct f1_countdown_iosApp: App {
     @State private var dataLoaded: Bool = false;
     
     var body: some Scene {
-        let series = UserDefaults.standard.string(forKey: "Series") ?? "f1";
-
         WindowGroup {
             Group {
                 if (dataLoaded) {
@@ -29,8 +27,8 @@ struct f1_countdown_iosApp: App {
                 }
             }.task {
                 do {
-                    nextRaces = try await AppData(series: series).nextRaces;
-                    nextRace = try await AppData(series: series).nextRace;
+                    nextRaces = try await AppData().nextRaces;
+                    nextRace = try await AppData().nextRace;
                     
                     dataLoaded = true;
                 } catch {

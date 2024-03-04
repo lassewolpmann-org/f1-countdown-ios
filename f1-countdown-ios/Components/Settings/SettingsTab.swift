@@ -12,12 +12,6 @@ struct SettingsTab: View {
         NavigationStack {
             List {
                 Section {
-                    SeriesPicker()
-                } header: {
-                    Text("Series")
-                }
-                
-                Section {
                     NotificationTime()
                     RemoveNotificationsButton()
                 } header: {

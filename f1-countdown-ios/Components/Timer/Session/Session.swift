@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct Session: View {
-    @Binding var nextRace: RaceData;
+    @State var nextRace: RaceData;
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect();
     let sessionName: String;
     let sessionDate: String;
     
-    // @State var delta: deltaValues = deltaValues(dateString: Date().ISO8601Format());
     @State var delta: deltaValues;
     @State var showWeatherForecast: Bool = false;
         
@@ -78,6 +77,6 @@ struct Session: View {
         let nextRace = RaceData();
         let firstSession = nextRace.futureSessions.first!;
         
-        Session(nextRace: .constant(RaceData()), sessionName: firstSession.key, sessionDate: firstSession.value, delta: deltaValues(dateString: Date().ISO8601Format()))
+        Session(nextRace: RaceData(), sessionName: firstSession.key, sessionDate: firstSession.value, delta: deltaValues(dateString: Date().ISO8601Format()))
     }
 }
