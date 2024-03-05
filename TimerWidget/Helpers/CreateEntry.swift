@@ -9,7 +9,9 @@ import Foundation
 
 func createEntry() async -> TimerEntry {
     do {
-        let nextRace = try await AppData().nextRace;
+        let appData = AppData(series: "f1");
+        appData.races = try await appData.getAllRaces();
+        let nextRace = appData.nextRace;
         
         let flag = CountryFlags().flags[nextRace.localeKey] ?? "";
         let tbc = nextRace.tbc ?? false;

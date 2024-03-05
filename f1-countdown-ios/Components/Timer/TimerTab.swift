@@ -8,27 +8,29 @@
 import SwiftUI
 
 struct TimerTab: View {
-    @State var nextRace: RaceData;
+    @Environment(AppData.self) private var appData;
 
     var body: some View {
         NavigationStack {
             ScrollView {
-                ForEach(nextRace.futureSessions, id: \.key) { key, value in
-                    Session(nextRace: nextRace, sessionName: key, sessionDate: value, delta: deltaValues(dateString: value))
+                ForEach(appData.nextRace.futureSessions, id: \.key) { key, value in
+                    Session(sessionName: key, sessionDate: value, delta: deltaValues(dateString: value))
+                        .environment(appData)
                 }
             }
-            .navigationTitle(getRaceTitle(race: nextRace))
+            .navigationTitle(getRaceTitle(race: appData.nextRace))
         }
         .refreshable {
             do {
-                nextRace = try await AppData().nextRace;
+                appData.races = try await appData.getAllRaces()
             } catch {
-                print("Error getting next Race")
+                print("\(error), while refreshing TimerTab")
             }
         }
     }
 }
 
 #Preview {
-    TimerTab(nextRace: RaceData())
+    TimerTab()
+        .environment(AppData(series: "f1"))
 }

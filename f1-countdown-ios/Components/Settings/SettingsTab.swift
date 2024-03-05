@@ -8,9 +8,19 @@
 import SwiftUI
 
 struct SettingsTab: View {
+    @Environment(AppData.self) private var appData;
+    @State private var reloadingData: Bool = false;
+
     var body: some View {
         NavigationStack {
             List {
+                Section {
+                    SeriesPicker(reloadingData: $reloadingData)
+                        .environment(appData)
+                } header: {
+                    Text("Series")
+                }
+                
                 Section {
                     NotificationTime()
                     RemoveNotificationsButton()
@@ -32,9 +42,24 @@ struct SettingsTab: View {
             }
             .navigationTitle("Settings")
         }
+        .disabled(reloadingData)
+        .overlay {
+            if (reloadingData) {
+                VStack {
+                    ProgressView()
+                    Text("Reloading data...")
+                }
+                .padding(10)
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(.background)
+                )
+            }
+        }
     }
 }
 
 #Preview {
     SettingsTab()
+        .environment(AppData(series: "f1"))
 }

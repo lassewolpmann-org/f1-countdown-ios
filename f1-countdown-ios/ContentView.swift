@@ -8,22 +8,24 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var nextRace: RaceData;
-    @State var nextRaces: [RaceData];
+    @Environment(AppData.self) private var appData;
     
     var body: some View {
         TabView {
-            TimerTab(nextRace: nextRace)
+            TimerTab()
+                .environment(appData)
             .tabItem {
                 Label("Timer", systemImage: "stopwatch")
             }
             
-            CalendarTab(nextRaces: nextRaces)
+            CalendarTab()
+                .environment(appData)
             .tabItem {
                 Label("Calendar", systemImage: "calendar")
             }
             
             SettingsTab()
+                .environment(appData)
             .tabItem {
                 Label("Settings", systemImage: "gear")
             }
@@ -36,5 +38,6 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(nextRace: RaceData(), nextRaces: [RaceData()])
+    ContentView()
+        .environment(AppData(series: "f1"))
 }

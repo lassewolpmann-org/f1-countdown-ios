@@ -8,32 +8,33 @@
 import SwiftUI
 
 struct CalendarTab: View {
-    @State var nextRaces: [RaceData];
-    
+    @Environment(AppData.self) private var appData;
+
     var body: some View {
         let calendar = Calendar.current;
-        let date = ISO8601DateFormatter().date(from: nextRaces.first!.sessions.first!.value)!;
+        let date = ISO8601DateFormatter().date(from: appData.nextRaces.first!.sessions.first!.value)!;
         let dateComponents = calendar.dateComponents([.year], from: date);
         let year = dateComponents.year!.description;
         
         NavigationStack {
             List {
-                ForEach(nextRaces) { race in
+                ForEach(appData.nextRaces) { race in
                     RaceSheet(race: race);
                 }
             }
-            .navigationTitle("\(year) Calendar")
+            .navigationTitle("\(year) \(appData.series.uppercased()) Calendar")
         }
         .refreshable {
             do {
-                nextRaces = try await AppData().nextRaces;
+                appData.races = try await appData.getAllRaces()
             } catch {
-                print("Error getting next Races")
+                
             }
         }
     }
 }
 
 #Preview {
-    CalendarTab(nextRaces: [RaceData()])
+    CalendarTab()
+        .environment(AppData(series: "f1"))
 }

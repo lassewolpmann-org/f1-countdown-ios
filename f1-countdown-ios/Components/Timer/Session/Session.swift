@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Session: View {
-    @State var nextRace: RaceData;
+    @Environment(AppData.self) private var appData;
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect();
     let sessionName: String;
@@ -33,7 +33,7 @@ struct Session: View {
                 Divider()
                                 
                 VStack(spacing: 10) {
-                    NotificationButton(race: nextRace, sessionName: sessionName, sessionDate: sessionDate)
+                    NotificationButton(race: appData.nextRace, sessionName: sessionName, sessionDate: sessionDate)
                     
                     Button {
                         showWeatherForecast.toggle()
@@ -58,15 +58,15 @@ struct Session: View {
             if (delta.delta == 0) {
                 Task {
                     do {
-                        nextRace = try await AppData().nextRace;
+                        appData.races = try await appData.getAllRaces();
                     } catch {
-                        print("Error getting next Race")
+                        
                     }
                 }
             }
         }
         .sheet(isPresented: $showWeatherForecast, content: {
-            SessionWeather(showWeatherForecast: $showWeatherForecast, nextRace: nextRace, sessionDate: sessionDate, sessionName: sessionName)
+            SessionWeather(showWeatherForecast: $showWeatherForecast, nextRace: appData.nextRace, sessionDate: sessionDate, sessionName: sessionName)
             .presentationDetents([.medium])
         })
     }
@@ -77,6 +77,7 @@ struct Session: View {
         let nextRace = RaceData();
         let firstSession = nextRace.futureSessions.first!;
         
-        Session(nextRace: RaceData(), sessionName: firstSession.key, sessionDate: firstSession.value, delta: deltaValues(dateString: Date().ISO8601Format()))
+        Session(sessionName: firstSession.key, sessionDate: firstSession.value, delta: deltaValues(dateString: Date().ISO8601Format()))
+            .environment(AppData(series: "f1"))
     }
 }

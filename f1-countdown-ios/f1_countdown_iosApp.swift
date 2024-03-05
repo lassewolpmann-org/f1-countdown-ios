@@ -9,16 +9,15 @@ import SwiftUI
 
 @main
 struct f1_countdown_iosApp: App {
-    @State var nextRace: RaceData = RaceData();
-    @State var nextRaces: [RaceData] = [RaceData()];
-    
+    @State private var appData: AppData = AppData(series: "f1");
     @State private var dataLoaded: Bool = false;
     
     var body: some Scene {
         WindowGroup {
             Group {
                 if (dataLoaded) {
-                    ContentView(nextRace: nextRace, nextRaces: nextRaces)
+                    ContentView()
+                        .environment(appData)
                 } else {
                     VStack {
                         Text("Loading data...")
@@ -27,12 +26,10 @@ struct f1_countdown_iosApp: App {
                 }
             }.task {
                 do {
-                    nextRaces = try await AppData().nextRaces;
-                    nextRace = try await AppData().nextRace;
-                    
+                    appData.races = try await appData.getAllRaces()
                     dataLoaded = true;
                 } catch {
-                    print("API Call failed")
+                    print("\(error), while loading initial data")
                 }
             }
         }
