@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct NotificationButton: View {
-    let race: RaceData;
     let sessionName: String;
     let sessionDate: String;
+    let race: RaceData;
+    let series: String;
     
-    @State var notificationEnabled: Bool = false;
+    @State private var notificationEnabled: Bool = false;
     @State private var showAlert = false;
     @State private var allowButton: Bool = false;
     
@@ -24,7 +25,7 @@ struct NotificationButton: View {
                 notificationEnabled = deleteNotification(sessionDate: sessionDate)
             } else {
                 Task {
-                    notificationEnabled = await createNotification(race: race, sessionDate: sessionDate, sessionName: sessionName);
+                    notificationEnabled = await createNotification(race: race, series: series, sessionDate: sessionDate, sessionName: sessionName);
                     showAlert = !notificationEnabled;
                 }
             }
@@ -57,5 +58,5 @@ struct NotificationButton: View {
 }
 
 #Preview {
-    NotificationButton(race: RaceData(), sessionName: parseSessionName(sessionName: RaceData().futureSessions.first!.key), sessionDate: RaceData().futureSessions.first!.value)
+    NotificationButton(sessionName: parseSessionName(sessionName: RaceData().futureSessions.first!.key), sessionDate: RaceData().futureSessions.first!.value, race: RaceData(), series: "f1")
 }

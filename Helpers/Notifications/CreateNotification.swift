@@ -8,7 +8,7 @@
 import Foundation
 import UserNotifications
 
-func createNotification(race: RaceData, sessionDate: String, sessionName: String) async -> Bool {
+func createNotification(race: RaceData, series: String, sessionDate: String, sessionName: String) async -> Bool {
     let center = UNUserNotificationCenter.current();
     let date = ISO8601DateFormatter().date(from: sessionDate)!;
     let notificationTimeSetting = UserDefaults.standard.integer(forKey: "Notification");
@@ -19,10 +19,12 @@ func createNotification(race: RaceData, sessionDate: String, sessionName: String
         
         let content = UNMutableNotificationContent();
         let session = parseSessionName(sessionName: sessionName);
+        let series = series.uppercased()
         
         content.title = "\(getRaceTitle(race: race))";
-        content.body = notificationTimeSetting == 0 ? "\(session) is now live!" : "\(session) starts in \(notificationTimeSetting.description) minutes!";
+        content.body = notificationTimeSetting == 0 ? "\(series) \(session) is now live!" : "\(series) \(session) starts in \(notificationTimeSetting.description) minutes!";
         content.sound = UNNotificationSound.default;
+        print(content.title, content.body, trigger)
                 
         let notification = UNNotificationRequest(identifier: sessionDate, content: content, trigger: trigger);
         

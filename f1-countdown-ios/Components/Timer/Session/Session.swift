@@ -33,7 +33,7 @@ struct Session: View {
                 Divider()
                                 
                 VStack(spacing: 10) {
-                    NotificationButton(race: appData.nextRace, sessionName: sessionName, sessionDate: sessionDate)
+                    NotificationButton(sessionName: sessionName, sessionDate: sessionDate, race: appData.nextRace, series: appData.series)
                     
                     Button {
                         showWeatherForecast.toggle()
@@ -60,13 +60,13 @@ struct Session: View {
                     do {
                         appData.races = try await appData.getAllRaces();
                     } catch {
-                        
+                        print("\(error), while updating appData in Session")
                     }
                 }
             }
         }
         .sheet(isPresented: $showWeatherForecast, content: {
-            SessionWeather(showWeatherForecast: $showWeatherForecast, nextRace: appData.nextRace, sessionDate: sessionDate, sessionName: sessionName)
+            SessionWeather(showWeatherForecast: $showWeatherForecast, nextRace: appData.nextRace, series: appData.series, sessionDate: sessionDate, sessionName: sessionName)
             .presentationDetents([.medium])
         })
     }

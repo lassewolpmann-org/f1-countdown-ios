@@ -9,13 +9,15 @@ import SwiftUI
 
 struct SessionDetails: View {
     let race: RaceData;
+    let series: String;
     let name: String;
     let parsedName: String;
     let date: Date;
     
     var body: some View {
         let day = getDayName(date: date);
-        let sessionLength = race.sessionLengths[name] ?? 60;
+        let sessionLength = race.sessionLengths[series]?[name] ?? 60;
+        let dateString = ISO8601DateFormatter().string(from: date);
         
         Section {
             HStack(alignment: .center) {
@@ -30,7 +32,7 @@ struct SessionDetails: View {
                 Spacer()
                 Divider()
                 
-                NotificationButton(race: race, sessionName: parsedName, sessionDate: ISO8601DateFormatter().string(from: date))
+                NotificationButton(sessionName: name, sessionDate: dateString, race: race, series: series)
             }
         } header: {
             Text(parsedName)
@@ -43,6 +45,6 @@ struct SessionDetails: View {
         let race = RaceData();
         let firstSession = race.futureSessions.first!;
         
-        SessionDetails(race: race, name: firstSession.key, parsedName: parseSessionName(sessionName: firstSession.key), date: ISO8601DateFormatter().date(from: firstSession.value)!)
+        SessionDetails(race: race, series: "f1", name: firstSession.key, parsedName: parseSessionName(sessionName: firstSession.key), date: ISO8601DateFormatter().date(from: firstSession.value)!)
     }
 }

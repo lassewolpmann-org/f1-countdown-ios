@@ -14,6 +14,7 @@ struct SessionWeather: View {
     @Binding var showWeatherForecast: Bool;
     
     let nextRace: RaceData;
+    let series: String;
     let sessionDate: String;
     let sessionName: String;
 
@@ -50,7 +51,7 @@ struct SessionWeather: View {
             }
             .padding(20)
             .task {
-                await weather.getWeather(race: nextRace, sessionDate: sessionDate, sessionName: sessionName)
+                await weather.getWeather(race: nextRace, series: series, sessionDate: sessionDate, sessionName: sessionName)
             }
             .toolbar {
                 ToolbarItem {
@@ -73,7 +74,7 @@ struct SessionWeather: View {
     .sheet(isPresented: .constant(true), content: {
         let nextRace = RaceData();
         let nextSession = nextRace.futureSessions.first!;
-        SessionWeather(weather: WeatherData(), showWeatherForecast: .constant(true), nextRace: nextRace, sessionDate: nextSession.value, sessionName: nextSession.key)
+        SessionWeather(weather: WeatherData(), showWeatherForecast: .constant(true), nextRace: nextRace, series: "f1", sessionDate: nextSession.value, sessionName: nextSession.key)
         .presentationDetents([.medium])
     })
 }

@@ -26,7 +26,7 @@ func parseSessionName(sessionName: String?) -> String {
     case "gp":
         return "Race"
     case "feature":
-        return "Race"
+        return "Feature"
     default:
         return "Undefined Session"
     }

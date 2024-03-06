@@ -19,7 +19,7 @@ struct CalendarTab: View {
         NavigationStack {
             List {
                 ForEach(appData.nextRaces) { race in
-                    RaceSheet(race: race);
+                    RaceSheet(race: race, series: appData.series);
                 }
             }
             .navigationTitle("\(year) \(appData.series.uppercased()) Calendar")
