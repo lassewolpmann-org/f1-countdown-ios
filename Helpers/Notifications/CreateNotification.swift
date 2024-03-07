@@ -24,7 +24,6 @@ func createNotification(race: RaceData, series: String, sessionDate: String, ses
         content.title = "\(getRaceTitle(race: race))";
         content.body = notificationTimeSetting == 0 ? "\(series) \(session) is now live!" : "\(series) \(session) starts in \(notificationTimeSetting.description) minutes!";
         content.sound = UNNotificationSound.default;
-        print(content.title, content.body, trigger)
                 
         let notification = UNNotificationRequest(identifier: sessionDate, content: content, trigger: trigger);
         

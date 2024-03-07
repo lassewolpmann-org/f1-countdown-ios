@@ -19,8 +19,7 @@ func rescheduleNotifications(time: Int) async {
     for notification in notifications {
         // Step 1: Get Current Identifier which is the Date in ISO8601 format
         let notificationIdentifier = notification.identifier;
-        let notificationBody = notification.content.body;
-        let sessionName = notificationBody.components(separatedBy: " ").first ?? "Undefined Session";
+        let notificationBody = notification.content.body.components(separatedBy: "starts").first ?? "Undefined";
         
         // Step 2: Remove current Notification
         center.removePendingNotificationRequests(withIdentifiers: [notificationIdentifier]);
@@ -28,7 +27,7 @@ func rescheduleNotifications(time: Int) async {
         // Step 3: Create new Content for Notification
         let content = UNMutableNotificationContent();
         content.title = notification.content.title;
-        content.body = time == 0 ? "\(sessionName) is now live!" : "\(sessionName) starts in \(time.description) minutes!";
+        content.body = time == 0 ? "\(notificationBody)is now live!" : "\(notificationBody)starts in \(time.description) minutes!";
         content.sound = UNNotificationSound.default;
         
         // Step 4: Create new Date with added Minutes
@@ -37,15 +36,15 @@ func rescheduleNotifications(time: Int) async {
         
         let calendarDate = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: newNotificationDate)
         let trigger = UNCalendarNotificationTrigger(dateMatching: calendarDate, repeats: false);
-        
+                
         // Step 5: Create new Notification
         let newNotification = UNNotificationRequest(identifier: notificationIdentifier, content: content, trigger: trigger);
         
         do {
             try await center.add(newNotification);
-            print("Notifcation created")
+            print("Notifcation rescheduled")
         } catch {
-            print("Error while creating notification")
+            print("Error while rescheduling notification")
         }
     }
 }
