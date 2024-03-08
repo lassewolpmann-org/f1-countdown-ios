@@ -30,6 +30,7 @@ struct NotificationTime: View {
                 await rescheduleNotifications(time: selectionOption);
             }
         }
+        .sensoryFeedback(.selection, trigger: selectionOption)
     }
 }
 

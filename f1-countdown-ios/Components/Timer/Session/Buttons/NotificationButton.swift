@@ -16,16 +16,18 @@ struct NotificationButton: View {
     @State private var notificationEnabled: Bool = false;
     @State private var showAlert = false;
     @State private var allowButton: Bool = false;
+    @State private var buttonState: Bool = false;
     
     var body: some View {
         let date = ISO8601DateFormatter().date(from: sessionDate)!;
         
         Button {
+            buttonState.toggle();
             if (notificationEnabled) {
                 notificationEnabled = deleteNotification(sessionDate: sessionDate)
             } else {
                 Task {
-                    notificationEnabled = await createNotification(race: race, series: series, sessionDate: sessionDate, sessionName: sessionName);
+                    notificationEnabled = await addNewNotification(race: race, series: series, sessionDate: sessionDate, sessionName: sessionName);
                     showAlert = !notificationEnabled;
                 }
             }
@@ -37,6 +39,8 @@ struct NotificationButton: View {
             .symbolRenderingMode(notificationEnabled ? .multicolor : .monochrome)
             .contentTransition(.symbolEffect(.replace))
         }
+        .sensoryFeedback(.success, trigger: buttonState)
+        .sensoryFeedback(.error, trigger: showAlert)
         .buttonStyle(.bordered)
         .labelStyle(.iconOnly)
         .disabled(allowButton)

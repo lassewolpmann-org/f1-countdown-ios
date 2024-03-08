@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct RemoveNotificationsButton: View {
-    @State var showAlert: Bool = false;
+    @State private var showAlert: Bool = false;
+    @State private var buttonState: Bool = false;
     
     var body: some View {
         Button {
+            buttonState.toggle();
             let center = UNUserNotificationCenter.current();
             center.removeAllPendingNotificationRequests();
             center.removeAllDeliveredNotifications();
@@ -29,6 +31,7 @@ struct RemoveNotificationsButton: View {
         } message: {
             Text("Removed all Notifications")
         }
+        .sensoryFeedback(.success, trigger: buttonState)
     }
 }
 

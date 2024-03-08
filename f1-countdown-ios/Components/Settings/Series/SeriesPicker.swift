@@ -21,7 +21,8 @@ struct SeriesPicker: View {
             }
         } label: {
             Text("Select Series")
-        }.onChange(of: selectedSeries) { oldValue, newValue in
+        }
+        .onChange(of: selectedSeries) { oldValue, newValue in
             appData.series = newValue;
             
             Task {
@@ -35,6 +36,7 @@ struct SeriesPicker: View {
                 }
             }
         }
+        .sensoryFeedback(.selection, trigger: selectedSeries)
     }
 }
 

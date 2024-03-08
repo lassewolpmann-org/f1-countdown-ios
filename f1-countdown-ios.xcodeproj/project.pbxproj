@@ -27,6 +27,7 @@
 		2540A4242B973F9A00684AEA /* SeriesPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2540A4232B973F9A00684AEA /* SeriesPicker.swift */; };
 		254DCC552B6A6EDB00493CDD /* CreateNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254DCC542B6A6EDB00493CDD /* CreateNotification.swift */; };
 		255E71C72B8DD9F600F21348 /* RemoveInvalidNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255E71C62B8DD9F600F21348 /* RemoveInvalidNotifications.swift */; };
+		256260682B9AF3B600EA7ED0 /* CheckForExisting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256260672B9AF3B600EA7ED0 /* CheckForExisting.swift */; };
 		2571837C2B73B241003D12F9 /* DeltaValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BE0E472B2349E20089B5BA /* DeltaValues.swift */; };
 		2571837E2B73B264003D12F9 /* RaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2571837D2B73B264003D12F9 /* RaceData.swift */; };
 		2571837F2B73B264003D12F9 /* RaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2571837D2B73B264003D12F9 /* RaceData.swift */; };
@@ -113,6 +114,7 @@
 		2540A4232B973F9A00684AEA /* SeriesPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesPicker.swift; sourceTree = "<group>"; };
 		254DCC542B6A6EDB00493CDD /* CreateNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNotification.swift; sourceTree = "<group>"; };
 		255E71C62B8DD9F600F21348 /* RemoveInvalidNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveInvalidNotifications.swift; sourceTree = "<group>"; };
+		256260672B9AF3B600EA7ED0 /* CheckForExisting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckForExisting.swift; sourceTree = "<group>"; };
 		2571837D2B73B264003D12F9 /* RaceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceData.swift; sourceTree = "<group>"; };
 		257183802B73B457003D12F9 /* CreateEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEntry.swift; sourceTree = "<group>"; };
 		2575791F2B84C4FA00FC1A81 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
@@ -403,6 +405,7 @@
 				25E56FDA2B8CD3450001D94E /* RescheduleNotifications.swift */,
 				255E71C62B8DD9F600F21348 /* RemoveInvalidNotifications.swift */,
 				252BE9DD2B939D6D0030DFC2 /* ButtonDisabled.swift */,
+				256260672B9AF3B600EA7ED0 /* CheckForExisting.swift */,
 			);
 			path = Notifications;
 			sourceTree = "<group>";
@@ -580,6 +583,7 @@
 				25BE0E482B2349E20089B5BA /* DeltaValues.swift in Sources */,
 				251C655F2B73779B003E4A13 /* AppData.swift in Sources */,
 				25CC38552B1480BA009209BE /* RaceSheet.swift in Sources */,
+				256260682B9AF3B600EA7ED0 /* CheckForExisting.swift in Sources */,
 				25BFB0322B0F68D90062E4BC /* SettingsTab.swift in Sources */,
 				25F1D8732B853A53007D360F /* WeatherElement.swift in Sources */,
 				25DE90792B09168A00632B61 /* NotificationButton.swift in Sources */,

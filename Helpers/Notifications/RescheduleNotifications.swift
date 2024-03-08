@@ -8,7 +8,7 @@
 import Foundation
 import UserNotifications
 
-func rescheduleNotifications(time: Int) async {
+func rescheduleNotifications(time: Int) async -> Void {
     // Save option ot User Defaults
     UserDefaults.standard.set(time, forKey: "Notification")
     
@@ -18,33 +18,27 @@ func rescheduleNotifications(time: Int) async {
     
     for notification in notifications {
         // Step 1: Get Current Identifier which is the Date in ISO8601 format
-        let notificationIdentifier = notification.identifier;
-        let notificationBody = notification.content.body.components(separatedBy: "starts").first ?? "Undefined";
+        let identifier = notification.identifier;
         
-        // Step 2: Remove current Notification
-        center.removePendingNotificationRequests(withIdentifiers: [notificationIdentifier]);
-
-        // Step 3: Create new Content for Notification
-        let content = UNMutableNotificationContent();
-        content.title = notification.content.title;
-        content.body = time == 0 ? "\(notificationBody)is now live!" : "\(notificationBody)starts in \(time.description) minutes!";
-        content.sound = UNNotificationSound.default;
+        // Step 2: Get current content and extract series and session data from it
+        let currentContent = notification.content;
+        let series = currentContent.userInfo["series"] as? String ?? "undefined series";
+        let session = currentContent.userInfo["session"] as? String ?? "undefined session";
+        let title = currentContent.title;
+        let body = time == 0 ? "\(series) \(session) is now live!" : "\(series) \(session) starts in \(time.description) minutes!";
         
-        // Step 4: Create new Date with added Minutes
-        let notificationDate = ISO8601DateFormatter().date(from: notificationIdentifier);
-        let newNotificationDate = notificationDate!.addingTimeInterval(TimeInterval(-time * 60));
+        // Step 3: Create new Date with added Minutes
+        let date = ISO8601DateFormatter().date(from: identifier)?.addingTimeInterval(TimeInterval(-time * 60)) ?? Date();
+        let calendarDate = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: date);
         
-        let calendarDate = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: newNotificationDate)
-        let trigger = UNCalendarNotificationTrigger(dateMatching: calendarDate, repeats: false);
-                
+        // Step 4: Remove current Notification
+        center.removePendingNotificationRequests(withIdentifiers: [identifier]);
+        
         // Step 5: Create new Notification
-        let newNotification = UNNotificationRequest(identifier: notificationIdentifier, content: content, trigger: trigger);
+        let success = await createNotification(identifier: identifier, date: calendarDate, title: title, body: body, series: series, session: session);
         
-        do {
-            try await center.add(newNotification);
-            print("Notifcation rescheduled")
-        } catch {
-            print("Error while rescheduling notification")
+        if (!success) {
+            print("Rescheduling of notification didn't work");
         }
     }
 }
