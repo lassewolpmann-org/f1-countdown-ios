@@ -61,12 +61,18 @@ struct TimerTimelineProvider: TimelineProvider {
                 let appData = AppData(series: "f1");
                 appData.races = try await appData.getAllRaces();
                 let nextRace = appData.nextRace;
+                let nextSession = nextRace.futureSessions.first!;
+                let date = ISO8601DateFormatter().date(from: nextSession.value) ?? Date();
 
-                let timeline = Timeline(entries: [await createEntry()], policy: .after(getNextUpdateDate(nextRace: nextRace)));
+                let timeline = Timeline(entries: [await createEntry()], policy: .after(date));
                 
                 completion(timeline)
             } catch {
-                let timeline = Timeline(entries: [await createEntry()], policy: .after(getNextUpdateDate(nextRace: RaceData())));
+                let nextRace = RaceData();
+                let nextSession = nextRace.futureSessions.first!;
+                let date = ISO8601DateFormatter().date(from: nextSession.value) ?? Date();
+                
+                let timeline = Timeline(entries: [await createEntry()], policy: .after(date));
                 
                 completion(timeline)
             }
