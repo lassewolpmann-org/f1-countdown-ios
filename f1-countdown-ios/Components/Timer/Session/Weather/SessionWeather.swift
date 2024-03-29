@@ -19,15 +19,27 @@ struct SessionWeather: View {
     let sessionName: String;
 
     var body: some View {
-        let date = ISO8601DateFormatter().date(from: sessionDate)!;
+        let startDate = ISO8601DateFormatter().date(from: sessionDate)!;
+        let sessionLength = nextRace.sessionLengths[series]?[sessionName] ?? 60;
+        let endDate = startDate.addingTimeInterval(60 * sessionLength);
 
         // Making sure that the end date is within 10 days
         let forecastAvailability: Double = 10 * 24 * 60 * 60;
         NavigationStack {
-            Group {
-                if (date.timeIntervalSinceNow >= forecastAvailability) {
+            VStack(alignment: .leading, spacing: 15) {
+                Text("Session Date")
+                    .font(.headline)
+                    .foregroundStyle(.secondary)
+                
+                Text("\(startDate, style: .date), \(DateInterval(start: startDate, end: endDate))")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                
+                Spacer()
+                
+                if (startDate.timeIntervalSinceNow >= forecastAvailability) {
                     VStack(alignment: .leading) {
-                        let weatherAvailabilityDate = date.addingTimeInterval(-forecastAvailability);
+                        let weatherAvailabilityDate = startDate.addingTimeInterval(-forecastAvailability);
                         Label("Weather Forecast will be available from \(Text(weatherAvailabilityDate, style: .date)), \(Text(weatherAvailabilityDate, style: .time)).", systemImage: "info.circle.fill")
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
@@ -36,10 +48,6 @@ struct SessionWeather: View {
                     VStack(alignment: .leading, spacing: 15) {
                         Text("Weather Forecast")
                             .font(.headline)
-                            .foregroundStyle(.secondary)
-                        
-                        Text("for \(date, style: .date), \(date, style: .time)")
-                            .font(.subheadline)
                             .foregroundStyle(.secondary)
                         
                         WeatherElement(labelText: "Conditions", systemImage: weather.symbol, weatherText: weather.condition)
@@ -51,7 +59,7 @@ struct SessionWeather: View {
             }
             .padding(20)
             .task {
-                await weather.getWeather(race: nextRace, series: series, sessionDate: sessionDate, sessionName: sessionName)
+                await weather.getWeather(race: nextRace, series: series, startDate: startDate, endDate: endDate, sessionName: sessionName)
             }
             .toolbar {
                 ToolbarItem {

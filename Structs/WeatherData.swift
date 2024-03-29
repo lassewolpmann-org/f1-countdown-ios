@@ -13,12 +13,7 @@ class WeatherData {
     private let service = WeatherService();
     var weather: HourWeather?
     
-    func getWeather(race: RaceData, series: String, sessionDate: String, sessionName: String) async {
-        let formatter = ISO8601DateFormatter();
-        let startDate = formatter.date(from: sessionDate)!;
-        let sessionLength = race.sessionLengths[series]?[sessionName] ?? 60;
-        let endDate = startDate.addingTimeInterval(60 * sessionLength);
-        
+    func getWeather(race: RaceData, series: String, startDate: Date, endDate: Date, sessionName: String) async {
         if (endDate.timeIntervalSinceNow >= 10 * 24 * 60 * 60) { return }
         
         let location = CLLocation(latitude: CLLocationDegrees(race.latitude), longitude: CLLocationDegrees(race.longitude));
