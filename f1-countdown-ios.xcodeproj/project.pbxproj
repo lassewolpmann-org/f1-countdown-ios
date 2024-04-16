@@ -67,6 +67,7 @@
 		25EA78922B6A5FA200EA9C5A /* NotificationPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EA78912B6A5FA200EA9C5A /* NotificationPermission.swift */; };
 		25EDC7952B054D320094DBBA /* TimerElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDC7942B054D320094DBBA /* TimerElement.swift */; };
 		25F1D8732B853A53007D360F /* WeatherElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F1D8722B853A53007D360F /* WeatherElement.swift */; };
+		25FA35FA2BCEE5760044B586 /* WeatherLicense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FA35F92BCEE5760044B586 /* WeatherLicense.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -151,6 +152,7 @@
 		25EA78912B6A5FA200EA9C5A /* NotificationPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermission.swift; sourceTree = "<group>"; };
 		25EDC7942B054D320094DBBA /* TimerElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerElement.swift; sourceTree = "<group>"; };
 		25F1D8722B853A53007D360F /* WeatherElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherElement.swift; sourceTree = "<group>"; };
+		25FA35F92BCEE5760044B586 /* WeatherLicense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherLicense.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -361,6 +363,7 @@
 				25B5C3EE2B6B7CF400057E4D /* DataLicense.swift */,
 				25B5C3F02B6B7CFA00057E4D /* AppLicense.swift */,
 				25DA1FB32B70C659008615FD /* TrademarkNotice.swift */,
+				25FA35F92BCEE5760044B586 /* WeatherLicense.swift */,
 			);
 			path = Legal;
 			sourceTree = "<group>";
@@ -593,6 +596,7 @@
 				25B5C3F42B6B7D4300057E4D /* SettingsFooter.swift in Sources */,
 				25C6C54C2B1779CE00818265 /* DeleteNotification.swift in Sources */,
 				25C6C5552B177A0F00818265 /* SessionName.swift in Sources */,
+				25FA35FA2BCEE5760044B586 /* WeatherLicense.swift in Sources */,
 				25C6C5522B1779FC00818265 /* DateFormatters.swift in Sources */,
 				257579202B84C4FA00FC1A81 /* WeatherData.swift in Sources */,
 				2540A4242B973F9A00684AEA /* SeriesPicker.swift in Sources */,

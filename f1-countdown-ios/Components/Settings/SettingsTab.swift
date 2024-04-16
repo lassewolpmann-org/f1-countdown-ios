@@ -33,6 +33,7 @@ struct SettingsTab: View {
                 Section {
                     DataLicense()
                     AppLicense()
+                    WeatherLicense()
                     TrademarkNotice()
                 } header: {
                     Text("Legal")

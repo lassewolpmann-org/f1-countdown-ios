@@ -54,6 +54,13 @@ struct SessionWeather: View {
                         WeatherElement(labelText: "Chance of Rain", systemImage: "drop", weatherText: weather.rainChance)
                         WeatherElement(labelText: "Temperature", systemImage: "thermometer.medium", weatherText: weather.temp)
                         WeatherElement(labelText: "Feels like", systemImage: "thermometer.medium", weatherText: weather.apparentTemp)
+                        
+                        Spacer()
+                        
+                        Text(" Weather")
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                            .padding(.bottom, 20)
                     }
                 }
             }
