@@ -66,6 +66,33 @@
 		25E56FDB2B8CD3450001D94E /* RescheduleNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E56FDA2B8CD3450001D94E /* RescheduleNotifications.swift */; };
 		25EA78922B6A5FA200EA9C5A /* NotificationPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EA78912B6A5FA200EA9C5A /* NotificationPermission.swift */; };
 		25EDC7952B054D320094DBBA /* TimerElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDC7942B054D320094DBBA /* TimerElement.swift */; };
+		25F11C882BD01E97007D0DE6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F11C872BD01E97007D0DE6 /* ContentView.swift */; };
+		25F11C8A2BD01E98007D0DE6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25F11C892BD01E98007D0DE6 /* Assets.xcassets */; };
+		25F11C8D2BD01E98007D0DE6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25F11C8C2BD01E98007D0DE6 /* Preview Assets.xcassets */; };
+		25F11CA62BD01E98007D0DE6 /* WatchTimer Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 25F11C832BD01E97007D0DE6 /* WatchTimer Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		25F11CB12BD01FE0007D0DE6 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C655E2B73779B003E4A13 /* AppData.swift */; };
+		25F11CB22BD02045007D0DE6 /* RaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2571837D2B73B264003D12F9 /* RaceData.swift */; };
+		25F11CB32BD02049007D0DE6 /* DeltaValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BE0E472B2349E20089B5BA /* DeltaValues.swift */; };
+		25F11CB42BD0204B007D0DE6 /* CountryFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2534A14A2B287279003B0BE3 /* CountryFlags.swift */; };
+		25F11CB52BD0204F007D0DE6 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2575791F2B84C4FA00FC1A81 /* WeatherData.swift */; };
+		25F11CB62BD02050007D0DE6 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2575791F2B84C4FA00FC1A81 /* WeatherData.swift */; };
+		25F11CB72BD02052007D0DE6 /* SessionLengths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252BE9DA2B9394070030DFC2 /* SessionLengths.swift */; };
+		25F11CB82BD0205A007D0DE6 /* RaceTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C5442B17799500818265 /* RaceTitle.swift */; };
+		25F11CB92BD0205C007D0DE6 /* DateFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C5512B1779FC00818265 /* DateFormatters.swift */; };
+		25F11CBA2BD0205E007D0DE6 /* SessionName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C5542B177A0F00818265 /* SessionName.swift */; };
+		25F11CBB2BD02064007D0DE6 /* RemoveInvalidNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255E71C62B8DD9F600F21348 /* RemoveInvalidNotifications.swift */; };
+		25F11CBC2BD02064007D0DE6 /* CreateNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254DCC542B6A6EDB00493CDD /* CreateNotification.swift */; };
+		25F11CBD2BD02064007D0DE6 /* CheckForExisting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256260672B9AF3B600EA7ED0 /* CheckForExisting.swift */; };
+		25F11CBE2BD02064007D0DE6 /* NotificationPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EA78912B6A5FA200EA9C5A /* NotificationPermission.swift */; };
+		25F11CBF2BD02064007D0DE6 /* RescheduleNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E56FDA2B8CD3450001D94E /* RescheduleNotifications.swift */; };
+		25F11CC02BD02065007D0DE6 /* RemoveInvalidNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255E71C62B8DD9F600F21348 /* RemoveInvalidNotifications.swift */; };
+		25F11CC12BD02065007D0DE6 /* CreateNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254DCC542B6A6EDB00493CDD /* CreateNotification.swift */; };
+		25F11CC22BD02065007D0DE6 /* ButtonDisabled.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252BE9DD2B939D6D0030DFC2 /* ButtonDisabled.swift */; };
+		25F11CC32BD02065007D0DE6 /* DeleteNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C54B2B1779CE00818265 /* DeleteNotification.swift */; };
+		25F11CC42BD02065007D0DE6 /* CheckForExisting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256260672B9AF3B600EA7ED0 /* CheckForExisting.swift */; };
+		25F11CC52BD02065007D0DE6 /* NotificationPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EA78912B6A5FA200EA9C5A /* NotificationPermission.swift */; };
+		25F11CC62BD02065007D0DE6 /* RescheduleNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E56FDA2B8CD3450001D94E /* RescheduleNotifications.swift */; };
+		25F11CC72BD02105007D0DE6 /* f1_countdown_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257959D52B04FB000033DFAB /* f1_countdown_iosApp.swift */; };
 		25F1D8732B853A53007D360F /* WeatherElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F1D8722B853A53007D360F /* WeatherElement.swift */; };
 		25FA35FA2BCEE5760044B586 /* WeatherLicense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FA35F92BCEE5760044B586 /* WeatherLicense.swift */; };
 /* End PBXBuildFile section */
@@ -77,6 +104,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 2505E6942B0F843E00876783;
 			remoteInfo = TimerWidgetExtension;
+		};
+		25F11CA42BD01E98007D0DE6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 257959CA2B04FB000033DFAB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 25F11C822BD01E97007D0DE6;
+			remoteInfo = "WatchTimer Watch App";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -90,6 +124,17 @@
 				2505E6A52B0F844000876783 /* TimerWidgetExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		25F11CA72BD01E98007D0DE6 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				25F11CA62BD01E98007D0DE6 /* WatchTimer Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -151,6 +196,10 @@
 		25E56FDA2B8CD3450001D94E /* RescheduleNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RescheduleNotifications.swift; sourceTree = "<group>"; };
 		25EA78912B6A5FA200EA9C5A /* NotificationPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermission.swift; sourceTree = "<group>"; };
 		25EDC7942B054D320094DBBA /* TimerElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerElement.swift; sourceTree = "<group>"; };
+		25F11C832BD01E97007D0DE6 /* WatchTimer Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WatchTimer Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		25F11C872BD01E97007D0DE6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		25F11C892BD01E98007D0DE6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		25F11C8C2BD01E98007D0DE6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		25F1D8722B853A53007D360F /* WeatherElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherElement.swift; sourceTree = "<group>"; };
 		25FA35F92BCEE5760044B586 /* WeatherLicense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherLicense.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -166,6 +215,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		257959CF2B04FB000033DFAB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		25F11C802BD01E97007D0DE6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -255,6 +311,7 @@
 				25C6C5382B1778D200818265 /* Helpers */,
 				257959D42B04FB000033DFAB /* f1-countdown-ios */,
 				2505E69B2B0F843E00876783 /* TimerWidget */,
+				25F11C842BD01E97007D0DE6 /* WatchTimer Watch App */,
 				2505E6962B0F843E00876783 /* Frameworks */,
 				257959D32B04FB000033DFAB /* Products */,
 			);
@@ -265,6 +322,7 @@
 			children = (
 				257959D22B04FB000033DFAB /* f1-countdown-ios.app */,
 				2505E6952B0F843E00876783 /* TimerWidgetExtension.appex */,
+				25F11C832BD01E97007D0DE6 /* WatchTimer Watch App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -447,6 +505,24 @@
 			path = Buttons;
 			sourceTree = "<group>";
 		};
+		25F11C842BD01E97007D0DE6 /* WatchTimer Watch App */ = {
+			isa = PBXGroup;
+			children = (
+				25F11C872BD01E97007D0DE6 /* ContentView.swift */,
+				25F11C892BD01E98007D0DE6 /* Assets.xcassets */,
+				25F11C8B2BD01E98007D0DE6 /* Preview Content */,
+			);
+			path = "WatchTimer Watch App";
+			sourceTree = "<group>";
+		};
+		25F11C8B2BD01E98007D0DE6 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				25F11C8C2BD01E98007D0DE6 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -475,15 +551,34 @@
 				257959CF2B04FB000033DFAB /* Frameworks */,
 				257959D02B04FB000033DFAB /* Resources */,
 				2505E6A62B0F844000876783 /* Embed Foundation Extensions */,
+				25F11CA72BD01E98007D0DE6 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				2505E6A42B0F844000876783 /* PBXTargetDependency */,
+				25F11CA52BD01E98007D0DE6 /* PBXTargetDependency */,
 			);
 			name = "f1-countdown-ios";
 			productName = "f1-countdown-ios";
 			productReference = 257959D22B04FB000033DFAB /* f1-countdown-ios.app */;
+			productType = "com.apple.product-type.application";
+		};
+		25F11C822BD01E97007D0DE6 /* WatchTimer Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 25F11CAE2BD01E98007D0DE6 /* Build configuration list for PBXNativeTarget "WatchTimer Watch App" */;
+			buildPhases = (
+				25F11C7F2BD01E97007D0DE6 /* Sources */,
+				25F11C802BD01E97007D0DE6 /* Frameworks */,
+				25F11C812BD01E97007D0DE6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "WatchTimer Watch App";
+			productName = "WatchTimer Watch App";
+			productReference = 25F11C832BD01E97007D0DE6 /* WatchTimer Watch App.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -493,7 +588,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1500;
+				LastSwiftUpdateCheck = 1530;
 				LastUpgradeCheck = 1510;
 				TargetAttributes = {
 					2505E6942B0F843E00876783 = {
@@ -501,6 +596,9 @@
 					};
 					257959D12B04FB000033DFAB = {
 						CreatedOnToolsVersion = 15.0.1;
+					};
+					25F11C822BD01E97007D0DE6 = {
+						CreatedOnToolsVersion = 15.3;
 					};
 				};
 			};
@@ -519,6 +617,7 @@
 			targets = (
 				257959D12B04FB000033DFAB /* f1-countdown-ios */,
 				2505E6942B0F843E00876783 /* TimerWidgetExtension */,
+				25F11C822BD01E97007D0DE6 /* WatchTimer Watch App */,
 			);
 		};
 /* End PBXProject section */
@@ -541,6 +640,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		25F11C812BD01E97007D0DE6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				25F11C8D2BD01E98007D0DE6 /* Preview Assets.xcassets in Resources */,
+				25F11C8A2BD01E98007D0DE6 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -548,6 +656,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25F11CB52BD0204F007D0DE6 /* WeatherData.swift in Sources */,
 				2571837C2B73B241003D12F9 /* DeltaValues.swift in Sources */,
 				25C6C54D2B1779CE00818265 /* DeleteNotification.swift in Sources */,
 				257183812B73B457003D12F9 /* CreateEntry.swift in Sources */,
@@ -555,6 +664,11 @@
 				25B404192B10B3D7007EF384 /* Medium.swift in Sources */,
 				25C6C5462B17799500818265 /* RaceTitle.swift in Sources */,
 				2505E69D2B0F843E00876783 /* TimerWidgetBundle.swift in Sources */,
+				25F11CBB2BD02064007D0DE6 /* RemoveInvalidNotifications.swift in Sources */,
+				25F11CBC2BD02064007D0DE6 /* CreateNotification.swift in Sources */,
+				25F11CBD2BD02064007D0DE6 /* CheckForExisting.swift in Sources */,
+				25F11CBE2BD02064007D0DE6 /* NotificationPermission.swift in Sources */,
+				25F11CBF2BD02064007D0DE6 /* RescheduleNotifications.swift in Sources */,
 				25C6C5532B1779FC00818265 /* DateFormatters.swift in Sources */,
 				25C6C5592B177DB400818265 /* SessionInfo.swift in Sources */,
 				252BE9DC2B9394070030DFC2 /* SessionLengths.swift in Sources */,
@@ -613,6 +727,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		25F11C7F2BD01E97007D0DE6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				25F11CC02BD02065007D0DE6 /* RemoveInvalidNotifications.swift in Sources */,
+				25F11CC12BD02065007D0DE6 /* CreateNotification.swift in Sources */,
+				25F11CC22BD02065007D0DE6 /* ButtonDisabled.swift in Sources */,
+				25F11CC32BD02065007D0DE6 /* DeleteNotification.swift in Sources */,
+				25F11CC42BD02065007D0DE6 /* CheckForExisting.swift in Sources */,
+				25F11CC52BD02065007D0DE6 /* NotificationPermission.swift in Sources */,
+				25F11CC62BD02065007D0DE6 /* RescheduleNotifications.swift in Sources */,
+				25F11CB72BD02052007D0DE6 /* SessionLengths.swift in Sources */,
+				25F11C882BD01E97007D0DE6 /* ContentView.swift in Sources */,
+				25F11CB32BD02049007D0DE6 /* DeltaValues.swift in Sources */,
+				25F11CB82BD0205A007D0DE6 /* RaceTitle.swift in Sources */,
+				25F11CB62BD02050007D0DE6 /* WeatherData.swift in Sources */,
+				25F11CBA2BD0205E007D0DE6 /* SessionName.swift in Sources */,
+				25F11CB92BD0205C007D0DE6 /* DateFormatters.swift in Sources */,
+				25F11CB22BD02045007D0DE6 /* RaceData.swift in Sources */,
+				25F11CB42BD0204B007D0DE6 /* CountryFlags.swift in Sources */,
+				25F11CC72BD02105007D0DE6 /* f1_countdown_iosApp.swift in Sources */,
+				25F11CB12BD01FE0007D0DE6 /* AppData.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -620,6 +759,11 @@
 			isa = PBXTargetDependency;
 			target = 2505E6942B0F843E00876783 /* TimerWidgetExtension */;
 			targetProxy = 2505E6A32B0F844000876783 /* PBXContainerItemProxy */;
+		};
+		25F11CA52BD01E98007D0DE6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 25F11C822BD01E97007D0DE6 /* WatchTimer Watch App */;
+			targetProxy = 25F11CA42BD01E98007D0DE6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -873,6 +1017,68 @@
 			};
 			name = Release;
 		};
+		25F11CA82BD01E98007D0DE6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"WatchTimer Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = UU6Y3A827V;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = WatchTimer;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "com.lassewolpmann.f1-countdown-ios";
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lassewolpmann.f1-countdown-ios.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.4;
+			};
+			name = Debug;
+		};
+		25F11CA92BD01E98007D0DE6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"WatchTimer Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = UU6Y3A827V;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = WatchTimer;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "com.lassewolpmann.f1-countdown-ios";
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lassewolpmann.f1-countdown-ios.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.4;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -899,6 +1105,15 @@
 			buildConfigurations = (
 				257959E12B04FB010033DFAB /* Debug */,
 				257959E22B04FB010033DFAB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		25F11CAE2BD01E98007D0DE6 /* Build configuration list for PBXNativeTarget "WatchTimer Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				25F11CA82BD01E98007D0DE6 /* Debug */,
+				25F11CA92BD01E98007D0DE6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
