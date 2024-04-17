@@ -69,7 +69,7 @@
 		25F11C882BD01E97007D0DE6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F11C872BD01E97007D0DE6 /* ContentView.swift */; };
 		25F11C8A2BD01E98007D0DE6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25F11C892BD01E98007D0DE6 /* Assets.xcassets */; };
 		25F11C8D2BD01E98007D0DE6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25F11C8C2BD01E98007D0DE6 /* Preview Assets.xcassets */; };
-		25F11CA62BD01E98007D0DE6 /* WatchTimer Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 25F11C832BD01E97007D0DE6 /* WatchTimer Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		25F11CA62BD01E98007D0DE6 /* Formula Countdown.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 25F11C832BD01E97007D0DE6 /* Formula Countdown.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		25F11CB12BD01FE0007D0DE6 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C655E2B73779B003E4A13 /* AppData.swift */; };
 		25F11CB22BD02045007D0DE6 /* RaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2571837D2B73B264003D12F9 /* RaceData.swift */; };
 		25F11CB32BD02049007D0DE6 /* DeltaValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BE0E472B2349E20089B5BA /* DeltaValues.swift */; };
@@ -93,6 +93,8 @@
 		25F11CC52BD02065007D0DE6 /* NotificationPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EA78912B6A5FA200EA9C5A /* NotificationPermission.swift */; };
 		25F11CC62BD02065007D0DE6 /* RescheduleNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E56FDA2B8CD3450001D94E /* RescheduleNotifications.swift */; };
 		25F11CC72BD02105007D0DE6 /* f1_countdown_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257959D52B04FB000033DFAB /* f1_countdown_iosApp.swift */; };
+		25F11CCD2BD031D7007D0DE6 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F11CCC2BD031D7007D0DE6 /* Session.swift */; };
+		25F11CCF2BD03361007D0DE6 /* TimerCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F11CCE2BD03361007D0DE6 /* TimerCircle.swift */; };
 		25F1D8732B853A53007D360F /* WeatherElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F1D8722B853A53007D360F /* WeatherElement.swift */; };
 		25FA35FA2BCEE5760044B586 /* WeatherLicense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FA35F92BCEE5760044B586 /* WeatherLicense.swift */; };
 /* End PBXBuildFile section */
@@ -132,7 +134,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				25F11CA62BD01E98007D0DE6 /* WatchTimer Watch App.app in Embed Watch Content */,
+				25F11CA62BD01E98007D0DE6 /* Formula Countdown.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -196,10 +198,12 @@
 		25E56FDA2B8CD3450001D94E /* RescheduleNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RescheduleNotifications.swift; sourceTree = "<group>"; };
 		25EA78912B6A5FA200EA9C5A /* NotificationPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermission.swift; sourceTree = "<group>"; };
 		25EDC7942B054D320094DBBA /* TimerElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerElement.swift; sourceTree = "<group>"; };
-		25F11C832BD01E97007D0DE6 /* WatchTimer Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WatchTimer Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		25F11C832BD01E97007D0DE6 /* Formula Countdown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Formula Countdown.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		25F11C872BD01E97007D0DE6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		25F11C892BD01E98007D0DE6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		25F11C8C2BD01E98007D0DE6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		25F11CCC2BD031D7007D0DE6 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		25F11CCE2BD03361007D0DE6 /* TimerCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerCircle.swift; sourceTree = "<group>"; };
 		25F1D8722B853A53007D360F /* WeatherElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherElement.swift; sourceTree = "<group>"; };
 		25FA35F92BCEE5760044B586 /* WeatherLicense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherLicense.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -322,7 +326,7 @@
 			children = (
 				257959D22B04FB000033DFAB /* f1-countdown-ios.app */,
 				2505E6952B0F843E00876783 /* TimerWidgetExtension.appex */,
-				25F11C832BD01E97007D0DE6 /* WatchTimer Watch App.app */,
+				25F11C832BD01E97007D0DE6 /* Formula Countdown.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -508,6 +512,7 @@
 		25F11C842BD01E97007D0DE6 /* WatchTimer Watch App */ = {
 			isa = PBXGroup;
 			children = (
+				25F11CCB2BD031BE007D0DE6 /* Components */,
 				25F11C872BD01E97007D0DE6 /* ContentView.swift */,
 				25F11C892BD01E98007D0DE6 /* Assets.xcassets */,
 				25F11C8B2BD01E98007D0DE6 /* Preview Content */,
@@ -521,6 +526,15 @@
 				25F11C8C2BD01E98007D0DE6 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		25F11CCB2BD031BE007D0DE6 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				25F11CCC2BD031D7007D0DE6 /* Session.swift */,
+				25F11CCE2BD03361007D0DE6 /* TimerCircle.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -578,7 +592,7 @@
 			);
 			name = "WatchTimer Watch App";
 			productName = "WatchTimer Watch App";
-			productReference = 25F11C832BD01E97007D0DE6 /* WatchTimer Watch App.app */;
+			productReference = 25F11C832BD01E97007D0DE6 /* Formula Countdown.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -738,10 +752,12 @@
 				25F11CC42BD02065007D0DE6 /* CheckForExisting.swift in Sources */,
 				25F11CC52BD02065007D0DE6 /* NotificationPermission.swift in Sources */,
 				25F11CC62BD02065007D0DE6 /* RescheduleNotifications.swift in Sources */,
+				25F11CCF2BD03361007D0DE6 /* TimerCircle.swift in Sources */,
 				25F11CB72BD02052007D0DE6 /* SessionLengths.swift in Sources */,
 				25F11C882BD01E97007D0DE6 /* ContentView.swift in Sources */,
 				25F11CB32BD02049007D0DE6 /* DeltaValues.swift in Sources */,
 				25F11CB82BD0205A007D0DE6 /* RaceTitle.swift in Sources */,
+				25F11CCD2BD031D7007D0DE6 /* Session.swift in Sources */,
 				25F11CB62BD02050007D0DE6 /* WeatherData.swift in Sources */,
 				25F11CBA2BD0205E007D0DE6 /* SessionName.swift in Sources */,
 				25F11CB92BD0205C007D0DE6 /* DateFormatters.swift in Sources */,
@@ -1028,7 +1044,6 @@
 				DEVELOPMENT_TEAM = UU6Y3A827V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = WatchTimer;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "com.lassewolpmann.f1-countdown-ios";
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
@@ -1038,7 +1053,7 @@
 				);
 				MARKETING_VERSION = "$(VERSION)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lassewolpmann.f1-countdown-ios.watchkitapp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Formula Countdown";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1059,7 +1074,6 @@
 				DEVELOPMENT_TEAM = UU6Y3A827V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = WatchTimer;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "com.lassewolpmann.f1-countdown-ios";
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
@@ -1069,7 +1083,7 @@
 				);
 				MARKETING_VERSION = "$(VERSION)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lassewolpmann.f1-countdown-ios.watchkitapp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Formula Countdown";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;

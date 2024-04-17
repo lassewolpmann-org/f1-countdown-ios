@@ -31,3 +31,28 @@ func parseSessionName(sessionName: String?) -> String {
         return "Undefined Session"
     }
 }
+
+func parseShortSessionName(sessionName: String?) -> String {
+    switch (sessionName) {
+    case "fp1":
+        return "FP1"
+    case "fp2":
+        return "FP2"
+    case "fp3":
+        return "FP3"
+    case "practice":
+        return "FP"
+    case "qualifying":
+        return "Q"
+    case "sprintQualifying":
+        return "SQ"
+    case "sprint":
+        return "Sprint"
+    case "gp":
+        return "Race"
+    case "feature":
+        return "Feature"
+    default:
+        return "?"
+    }
+}
