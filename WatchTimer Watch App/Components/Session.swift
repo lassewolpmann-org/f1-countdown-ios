@@ -25,20 +25,13 @@ struct Session: View {
         let sessionLength = appData.nextRace.sessionLengths["f1"]?[sessionName] ?? 60;
         let endDate = startDate.addingTimeInterval(60 * sessionLength);
         
-        ZStack(alignment: .top) {
-            HStack {
-                WeatherButton(showWeatherSheet: $showWeatherSheet)
-                Spacer()
-                InfoButton(showInfoSheet: $showInfoSheet)
-            }
-            .padding(.horizontal, 15)
-            .padding(.top, -25)
-            
+        ZStack(alignment: .bottom) {
             TimerCircle(deltaPct: delta.daysPct, ringColor: .primary)
+                .padding(6)
             TimerCircle(deltaPct: delta.hoursPct, ringColor: .red)
-                .padding(8)
+                .padding(12)
             TimerCircle(deltaPct: delta.minutesPct, ringColor: .green)
-                .padding(16)
+                .padding(18)
             TimerCircle(deltaPct: delta.secondsPct, ringColor: .blue)
                 .padding(24)
                 .background(
@@ -51,54 +44,87 @@ struct Session: View {
                             .foregroundStyle(.secondary)
                     }
                 )
+            
+            HStack {
+                WeatherButton(showWeatherSheet: $showWeatherSheet)
+                Spacer()
+                InfoButton(showInfoSheet: $showInfoSheet)
+            }
         }
         .sheet(isPresented: $showWeatherSheet, content: {
-            ScrollView {
+            // Making sure that the end date is within 10 days
+            let forecastAvailability: Double = 10 * 24 * 60 * 60;
+            
+            if (endDate.timeIntervalSinceNow >= forecastAvailability) {
                 VStack(alignment: .leading) {
-                    Text("Weather")
-                        .font(.headline)
-                    
-                    Divider()
-                    
-                    HStack {
-                        Label("Conditions", systemImage: "cloud")
+                    let weatherAvailabilityDate = startDate.addingTimeInterval(-forecastAvailability);
+                    Label("Weather Forecast will be available from \(Text(weatherAvailabilityDate, style: .date)), \(Text(weatherAvailabilityDate, style: .time)).", systemImage: "info.circle.fill")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                }
+                .padding(10)
+            } else {
+                ScrollView {
+                    VStack(alignment: .leading) {
+                        Text("Weather")
+                            .font(.headline)
+                        
+                        Divider()
+                        
+                        HStack {
+                            Label("Conditions", systemImage: "cloud")
+                                .foregroundStyle(.secondary)
+                                .labelStyle(.iconOnly)
+                            Spacer()
+                            Text(weather.condition)
+                        }
+                        
+                        Divider()
+                        
+                        HStack {
+                            Label("Chance of Rain", systemImage: "drop")
+                                .foregroundStyle(.secondary)
+                                .labelStyle(.iconOnly)
+                            Spacer()
+                            Text(weather.rainChance)
+                        }
+                        
+                        Divider()
+                        
+                        HStack {
+                            Label("Temperature", systemImage: "thermometer.sun")
+                                .foregroundStyle(.secondary)
+                                .labelStyle(.iconOnly)
+                            Spacer()
+                            Text(weather.temp)
+                        }
+                        
+                        Text(" Weather")
+                            .font(.subheadline)
                             .foregroundStyle(.secondary)
-                            .labelStyle(.iconOnly)
-                        Spacer()
-                        Text(weather.condition)
+                            .padding(.vertical, 20)
                     }
-                    
-                    Divider()
-                    
-                    HStack {
-                        Label("Chance of Rain", systemImage: "drop")
-                            .foregroundStyle(.secondary)
-                            .labelStyle(.iconOnly)
-                        Spacer()
-                        Text(weather.rainChance)
-                    }
-                    
-                    Divider()
-                    
-                    HStack {
-                        Label("Temperature", systemImage: "thermometer.sun")
-                            .foregroundStyle(.secondary)
-                            .labelStyle(.iconOnly)
-                        Spacer()
-                        Text(weather.temp)
-                    }
+                    .padding(10)
                 }
             }
         })
         .sheet(isPresented: $showInfoSheet, content: {
-            VStack {
+            VStack(alignment: .leading) {
                 Text("Session Date")
                     .font(.headline)
-                
                 Text("\(startDate, style: .date), \(DateInterval(start: startDate, end: endDate))")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
+                
+                Divider()
+                
+                Text("Location")
+                    .font(.headline)
+                Text(appData.nextRace.location)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
             }
+            .padding(10)
         })
         .onReceive(timer) { _ in
             delta = deltaValues(dateString: sessionDate);

@@ -37,7 +37,7 @@ struct SessionWeather: View {
                 
                 Spacer()
                 
-                if (startDate.timeIntervalSinceNow >= forecastAvailability) {
+                if (endDate.timeIntervalSinceNow >= forecastAvailability) {
                     VStack(alignment: .leading) {
                         let weatherAvailabilityDate = startDate.addingTimeInterval(-forecastAvailability);
                         Label("Weather Forecast will be available from \(Text(weatherAvailabilityDate, style: .date)), \(Text(weatherAvailabilityDate, style: .time)).", systemImage: "info.circle.fill")

@@ -11,7 +11,7 @@ struct TimerCircle: View {
     var deltaPct: Float;
     var ringColor: Color;
     
-    let lineWidth: CGFloat = 7.5;
+    let lineWidth: CGFloat = 5.5;
     
     var body: some View {
         Circle()

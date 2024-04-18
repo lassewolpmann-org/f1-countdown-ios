@@ -19,7 +19,7 @@ class WeatherData {
         let location = CLLocation(latitude: CLLocationDegrees(race.latitude), longitude: CLLocationDegrees(race.longitude));
         
         do {
-            let hourly = try await service.weather(for: location, including: .hourly(startDate: startDate, endDate: endDate));
+            let hourly = try await service.weather(for: location, including: .hourly(startDate: startDate, endDate: startDate.addingTimeInterval(60 * 60)));
             self.weather = hourly.forecast.first!;
             return
         } catch {
@@ -37,7 +37,7 @@ class WeatherData {
     }
     
     var apparentTemp: String {
-        weather?.temperature.formatted(.measurement(width: .abbreviated)) ?? "Loading..."
+        weather?.apparentTemperature.formatted(.measurement(width: .abbreviated)) ?? "Loading..."
     }
     
     var rainChance: String {
