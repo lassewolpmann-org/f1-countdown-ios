@@ -33,11 +33,11 @@ class WeatherData {
     }
     
     var temp: String {
-        weather?.temperature.description ?? "Loading..."
+        weather?.temperature.formatted(.measurement(width: .abbreviated)) ?? "Loading..."
     }
     
     var apparentTemp: String {
-        weather?.apparentTemperature.description ?? "Loading..."
+        weather?.temperature.formatted(.measurement(width: .abbreviated)) ?? "Loading..."
     }
     
     var rainChance: String {

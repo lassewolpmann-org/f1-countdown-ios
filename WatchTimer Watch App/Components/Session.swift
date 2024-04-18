@@ -15,11 +15,24 @@ struct Session: View {
     @State var delta: deltaValues;
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect();
     
+    @State var showWeatherSheet: Bool = false;
+    @State var showInfoSheet: Bool = false;
+    
+    @State var weather: WeatherData = WeatherData();
+    
     var body: some View {
-        ZStack {
-            Text("\(appData.nextRace.flag) \(parseShortSessionName(sessionName: sessionName))")
-                .font(.headline)
-                .frame(width: 100, height: 100)
+        let startDate = ISO8601DateFormatter().date(from: sessionDate)!;
+        let sessionLength = appData.nextRace.sessionLengths["f1"]?[sessionName] ?? 60;
+        let endDate = startDate.addingTimeInterval(60 * sessionLength);
+        
+        ZStack(alignment: .top) {
+            HStack {
+                WeatherButton(showWeatherSheet: $showWeatherSheet)
+                Spacer()
+                InfoButton(showInfoSheet: $showInfoSheet)
+            }
+            .padding(.horizontal, 15)
+            .padding(.top, -25)
             
             TimerCircle(deltaPct: delta.daysPct, ringColor: .primary)
             TimerCircle(deltaPct: delta.hoursPct, ringColor: .red)
@@ -28,8 +41,65 @@ struct Session: View {
                 .padding(16)
             TimerCircle(deltaPct: delta.secondsPct, ringColor: .blue)
                 .padding(24)
+                .background(
+                    VStack {
+                        Text("\(appData.nextRace.flag) \(parseShortSessionName(sessionName: sessionName))")
+                            .font(.headline)
+                        
+                        Text(startDate, style: .timer)
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                    }
+                )
         }
-        .scaledToFit()
+        .sheet(isPresented: $showWeatherSheet, content: {
+            ScrollView {
+                VStack(alignment: .leading) {
+                    Text("Weather")
+                        .font(.headline)
+                    
+                    Divider()
+                    
+                    HStack {
+                        Label("Conditions", systemImage: "cloud")
+                            .foregroundStyle(.secondary)
+                            .labelStyle(.iconOnly)
+                        Spacer()
+                        Text(weather.condition)
+                    }
+                    
+                    Divider()
+                    
+                    HStack {
+                        Label("Chance of Rain", systemImage: "drop")
+                            .foregroundStyle(.secondary)
+                            .labelStyle(.iconOnly)
+                        Spacer()
+                        Text(weather.rainChance)
+                    }
+                    
+                    Divider()
+                    
+                    HStack {
+                        Label("Temperature", systemImage: "thermometer.sun")
+                            .foregroundStyle(.secondary)
+                            .labelStyle(.iconOnly)
+                        Spacer()
+                        Text(weather.temp)
+                    }
+                }
+            }
+        })
+        .sheet(isPresented: $showInfoSheet, content: {
+            VStack {
+                Text("Session Date")
+                    .font(.headline)
+                
+                Text("\(startDate, style: .date), \(DateInterval(start: startDate, end: endDate))")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+            }
+        })
         .onReceive(timer) { _ in
             delta = deltaValues(dateString: sessionDate);
             
@@ -42,6 +112,9 @@ struct Session: View {
                     }
                 }
             }
+        }
+        .task {
+            await weather.getWeather(race: appData.nextRace, series: "f1", startDate: startDate, endDate: endDate, sessionName: sessionName)
         }
     }
 }
