@@ -52,6 +52,9 @@
 		25B8C1512B8DFF2B009A270C /* WidgetHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B8C1502B8DFF2B009A270C /* WidgetHeader.swift */; };
 		25BE0E482B2349E20089B5BA /* DeltaValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BE0E472B2349E20089B5BA /* DeltaValues.swift */; };
 		25BFB0322B0F68D90062E4BC /* SettingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BFB0312B0F68D90062E4BC /* SettingsTab.swift */; };
+		25C06D4E2BD2AF6500A375A4 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 25C06D4D2BD2AF6500A375A4 /* PrivacyInfo.xcprivacy */; };
+		25C06D4F2BD2AF6500A375A4 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 25C06D4D2BD2AF6500A375A4 /* PrivacyInfo.xcprivacy */; };
+		25C06D502BD2AF6500A375A4 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 25C06D4D2BD2AF6500A375A4 /* PrivacyInfo.xcprivacy */; };
 		25C6C5452B17799500818265 /* RaceTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C5442B17799500818265 /* RaceTitle.swift */; };
 		25C6C5462B17799500818265 /* RaceTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C5442B17799500818265 /* RaceTitle.swift */; };
 		25C6C54C2B1779CE00818265 /* DeleteNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C54B2B1779CE00818265 /* DeleteNotification.swift */; };
@@ -191,6 +194,7 @@
 		25BC66F82B6A9384006DCE8D /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		25BE0E472B2349E20089B5BA /* DeltaValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaValues.swift; sourceTree = "<group>"; };
 		25BFB0312B0F68D90062E4BC /* SettingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTab.swift; sourceTree = "<group>"; };
+		25C06D4D2BD2AF6500A375A4 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		25C6C5442B17799500818265 /* RaceTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceTitle.swift; sourceTree = "<group>"; };
 		25C6C54B2B1779CE00818265 /* DeleteNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteNotification.swift; sourceTree = "<group>"; };
 		25C6C5512B1779FC00818265 /* DateFormatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatters.swift; sourceTree = "<group>"; };
@@ -321,6 +325,7 @@
 		257959C92B04FB000033DFAB = {
 			isa = PBXGroup;
 			children = (
+				25C06D4D2BD2AF6500A375A4 /* PrivacyInfo.xcprivacy */,
 				25BC66F82B6A9384006DCE8D /* LICENSE.md */,
 				25BC66F72B6A9310006DCE8D /* README.md */,
 				25125EFB2B14914400CA10EE /* Config.xcconfig */,
@@ -657,6 +662,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25C06D4F2BD2AF6500A375A4 /* PrivacyInfo.xcprivacy in Resources */,
 				2505E6A12B0F844000876783 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -665,6 +671,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25C06D4E2BD2AF6500A375A4 /* PrivacyInfo.xcprivacy in Resources */,
 				257959DD2B04FB010033DFAB /* Preview Assets.xcassets in Resources */,
 				257959DA2B04FB010033DFAB /* Assets.xcassets in Resources */,
 			);
@@ -674,6 +681,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25C06D502BD2AF6500A375A4 /* PrivacyInfo.xcprivacy in Resources */,
 				25F11C8D2BD01E98007D0DE6 /* Preview Assets.xcassets in Resources */,
 				25F11C8A2BD01E98007D0DE6 /* Assets.xcassets in Resources */,
 			);
