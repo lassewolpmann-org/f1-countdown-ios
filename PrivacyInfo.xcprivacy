@@ -9,7 +9,7 @@
 			<string>NSPrivacyAccessedAPICategoryUserDefaults</string>
 			<key>NSPrivacyAccessedAPITypeReasons</key>
 			<array>
-				<string>Formula Countdown uses User Defaults to store the value for the Notification Time. Through this, the user doesn&apos;t need to re-select their desired value on every app launch.</string>
+				<string>CA92.1</string>
 			</array>
 		</dict>
 	</array>
