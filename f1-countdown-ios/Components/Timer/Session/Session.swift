@@ -9,6 +9,9 @@ import SwiftUI
 
 struct Session: View {
     @Environment(AppData.self) private var appData;
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
+    @Environment(\.displayScale) private var displayScale
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect();
     let sessionName: String;
@@ -50,6 +53,9 @@ struct Session: View {
                 RoundedRectangle(cornerRadius: 10)
                     .fill(.tertiary.opacity(0.5).shadow(.drop(color: .primary, radius: 5)))
             )
+        }
+        .onAppear {
+            // print(displayScale, horizontalSizeClass, verticalSizeClass)
         }
         .padding(10)
         .onReceive(timer) { _ in

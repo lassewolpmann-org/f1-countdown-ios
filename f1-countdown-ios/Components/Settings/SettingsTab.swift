@@ -23,6 +23,7 @@ struct SettingsTab: View {
                 
                 Section {
                     NotificationTime()
+                        .environment(appData)
                     RemoveNotificationsButton()
                 } header: {
                     Text("Notifications")
