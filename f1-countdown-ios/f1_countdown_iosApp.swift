@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct f1_countdown_iosApp: App {
@@ -18,6 +19,9 @@ struct f1_countdown_iosApp: App {
                 if (dataLoaded) {
                     ContentView()
                         .environment(appData)
+                        .modelContainer(for: [
+                            UserData.self
+                        ])
                 } else {
                     VStack {
                         Text("Loading data...")

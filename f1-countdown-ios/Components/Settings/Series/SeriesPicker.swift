@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct SeriesPicker: View {
     @Environment(AppData.self) private var appData;
