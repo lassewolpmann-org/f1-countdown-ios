@@ -30,10 +30,6 @@ struct ContentView: View {
                 Label("Settings", systemImage: "gear")
             }
         }
-        .task {
-            // Ask for permission to send Notifications
-            await createNotificationPermission()
-        }
     }
 }
 

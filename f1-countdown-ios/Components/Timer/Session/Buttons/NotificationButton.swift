@@ -16,6 +16,8 @@ struct NotificationButton: View {
     @State private var notificationEnabled: Bool = false;
     @State private var showAlert = false;
     @State private var allowButton: Bool = false;
+    
+    // Used to track sensory feedback
     @State private var buttonState: Bool = false;
     
     var body: some View {
@@ -23,6 +25,7 @@ struct NotificationButton: View {
         
         Button {
             buttonState.toggle();
+            
             if (notificationEnabled) {
                 notificationEnabled = deleteNotification(sessionDate: sessionDate)
             } else {

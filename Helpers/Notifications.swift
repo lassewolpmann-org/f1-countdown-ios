@@ -28,13 +28,17 @@ func createNotificationPermission() async -> Void {
 
 func checkForPermission() async -> Bool {
     let center = UNUserNotificationCenter.current()
-    do {
-         if try await center.requestAuthorization() == true {
-            return true
-         } else {
-            return false
-         }
-    } catch {
+    let authStatus = await center.notificationSettings().authorizationStatus
+    
+    if (authStatus == .notDetermined) {
+        await createNotificationPermission()
+        return await checkForPermission()
+    } else if (authStatus == .denied) {
+        return false
+    } else if (authStatus == .authorized) {
+        return true
+    } else {
+        // Unknown case
         return false
     }
 }

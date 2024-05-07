@@ -9,9 +9,6 @@ import SwiftUI
 
 struct Session: View {
     @Environment(AppData.self) private var appData;
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    @Environment(\.verticalSizeClass) private var verticalSizeClass
-    @Environment(\.displayScale) private var displayScale
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect();
     let sessionName: String;
