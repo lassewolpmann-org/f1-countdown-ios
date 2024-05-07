@@ -55,7 +55,7 @@ struct NotificationButton: View {
                 showAlert.toggle()
             }
         } message: {
-            Text("Please enable Notifications for the App in the System Settings")
+            Text("Please enable Notifications for Formula Countdown in your System Settings.")
         }
         .task {
             allowButton = notificationButtonDisabled(sessionDate: date);
