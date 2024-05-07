@@ -13,13 +13,18 @@ struct WeatherElement: View {
     let weatherText: String;
     
     var body: some View {
-        Divider()
         HStack {
             Label(labelText, systemImage: systemImage)
                 .foregroundStyle(.secondary)
             Spacer()
-            Text(weatherText).font(.title2)
+            Text(weatherText)
         }
+        .padding(.horizontal, 10)
+        .padding(.vertical, 5)
+        .background(
+            RoundedRectangle(cornerRadius: 5)
+                .fill(.tertiary.opacity(0.5).shadow(.drop(color: .primary, radius: 5)))
+        )
     }
 }
 

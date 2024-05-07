@@ -15,7 +15,6 @@ struct Session: View {
     let sessionDate: String;
     
     @State var delta: deltaValues;
-    @State var showWeatherForecast: Bool = false;
         
     var body: some View {
         VStack(alignment: .leading) {
@@ -24,30 +23,23 @@ struct Session: View {
                 .foregroundStyle(.secondary)
                 .bold()
             
-            HStack {
-                TimerElement(delta: delta.days, deltaPct: delta.daysPct, ringColor: Color.primary, timeUnit: "days")
-                TimerElement(delta: delta.hours, deltaPct: delta.hoursPct, ringColor: Color.red, timeUnit: "hr")
-                TimerElement(delta: delta.minutes, deltaPct: delta.minutesPct, ringColor: Color.green, timeUnit: "min")
-                TimerElement(delta: delta.seconds, deltaPct: delta.secondsPct, ringColor: Color.blue, timeUnit: "sec")
-                
-                Divider()
-                                
-                VStack(spacing: 10) {
-                    NotificationButton(sessionName: sessionName, sessionDate: sessionDate, race: appData.nextRace, series: appData.series)
+            VStack {
+                HStack {
+                    TimerElement(delta: delta.days, deltaPct: delta.daysPct, ringColor: Color.primary, timeUnit: "days")
+                    TimerElement(delta: delta.hours, deltaPct: delta.hoursPct, ringColor: Color.red, timeUnit: "hr")
+                    TimerElement(delta: delta.minutes, deltaPct: delta.minutesPct, ringColor: Color.green, timeUnit: "min")
+                    TimerElement(delta: delta.seconds, deltaPct: delta.secondsPct, ringColor: Color.blue, timeUnit: "sec")
                     
-                    Button {
-                        showWeatherForecast.toggle()
-                    } label: {
-                        Label("Weather", systemImage: "cloud.sun")
-                    }
-                    .buttonStyle(.bordered)
-                    .labelStyle(.iconOnly)
+                    Divider()
+                                    
+                    NotificationButton(sessionName: sessionName, sessionDate: sessionDate, race: appData.nextRace, series: appData.series)
                 }
+                .padding(10)
+                
+                SessionWeather(nextRace: appData.nextRace, series: appData.series, sessionDate: sessionDate, sessionName: sessionName)
             }
-            .padding(.horizontal, 10)
-            .padding(.vertical, 5)
             .background(
-                RoundedRectangle(cornerRadius: 10)
+                RoundedRectangle(cornerRadius: 5)
                     .fill(.tertiary.opacity(0.5).shadow(.drop(color: .primary, radius: 5)))
             )
         }
@@ -68,10 +60,6 @@ struct Session: View {
                 }
             }
         }
-        .sheet(isPresented: $showWeatherForecast, content: {
-            SessionWeather(showWeatherForecast: $showWeatherForecast, nextRace: appData.nextRace, series: appData.series, sessionDate: sessionDate, sessionName: sessionName)
-            .presentationDetents([.medium])
-        })
     }
 }
 
