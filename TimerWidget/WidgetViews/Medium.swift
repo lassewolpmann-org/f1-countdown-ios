@@ -18,9 +18,6 @@ struct Medium: View {
         
         VStack(alignment: .leading) {
             WidgetHeader(entry: entry)
-            
-            Divider()
-
             SessionInfo(date: date, name: name, sessionLengths: entry.sessionLengths)
         }
         .containerBackground(for: .widget) {

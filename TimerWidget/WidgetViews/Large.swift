@@ -15,15 +15,14 @@ struct Large: View {
         VStack(alignment: .leading) {
             WidgetHeader(entry: entry)
             
-            Divider()
-            
             ForEach(entry.race.sortedSessions, id: \.key) { session in
                 let name = session.key;
                 let date = ISO8601DateFormatter().date(from: session.value)!
 
                 SessionInfo(date: date, name: name, sessionLengths: entry.sessionLengths)
             }
-        }.containerBackground(for: .widget) {
+        }
+        .containerBackground(for: .widget) {
             Color(.systemBackground)
         }
     }

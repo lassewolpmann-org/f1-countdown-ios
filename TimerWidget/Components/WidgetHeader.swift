@@ -20,12 +20,6 @@ struct WidgetHeader: View {
             if (entry.tbc) {
                 Text("TBC")
                     .font(.headline)
-                    .padding(.vertical, 2)
-                    .padding(.horizontal, 5)
-                    .background(
-                        RoundedRectangle(cornerRadius: 5)
-                            .fill(.red.opacity(0.6))
-                    )
             }
         }
     }
@@ -34,5 +28,5 @@ struct WidgetHeader: View {
 #Preview(as: .systemMedium) {
     TimerWidget()
 } timeline: {
-    TimerEntry(race: RaceData(), tbc: false, flag: "", sessionLengths: RaceData().sessionLengths)
+    TimerEntry(race: RaceData(), tbc: true, flag: "", sessionLengths: RaceData().sessionLengths)
 }

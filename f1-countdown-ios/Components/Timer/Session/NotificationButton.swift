@@ -51,7 +51,6 @@ struct NotificationButton: View {
         .sensoryFeedback(.success, trigger: buttonState)
         .sensoryFeedback(.error, trigger: showAlert)
         .buttonStyle(.bordered)
-        .labelStyle(.iconOnly)
         .disabled(allowButton)
         .alert(
             Text("Notifications disabled"),
