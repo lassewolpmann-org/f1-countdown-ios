@@ -17,36 +17,33 @@ struct Session: View {
     @State var delta: deltaValues;
         
     var body: some View {
-        VStack(alignment: .leading) {
-            Text(parseSessionName(sessionName: sessionName))
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-                .bold()
-            
-            VStack {
-                HStack {
-                    TimerElement(delta: delta.days, deltaPct: delta.daysPct, ringColor: Color.primary, timeUnit: "days")
-                    TimerElement(delta: delta.hours, deltaPct: delta.hoursPct, ringColor: Color.red, timeUnit: "hr")
-                    TimerElement(delta: delta.minutes, deltaPct: delta.minutesPct, ringColor: Color.green, timeUnit: "min")
-                    TimerElement(delta: delta.seconds, deltaPct: delta.secondsPct, ringColor: Color.blue, timeUnit: "sec")
-                    
-                    Divider()
-                                    
-                    NotificationButton(sessionName: sessionName, sessionDate: sessionDate, race: appData.nextRace, series: appData.series)
-                }
-                .padding(10)
+        VStack(spacing: 20) {
+            HStack {
+                Text(parseSessionName(sessionName: sessionName))
+                    .font(.headline)
+                    .foregroundStyle(.secondary)
                 
-                SessionWeather(nextRace: appData.nextRace, series: appData.series, sessionDate: sessionDate, sessionName: sessionName)
+                Spacer()
             }
-            .background(
-                RoundedRectangle(cornerRadius: 5)
-                    .fill(.tertiary.opacity(0.5).shadow(.drop(color: .primary, radius: 5)))
-            )
-        }
-        .onAppear {
-            // print(displayScale, horizontalSizeClass, verticalSizeClass)
+            
+            HStack {
+                TimerElement(delta: delta.days, deltaPct: delta.daysPct, ringColor: Color.primary, timeUnit: "days")
+                TimerElement(delta: delta.hours, deltaPct: delta.hoursPct, ringColor: Color.red, timeUnit: "hr")
+                TimerElement(delta: delta.minutes, deltaPct: delta.minutesPct, ringColor: Color.green, timeUnit: "min")
+                TimerElement(delta: delta.seconds, deltaPct: delta.secondsPct, ringColor: Color.blue, timeUnit: "sec")
+                
+                Divider()
+                                
+                NotificationButton(sessionName: sessionName, sessionDate: sessionDate, race: appData.nextRace, series: appData.series)
+            }
+            
+            
+            SessionWeather(nextRace: appData.nextRace, series: appData.series, sessionDate: sessionDate, sessionName: sessionName)
         }
         .padding(10)
+        .background(.regularMaterial, in:
+            RoundedRectangle(cornerRadius: 10)
+        )
         .onReceive(timer) { _ in
             delta = deltaValues(dateString: sessionDate);
             

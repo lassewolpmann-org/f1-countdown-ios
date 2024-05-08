@@ -16,6 +16,8 @@ struct TimerTab: View {
                 ForEach(appData.nextRace.futureSessions, id: \.key) { key, value in
                     Session(sessionName: key, sessionDate: value, delta: deltaValues(dateString: value))
                         .environment(appData)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 5)
                 }
             }
             .navigationTitle(getRaceTitle(race: appData.nextRace))

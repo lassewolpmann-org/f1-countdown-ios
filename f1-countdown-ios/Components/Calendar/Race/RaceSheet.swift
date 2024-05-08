@@ -12,9 +12,11 @@ struct RaceSheet: View {
     let series: String;
     
     @State private var isShowingRaceSheet = false;
+    @Environment(\.dismissSearch) private var dismissSearch
     
     var body: some View {
         Button {
+            dismissSearch()
             isShowingRaceSheet.toggle();
         } label: {
             HStack {

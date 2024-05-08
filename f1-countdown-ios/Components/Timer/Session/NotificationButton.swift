@@ -39,9 +39,15 @@ struct NotificationButton: View {
                 notificationEnabled ? "Disable Notification" : "Enable Notification",
                 systemImage: notificationEnabled ? "bell.slash" : "bell"
             )
+            .padding(5)
             .symbolRenderingMode(notificationEnabled ? .multicolor : .monochrome)
             .contentTransition(.symbolEffect(.replace))
         }
+        .overlay {
+            Circle()
+                .stroke(.tertiary)
+        }
+        .buttonBorderShape(.circle)
         .sensoryFeedback(.success, trigger: buttonState)
         .sensoryFeedback(.error, trigger: showAlert)
         .buttonStyle(.bordered)

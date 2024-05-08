@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CalendarTab: View {
     @Environment(AppData.self) private var appData;
+    @State private var searchText = "";
 
     var body: some View {
         let calendar = Calendar.current;
@@ -18,12 +19,21 @@ struct CalendarTab: View {
         
         NavigationStack {
             List {
-                ForEach(appData.nextRaces) { race in
+                ForEach(appData.nextRaces.filter({ race in
+                    if (searchText == "") { return true }
+                    
+                    let raceName = race.name.lowercased()
+                    let locationName = race.location.lowercased()
+                    let input = searchText.lowercased()
+                    
+                    return raceName.contains(input) || locationName.contains(input)
+                })) { race in
                     RaceSheet(race: race, series: appData.series);
                 }
             }
             .navigationTitle("\(year) \(appData.series.uppercased()) Calendar")
         }
+        .searchable(text: $searchText)
         .refreshable {
             do {
                 appData.races = try await appData.getAllRaces()

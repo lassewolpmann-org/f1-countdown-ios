@@ -26,26 +26,25 @@ struct SessionWeather: View {
         // Making sure that the end date is within 10 days
         let forecastAvailability: Double = 10 * 24 * 60 * 60;
         
-        VStack(alignment: .leading) {
+        VStack {
             if (endDate.timeIntervalSinceNow >= forecastAvailability) {
                 Label("Weather Forecast is not available yet.", systemImage: "info.circle.fill")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             } else {
-                VStack(alignment: .trailing) {
+                VStack(alignment: .trailing, spacing: 10) {
                     WeatherElement(labelText: "Conditions", systemImage: weather.symbol, weatherText: weather.condition)
+                    Divider()
                     WeatherElement(labelText: "Chance of Rain", systemImage: "drop", weatherText: weather.rainChance)
+                    Divider()
                     WeatherElement(labelText: "Temperature", systemImage: "thermometer.medium", weatherText: weather.temp)
                             
                     Text(" Weather")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
-                        .padding(.top, 5)
                 }
             }
         }
-        .padding(.horizontal, 10)
-        .padding(.bottom, 10)
         .task {
             await weather.getWeather(race: nextRace, series: series, startDate: startDate, endDate: endDate, sessionName: sessionName)
         }
