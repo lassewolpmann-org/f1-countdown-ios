@@ -14,7 +14,8 @@ class WeatherData {
     var weather: HourWeather?
     
     func getWeather(race: RaceData, series: String, startDate: Date, endDate: Date, sessionName: String) async {
-        if (endDate.timeIntervalSinceNow >= 10 * 24 * 60 * 60) { return }
+        // Only show weather forecast within 7 days
+        if (endDate.timeIntervalSinceNow >= 7 * 24 * 60 * 60) { return }
         
         let location = CLLocation(latitude: CLLocationDegrees(race.latitude), longitude: CLLocationDegrees(race.longitude));
         

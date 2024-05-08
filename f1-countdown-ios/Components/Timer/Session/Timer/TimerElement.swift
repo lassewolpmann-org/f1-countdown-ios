@@ -18,7 +18,7 @@ struct TimerElement: View {
     var body: some View {
         ZStack {
             Circle()
-                .fill(ringColor.shadow(.drop(color: ringColor, radius: 3)))
+                .fill(ringColor)
                 .opacity(0.25)
             
             Circle()
@@ -37,7 +37,8 @@ struct TimerElement: View {
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }
-        }.frame(maxWidth: 150)
+        }
+        .frame(maxWidth: 100, maxHeight: 100)
     }
 }
 

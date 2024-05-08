@@ -24,7 +24,7 @@ struct SessionWeather: View {
         let endDate = startDate.addingTimeInterval(60 * sessionLength);
 
         // Making sure that the end date is within 10 days
-        let forecastAvailability: Double = 10 * 24 * 60 * 60;
+        let forecastAvailability: Double = 7 * 24 * 60 * 60;
         
         VStack {
             if (endDate.timeIntervalSinceNow >= forecastAvailability) {
