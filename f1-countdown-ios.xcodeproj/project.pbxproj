@@ -94,6 +94,20 @@
 			remoteGlobalIDString = 2505E6942B0F843E00876783;
 			remoteInfo = TimerWidgetExtension;
 		};
+		25EA5F0F2BEBA5EC000E8C2D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 257959CA2B04FB000033DFAB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2505E6942B0F843E00876783;
+			remoteInfo = TimerWidgetExtension;
+		};
+		25EA5F112BEBA5F0000E8C2D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 257959CA2B04FB000033DFAB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 25F11C822BD01E97007D0DE6;
+			remoteInfo = "WatchTimer Watch App";
+		};
 		25F11CA42BD01E98007D0DE6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 257959CA2B04FB000033DFAB /* Project object */;
@@ -547,6 +561,8 @@
 			dependencies = (
 				2505E6A42B0F844000876783 /* PBXTargetDependency */,
 				25F11CA52BD01E98007D0DE6 /* PBXTargetDependency */,
+				25EA5F102BEBA5EC000E8C2D /* PBXTargetDependency */,
+				25EA5F122BEBA5F0000E8C2D /* PBXTargetDependency */,
 			);
 			name = "f1-countdown-ios";
 			productName = "f1-countdown-ios";
@@ -737,6 +753,16 @@
 			isa = PBXTargetDependency;
 			target = 2505E6942B0F843E00876783 /* TimerWidgetExtension */;
 			targetProxy = 2505E6A32B0F844000876783 /* PBXContainerItemProxy */;
+		};
+		25EA5F102BEBA5EC000E8C2D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2505E6942B0F843E00876783 /* TimerWidgetExtension */;
+			targetProxy = 25EA5F0F2BEBA5EC000E8C2D /* PBXContainerItemProxy */;
+		};
+		25EA5F122BEBA5F0000E8C2D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 25F11C822BD01E97007D0DE6 /* WatchTimer Watch App */;
+			targetProxy = 25EA5F112BEBA5F0000E8C2D /* PBXContainerItemProxy */;
 		};
 		25F11CA52BD01E98007D0DE6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

@@ -39,6 +39,7 @@ struct NotificationButton: View {
                 notificationEnabled ? "Disable Notification" : "Enable Notification",
                 systemImage: notificationEnabled ? "bell.slash" : "bell"
             )
+            .labelStyle(.iconOnly)
             .padding(5)
             .symbolRenderingMode(notificationEnabled ? .multicolor : .monochrome)
             .contentTransition(.symbolEffect(.replace))
