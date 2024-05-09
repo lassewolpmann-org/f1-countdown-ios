@@ -15,9 +15,10 @@ struct Session: View {
     let sessionDate: String;
     
     @State var delta: deltaValues;
+    @State var showWeather: Bool = false;
         
     var body: some View {
-        VStack(spacing: 20) {
+        VStack {
             HStack {
                 Text(parseSessionName(sessionName: sessionName))
                     .font(.headline)
@@ -33,13 +34,24 @@ struct Session: View {
                 TimerElement(delta: delta.seconds, deltaPct: delta.secondsPct, ringColor: Color.blue, timeUnit: "sec")
                 
                 Divider()
-                                
-                NotificationButton(sessionName: sessionName, sessionDate: sessionDate, race: appData.nextRace, series: appData.series)
+                
+                VStack {
+                    NotificationButton(sessionName: sessionName, sessionDate: sessionDate, race: appData.nextRace, series: appData.series)
+                    
+                    Button {
+                        showWeather.toggle()
+                    } label: {
+                        Label("Weather Forecast", systemImage: "cloud")
+                            .labelStyle(.iconOnly)
+                    }
+                    .buttonStyle(.bordered)
+                }
             }
-            
-            
-            SessionWeather(nextRace: appData.nextRace, series: appData.series, sessionDate: sessionDate, sessionName: sessionName)
         }
+        .sheet(isPresented: $showWeather, content: {
+            SessionWeather(race: appData.nextRace, series: appData.series, sessionDate: sessionDate, sessionName: sessionName)
+                .presentationDetents([.medium])
+        })
         .padding(10)
         .background(.regularMaterial, in:
             RoundedRectangle(cornerRadius: 10)

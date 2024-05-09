@@ -35,20 +35,19 @@ struct NotificationButton: View {
                 }
             }
         } label: {
-            Label(
-                notificationEnabled ? "Disable Notification" : "Enable Notification",
-                systemImage: notificationEnabled ? "bell.slash" : "bell"
-            )
-            .labelStyle(.iconOnly)
-            .padding(5)
-            .symbolRenderingMode(notificationEnabled ? .multicolor : .monochrome)
-            .contentTransition(.symbolEffect(.replace))
+            // This needs to be done to avoid the Button Label changing size when Label Image changes.
+            Image(systemName: "bell.slash")
+                .hidden()
+                .overlay {
+                    Label(
+                        notificationEnabled ? "Disable Notification" : "Enable Notification",
+                        systemImage: notificationEnabled ? "bell.slash" : "bell"
+                    )
+                    .labelStyle(.iconOnly)
+                    .symbolRenderingMode(notificationEnabled ? .multicolor : .monochrome)
+                    .contentTransition(.symbolEffect(.replace))
+                }
         }
-        .overlay {
-            Circle()
-                .stroke(.tertiary)
-        }
-        .buttonBorderShape(.circle)
         .sensoryFeedback(.success, trigger: buttonState)
         .sensoryFeedback(.error, trigger: showAlert)
         .buttonStyle(.bordered)

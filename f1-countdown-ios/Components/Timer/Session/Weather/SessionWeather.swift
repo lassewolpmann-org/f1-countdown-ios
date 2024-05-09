@@ -6,55 +6,68 @@
 //
 
 import SwiftUI
-import CoreLocation
-import WeatherKit
 
 struct SessionWeather: View {
     @State var weather: WeatherData = WeatherData();
-    @State var weatherTimestamp: Date = Date();
     
-    let nextRace: RaceData;
+    let race: RaceData;
     let series: String;
     let sessionDate: String;
     let sessionName: String;
-
+    
     var body: some View {
         let startDate = ISO8601DateFormatter().date(from: sessionDate)!;
-        let sessionLength = nextRace.sessionLengths[series]?[sessionName] ?? 60;
+        let sessionLength = race.sessionLengths[series]?[sessionName] ?? 60;
         let endDate = startDate.addingTimeInterval(60 * sessionLength);
-
-        // Making sure that the end date is within 10 days
-        let forecastAvailability: Double = 7 * 24 * 60 * 60;
         
-        VStack {
-            if (endDate.timeIntervalSinceNow >= forecastAvailability) {
-                Label("Weather Forecast is not available yet.", systemImage: "info.circle.fill")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-            } else {
-                VStack(alignment: .trailing, spacing: 10) {
-                    WeatherElement(labelText: "Conditions", systemImage: weather.symbol, weatherText: weather.condition)
-                    Divider()
-                    WeatherElement(labelText: "Chance of Rain", systemImage: "drop", weatherText: weather.rainChance)
-                    Divider()
-                    WeatherElement(labelText: "Temperature", systemImage: "thermometer.medium", weatherText: weather.temp)
-                            
-                    Text(" Weather")
+        VStack(alignment: .leading, spacing: 10) {
+            Text("Weather Forecast for \(parseSessionName(sessionName: sessionName))")
+                .font(.headline)
+            
+            Text("\(race.flag) \(race.location)")
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+            
+            VStack(spacing: 10) {
+                if (weather.available) {
+                    VStack(alignment: .trailing, spacing: 10) {
+                        WeatherElement(labelText: "Conditions", systemImage: weather.symbol, weatherText: weather.condition)
+                        Divider()
+                        WeatherElement(labelText: "Chance of Rain", systemImage: "drop", weatherText: weather.rainChance)
+                        Divider()
+                        WeatherElement(labelText: "Temperature", systemImage: "thermometer.medium", weatherText: weather.temp)
+                        Divider()
+                        WeatherElement(labelText: "Wind Speed", systemImage: "wind", weatherText: weather.windSpeed)
+                                
+                        Text(" Weather")
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                    }
+                    
+                } else {
+                    Label("Weather Forecast is not available.", systemImage: "info.circle.fill")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }
             }
+            .padding(10)
+            .background(.regularMaterial, in:
+                RoundedRectangle(cornerRadius: 10)
+            )
         }
+        .padding(10)
         .task {
-            await weather.getWeather(race: nextRace, series: series, startDate: startDate, endDate: endDate, sessionName: sessionName)
+            await weather.getWeather(race: race, startDate: startDate, endDate: endDate)
         }
     }
 }
 
 #Preview {
     VStack {
+    }.sheet(isPresented: .constant(true)) {
         let nextRace = RaceData();
         let nextSession = nextRace.futureSessions.first!;
-        SessionWeather(weather: WeatherData(), nextRace: nextRace, series: "f1", sessionDate: nextSession.value, sessionName: nextSession.key)
+        SessionWeather(weather: WeatherData(), race: nextRace, series: "f1", sessionDate: nextSession.value, sessionName: nextSession.key)
+            .presentationDetents([.medium])
     }
 }

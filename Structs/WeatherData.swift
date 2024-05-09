@@ -12,19 +12,27 @@ import WeatherKit
 class WeatherData {
     private let service = WeatherService();
     var weather: HourWeather?
+    var available: Bool = true;
     
-    func getWeather(race: RaceData, series: String, startDate: Date, endDate: Date, sessionName: String) async {
-        // Only show weather forecast within 7 days
-        if (endDate.timeIntervalSinceNow >= 7 * 24 * 60 * 60) { return }
+    func getWeather(race: RaceData, startDate: Date, endDate: Date) async {
+        if (endDate.timeIntervalSinceNow >= 10 * 24 * 60 * 60) {
+            self.available = false;
+            
+            return
+        }   // We know, that the Weather Forecast is only available for 10 days in the future. This prevents unnecessary API calls.
         
         let location = CLLocation(latitude: CLLocationDegrees(race.latitude), longitude: CLLocationDegrees(race.longitude));
         
         do {
             let hourly = try await service.weather(for: location, including: .hourly(startDate: startDate, endDate: startDate.addingTimeInterval(60 * 60)));
             self.weather = hourly.forecast.first!;
+            self.available = true;
+            
             return
         } catch {
             print(error)
+            self.available = false;
+            
             return
         }
     }
@@ -37,15 +45,15 @@ class WeatherData {
         weather?.temperature.formatted(.measurement(width: .abbreviated)) ?? "Loading..."
     }
     
-    var apparentTemp: String {
-        weather?.apparentTemperature.formatted(.measurement(width: .abbreviated)) ?? "Loading..."
-    }
-    
     var rainChance: String {
         weather?.precipitationChance.formatted(.percent).description ?? "Loading..."
     }
     
     var condition: String {
         weather?.condition.description ?? "Loading..."
+    }
+    
+    var windSpeed: String {
+        weather?.wind.speed.description ?? "Loading..."
     }
 }

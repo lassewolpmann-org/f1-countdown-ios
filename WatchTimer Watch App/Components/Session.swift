@@ -140,7 +140,7 @@ struct Session: View {
             }
         }
         .task {
-            await weather.getWeather(race: appData.nextRace, series: "f1", startDate: startDate, endDate: endDate, sessionName: sessionName)
+            await weather.getWeather(race: appData.nextRace, startDate: startDate, endDate: endDate)
         }
     }
 }
