@@ -18,8 +18,6 @@ struct Session: View {
     @State var showWeatherSheet: Bool = false;
     @State var showInfoSheet: Bool = false;
     
-    @State var weather: WeatherData = WeatherData();
-    
     var body: some View {
         let startDate = ISO8601DateFormatter().date(from: sessionDate)!;
         let sessionLength = appData.nextRace.sessionLengths["f1"]?[sessionName] ?? 60;
@@ -52,60 +50,9 @@ struct Session: View {
             }
         }
         .sheet(isPresented: $showWeatherSheet, content: {
-            // Making sure that the end date is within 10 days
-            let forecastAvailability: Double = 10 * 24 * 60 * 60;
-            
-            if (endDate.timeIntervalSinceNow >= forecastAvailability) {
-                VStack(alignment: .leading) {
-                    let weatherAvailabilityDate = startDate.addingTimeInterval(-forecastAvailability);
-                    Label("Weather Forecast will be available from \(Text(weatherAvailabilityDate, style: .date)), \(Text(weatherAvailabilityDate, style: .time)).", systemImage: "info.circle.fill")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                }
-                .padding(10)
-            } else {
-                ScrollView {
-                    VStack(alignment: .leading) {
-                        Text("Weather")
-                            .font(.headline)
-                        
-                        Divider()
-                        
-                        HStack {
-                            Label("Conditions", systemImage: "cloud")
-                                .foregroundStyle(.secondary)
-                                .labelStyle(.iconOnly)
-                            Spacer()
-                            Text(weather.condition)
-                        }
-                        
-                        Divider()
-                        
-                        HStack {
-                            Label("Chance of Rain", systemImage: "drop")
-                                .foregroundStyle(.secondary)
-                                .labelStyle(.iconOnly)
-                            Spacer()
-                            Text(weather.rainChance)
-                        }
-                        
-                        Divider()
-                        
-                        HStack {
-                            Label("Temperature", systemImage: "thermometer.sun")
-                                .foregroundStyle(.secondary)
-                                .labelStyle(.iconOnly)
-                            Spacer()
-                            Text(weather.temp)
-                        }
-                        
-                        Text(" Weather")
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                            .padding(.vertical, 20)
-                    }
-                    .padding(10)
-                }
+            ScrollView {
+                SessionWeather(race: appData.nextRace, series: appData.series, sessionDate: sessionDate, sessionName: sessionName)
+                    .labelStyle(.iconOnly)
             }
         })
         .sheet(isPresented: $showInfoSheet, content: {
@@ -138,9 +85,6 @@ struct Session: View {
                     }
                 }
             }
-        }
-        .task {
-            await weather.getWeather(race: appData.nextRace, startDate: startDate, endDate: endDate)
         }
     }
 }

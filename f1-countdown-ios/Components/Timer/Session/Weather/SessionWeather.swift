@@ -43,15 +43,15 @@ struct SessionWeather: View {
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                     }
-                    
                 } else {
                     Label("Weather Forecast is not available.", systemImage: "info.circle.fill")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
+                        .labelStyle(.titleAndIcon)
                 }
             }
             .padding(10)
-            .background(.regularMaterial, in:
+            .background(.ultraThinMaterial, in:
                 RoundedRectangle(cornerRadius: 10)
             )
         }
