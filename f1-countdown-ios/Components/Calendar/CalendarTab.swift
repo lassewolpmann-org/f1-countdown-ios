@@ -12,11 +12,10 @@ struct CalendarTab: View {
     @State private var searchText = "";
 
     var body: some View {
+        let formatter = ISO8601DateFormatter();
         let calendar = Calendar.current;
-        let date = ISO8601DateFormatter().date(from: appData.nextRaces.first!.sessions.first!.value)!;
-        let dateComponents = calendar.dateComponents([.year], from: date);
-        let year = dateComponents.year!.description;
-        
+        let year = calendar.dateComponents([.year], from: Date()).year!.description;
+
         NavigationStack {
             List {
                 ForEach(appData.nextRaces.filter({ race in
