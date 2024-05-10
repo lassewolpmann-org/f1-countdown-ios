@@ -20,13 +20,9 @@ struct SessionWeather: View {
         let sessionLength = race.sessionLengths[series]?[sessionName] ?? 60;
         let endDate = startDate.addingTimeInterval(60 * sessionLength);
         
-        VStack(alignment: .leading, spacing: 10) {
-            Text("Weather Forecast for \(parseSessionName(sessionName: sessionName))")
+        VStack(alignment: .leading, spacing: 20) {
+            Text(parseSessionName(sessionName: sessionName))
                 .font(.headline)
-            
-            Text("\(race.flag) \(race.location)")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
             
             VStack(spacing: 10) {
                 if (weather.available) {
@@ -39,9 +35,7 @@ struct SessionWeather: View {
                         Divider()
                         WeatherElement(labelText: "Wind Speed", systemImage: "wind", weatherText: weather.windSpeed)
                                 
-                        Text(" Weather")
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
+                        
                     }
                 } else {
                     Label("Weather Forecast is not available.", systemImage: "info.circle.fill")
@@ -50,10 +44,15 @@ struct SessionWeather: View {
                         .labelStyle(.titleAndIcon)
                 }
             }
-            .padding(10)
-            .background(.ultraThinMaterial, in:
-                RoundedRectangle(cornerRadius: 10)
-            )
+            
+            HStack {
+                Text("\(race.flag) \(race.location)")
+                Spacer()
+                Text(" Weather")
+            }
+            .font(.subheadline)
+            .foregroundStyle(.secondary)
+            
         }
         .padding(10)
         .task {

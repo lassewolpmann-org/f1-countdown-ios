@@ -20,6 +20,17 @@ struct TimerTab: View {
                         .padding(.vertical, 5)
                 }
             }
+            .background(
+                GeometryReader { geo in
+                    Text(appData.nextRace.flag)
+                        .font(.system(size: 1000))
+                        .minimumScaleFactor(0.005)
+                        .lineLimit(1)
+                        .frame(width: geo.size.width, height: geo.size.height)
+                        .rotationEffect(.degrees(90))
+                        .blur(radius: 100)
+                }
+            )
             .navigationTitle(getRaceTitle(race: appData.nextRace))
         }
         .refreshable {

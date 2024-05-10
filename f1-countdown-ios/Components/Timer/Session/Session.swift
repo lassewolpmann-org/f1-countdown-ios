@@ -51,9 +51,10 @@ struct Session: View {
         .sheet(isPresented: $showWeather, content: {
             SessionWeather(race: appData.nextRace, series: appData.series, sessionDate: sessionDate, sessionName: sessionName)
                 .presentationDetents([.medium])
+                .presentationBackground(.regularMaterial)
         })
         .padding(10)
-        .background(.regularMaterial, in:
+        .background(.ultraThinMaterial, in:
             RoundedRectangle(cornerRadius: 10)
         )
         .onReceive(timer) { _ in
