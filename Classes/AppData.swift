@@ -11,7 +11,13 @@ struct API: Decodable {
     var races: [RaceData];
 }
 
-@Observable class AppData {
+enum AppDataError: Error {
+    case fetchError(String)
+    case URLError(String)
+}
+
+@Observable
+class AppData {
     var series: String = "f1";
     var races: [RaceData] = [RaceData()];
     
@@ -24,7 +30,9 @@ struct API: Decodable {
         let calendar = Calendar.current;
         let year = calendar.component(.year, from: date);
         
-        let (data, _) = try await URLSession.shared.data(from: URL(string: "https://raw.githubusercontent.com/sportstimes/f1/main/_db/\(self.series)/\(year).json")!);
+        guard let url = URL(string: "https://raw.githubusercontent.com/sportstimes/f1/main/_db/\(self.series)/\(year).json") else { throw AppDataError.URLError("Could not create API URL string") }
+        
+        let (data, _) = try await URLSession.shared.data(from: url);
                 
         return try JSONDecoder().decode(API.self, from: data).races
     }

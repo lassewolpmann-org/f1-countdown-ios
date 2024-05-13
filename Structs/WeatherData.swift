@@ -15,11 +15,11 @@ class WeatherData {
     var available: Bool = true;
     
     func getWeather(race: RaceData, startDate: Date, endDate: Date) async {
+        // We know, that the Weather Forecast is only available for 10 days in the future. This prevents unnecessary API calls.
         if (endDate.timeIntervalSinceNow >= 10 * 24 * 60 * 60) {
             self.available = false;
-            
             return
-        }   // We know, that the Weather Forecast is only available for 10 days in the future. This prevents unnecessary API calls.
+        }
         
         let location = CLLocation(latitude: CLLocationDegrees(race.latitude), longitude: CLLocationDegrees(race.longitude));
         

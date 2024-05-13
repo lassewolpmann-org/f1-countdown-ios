@@ -17,13 +17,13 @@ func calcFutureDate(days: Double) -> String {
 struct RaceData: Decodable, Identifiable, Hashable {
     var name: String = "Undefined"
     var location: String = "undefined place"
-    var latitude: Double = 53.5
-    var longitude: Double = 9.5
+    var latitude: Double = 60.17028
+    var longitude: Double = 24.94112
     var round: Int = 0
     var slug: String = "undefined-grand-prix"
     var localeKey: String = "undefined-grand-prix"
     var tbc: Bool?
-    var sessions: [String: String] = ["fp1": calcFutureDate(days: 9), "sprintQualifying": calcFutureDate(days: 10), "sprint": calcFutureDate(days: 11), "qualifying": calcFutureDate(days: 12), "gp": calcFutureDate(days: 13)]
+    var sessions: [String: String] = ["fp1": calcFutureDate(days: 0.0006944444444), "sprintQualifying": calcFutureDate(days: 10), "sprint": calcFutureDate(days: 11), "qualifying": calcFutureDate(days: 12), "gp": calcFutureDate(days: 13)]
     
     var sessionLengths: [String: [String: Double]] {
         return SessionLengths().series

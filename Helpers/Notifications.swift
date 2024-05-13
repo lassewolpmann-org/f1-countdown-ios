@@ -66,7 +66,7 @@ func createNotification(identifier: String, date: DateComponents, title: String,
         let content = UNMutableNotificationContent();
         content.title = title;
         content.body = body;
-        content.sound = UNNotificationSound.default;
+        content.sound = .default;
         content.interruptionLevel = .timeSensitive;
         content.userInfo = [
             "series": series,

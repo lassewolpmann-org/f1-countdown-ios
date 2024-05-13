@@ -12,13 +12,13 @@ struct CalendarTab: View {
     @State private var searchText = "";
 
     var body: some View {
-        let formatter = ISO8601DateFormatter();
         let calendar = Calendar.current;
         let year = calendar.dateComponents([.year], from: Date()).year!.description;
 
         NavigationStack {
             List {
                 ForEach(appData.nextRaces.filter({ race in
+                    // Return all races if no input is given
                     if (searchText == "") { return true }
                     
                     let raceName = race.name.lowercased()
