@@ -16,14 +16,9 @@ enum AppDataError: Error {
     case URLError(String)
 }
 
-@Observable
-class AppData {
-    var series: String = "f1";
-    var races: [RaceData] = [RaceData()];
-    
-    init(series: String) {
-        self.series = series;
-    }
+@Observable class AppData {
+    var series: String = "f1"
+    var races: [RaceData]?
     
     func getAllRaces() async throws -> [RaceData] {
         let date = Date();
@@ -38,22 +33,21 @@ class AppData {
     }
     
     var nextRaces: [RaceData] {
-        let allRaces = self.races;
-        let nextRaces = allRaces.filter { race in
-            let raceSessions = race.sessions.sorted(by:{$0.value < $1.value});
-            let date = ISO8601DateFormatter().date(from: raceSessions.last!.value)!;
+        if let allRaces = self.races {
+            let nextRaces = allRaces.filter { race in
+                let raceSessions = race.sessions.sorted(by:{$0.value < $1.value});
+                let date = ISO8601DateFormatter().date(from: raceSessions.last!.value)!;
+                
+                return date.timeIntervalSinceNow > 0
+            }
             
-            return date.timeIntervalSinceNow > 0
-        }
-        
-        if (nextRaces.isEmpty) {
-            return [allRaces.last ?? RaceData()]
-        } else {
             return nextRaces
+        } else {
+            return []
         }
     }
     
-    var nextRace: RaceData {
-        return self.nextRaces.first ?? RaceData()
+    var nextRace: RaceData? {
+        return self.nextRaces.first
     }
 }

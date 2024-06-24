@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NotificationTime: View {
-    @Environment(AppData.self) private var appData;
+    var appData: AppData;
     let availableOptions: [Int] = [0, 5, 10, 15, 30, 60];
     @State private var selectionOption: Int = 0;
     @State private var showAlert = false;
@@ -28,10 +28,9 @@ struct NotificationTime: View {
             selectionOption = UserDefaults.standard.integer(forKey: "Notification");
         }
         .onChange(of: selectionOption) {
-            let nextSession = appData.nextRace.futureSessions.first!;
-            let date = ISO8601DateFormatter().date(from: nextSession.value)!;
+            let nextSession = appData.nextRace?.futureSessions.first!;
+            let date = ISO8601DateFormatter().date(from: nextSession?.value ?? "")!;
             let dateWithInterval = date.addingTimeInterval(-Double(selectionOption * 60))
-            
             
             Task {
                 if (Date() >= dateWithInterval) {
@@ -53,6 +52,5 @@ struct NotificationTime: View {
 }
 
 #Preview {
-    NotificationTime()
-        .environment(AppData(series: "f1"))
+    NotificationTime(appData: AppData())
 }

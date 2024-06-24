@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
-    @Environment(AppData.self) private var appData;
+    var appData: AppData;
     
     var body: some View {
         TabView {
-            ForEach(appData.nextRace.futureSessions, id: \.key) { key, value in
-                Session(sessionDate: value, sessionName: key, delta: deltaValues(dateString: value))
-                    .environment(appData)
+            if let nextRace = appData.nextRace {
+                ForEach(nextRace.futureSessions, id: \.key) { key, value in
+                    Session(sessionDate: value, sessionName: key, delta: deltaValues(dateString: value))
+                        .environment(appData)
+                }
             }
         }
         .tabViewStyle(.verticalPage)
@@ -22,6 +24,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
-        .environment(AppData(series: "f1"))
+    ContentView(appData: AppData())
 }

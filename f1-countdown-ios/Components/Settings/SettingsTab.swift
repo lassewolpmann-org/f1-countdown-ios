@@ -8,22 +8,20 @@
 import SwiftUI
 
 struct SettingsTab: View {
-    @Environment(AppData.self) private var appData;
+    var appData: AppData;
     @State private var reloadingData: Bool = false;
 
     var body: some View {
         NavigationStack {
             List {
                 Section {
-                    SeriesPicker(reloadingData: $reloadingData)
-                        .environment(appData)
+                    SeriesPicker(appData: appData, reloadingData: $reloadingData)
                 } header: {
                     Text("Series")
                 }
                 
                 Section {
-                    NotificationTime()
-                        .environment(appData)
+                    NotificationTime(appData: appData)
                     RemoveNotificationsButton()
                 } header: {
                     Text("Notifications")
@@ -62,6 +60,5 @@ struct SettingsTab: View {
 }
 
 #Preview {
-    SettingsTab()
-        .environment(AppData(series: "f1"))
+    SettingsTab(appData: AppData())
 }

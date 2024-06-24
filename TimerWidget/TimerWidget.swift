@@ -60,10 +60,10 @@ struct TimerTimelineProvider: TimelineProvider {
             let entry = await createEntry();
             
             do {
-                let appData = AppData(series: "f1");
+                let appData = AppData();
                 appData.races = try await appData.getAllRaces();
                 let nextRace = appData.nextRace;
-                let nextUpdate = getNextUpdateDate(nextRace: nextRace)
+                let nextUpdate = getNextUpdateDate(nextRace: nextRace ?? RaceData())
 
                 let timeline = Timeline(entries: [entry], policy: .after(nextUpdate));
                 

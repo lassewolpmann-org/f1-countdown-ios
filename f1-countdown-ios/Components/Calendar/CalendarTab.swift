@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CalendarTab: View {
-    @Environment(AppData.self) private var appData;
+    var appData: AppData;
     @State private var searchText = "";
 
     var body: some View {
@@ -16,19 +16,8 @@ struct CalendarTab: View {
         let year = calendar.dateComponents([.year], from: Date()).year!.description;
 
         NavigationStack {
-            List {
-                ForEach(appData.nextRaces.filter({ race in
-                    // Return all races if no input is given
-                    if (searchText == "") { return true }
-                    
-                    let raceName = race.name.lowercased()
-                    let locationName = race.location.lowercased()
-                    let input = searchText.lowercased()
-                    
-                    return raceName.contains(input) || locationName.contains(input)
-                })) { race in
-                    RaceSheet(race: race, series: appData.series);
-                }
+            List(filterRaces(), id: \.self) { race in
+                RaceSheet(race: race, series: appData.series)
             }
             .navigationTitle("\(year) \(appData.series.uppercased()) Calendar")
         }
@@ -37,13 +26,27 @@ struct CalendarTab: View {
             do {
                 appData.races = try await appData.getAllRaces()
             } catch {
-                
+                print(error)
             }
         }
+    }
+    
+    func filterRaces() -> [RaceData] {
+        let nextRaces = appData.nextRaces.filter { race in
+            // Return all races if no input is given
+            if (searchText == "") { return true }
+            
+            let raceName = race.name.lowercased()
+            let locationName = race.location.lowercased()
+            let input = searchText.lowercased()
+            
+            return raceName.contains(input) || locationName.contains(input)
+        }
+        
+        return nextRaces
     }
 }
 
 #Preview {
-    CalendarTab()
-        .environment(AppData(series: "f1"))
+    CalendarTab(appData: AppData())
 }

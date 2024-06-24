@@ -8,30 +8,42 @@
 import SwiftUI
 
 struct TimerTab: View {
-    @Environment(AppData.self) private var appData;
+    var appData: AppData;
 
     var body: some View {
         NavigationStack {
-            ScrollView {
-                ForEach(appData.nextRace.futureSessions, id: \.key) { key, value in
-                    Session(sessionName: key, sessionDate: value, delta: deltaValues(dateString: value))
-                        .environment(appData)
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 5)
+            ScrollView(.vertical) {
+                if let nextRace = appData.nextRace {
+                    VStack(spacing: 15) {
+                        ForEach(nextRace.futureSessions, id: \.key) { name, date in
+                            Session(appData: appData, sessionName: name, sessionDate: date, nextRace: nextRace, delta: deltaValues(dateString: date))
+                        }
+                    }
+                    .navigationTitle(getRaceTitle(race: nextRace))
+                } else {
+                    Label {
+                        Text("It seems like there is no data available to display here.")
+                    } icon: {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                    }
+                    .bold()
+                    .symbolRenderingMode(.multicolor)
+                    .navigationTitle("Timer")
                 }
             }
             .background(
                 GeometryReader { geo in
-                    Text(appData.nextRace.flag)
-                        .font(.system(size: 1000))
-                        .minimumScaleFactor(0.005)
-                        .lineLimit(1)
-                        .frame(width: geo.size.width, height: geo.size.height)
-                        .rotationEffect(.degrees(90))
-                        .blur(radius: 100)
+                    if let flag = appData.nextRace?.flag {
+                        Text(flag)
+                            .font(.system(size: 1000))
+                            .minimumScaleFactor(0.005)
+                            .lineLimit(1)
+                            .frame(width: geo.size.width, height: geo.size.height)
+                            .rotationEffect(.degrees(90))
+                            .blur(radius: 50)
+                    }
                 }
             )
-            .navigationTitle(getRaceTitle(race: appData.nextRace))
         }
         .refreshable {
             do {
@@ -44,6 +56,5 @@ struct TimerTab: View {
 }
 
 #Preview {
-    TimerTab()
-        .environment(AppData(series: "f1"))
+    return TimerTab(appData: AppData())
 }

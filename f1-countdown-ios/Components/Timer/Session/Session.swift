@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct Session: View {
-    @Environment(AppData.self) private var appData;
+    var appData: AppData;
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect();
     let sessionName: String;
     let sessionDate: String;
+    let nextRace: RaceData;
     
     @State var delta: deltaValues;
     @State var showWeather: Bool = false;
@@ -36,7 +37,7 @@ struct Session: View {
                 Divider()
                 
                 VStack {
-                    NotificationButton(sessionName: sessionName, sessionDate: sessionDate, race: appData.nextRace, series: appData.series)
+                    NotificationButton(sessionName: sessionName, sessionDate: sessionDate, race: nextRace, series: appData.series)
                     
                     Button {
                         showWeather.toggle()
@@ -49,7 +50,7 @@ struct Session: View {
             }
         }
         .sheet(isPresented: $showWeather, content: {
-            SessionWeather(race: appData.nextRace, series: appData.series, sessionDate: sessionDate, sessionName: sessionName)
+            SessionWeather(race: nextRace, series: appData.series, sessionDate: sessionDate, sessionName: sessionName)
                 .presentationDetents([.medium])
                 .presentationBackground(.regularMaterial)
         })
@@ -78,7 +79,6 @@ struct Session: View {
         let nextRace = RaceData();
         let firstSession = nextRace.futureSessions.first!;
         
-        Session(sessionName: firstSession.key, sessionDate: firstSession.value, delta: deltaValues(dateString: Date().ISO8601Format()))
-            .environment(AppData(series: "f1"))
+        Session(appData: AppData(), sessionName: firstSession.key, sessionDate: firstSession.value, nextRace: RaceData(), delta: deltaValues(dateString: Date().ISO8601Format()))
     }
 }

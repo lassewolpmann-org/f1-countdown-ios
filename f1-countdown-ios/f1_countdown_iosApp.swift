@@ -9,27 +9,24 @@ import SwiftUI
 
 @main
 struct f1_countdown_iosApp: App {
-    @State private var appData: AppData = AppData(series: "f1");
+    @State private var appData: AppData = AppData();
     @State private var dataLoaded: Bool = false;
     
     var body: some Scene {
         WindowGroup {
-            Group {
-                if (dataLoaded) {
-                    ContentView()
-                        .environment(appData)
-                } else {
-                    VStack {
-                        Text("Loading data...")
-                        ProgressView()
-                    }
+            if (dataLoaded) {
+                ContentView(appData: appData)
+            } else {
+                ProgressView {
+                    Text("Loading data...")
                 }
-            }.task {
-                do {
-                    appData.races = try await appData.getAllRaces()
-                    dataLoaded = true;
-                } catch {
-                    print("\(error), while loading initial data")
+                .task {
+                    do {
+                        appData.races = try await appData.getAllRaces()
+                        dataLoaded = true;
+                    } catch {
+                        print("\(error), while loading initial data")
+                    }
                 }
             }
         }

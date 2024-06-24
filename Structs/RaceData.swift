@@ -44,7 +44,7 @@ struct RaceData: Decodable, Identifiable, Hashable {
     var sortedSessions: [(key: String, value: String)] {
         return fixedSessions.sorted(by:{$0.value < $1.value})
     }
-    
+
     var futureSessions: [(key: String, value: String)] {
         sortedSessions.filter { (key: String, value: String) in
             let date = ISO8601DateFormatter().date(from: value)!;
