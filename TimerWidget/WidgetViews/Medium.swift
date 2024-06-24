@@ -12,16 +12,16 @@ struct Medium: View {
     let entry: TimerEntry;
     
     var body: some View {
-        let firstSession = entry.race.futureSessions.first!;
-        let name = firstSession.key;
-        let date = ISO8601DateFormatter().date(from: firstSession.value)!
-        
-        VStack(alignment: .leading) {
-            WidgetHeader(entry: entry)
-            SessionInfo(date: date, name: name, sessionLengths: entry.sessionLengths)
-        }
-        .containerBackground(for: .widget) {
-            Color(.systemBackground)
+        if let firstSession = entry.sessions.first {
+            VStack(alignment: .leading) {
+                WidgetHeader(entry: entry)
+                SessionInfo(session: firstSession)
+            }
+            .containerBackground(for: .widget) {
+                Color(.systemBackground)
+            }
+        } else {
+            Text("No sessions")
         }
     }
 }
@@ -29,6 +29,6 @@ struct Medium: View {
 #Preview(as: .systemMedium) {
     TimerWidget()
 } timeline: {
-    TimerEntry(race: RaceData(), tbc: true, flag: "", sessionLengths: RaceData().sessionLengths)
+    TimerEntry(sessions: [], name: "", tbc: true, flag: "")
 }
 

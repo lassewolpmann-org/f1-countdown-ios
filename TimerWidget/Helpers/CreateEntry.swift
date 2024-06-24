@@ -14,12 +14,13 @@ func createEntry() async -> TimerEntry {
         if let nextRace = appData.nextRace {
             let flag = CountryFlags().flags[nextRace.localeKey] ?? "";
             let tbc = nextRace.tbc ?? false;
+            let name = getRaceTitle(race: nextRace)
             
-            return TimerEntry(race: nextRace, tbc: tbc, flag: flag, sessionLengths: nextRace.sessionLengths)
+            return TimerEntry(sessions: appData.nextRaceSessions.map { $0.value }, name: name, tbc: tbc, flag: flag)
         } else {
-            return TimerEntry(race: RaceData(), tbc: false, flag: "", sessionLengths: RaceData().sessionLengths)
+            return TimerEntry(sessions: [], name: "", tbc: false, flag: "")
         }
     } catch {
-        return TimerEntry(race: RaceData(), tbc: false, flag: "", sessionLengths: RaceData().sessionLengths)
+        return TimerEntry(sessions: [], name: "", tbc: false, flag: "")
     }
 }

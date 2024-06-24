@@ -8,10 +8,10 @@
 import Foundation
 import UserNotifications
 
-func deleteNotification(sessionDate: String) -> Bool {
+func deleteNotification(sessionDate: Date) -> Bool {
     let notificationCenter = UNUserNotificationCenter.current();
     
-    notificationCenter.removePendingNotificationRequests(withIdentifiers: [sessionDate])
+    notificationCenter.removePendingNotificationRequests(withIdentifiers: [sessionDate.description])
     
     return false
 }
@@ -43,19 +43,18 @@ func checkForPermission() async -> Bool {
     }
 }
 
-func addNewNotification(race: RaceData, series: String, sessionDate: String, sessionName: String) async -> Bool {
-    let identifier = sessionDate;
+func addNewNotification(race: RaceData, series: String, sessionDate: Date, sessionName: String) async -> Bool {
+    let identifier = sessionDate.description;
     
     let notificationTimeSetting = UserDefaults.standard.integer(forKey: "Notification");
-    let date = ISO8601DateFormatter().date(from: sessionDate)?.addingTimeInterval(TimeInterval(-notificationTimeSetting * 60)) ?? Date();
+    let date = sessionDate.addingTimeInterval(TimeInterval(-notificationTimeSetting * 60));
     let calendarDate = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: date);
     
-    let session = parseSessionName(sessionName: sessionName);
     let series = series.uppercased();
     let title = "\(getRaceTitle(race: race))";
-    let body = notificationTimeSetting == 0 ? "\(series) \(session) is now live!" : "\(series) \(session) starts in \(notificationTimeSetting.description) minutes!";
+    let body = notificationTimeSetting == 0 ? "\(series) \(sessionName) is now live!" : "\(series) \(sessionName) starts in \(notificationTimeSetting.description) minutes!";
     
-    return await createNotification(identifier: identifier, date: calendarDate, title: title, body: body, series: series, session: session)
+    return await createNotification(identifier: identifier, date: calendarDate, title: title, body: body, series: series, session: sessionName)
 }
 
 func createNotification(identifier: String, date: DateComponents, title: String, body: String, series: String, session: String) async -> Bool {
@@ -149,12 +148,12 @@ func notificationButtonDisabled(sessionDate: Date) -> Bool {
     return sessionDate.addingTimeInterval(TimeInterval(-notificationTimeSetting * 60)).timeIntervalSinceNow <= 0
 }
 
-func checkForExistingNotification(sessionDate: String) async -> Bool {
+func checkForExistingNotification(sessionDate: Date) async -> Bool {
     let center = UNUserNotificationCenter.current();
     let requests = await center.pendingNotificationRequests();
     
     let requestsWithSameID = requests.filter { request in
-        return request.identifier == sessionDate
+        return request.identifier == sessionDate.description
     }
     
     if (requestsWithSameID.isEmpty) {

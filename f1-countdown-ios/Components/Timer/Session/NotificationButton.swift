@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct NotificationButton: View {
-    let sessionName: String;
-    let sessionDate: String;
-    let race: RaceData;
-    let series: String;
+    let session: SessionData
+    let race: RaceData
+    let series: String
     
     @State private var notificationEnabled: Bool = false;
     @State private var showAlert = false;
@@ -21,16 +20,14 @@ struct NotificationButton: View {
     @State private var buttonState: Bool = false;
     
     var body: some View {
-        let date = ISO8601DateFormatter().date(from: sessionDate)!;
-        
         Button {
             buttonState.toggle();
             
             if (notificationEnabled) {
-                notificationEnabled = deleteNotification(sessionDate: sessionDate)
+                notificationEnabled = deleteNotification(sessionDate: session.startDate)
             } else {
                 Task {
-                    notificationEnabled = await addNewNotification(race: race, series: series, sessionDate: sessionDate, sessionName: sessionName);
+                    notificationEnabled = await addNewNotification(race: race, series: series, sessionDate: session.startDate, sessionName: session.formattedName);
                     showAlert = !notificationEnabled;
                 }
             }
@@ -63,12 +60,12 @@ struct NotificationButton: View {
             Text("Please enable Notifications for Formula Countdown in your System Settings.")
         }
         .task {
-            allowButton = notificationButtonDisabled(sessionDate: date);
-            notificationEnabled = await checkForExistingNotification(sessionDate: sessionDate);
+            allowButton = notificationButtonDisabled(sessionDate: session.startDate);
+            notificationEnabled = await checkForExistingNotification(sessionDate: session.startDate);
         }
     }
 }
 
 #Preview {
-    NotificationButton(sessionName: parseSessionName(sessionName: RaceData().futureSessions.first!.key), sessionDate: RaceData().futureSessions.first!.value, race: RaceData(), series: "f1")
+    NotificationButton(session: SessionData(), race: RaceData(), series: "f1")
 }

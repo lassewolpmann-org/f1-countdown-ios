@@ -13,7 +13,7 @@ struct WidgetHeader: View {
     
     var body: some View {
         HStack {
-            Text(getRaceTitle(race: entry.race))
+            Text(entry.name)
                 .font(.headline)
             Spacer()
             
@@ -28,5 +28,5 @@ struct WidgetHeader: View {
 #Preview(as: .systemMedium) {
     TimerWidget()
 } timeline: {
-    TimerEntry(race: RaceData(), tbc: true, flag: "", sessionLengths: RaceData().sessionLengths)
+    TimerEntry(sessions: [], name: "", tbc: true, flag: "")
 }

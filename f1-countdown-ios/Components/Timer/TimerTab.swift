@@ -15,8 +15,8 @@ struct TimerTab: View {
             ScrollView(.vertical) {
                 if let nextRace = appData.nextRace {
                     VStack(spacing: 15) {
-                        ForEach(nextRace.futureSessions, id: \.key) { name, date in
-                            Session(appData: appData, sessionName: name, sessionDate: date, nextRace: nextRace, delta: deltaValues(dateString: date))
+                        ForEach(appData.nextRaceSessions, id: \.key) { session in
+                            Session(appData: appData, nextRace: nextRace, session: session.value, delta: session.value.delta)
                         }
                     }
                     .navigationTitle(getRaceTitle(race: nextRace))

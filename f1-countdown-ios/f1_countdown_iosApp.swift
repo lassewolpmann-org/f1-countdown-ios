@@ -10,11 +10,10 @@ import SwiftUI
 @main
 struct f1_countdown_iosApp: App {
     @State private var appData: AppData = AppData();
-    @State private var dataLoaded: Bool = false;
     
     var body: some Scene {
         WindowGroup {
-            if (dataLoaded) {
+            if (appData.dataLoaded) {
                 ContentView(appData: appData)
             } else {
                 ProgressView {
@@ -23,7 +22,7 @@ struct f1_countdown_iosApp: App {
                 .task {
                     do {
                         appData.races = try await appData.getAllRaces()
-                        dataLoaded = true;
+                        appData.dataLoaded = true;
                     } catch {
                         print("\(error), while loading initial data")
                     }

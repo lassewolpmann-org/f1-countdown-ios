@@ -9,35 +9,31 @@ import SwiftUI
 import WidgetKit
 
 struct SessionInfo: View {
-    let date: Date;
-    let name: String;
-    let sessionLengths: [String: [String: Double]];
+    let session: SessionData
     
     var body: some View {
-        let sessionLength = sessionLengths["f1"]?[name] ?? 60;
-        
         VStack(alignment: .leading) {
             HStack {
-                Text(parseSessionName(sessionName: name))
+                Text(session.formattedName)
                     .foregroundStyle(.red)
                 
                 Spacer()
                 
-                Text(getDayName(date: date))
+                Text(getDayName(date: session.startDate))
                     .foregroundStyle(.secondary)
             }
             
             HStack {
-                if (date.timeIntervalSinceNow <= 0) {
+                if (session.startDate.timeIntervalSinceNow <= 0) {
                     Label("Finished", systemImage: "flag.checkered")
-                } else if (date.timeIntervalSinceNow <= 60 * 60) {
-                    Text("Session starts in \(timerInterval: Date.now...date, pauseTime: Date.now)")
+                } else if (session.startDate.timeIntervalSinceNow <= 60 * 60) {
+                    Text("Session starts in \(timerInterval: Date.now...session.startDate, pauseTime: Date.now)")
                 } else {
-                    Text(date, style: .date)
+                    Text(session.startDate, style: .date)
                     
                     Spacer()
                     
-                    Text(DateInterval(start: date, end: date.addingTimeInterval(60 * sessionLength)))
+                    Text(DateInterval(start: session.startDate, end: session.endDate))
                 }
             }
         }
@@ -54,5 +50,5 @@ struct SessionInfo: View {
 #Preview(as: .systemLarge) {
     TimerWidget()
 } timeline: {
-    TimerEntry(race: RaceData(), tbc: false, flag: "", sessionLengths: RaceData().sessionLengths)
+    TimerEntry(sessions: [], name: "", tbc: false, flag: "")
 }

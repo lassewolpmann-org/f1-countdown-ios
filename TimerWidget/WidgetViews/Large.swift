@@ -15,11 +15,8 @@ struct Large: View {
         VStack(alignment: .leading) {
             WidgetHeader(entry: entry)
             
-            ForEach(entry.race.sortedSessions, id: \.key) { session in
-                let name = session.key;
-                let date = ISO8601DateFormatter().date(from: session.value)!
-
-                SessionInfo(date: date, name: name, sessionLengths: entry.sessionLengths)
+            ForEach(entry.sessions, id: \.startDate) { session in
+                SessionInfo(session: session)
             }
         }
         .containerBackground(for: .widget) {
@@ -32,6 +29,6 @@ struct Large: View {
 #Preview(as: .systemLarge) {
     TimerWidget()
 } timeline: {
-    TimerEntry(race: RaceData(), tbc: true, flag: "", sessionLengths: RaceData().sessionLengths)
+    TimerEntry(sessions: [], name: "", tbc: true, flag: "")
 }
 

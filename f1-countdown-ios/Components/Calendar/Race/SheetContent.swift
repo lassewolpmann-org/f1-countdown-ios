@@ -20,8 +20,11 @@ struct SheetContent: View {
                     let name = session.key;
                     let parsedName = parseSessionName(sessionName: session.key);
                     let date = ISO8601DateFormatter().date(from: session.value)!;
-                    
-                    SessionDetails(race: race, series: series, name: name, parsedName: parsedName, date: date)
+                    let sessionLength = race.sessionLengths[series]?[name] ?? 60;
+
+                    let sessionData = SessionData(formattedName: parsedName, startDate: date, endDate: date.addingTimeInterval(sessionLength * 60))
+
+                    SessionDetails(race: race, series: series, session: sessionData)
                 }
             }
             .navigationTitle(getRaceTitle(race: race))

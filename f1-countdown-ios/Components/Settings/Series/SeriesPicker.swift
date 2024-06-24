@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct SeriesPicker: View {
     @Bindable var appData: AppData;

@@ -8,20 +8,19 @@
 import SwiftUI
 
 struct Session: View {
-    var appData: AppData;
+    var appData: AppData
     
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect();
-    let sessionName: String;
-    let sessionDate: String;
-    let nextRace: RaceData;
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    let nextRace: RaceData
+    let session: SessionData
     
-    @State var delta: deltaValues;
-    @State var showWeather: Bool = false;
+    @State var delta: DeltaValues
+    @State var showWeather: Bool = false
         
     var body: some View {
         VStack {
             HStack {
-                Text(parseSessionName(sessionName: sessionName))
+                Text(session.formattedName)
                     .font(.headline)
                     .foregroundStyle(.secondary)
                 
@@ -37,7 +36,7 @@ struct Session: View {
                 Divider()
                 
                 VStack {
-                    NotificationButton(sessionName: sessionName, sessionDate: sessionDate, race: nextRace, series: appData.series)
+                    NotificationButton(session: session, race: nextRace, series: appData.series)
                     
                     Button {
                         showWeather.toggle()
@@ -50,7 +49,7 @@ struct Session: View {
             }
         }
         .sheet(isPresented: $showWeather, content: {
-            SessionWeather(race: nextRace, series: appData.series, sessionDate: sessionDate, sessionName: sessionName)
+            SessionWeather(race: nextRace, series: appData.series, session: session)
                 .presentationDetents([.medium])
                 .presentationBackground(.regularMaterial)
         })
@@ -59,7 +58,7 @@ struct Session: View {
             RoundedRectangle(cornerRadius: 10)
         )
         .onReceive(timer) { _ in
-            delta = deltaValues(dateString: sessionDate);
+            delta = DeltaValues(date: session.startDate);
             
             if (delta.delta == 0) {
                 Task {
@@ -75,10 +74,7 @@ struct Session: View {
 }
 
 #Preview {
-    ScrollView {
-        let nextRace = RaceData();
-        let firstSession = nextRace.futureSessions.first!;
-        
-        Session(appData: AppData(), sessionName: firstSession.key, sessionDate: firstSession.value, nextRace: RaceData(), delta: deltaValues(dateString: Date().ISO8601Format()))
+    ScrollView {        
+        Session(appData: AppData(), nextRace: RaceData(), session: SessionData(), delta: DeltaValues(date: Date()))
     }
 }

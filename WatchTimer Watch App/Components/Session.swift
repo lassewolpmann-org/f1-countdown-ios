@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct Session: View {
-    @Environment(AppData.self) private var appData;
-    let sessionDate: String;
-    let sessionName: String;
+    var appData: AppData
+    let session: SessionData
     
-    @State var delta: deltaValues;
+    @State var delta: DeltaValues;
+    
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect();
     
     @State var showWeatherSheet: Bool = false;
@@ -20,10 +20,6 @@ struct Session: View {
     
     var body: some View {
         if let nextRace = appData.nextRace {
-            let startDate = ISO8601DateFormatter().date(from: sessionDate)!;
-            let sessionLength = nextRace.sessionLengths["f1"]?[sessionName] ?? 60;
-            let endDate = startDate.addingTimeInterval(60 * sessionLength);
-            
             ZStack(alignment: .bottom) {
                 TimerCircle(deltaPct: delta.daysPct, ringColor: .primary)
                     .padding(6)
@@ -35,10 +31,10 @@ struct Session: View {
                     .padding(24)
                     .background(
                         VStack {
-                            Text("\(nextRace.flag) \(parseShortSessionName(sessionName: sessionName))")
+                            Text("\(nextRace.flag) \(session.formattedName)")
                                 .font(.headline)
                             
-                            Text(startDate, style: .timer)
+                            Text(session.startDate, style: .timer)
                                 .font(.subheadline)
                                 .foregroundStyle(.secondary)
                         }
@@ -52,7 +48,7 @@ struct Session: View {
             }
             .sheet(isPresented: $showWeatherSheet, content: {
                 ScrollView {
-                    SessionWeather(race: nextRace, series: appData.series, sessionDate: sessionDate, sessionName: sessionName)
+                    SessionWeather(race: nextRace, series: appData.series, session: session)
                         .labelStyle(.iconOnly)
                 }
             })
@@ -60,7 +56,7 @@ struct Session: View {
                 VStack(alignment: .leading) {
                     Text("Session Date")
                         .font(.headline)
-                    Text("\(startDate, style: .date), \(DateInterval(start: startDate, end: endDate))")
+                    Text("\(session.startDate, style: .date), \(DateInterval(start: session.startDate, end: session.endDate))")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                     
@@ -75,7 +71,7 @@ struct Session: View {
                 .padding(10)
             })
             .onReceive(timer) { _ in
-                delta = deltaValues(dateString: sessionDate);
+                delta = DeltaValues(date: session.startDate);
                 
                 if (delta.delta == 0) {
                     Task {
@@ -93,11 +89,9 @@ struct Session: View {
 
 #Preview {
     TabView {
-        let nextRace = RaceData();
-        let firstSession = nextRace.futureSessions.first!;
+        let session = SessionData()
         
-        Session(sessionDate: firstSession.value, sessionName: firstSession.key, delta: deltaValues(dateString: Date().ISO8601Format()))
-            .environment(AppData())
+        Session(appData: AppData(), session: session, delta: session.delta)
     }
     .tabViewStyle(.verticalPage)
 }

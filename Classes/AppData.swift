@@ -11,14 +11,23 @@ struct API: Decodable {
     var races: [RaceData];
 }
 
+struct SessionData {
+    var formattedName: String = "FP1"
+    var startDate: Date = Date()
+    var endDate: Date = Date()
+    var delta: DeltaValues = DeltaValues(date: Date())
+}
+
 enum AppDataError: Error {
     case fetchError(String)
     case URLError(String)
 }
 
 @Observable class AppData {
-    var series: String = "f1"
+    var series = "f1"
     var races: [RaceData]?
+    var dataLoaded = false
+    var calendarSearchFilter = ""
     
     func getAllRaces() async throws -> [RaceData] {
         let date = Date();
@@ -33,21 +42,57 @@ enum AppDataError: Error {
     }
     
     var nextRaces: [RaceData] {
-        if let allRaces = self.races {
-            let nextRaces = allRaces.filter { race in
-                let raceSessions = race.sessions.sorted(by:{$0.value < $1.value});
-                let date = ISO8601DateFormatter().date(from: raceSessions.last!.value)!;
+        let nextRaces = self.races?.filter { race in
+            let raceSessions = race.sessions.sorted(by:{$0.value < $1.value});
+            let date = ISO8601DateFormatter().date(from: raceSessions.last!.value)!;
+            
+            return date.timeIntervalSinceNow > 0
+        }
+        
+        return nextRaces ?? []
+    }
+    
+    var nextRace: RaceData? {
+        return self.nextRaces.first
+    }
+    
+    var nextRaceSessions: Array<(key: String, value: SessionData)> {
+        if let sessions = nextRace?.sessions {
+            var sessionData: [String: SessionData] = [:]
+            
+            for session in sessions {
+                let name = session.key
+                let startDateString = session.value
+                let sessionLength = SessionLengths().series[self.series]?[name] ?? 0 // Value is in minutes
                 
-                return date.timeIntervalSinceNow > 0
+                let formatter = ISO8601DateFormatter()
+                
+                let startDate = formatter.date(from: startDateString)
+                let endDate = startDate?.addingTimeInterval(sessionLength * 60)
+                
+                if let startDate, let endDate {
+                    let delta = DeltaValues(date: startDate)
+                    sessionData[name] = SessionData(formattedName: parseSessionName(sessionName: name), startDate: startDate, endDate: endDate, delta: delta)
+                }
             }
             
-            return nextRaces
+            return sessionData.sorted { a, b in
+                a.value.startDate < b.value.startDate
+            }
         } else {
             return []
         }
     }
     
-    var nextRace: RaceData? {
-        return self.nextRaces.first
+    var filteredRaces: [RaceData] {
+        nextRaces.filter { race in
+            if (calendarSearchFilter == "") { return true }
+            
+            let raceName = race.name.lowercased()
+            let locationName = race.location.lowercased()
+            let input = calendarSearchFilter.lowercased()
+            
+            return raceName.contains(input) || locationName.contains(input)
+        }
     }
 }

@@ -10,32 +10,28 @@ import SwiftUI
 struct SessionDetails: View {
     let race: RaceData;
     let series: String;
-    let name: String;
-    let parsedName: String;
-    let date: Date;
+    let session: SessionData
     
     var body: some View {
-        let day = getDayName(date: date);
-        let sessionLength = race.sessionLengths[series]?[name] ?? 60;
-        let dateString = ISO8601DateFormatter().string(from: date);
+        let day = getDayName(date: session.startDate);
         
         Section {
             HStack(alignment: .center) {
                 VStack(alignment: .leading) {
                     Text(day)
                         .foregroundStyle(.red)
-                    Text(date, style: .date)
-                    Text(DateInterval(start: date, end: date.addingTimeInterval(60 * sessionLength)))
+                    Text(session.startDate, style: .date)
+                    Text(DateInterval(start: session.startDate, end: session.endDate))
                         .foregroundStyle(.secondary)
                 }
                 
                 Spacer()
                 Divider()
                 
-                NotificationButton(sessionName: name, sessionDate: dateString, race: race, series: series)
+                NotificationButton(session: session, race: race, series: series)
             }
         } header: {
-            Text(parsedName)
+            Text(session.formattedName)
         }
     }
 }
@@ -43,8 +39,7 @@ struct SessionDetails: View {
 #Preview {
     List {
         let race = RaceData();
-        let firstSession = race.futureSessions.first!;
         
-        SessionDetails(race: race, series: "f1", name: firstSession.key, parsedName: parseSessionName(sessionName: firstSession.key), date: ISO8601DateFormatter().date(from: firstSession.value)!)
+        SessionDetails(race: race, series: "f1", session: SessionData())
     }
 }

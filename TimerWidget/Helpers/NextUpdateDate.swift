@@ -7,11 +7,8 @@
 
 import Foundation
 
-func getNextUpdateDate(nextRace: RaceData) -> Date {
-    let firstSession = nextRace.futureSessions.first!;
-    let sessionDate = ISO8601DateFormatter().date(from: firstSession.value)!;
-    
-    return sessionDate
+func getNextUpdateDate(appData: AppData) -> Date {
+    return appData.nextRaceSessions.first?.value.startDate ?? Date().addingTimeInterval(60 * 60)
     
     /*
     if (sessionDate.timeIntervalSinceNow > 60 * 60) {

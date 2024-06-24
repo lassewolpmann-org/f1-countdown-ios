@@ -10,39 +10,37 @@ import SwiftUI
 struct SessionWeather: View {
     @State var weather: WeatherData = WeatherData();
     
-    let race: RaceData;
-    let series: String;
-    let sessionDate: String;
-    let sessionName: String;
+    let race: RaceData
+    let series: String
+    let session: SessionData
     
     var body: some View {
-        let startDate = ISO8601DateFormatter().date(from: sessionDate)!;
-        let sessionLength = race.sessionLengths[series]?[sessionName] ?? 60;
-        let endDate = startDate.addingTimeInterval(60 * sessionLength);
-        
-        VStack(alignment: .leading, spacing: 20) {
-            Text(parseSessionName(sessionName: sessionName))
+        VStack(alignment: .leading, spacing: 10) {
+            Text(session.formattedName)
                 .font(.headline)
             
-            VStack(spacing: 10) {
-                if (weather.available) {
-                    VStack(alignment: .trailing, spacing: 10) {
-                        WeatherElement(labelText: "Conditions", systemImage: weather.symbol, weatherText: weather.condition)
-                        Divider()
-                        WeatherElement(labelText: "Chance of Rain", systemImage: "drop", weatherText: weather.rainChance)
-                        Divider()
-                        WeatherElement(labelText: "Temperature", systemImage: "thermometer.medium", weatherText: weather.temp)
-                        Divider()
-                        WeatherElement(labelText: "Wind Speed", systemImage: "wind", weatherText: weather.windSpeed)
-                                
-                        
-                    }
-                } else {
-                    Label("Weather Forecast is not available.", systemImage: "info.circle.fill")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                        .labelStyle(.titleAndIcon)
-                }
+            HStack {
+                Text(session.startDate, style: .date)
+                Spacer()
+                Text(DateInterval(start: session.startDate, end: session.endDate))
+            }
+            .font(.subheadline)
+            .foregroundStyle(.secondary)
+            .padding(.bottom, 10)
+            
+            if (weather.available) {
+                WeatherElement(labelText: "Conditions", systemImage: weather.symbol, weatherText: weather.condition)
+                Divider()
+                WeatherElement(labelText: "Chance of Rain", systemImage: "drop", weatherText: weather.rainChance)
+                Divider()
+                WeatherElement(labelText: "Temperature", systemImage: "thermometer.medium", weatherText: weather.temp)
+                Divider()
+                WeatherElement(labelText: "Wind Speed", systemImage: "wind", weatherText: weather.windSpeed)
+            } else {
+                Label("Weather Forecast is not available.", systemImage: "info.circle.fill")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .labelStyle(.titleAndIcon)
             }
             
             HStack {
@@ -52,11 +50,12 @@ struct SessionWeather: View {
             }
             .font(.subheadline)
             .foregroundStyle(.secondary)
+            .padding(.top, 10)
             
         }
         .padding(10)
         .task {
-            await weather.getWeather(race: race, startDate: startDate, endDate: endDate)
+            await weather.getWeather(race: race, startDate: session.startDate, endDate: session.endDate)
         }
     }
 }
@@ -65,8 +64,7 @@ struct SessionWeather: View {
     VStack {
     }.sheet(isPresented: .constant(true)) {
         let nextRace = RaceData();
-        let nextSession = nextRace.futureSessions.first!;
-        SessionWeather(weather: WeatherData(), race: nextRace, series: "f1", sessionDate: nextSession.value, sessionName: nextSession.key)
+        SessionWeather(weather: WeatherData(), race: nextRace, series: "f1", session: SessionData())
             .presentationDetents([.medium])
     }
 }

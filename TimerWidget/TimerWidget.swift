@@ -9,11 +9,11 @@ import WidgetKit
 import SwiftUI
 
 struct TimerEntry: TimelineEntry {
-    let race: RaceData;
-    let date: Date = Date();
-    let tbc: Bool;
-    let flag: String;
-    let sessionLengths: [String: [String: Double]];
+    let sessions: [SessionData]
+    let name: String
+    let date: Date = Date()
+    let tbc: Bool
+    let flag: String
 }
 
 struct TimerWidgetView: View {
@@ -46,7 +46,7 @@ struct TimerWidgetView: View {
 
 struct TimerTimelineProvider: TimelineProvider {
     func placeholder(in context: Context) -> TimerEntry {
-        return TimerEntry(race: RaceData(), tbc: false, flag: "", sessionLengths: RaceData().sessionLengths)
+        return TimerEntry(sessions: [], name: "", tbc: false, flag: "")
     }
     
     func getSnapshot(in context: Context, completion: @escaping (TimerEntry) -> Void) {
@@ -62,8 +62,7 @@ struct TimerTimelineProvider: TimelineProvider {
             do {
                 let appData = AppData();
                 appData.races = try await appData.getAllRaces();
-                let nextRace = appData.nextRace;
-                let nextUpdate = getNextUpdateDate(nextRace: nextRace ?? RaceData())
+                let nextUpdate = getNextUpdateDate(appData: appData)
 
                 let timeline = Timeline(entries: [entry], policy: .after(nextUpdate));
                 
@@ -91,5 +90,5 @@ struct TimerWidget: Widget {
 #Preview(as: .systemMedium) {
     TimerWidget()
 } timeline: {
-    TimerEntry(race: RaceData(), tbc: true, flag: "", sessionLengths: RaceData().sessionLengths)
+    TimerEntry(sessions: [], name: "", tbc: true, flag: "")
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct deltaValues {
+struct DeltaValues {
     var delta: Int;
     
     var days: Int;
@@ -22,10 +22,7 @@ struct deltaValues {
     var seconds: Int;
     var secondsPct: Float;
     
-    init(dateString: String) {
-        let formatter = ISO8601DateFormatter();
-        let date = formatter.date(from: dateString)!;
-        
+    init(date: Date) {
         self.delta = Int(date.timeIntervalSinceNow);
         
         if (self.delta < 0) {
