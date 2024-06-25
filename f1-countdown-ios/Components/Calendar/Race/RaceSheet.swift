@@ -26,7 +26,7 @@ struct RaceSheet: View {
             }
         }
         .sheet(isPresented: $isShowingRaceSheet, content: {
-            SheetContent(race: race, series: series, isShowingRaceSheet: $isShowingRaceSheet)
+            SheetContent(race: race, series: series)
         })
     }
 }

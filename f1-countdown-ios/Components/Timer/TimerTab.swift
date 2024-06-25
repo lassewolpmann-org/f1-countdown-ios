@@ -25,6 +25,7 @@ struct TimerTab: View {
                                 Image(systemName: "clock.badge.exclamationmark")
                             }
                             .font(.subheadline)
+                            .foregroundStyle(.secondary)
                             .symbolRenderingMode(.multicolor)
                             .padding(10)
                             .background(.ultraThinMaterial, in:

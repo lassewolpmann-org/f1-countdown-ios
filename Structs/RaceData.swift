@@ -15,7 +15,7 @@ func calcFutureDate(days: Double) -> String {
 }
 
 struct SessionData {
-    var formattedName: String = ""
+    var formattedName: String = "Session"
     var startDate: Date = Date()
     var endDate: Date = Date()
     var delta: DeltaValues = DeltaValues(date: Date())

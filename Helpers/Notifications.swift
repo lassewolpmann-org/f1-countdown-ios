@@ -134,11 +134,11 @@ func removeInvalidNotifications(races: [RaceData]) async {
     
     let invalidNotifications = notifications.filter {
         return !sessionDates.contains($0.identifier)
-    }.map {
-        return $0.identifier
     }
     
-    center.removePendingNotificationRequests(withIdentifiers: invalidNotifications)
+    let identifiers = invalidNotifications.map { $0.identifier }
+    
+    center.removePendingNotificationRequests(withIdentifiers: identifiers)
 }
 
 func notificationButtonDisabled(sessionDate: Date) -> Bool {

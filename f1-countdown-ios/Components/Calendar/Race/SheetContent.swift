@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct SheetContent: View {
+    @Environment(\.dismiss) var dismiss
+
     let race: RaceData;
     let series: String;
-    
-    @Binding var isShowingRaceSheet: Bool;
     
     var body: some View {
         NavigationStack {
@@ -26,9 +26,9 @@ struct SheetContent: View {
             .toolbar {
                 ToolbarItem {
                     Button {
-                        isShowingRaceSheet.toggle();
+                        dismiss()
                     } label: {
-                        Label("Close", systemImage: "xmark.circle.fill")
+                        Image(systemName: "xmark.circle.fill")
                     }
                     .tint(.secondary)
                 }
@@ -38,5 +38,5 @@ struct SheetContent: View {
 }
 
 #Preview {
-    SheetContent(race: RaceData(), series: "f1", isShowingRaceSheet: .constant(false))
+    SheetContent(race: RaceData(), series: "f1")
 }
