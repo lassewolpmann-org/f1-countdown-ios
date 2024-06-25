@@ -45,6 +45,7 @@ struct Session: View {
                             .labelStyle(.iconOnly)
                     }
                     .buttonStyle(.bordered)
+                    .disabled(session.startDate < Date())
                 }
             }
         }
@@ -58,17 +59,22 @@ struct Session: View {
             RoundedRectangle(cornerRadius: 10)
         )
         .onReceive(timer) { _ in
-            if (Date() > session.startDate) {
+            let date = Date()
+            
+            if (date >= session.endDate) {
+                // If end date is reached, set delta to 0
+                delta = DeltaValues(date: date)
+            } else if (date > session.startDate && date < session.endDate) {
                 delta = DeltaValues(date: session.endDate)
             } else {
                 delta = DeltaValues(date: session.startDate)
             }
             
-            let startDate = Int(session.startDate.timeIntervalSince1970)
-            let endDate = Int(session.endDate.timeIntervalSince1970)
-            let currentDate = Int(Date().timeIntervalSince1970)
+            let startTimestamp = Int(session.startDate.timeIntervalSince1970)
+            let endTimestamp = Int(session.endDate.timeIntervalSince1970)
+            let currentTimestamp = Int(date.timeIntervalSince1970)
             
-            if (startDate == currentDate || endDate == currentDate) {
+            if (startTimestamp == currentTimestamp || endTimestamp == currentTimestamp) {
                 Task {
                     do {
                         appData.races = try await appData.getAllRaces()

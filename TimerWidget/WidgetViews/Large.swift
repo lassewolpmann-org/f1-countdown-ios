@@ -15,8 +15,20 @@ struct Large: View {
         VStack(alignment: .leading) {
             WidgetHeader(entry: entry)
             
-            ForEach(entry.sessions, id: \.startDate) { session in
-                SessionInfo(session: session)
+            let pastSessions = entry.race.pastSessions
+            let ongoingSessions = entry.race.ongoingSessions
+            let futureSessions = entry.race.futureSessions
+            
+            ForEach(pastSessions, id: \.key) { session in
+                SessionInfo(session: session.value)
+            }
+            
+            ForEach(ongoingSessions, id: \.key) { session in
+                SessionInfo(session: session.value)
+            }
+            
+            ForEach(futureSessions, id: \.key) { session in
+                SessionInfo(session: session.value)
             }
         }
         .containerBackground(for: .widget) {
@@ -29,6 +41,6 @@ struct Large: View {
 #Preview(as: .systemLarge) {
     TimerWidget()
 } timeline: {
-    TimerEntry(sessions: [], name: "", tbc: true, flag: "")
+    TimerEntry(race: RaceData(series: "f1"), name: "", tbc: true)
 }
 

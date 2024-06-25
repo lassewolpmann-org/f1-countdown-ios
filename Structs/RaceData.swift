@@ -29,7 +29,7 @@ struct RaceData: Decodable, Identifiable, Hashable {
     var round: Int = 0
     var slug: String = ""
     var localeKey: String = ""
-    var sessions: [String: String] = ["fp1": calcFutureDate(days: 0.0006944444444 / 4), "sprintQualifying": calcFutureDate(days: 10), "sprint": calcFutureDate(days: 11), "qualifying": calcFutureDate(days: 12), "gp": calcFutureDate(days: 13)]
+    var sessions: [String: String] = ["fp1": calcFutureDate(days: -1), "sprintQualifying": calcFutureDate(days: -0.0208333333), "sprint": calcFutureDate(days: 0.0208333333), "qualifying": calcFutureDate(days: 2), "gp": calcFutureDate(days: 3)]
     
     // Optionals
     var tbc: Bool?
@@ -73,6 +73,12 @@ struct RaceData: Decodable, Identifiable, Hashable {
         // Step 3: Sort session by ascending date
         return formattedSessions.sorted { a, b in
             a.value.startDate < b.value.startDate
+        }
+    }
+    
+    var pastSessions: [(key: String, value: SessionData)] {
+        sortedSessions.filter { session in
+            return session.value.endDate < Date()
         }
     }
     

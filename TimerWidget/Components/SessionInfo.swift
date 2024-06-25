@@ -24,12 +24,28 @@ struct SessionInfo: View {
             }
             
             HStack {
-                if (session.startDate.timeIntervalSinceNow <= 0) {
+                let date = Date.now
+                
+                if (session.endDate <= date) {
                     Label("Finished", systemImage: "flag.checkered")
-                } else if (session.startDate.timeIntervalSinceNow <= 60 * 60) {
-                    Text("Session starts in \(timerInterval: Date.now...session.startDate, pauseTime: Date.now)")
+                } else if (session.endDate > date && session.startDate <= date) {
+                    Label {
+                        Text("Session ends in \(timerInterval: date...session.endDate, pauseTime: date)")
+                    } icon: {
+                        Image(systemName: "clock.badge.exclamationmark")
+                    }
+                } else if (session.startDate <= date.addingTimeInterval(60 * 60)) {
+                    Label {
+                        Text("Session starts in \(timerInterval: date...session.startDate, pauseTime: date)")
+                    } icon: {
+                        Image(systemName: "clock")
+                    }
                 } else {
-                    Text(session.startDate, style: .date)
+                    Label {
+                        Text(session.startDate, style: .date)
+                    } icon: {
+                        Image(systemName: "calendar")
+                    }
                     
                     Spacer()
                     
@@ -50,5 +66,5 @@ struct SessionInfo: View {
 #Preview(as: .systemLarge) {
     TimerWidget()
 } timeline: {
-    TimerEntry(sessions: [], name: "", tbc: false, flag: "")
+    TimerEntry(race: RaceData(series: "f1"), name: "", tbc: false)
 }

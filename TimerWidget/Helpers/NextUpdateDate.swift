@@ -7,9 +7,39 @@
 
 import Foundation
 
-func getNextUpdateDate(appData: AppData) -> Date {
-    return appData.nextRaceSessions.first?.value.startDate ?? Date().addingTimeInterval(60 * 60)
-    
+func getNextUpdateDate(appData: AppData) throws -> Date {
+    if let nextRace = appData.nextRace {
+        let pastSessions = nextRace.pastSessions
+        let ongoingSessions = nextRace.ongoingSessions
+        let futureSessions = nextRace.futureSessions
+        
+        let allSessions = [pastSessions, ongoingSessions, futureSessions]
+        
+        var allDates: [Date] = []
+        
+        for sessions in allSessions {
+            for session in sessions {
+                allDates.append(session.value.startDate.addingTimeInterval(-60 * 60))   // Date one hour before session starts
+                allDates.append(session.value.startDate)
+                allDates.append(session.value.endDate)
+            }
+        }
+        
+        allDates = allDates.sorted { a, b in
+            return a < b
+        }
+        
+        let futureDates = allDates.filter { date in
+            return date > Date()
+        }
+        
+        guard let firstDate = futureDates.first else { throw TimerWidgetError.nextUpdateError("Could not get next update date, since list of future dates is empty.") }
+        
+        return firstDate
+    } else {
+        throw TimerWidgetError.nextUpdateError("Could not get next update date, since nextRace is nil.")
+    }
+        
     /*
     if (sessionDate.timeIntervalSinceNow > 60 * 60) {
         // Situation 1: More than one hour away from session -> Update next one hour before session start

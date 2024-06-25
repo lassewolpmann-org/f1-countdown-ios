@@ -8,12 +8,15 @@
 import WidgetKit
 import SwiftUI
 
+enum TimerWidgetError: Error {
+    case nextUpdateError(String)
+}
+
 struct TimerEntry: TimelineEntry {
-    let sessions: [SessionData]
+    let race: RaceData
     let name: String
     let date: Date = Date()
     let tbc: Bool
-    let flag: String
 }
 
 struct TimerWidgetView: View {
@@ -46,7 +49,7 @@ struct TimerWidgetView: View {
 
 struct TimerTimelineProvider: TimelineProvider {
     func placeholder(in context: Context) -> TimerEntry {
-        return TimerEntry(sessions: [], name: "", tbc: false, flag: "")
+        return TimerEntry(race: RaceData(series: "f1"), name: "", tbc: false)
     }
     
     func getSnapshot(in context: Context, completion: @escaping (TimerEntry) -> Void) {
@@ -62,7 +65,7 @@ struct TimerTimelineProvider: TimelineProvider {
             do {
                 let appData = AppData();
                 appData.races = try await appData.getAllRaces();
-                let nextUpdate = getNextUpdateDate(appData: appData)
+                let nextUpdate = try getNextUpdateDate(appData: appData)
 
                 let timeline = Timeline(entries: [entry], policy: .after(nextUpdate));
                 
@@ -90,5 +93,5 @@ struct TimerWidget: Widget {
 #Preview(as: .systemMedium) {
     TimerWidget()
 } timeline: {
-    TimerEntry(sessions: [], name: "", tbc: true, flag: "")
+    TimerEntry(race: RaceData(series: "f1"), name: "", tbc: true)
 }

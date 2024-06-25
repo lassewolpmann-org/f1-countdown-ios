@@ -28,5 +28,5 @@ struct WidgetHeader: View {
 #Preview(as: .systemMedium) {
     TimerWidget()
 } timeline: {
-    TimerEntry(sessions: [], name: "", tbc: true, flag: "")
+    TimerEntry(race: RaceData(series: "f1"), name: "🇫🇮 Grand Prix", tbc: true)
 }

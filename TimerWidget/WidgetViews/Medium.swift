@@ -12,10 +12,10 @@ struct Medium: View {
     let entry: TimerEntry;
     
     var body: some View {
-        if let firstSession = entry.sessions.first {
+        if let session = entry.race.futureSessions.first?.value {
             VStack(alignment: .leading) {
                 WidgetHeader(entry: entry)
-                SessionInfo(session: firstSession)
+                SessionInfo(session: session)
             }
             .containerBackground(for: .widget) {
                 Color(.systemBackground)
@@ -29,6 +29,6 @@ struct Medium: View {
 #Preview(as: .systemMedium) {
     TimerWidget()
 } timeline: {
-    TimerEntry(sessions: [], name: "", tbc: true, flag: "")
+    TimerEntry(race: RaceData(series: "f1"), name: "", tbc: true)
 }
 
