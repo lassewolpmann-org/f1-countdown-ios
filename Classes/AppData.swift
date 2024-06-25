@@ -11,13 +11,6 @@ struct API: Decodable {
     var races: [RaceData];
 }
 
-struct SessionData {
-    var formattedName: String = "FP1"
-    var startDate: Date = Date()
-    var endDate: Date = Date()
-    var delta: DeltaValues = DeltaValues(date: Date())
-}
-
 enum AppDataError: Error {
     case fetchError(String)
     case URLError(String)
@@ -37,13 +30,21 @@ enum AppDataError: Error {
         guard let url = URL(string: "https://raw.githubusercontent.com/sportstimes/f1/main/_db/\(self.series)/\(year).json") else { throw AppDataError.URLError("Could not create API URL string") }
         
         let (data, _) = try await URLSession.shared.data(from: url);
-                
-        return try JSONDecoder().decode(API.self, from: data).races
+        var races = try JSONDecoder().decode(API.self, from: data).races
+        
+        races = races.map { race in
+            var race = race
+            race.series = self.series
+            
+            return race
+        }
+        
+        return races
     }
     
     var nextRaces: [RaceData] {
         let nextRaces = self.races?.filter { race in
-            let raceSessions = race.sessions.sorted(by:{$0.value < $1.value});
+            let raceSessions = race.sessions.sorted(by: { $0.value < $1.value });
             let date = ISO8601DateFormatter().date(from: raceSessions.last!.value)!;
             
             return date.timeIntervalSinceNow > 0

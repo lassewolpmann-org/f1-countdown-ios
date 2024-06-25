@@ -14,11 +14,36 @@ struct TimerTab: View {
         NavigationStack {
             ScrollView(.vertical) {
                 if let nextRace = appData.nextRace {
-                    VStack(spacing: 15) {
-                        ForEach(appData.nextRaceSessions, id: \.key) { session in
+                    VStack(alignment: .leading, spacing: 15) {
+                        Text("Ongoing Sessions")
+                            .font(.headline)
+                        
+                        if (nextRace.ongoingSessions.isEmpty) {
+                            Label {
+                                Text("No ongoing Sessions")
+                            } icon: {
+                                Image(systemName: "clock.badge.exclamationmark")
+                            }
+                            .font(.subheadline)
+                            .symbolRenderingMode(.multicolor)
+                            .padding(10)
+                            .background(.ultraThinMaterial, in:
+                                RoundedRectangle(cornerRadius: 10)
+                            )
+                        } else {
+                            ForEach(nextRace.ongoingSessions, id: \.key) { session in
+                                Session(appData: appData, nextRace: nextRace, session: session.value, delta: session.value.delta)
+                            }
+                        }
+                        
+                        Text("Upcoming Sessions")
+                            .font(.headline)
+
+                        ForEach(nextRace.futureSessions, id: \.key) { session in
                             Session(appData: appData, nextRace: nextRace, session: session.value, delta: session.value.delta)
                         }
                     }
+                    .padding(.horizontal, 10)
                     .navigationTitle(getRaceTitle(race: nextRace))
                 } else {
                     Label {
@@ -56,5 +81,8 @@ struct TimerTab: View {
 }
 
 #Preview {
-    return TimerTab(appData: AppData())
+    let appData = AppData()
+    appData.races = [RaceData(series: "f1")]
+    
+    return TimerTab(appData: appData)
 }

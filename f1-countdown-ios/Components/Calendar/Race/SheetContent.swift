@@ -17,12 +17,7 @@ struct SheetContent: View {
         NavigationStack {
             List {
                 ForEach(race.futureSessions, id:\.key) { session in
-                    let name = session.key;
-                    let parsedName = parseSessionName(sessionName: session.key);
-                    let date = ISO8601DateFormatter().date(from: session.value)!;
-                    let sessionLength = race.sessionLengths[series]?[name] ?? 60;
-
-                    let sessionData = SessionData(formattedName: parsedName, startDate: date, endDate: date.addingTimeInterval(sessionLength * 60))
+                    let sessionData = SessionData(formattedName: session.value.formattedName, startDate: session.value.startDate, endDate: session.value.endDate)
 
                     SessionDetails(race: race, series: series, session: sessionData)
                 }

@@ -28,12 +28,11 @@ struct NotificationTime: View {
             selectionOption = UserDefaults.standard.integer(forKey: "Notification");
         }
         .onChange(of: selectionOption) {
-            let nextSession = appData.nextRace?.futureSessions.first!;
-            let date = ISO8601DateFormatter().date(from: nextSession?.value ?? "")!;
-            let dateWithInterval = date.addingTimeInterval(-Double(selectionOption * 60))
+            let nextSession = appData.nextRace?.futureSessions.first!.value;
+            let dateWithInterval = nextSession?.startDate.addingTimeInterval(-Double(selectionOption * 60))
             
             Task {
-                if (Date() >= dateWithInterval) {
+                if (Date() >= dateWithInterval ?? Date()) {
                     print("Can't reschedule")
                 } else {
                     await rescheduleNotifications(time: selectionOption);

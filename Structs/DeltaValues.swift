@@ -25,10 +25,6 @@ struct DeltaValues {
     init(date: Date) {
         self.delta = Int(date.timeIntervalSinceNow);
         
-        if (self.delta < 0) {
-            self.delta = 0;
-        }
-        
         self.days = self.delta / 86400;
         
         if (self.days > 7) {

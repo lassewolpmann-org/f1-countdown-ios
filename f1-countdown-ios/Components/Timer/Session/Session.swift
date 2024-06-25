@@ -58,12 +58,20 @@ struct Session: View {
             RoundedRectangle(cornerRadius: 10)
         )
         .onReceive(timer) { _ in
-            delta = DeltaValues(date: session.startDate);
+            if (Date() > session.startDate) {
+                delta = DeltaValues(date: session.endDate)
+            } else {
+                delta = DeltaValues(date: session.startDate)
+            }
             
-            if (delta.delta == 0) {
+            let startDate = Int(session.startDate.timeIntervalSince1970)
+            let endDate = Int(session.endDate.timeIntervalSince1970)
+            let currentDate = Int(Date().timeIntervalSince1970)
+            
+            if (startDate == currentDate || endDate == currentDate) {
                 Task {
                     do {
-                        appData.races = try await appData.getAllRaces();
+                        appData.races = try await appData.getAllRaces()
                     } catch {
                         print("\(error), while updating appData in Session")
                     }

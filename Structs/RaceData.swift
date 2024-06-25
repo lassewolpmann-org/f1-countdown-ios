@@ -14,42 +14,80 @@ func calcFutureDate(days: Double) -> String {
     return ISO8601DateFormatter().string(from: futureDate)
 }
 
+struct SessionData {
+    var formattedName: String = ""
+    var startDate: Date = Date()
+    var endDate: Date = Date()
+    var delta: DeltaValues = DeltaValues(date: Date())
+}
+
 struct RaceData: Decodable, Identifiable, Hashable {
-    var name: String = "Undefined"
-    var location: String = "undefined place"
-    var latitude: Double = 60.17028
-    var longitude: Double = 24.94112
+    var name: String = ""
+    var location: String = ""
+    var latitude: Double = 0.0
+    var longitude: Double = 0.0
     var round: Int = 0
-    var slug: String = "undefined-grand-prix"
-    var localeKey: String = "undefined-grand-prix"
+    var slug: String = ""
+    var localeKey: String = ""
+    var sessions: [String: String] = ["fp1": calcFutureDate(days: 0.0006944444444 / 4), "sprintQualifying": calcFutureDate(days: 10), "sprint": calcFutureDate(days: 11), "qualifying": calcFutureDate(days: 12), "gp": calcFutureDate(days: 13)]
+    
+    // Optionals
     var tbc: Bool?
-    var sessions: [String: String] = ["fp1": calcFutureDate(days: 0.0006944444444), "sprintQualifying": calcFutureDate(days: 10), "sprint": calcFutureDate(days: 11), "qualifying": calcFutureDate(days: 12), "gp": calcFutureDate(days: 13)]
-    
-    var sessionLengths: [String: [String: Double]] {
-        return SessionLengths().series
-    }
-    
-    var fixedSessions: [(key: String, value: String)] {
-        sessions.map {
-            if ($0.value.contains(".000")) {
-                let fixedDate = $0.value.components(separatedBy: ".000");
-                
-                return (key: $0.key, value: fixedDate.first! + fixedDate.last!)
-            } else {
-                return (key: $0.key, value: $0.value)
-            }
+    var series: String?
+    var sessionLengths: [String: Double]? {
+        if let series {
+            return SessionLengths().series[series]
+        } else {
+            return nil
         }
     }
     
-    var sortedSessions: [(key: String, value: String)] {
-        return fixedSessions.sorted(by:{$0.value < $1.value})
+    var sortedSessions: [(key: String, value: SessionData)] {
+        // Step 1: Fix session date values
+        let fixedSessions = sessions.map { session in
+            if (session.value.contains(".000")) {
+                let fixedDate = session.value.components(separatedBy: ".000");
+                
+                return (key: session.key, value: fixedDate.first! + fixedDate.last!)
+            } else {
+                return (key: session.key, value: session.value)
+            }
+        }
+        
+        // Step 2: Add extra data
+        let formattedSessions: [(key: String, value: SessionData)] = fixedSessions.map { session in
+            let sessionName = session.key
+            let startDateString = session.value
+            guard let sessionLength = sessionLengths?[sessionName] else { return (key: sessionName, value: SessionData()) }
+            
+            let formatter = ISO8601DateFormatter()
+            
+            guard let startDate = formatter.date(from: startDateString) else { return (key: sessionName, value: SessionData()) }
+            let endDate = startDate.addingTimeInterval(sessionLength * 60)
+            
+            let delta = DeltaValues(date: startDate)
+            
+            return (key: sessionName, value: SessionData(formattedName: parseSessionName(sessionName: sessionName), startDate: startDate, endDate: endDate, delta: delta))
+        }
+        
+        // Step 3: Sort session by ascending date
+        return formattedSessions.sorted { a, b in
+            a.value.startDate < b.value.startDate
+        }
+    }
+    
+    var ongoingSessions: [(key: String, value: SessionData)] {
+        sortedSessions.filter { session in
+            let startDate = session.value.startDate
+            let endDate = session.value.endDate
+            
+            return startDate < Date() && endDate > Date()
+        }
     }
 
-    var futureSessions: [(key: String, value: String)] {
-        sortedSessions.filter { (key: String, value: String) in
-            let date = ISO8601DateFormatter().date(from: value)!;
-            
-            return date.timeIntervalSinceNow > 0
+    var futureSessions: [(key: String, value: SessionData)] {
+        sortedSessions.filter { session in
+            return session.value.startDate > Date()
         }
     }
     

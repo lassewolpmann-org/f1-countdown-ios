@@ -11,7 +11,7 @@ import UserNotifications
 func deleteNotification(sessionDate: Date) -> Bool {
     let notificationCenter = UNUserNotificationCenter.current();
     
-    notificationCenter.removePendingNotificationRequests(withIdentifiers: [sessionDate.description])
+    notificationCenter.removePendingNotificationRequests(withIdentifiers: [sessionDate.ISO8601Format()])
     
     return false
 }
@@ -44,7 +44,7 @@ func checkForPermission() async -> Bool {
 }
 
 func addNewNotification(race: RaceData, series: String, sessionDate: Date, sessionName: String) async -> Bool {
-    let identifier = sessionDate.description;
+    let identifier = sessionDate.ISO8601Format();
     
     let notificationTimeSetting = UserDefaults.standard.integer(forKey: "Notification");
     let date = sessionDate.addingTimeInterval(TimeInterval(-notificationTimeSetting * 60));
@@ -73,7 +73,6 @@ func createNotification(identifier: String, date: DateComponents, title: String,
         ]
                 
         let notification = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger);
-                
         do {
             try await center.add(notification);
             print("Notifcation created")
@@ -127,9 +126,9 @@ func removeInvalidNotifications(races: [RaceData]) async {
     let center = UNUserNotificationCenter.current();
     let notifications = await center.pendingNotificationRequests();
     
-    let sessionDates = races.flatMap {
-        return $0.futureSessions.map {
-            return $0.value
+    let sessionDates = races.flatMap { race in
+        return race.futureSessions.map { session in
+            return session.value.startDate.description
         }
     }
     
@@ -151,11 +150,10 @@ func notificationButtonDisabled(sessionDate: Date) -> Bool {
 func checkForExistingNotification(sessionDate: Date) async -> Bool {
     let center = UNUserNotificationCenter.current();
     let requests = await center.pendingNotificationRequests();
-    
     let requestsWithSameID = requests.filter { request in
-        return request.identifier == sessionDate.description
+        return request.identifier == sessionDate.ISO8601Format()
     }
-    
+        
     if (requestsWithSameID.isEmpty) {
         return false;
     } else {
