@@ -15,7 +15,7 @@ enum TimerWidgetError: Error {
 struct TimerEntry: TimelineEntry {
     let race: RaceData
     let name: String
-    let date: Date = Date()
+    let date: Date
     let tbc: Bool
 }
 
@@ -49,32 +49,27 @@ struct TimerWidgetView: View {
 
 struct TimerTimelineProvider: TimelineProvider {
     func placeholder(in context: Context) -> TimerEntry {
-        return TimerEntry(race: RaceData(series: "f1"), name: "", tbc: false)
+        return TimerEntry(race: RaceData(series: "f1"), name: "", date: Date.now, tbc: false)
     }
     
     func getSnapshot(in context: Context, completion: @escaping (TimerEntry) -> Void) {
         Task {
-            completion(await createEntry())
+            let appData = AppData()
+            appData.races = try await appData.getAllRaces();
+            completion(await createEntry(nextRace: appData.nextRace))
         }
     }
     
     func getTimeline(in context: Context, completion: @escaping (Timeline<TimerEntry>) -> Void) {
         Task {
-            let entry = await createEntry();
-            
-            do {
-                let appData = AppData();
-                appData.races = try await appData.getAllRaces();
-                let nextUpdate = try getNextUpdateDate(appData: appData)
+            let appData = AppData()
+            appData.races = try await appData.getAllRaces();
+            // DEBUG: appData.races = [RaceData(series: "f1")]
+            let entry = await createEntry(nextRace: appData.nextRace)
 
-                let timeline = Timeline(entries: [entry], policy: .after(nextUpdate));
-                
-                completion(timeline)
-            } catch {
-                let timeline = Timeline(entries: [entry], policy: .never);
-                
-                completion(timeline)
-            }
+            let timeline = Timeline(entries: [entry], policy: .atEnd);
+            
+            completion(timeline)
         }
     }
 }
@@ -93,5 +88,5 @@ struct TimerWidget: Widget {
 #Preview(as: .systemMedium) {
     TimerWidget()
 } timeline: {
-    TimerEntry(race: RaceData(series: "f1"), name: "", tbc: true)
+    TimerEntry(race: RaceData(series: "f1"), name: "", date: Date.now, tbc: true)
 }

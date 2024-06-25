@@ -66,5 +66,5 @@ struct SessionInfo: View {
 #Preview(as: .systemLarge) {
     TimerWidget()
 } timeline: {
-    TimerEntry(race: RaceData(series: "f1"), name: "", tbc: false)
+    TimerEntry(race: RaceData(series: "f1"), name: "", date: Date.now, tbc: false)
 }

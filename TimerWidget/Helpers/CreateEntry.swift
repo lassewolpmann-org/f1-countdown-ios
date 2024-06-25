@@ -7,19 +7,20 @@
 
 import Foundation
 
-func createEntry() async -> TimerEntry {
-    do {
-        let appData = AppData();
-        appData.races = try await appData.getAllRaces();
-        if let nextRace = appData.nextRace {
+func createEntry(nextRace: RaceData?) async -> TimerEntry {
+    if let nextRace {
+        do {
             let tbc = nextRace.tbc ?? false;
             let name = getRaceTitle(race: nextRace)
+            let nextUpdate = try getNextUpdateDate(nextRace: nextRace)
+            let entry = TimerEntry(race: nextRace, name: name, date: nextUpdate, tbc: tbc)
+            print(entry)
             
-            return TimerEntry(race: nextRace, name: name, tbc: tbc)
-        } else {
-            return TimerEntry(race: RaceData(series: "f1"), name: "", tbc: false)
+            return entry
+        } catch {
+            return TimerEntry(race: RaceData(series: "f1"), name: "", date: Date.now, tbc: false)
         }
-    } catch {
-        return TimerEntry(race: RaceData(series: "f1"), name: "", tbc: false)
+    } else {
+        return TimerEntry(race: RaceData(series: "f1"), name: "", date: Date.now, tbc: false)
     }
 }

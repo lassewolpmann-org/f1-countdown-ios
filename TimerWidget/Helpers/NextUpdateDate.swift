@@ -7,8 +7,8 @@
 
 import Foundation
 
-func getNextUpdateDate(appData: AppData) throws -> Date {
-    if let nextRace = appData.nextRace {
+func getNextUpdateDate(nextRace: RaceData?) throws -> Date {
+    if let nextRace {
         let pastSessions = nextRace.pastSessions
         let ongoingSessions = nextRace.ongoingSessions
         let futureSessions = nextRace.futureSessions
@@ -34,19 +34,9 @@ func getNextUpdateDate(appData: AppData) throws -> Date {
         }
         
         guard let firstDate = futureDates.first else { throw TimerWidgetError.nextUpdateError("Could not get next update date, since list of future dates is empty.") }
-        
+
         return firstDate
     } else {
         throw TimerWidgetError.nextUpdateError("Could not get next update date, since nextRace is nil.")
     }
-        
-    /*
-    if (sessionDate.timeIntervalSinceNow > 60 * 60) {
-        // Situation 1: More than one hour away from session -> Update next one hour before session start
-        return sessionDate.addingTimeInterval(-1 * 60 * 60)
-    } else {
-        // Situation 2: Less than one hour away from session -> Update next at session start
-        return sessionDate
-    }
-     */
 }

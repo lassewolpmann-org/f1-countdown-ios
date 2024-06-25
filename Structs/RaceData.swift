@@ -29,7 +29,7 @@ struct RaceData: Decodable, Identifiable, Hashable {
     var round: Int = 0
     var slug: String = ""
     var localeKey: String = ""
-    var sessions: [String: String] = ["fp1": calcFutureDate(days: -1), "sprintQualifying": calcFutureDate(days: -0.0208333333), "sprint": calcFutureDate(days: 0.0208333333), "qualifying": calcFutureDate(days: 2), "gp": calcFutureDate(days: 3)]
+    var sessions: [String: String] = ["fp1": calcFutureDate(days: -1), "sprintQualifying": calcFutureDate(days: -0.0208333333), "sprint": calcFutureDate(days: 0.0001736111), "qualifying": calcFutureDate(days: 2), "gp": calcFutureDate(days: 3)]
     
     // Optionals
     var tbc: Bool?
