@@ -12,8 +12,23 @@ struct ContentView: View {
     
     var body: some View {
         TabView {
-            ForEach(appData.nextRaceSessions, id: \.key) { session in
-                Session(appData: appData, session: session.value, delta: session.value.delta)
+            let nextRace = appData.nextRace ?? RaceData()
+            
+            /*
+            ForEach(nextRace.pastSessions, id: \.key) { session in
+                let sessionName = parseShortSessionName(sessionName: session.key)
+                Session(appData: appData, nextRace: nextRace, session: session.value, name: sessionName, delta: session.value.delta)
+            }
+            
+            ForEach(nextRace.ongoingSessions, id: \.key) { session in
+                let sessionName = parseShortSessionName(sessionName: session.key)
+                Session(appData: appData, nextRace: nextRace, session: session.value, name: sessionName, delta: session.value.delta)
+            }
+             */
+            
+            ForEach(nextRace.futureSessions, id: \.key) { session in
+                let sessionName = parseShortSessionName(sessionName: session.key)
+                Session(appData: appData, nextRace: nextRace, session: session.value, name: sessionName, delta: session.value.delta)
             }
         }
         .tabViewStyle(.verticalPage)

@@ -56,34 +56,6 @@ enum AppDataError: Error {
         return self.nextRaces.first
     }
     
-    var nextRaceSessions: Array<(key: String, value: SessionData)> {
-        if let sessions = nextRace?.sessions {
-            var sessionData: [String: SessionData] = [:]
-            
-            for session in sessions {
-                let name = session.key
-                let startDateString = session.value
-                let sessionLength = SessionLengths().series[self.series]?[name] ?? 0 // Value is in minutes
-                
-                let formatter = ISO8601DateFormatter()
-                
-                let startDate = formatter.date(from: startDateString)
-                let endDate = startDate?.addingTimeInterval(sessionLength * 60)
-                
-                if let startDate, let endDate {
-                    let delta = DeltaValues(date: startDate)
-                    sessionData[name] = SessionData(formattedName: parseSessionName(sessionName: name), startDate: startDate, endDate: endDate, delta: delta)
-                }
-            }
-            
-            return sessionData.sorted { a, b in
-                a.value.startDate < b.value.startDate
-            }
-        } else {
-            return []
-        }
-    }
-    
     var filteredRaces: [RaceData] {
         nextRaces.filter { race in
             if (calendarSearchFilter == "") { return true }
