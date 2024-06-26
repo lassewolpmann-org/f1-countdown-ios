@@ -27,12 +27,12 @@ struct SessionInfo: View {
                 let date = Date.now
                 
                 if (session.endDate <= date) {
-                    Label("Finished", systemImage: "flag.checkered")
+                    Label("Finished", systemImage: "flag.checkered.2.crossed")
                 } else if (session.endDate > date && session.startDate <= date) {
                     Label {
                         Text("Session ends in \(timerInterval: date...session.endDate, pauseTime: date)")
                     } icon: {
-                        Image(systemName: "clock.badge.exclamationmark")
+                        Image(systemName: "flag.checkered")
                     }
                 } else if (session.startDate <= date.addingTimeInterval(60 * 60)) {
                     Label {
@@ -66,5 +66,5 @@ struct SessionInfo: View {
 #Preview(as: .systemLarge) {
     TimerWidget()
 } timeline: {
-    TimerEntry(race: RaceData(series: "f1"), name: "", date: Date.now, tbc: false)
+    TimerEntry(race: RaceData(), date: Date.now)
 }

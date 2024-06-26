@@ -29,6 +29,6 @@ struct Medium: View {
 #Preview(as: .systemMedium) {
     TimerWidget()
 } timeline: {
-    TimerEntry(race: RaceData(series: "f1"), name: "", date: Date.now, tbc: true)
+    TimerEntry(race: RaceData(), date: Date.now)
 }
 

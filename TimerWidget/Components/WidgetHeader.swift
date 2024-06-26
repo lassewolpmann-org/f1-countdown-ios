@@ -13,11 +13,11 @@ struct WidgetHeader: View {
     
     var body: some View {
         HStack {
-            Text(entry.name)
+            Text(getRaceTitle(race: entry.race))
                 .font(.headline)
             Spacer()
             
-            if (entry.tbc) {
+            if (entry.race.tbc ?? false) {
                 Text("TBC")
                     .font(.headline)
             }
@@ -28,5 +28,5 @@ struct WidgetHeader: View {
 #Preview(as: .systemMedium) {
     TimerWidget()
 } timeline: {
-    TimerEntry(race: RaceData(series: "f1"), name: "🇫🇮 Grand Prix", date: Date.now, tbc: true)
+    TimerEntry(race: RaceData(), date: Date.now)
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-func getNextUpdateDate(nextRace: RaceData?) throws -> Date {
+func getNextUpdateDate(nextRace: RaceData?) -> Date {
     if let nextRace {
         let pastSessions = nextRace.pastSessions
         let ongoingSessions = nextRace.ongoingSessions
@@ -33,10 +33,10 @@ func getNextUpdateDate(nextRace: RaceData?) throws -> Date {
             return date > Date()
         }
         
-        guard let firstDate = futureDates.first else { throw TimerWidgetError.nextUpdateError("Could not get next update date, since list of future dates is empty.") }
+        guard let firstDate = futureDates.first else { return Date().addingTimeInterval(60 * 60) }
 
         return firstDate
     } else {
-        throw TimerWidgetError.nextUpdateError("Could not get next update date, since nextRace is nil.")
+        return Date().addingTimeInterval(60 * 60)
     }
 }

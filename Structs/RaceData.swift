@@ -22,7 +22,7 @@ struct SessionData {
 }
 
 struct RaceData: Decodable, Identifiable, Hashable {
-    var name: String = ""
+    var name: String = "Preview Grand Prix"
     var location: String = ""
     var latitude: Double = 0.0
     var longitude: Double = 0.0
@@ -32,8 +32,8 @@ struct RaceData: Decodable, Identifiable, Hashable {
     var sessions: [String: String] = ["fp1": calcFutureDate(days: -1), "sprintQualifying": calcFutureDate(days: -0.0208333333), "sprint": calcFutureDate(days: 0.0001736111), "qualifying": calcFutureDate(days: 2), "gp": calcFutureDate(days: 3)]
     
     // Optionals
-    var tbc: Bool?
-    var series: String?
+    var tbc: Bool? = false
+    var series: String? = "f1"
     var sessionLengths: [String: Double]? {
         if let series {
             return SessionLengths().series[series]

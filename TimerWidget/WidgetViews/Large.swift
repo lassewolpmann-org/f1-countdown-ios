@@ -41,6 +41,6 @@ struct Large: View {
 #Preview(as: .systemLarge) {
     TimerWidget()
 } timeline: {
-    TimerEntry(race: RaceData(series: "f1"), name: "", date: Date.now, tbc: true)
+    TimerEntry(race: RaceData(), date: Date.now)
 }
 

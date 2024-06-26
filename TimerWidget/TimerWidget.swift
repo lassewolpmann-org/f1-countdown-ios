@@ -14,9 +14,7 @@ enum TimerWidgetError: Error {
 
 struct TimerEntry: TimelineEntry {
     let race: RaceData
-    let name: String
     let date: Date
-    let tbc: Bool
 }
 
 struct TimerWidgetView: View {
@@ -42,32 +40,67 @@ struct TimerWidgetView: View {
         case .systemMedium:
             Medium(entry: entry)
         default:
-            Medium(entry: entry)
+            Label {
+                Text("Formula Countdown Widget is not available in this size.")
+            } icon: {
+                Image(systemName: "exclamationmark.triangle.fill")
+            }
+            .containerBackground(for: .widget) {
+                Color(.systemBackground)
+            }
         }
     }
 }
 
-struct TimerTimelineProvider: TimelineProvider {
+struct TimerWidgetProvider: TimelineProvider {
     func placeholder(in context: Context) -> TimerEntry {
-        return TimerEntry(race: RaceData(series: "f1"), name: "", date: Date.now, tbc: false)
+        let race = RaceData(
+            name: "Loading Grand Prix...",
+            sessions: [:]
+        )
+        
+        return TimerEntry(race: race, date: Date())
     }
     
     func getSnapshot(in context: Context, completion: @escaping (TimerEntry) -> Void) {
         Task {
             let appData = AppData()
-            appData.races = try await appData.getAllRaces();
-            completion(await createEntry(nextRace: appData.nextRace))
+            
+            do {
+                appData.races = try await appData.getAllRaces();
+            } catch {
+                print(error)
+            }
+            
+            let entry = TimerEntry(
+                race: appData.nextRace ?? RaceData(),
+                date: Date()
+            )
+            
+            completion(entry)
         }
     }
     
     func getTimeline(in context: Context, completion: @escaping (Timeline<TimerEntry>) -> Void) {
         Task {
             let appData = AppData()
-            appData.races = try await appData.getAllRaces();
-            // DEBUG: appData.races = [RaceData(series: "f1")]
-            let entry = await createEntry(nextRace: appData.nextRace)
-
-            let timeline = Timeline(entries: [entry], policy: .atEnd);
+            
+            do {
+                appData.races = try await appData.getAllRaces();
+            } catch {
+                print(error)
+            }
+            
+            let race = appData.nextRace ?? RaceData()
+            
+            let entry = TimerEntry(
+                race: race,
+                date: Date()
+            )
+                        
+            let nextUpdateDate = getNextUpdateDate(nextRace: race)
+            
+            let timeline = Timeline(entries: [entry], policy: .after(nextUpdateDate));
             
             completion(timeline)
         }
@@ -76,7 +109,7 @@ struct TimerTimelineProvider: TimelineProvider {
 
 struct TimerWidget: Widget {
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: "com.lassewolpmann.f1-countdown-ios.TimerWidget", provider: TimerTimelineProvider()) { entry in
+        StaticConfiguration(kind: "com.lassewolpmann.f1-countdown-ios.TimerWidget", provider: TimerWidgetProvider()) { entry in
             TimerWidgetView(entry: entry)
         }
         .configurationDisplayName("Timer")
@@ -88,5 +121,5 @@ struct TimerWidget: Widget {
 #Preview(as: .systemMedium) {
     TimerWidget()
 } timeline: {
-    TimerEntry(race: RaceData(series: "f1"), name: "", date: Date.now, tbc: true)
+    TimerEntry(race: RaceData(), date: Date())
 }
