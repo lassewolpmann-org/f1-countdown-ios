@@ -16,9 +16,8 @@ func calcFutureDate(days: Double) -> String {
 
 struct SessionData {
     var formattedName: String = "Session"
-    var startDate: Date = Date()
-    var endDate: Date = Date()
-    var delta: DeltaValues = DeltaValues(date: Date())
+    var startDate: Date = Date().addingTimeInterval(60)
+    var endDate: Date = Date().addingTimeInterval(120)
 }
 
 struct RaceData: Decodable, Identifiable, Hashable {
@@ -64,10 +63,8 @@ struct RaceData: Decodable, Identifiable, Hashable {
             
             guard let startDate = formatter.date(from: startDateString) else { return (key: sessionName, value: SessionData()) }
             let endDate = startDate.addingTimeInterval(sessionLength * 60)
-            
-            let delta = DeltaValues(date: startDate)
-            
-            return (key: sessionName, value: SessionData(formattedName: parseSessionName(sessionName: sessionName), startDate: startDate, endDate: endDate, delta: delta))
+                        
+            return (key: sessionName, value: SessionData(formattedName: parseSessionName(sessionName: sessionName), startDate: startDate, endDate: endDate))
         }
         
         // Step 3: Sort session by ascending date

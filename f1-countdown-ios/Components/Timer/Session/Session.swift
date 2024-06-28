@@ -88,7 +88,8 @@ struct Session: View {
 }
 
 #Preview {
-    ScrollView {        
-        Session(appData: AppData(), nextRace: RaceData(), session: SessionData(), delta: DeltaValues(date: Date()))
+    ScrollView {
+        let session = SessionData()
+        Session(appData: AppData(), nextRace: RaceData(), session: session, delta: DeltaValues(date: session.startDate))
     }
 }

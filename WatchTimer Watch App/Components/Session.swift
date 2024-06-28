@@ -107,7 +107,7 @@ struct Session: View {
     TabView {
         let session = SessionData()
         
-        Session(appData: AppData(), nextRace: RaceData(), session: session, name: parseShortSessionName(sessionName: "fp1"), delta: session.delta)
+        Session(appData: AppData(), nextRace: RaceData(), session: session, name: parseShortSessionName(sessionName: "fp1"), delta: DeltaValues(date: session.startDate))
     }
     .tabViewStyle(.verticalPage)
 }

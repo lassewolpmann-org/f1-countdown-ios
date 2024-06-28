@@ -28,7 +28,7 @@ struct ContentView: View {
             
             ForEach(nextRace.futureSessions, id: \.key) { session in
                 let sessionName = parseShortSessionName(sessionName: session.key)
-                Session(appData: appData, nextRace: nextRace, session: session.value, name: sessionName, delta: session.value.delta)
+                Session(appData: appData, nextRace: nextRace, session: session.value, name: sessionName, delta: DeltaValues(date: session.value.startDate))
             }
         }
         .tabViewStyle(.verticalPage)
