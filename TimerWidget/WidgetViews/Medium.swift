@@ -12,7 +12,15 @@ struct Medium: View {
     let entry: TimerEntry;
     
     var body: some View {
-        if let session = entry.race.ongoingSessions.first?.value {
+        if let session = entry.race.futureSessions.first?.value {
+            VStack(alignment: .leading) {
+                WidgetHeader(entry: entry)
+                SessionInfo(session: session)
+            }
+            .containerBackground(for: .widget) {
+                Color(.systemBackground)
+            }
+        } else if let session = entry.race.ongoingSessions.first?.value {
             VStack(alignment: .leading) {
                 WidgetHeader(entry: entry)
                 SessionInfo(session: session)
@@ -21,7 +29,7 @@ struct Medium: View {
                 Color(.systemBackground)
             }
         } else {
-            Text("No sessions")
+            Text("No sessions available to display.")
         }
     }
 }
