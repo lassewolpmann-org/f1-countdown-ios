@@ -19,14 +19,6 @@ struct f1_countdown_iosApp: App {
                 ProgressView {
                     Text("Loading data...")
                 }
-                .task {
-                    do {
-                        appData.races = try await appData.getAllRaces()
-                        appData.dataLoaded = true;
-                    } catch {
-                        print("\(error), while loading initial data")
-                    }
-                }
             }
         }
     }

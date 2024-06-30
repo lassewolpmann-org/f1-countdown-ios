@@ -8,14 +8,12 @@
 import SwiftUI
 
 struct NotificationTime: View {
-    var appData: AppData;
-    let availableOptions: [Int] = [0, 5, 10, 15, 30, 60];
-    @State private var selectionOption: Int = 0;
+    @Bindable var appData: AppData;
     @State private var showAlert = false;
     
     var body: some View {
-        Picker("Send Notification", selection: $selectionOption) {
-            ForEach(availableOptions, id: \.self) { option in
+        Picker("Send Notification", selection: $appData.selectedOffsetOption) {
+            ForEach(appData.notificationOffsetOptions, id: \.self) { option in
                 if (option == 0) {
                     Text("At Start of Session").tag(option)
                 } else {
@@ -23,19 +21,17 @@ struct NotificationTime: View {
                 }
             }
         }
-        .onAppear {
-            // Retrieve saved option
-            selectionOption = UserDefaults.standard.integer(forKey: "Notification");
-        }
-        .onChange(of: selectionOption) {
-            let nextSession = appData.nextRace?.futureSessions.first!.value;
-            let dateWithInterval = nextSession?.startDate.addingTimeInterval(-Double(selectionOption * 60))
-            
-            Task {
-                if (Date() >= dateWithInterval ?? Date()) {
-                    print("Can't reschedule")
-                } else {
-                    await rescheduleNotifications(time: selectionOption);
+        .onChange(of: appData.selectedOffsetOption) {
+            if let nextSession = appData.nextRace?.futureSessions.first?.value {
+                let offset = appData.selectedOffsetOption
+                let dateWithInterval = nextSession.startDate.addingTimeInterval(-Double(offset * 60))
+                
+                Task {
+                    if (Date() >= dateWithInterval) {
+                        print("Can't reschedule")
+                    } else {
+                        await rescheduleNotifications(time: offset)
+                    }
                 }
             }
         }
@@ -46,7 +42,7 @@ struct NotificationTime: View {
         }, message: {
             Text("Invalid option. The next Session Date is sooner than the selected Notification Time offset.")
         })
-        .sensoryFeedback(.selection, trigger: selectionOption)
+        .sensoryFeedback(.selection, trigger: appData.selectedOffsetOption)
     }
 }
 

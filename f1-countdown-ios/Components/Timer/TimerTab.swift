@@ -50,7 +50,7 @@ struct TimerTab: View {
         }
         .refreshable {
             do {
-                appData.races = try await appData.getAllRaces()
+                try await appData.loadAPIData()
             } catch {
                 print("\(error), while refreshing TimerTab")
             }
@@ -59,8 +59,5 @@ struct TimerTab: View {
 }
 
 #Preview {
-    let appData = AppData()
-    appData.races = [RaceData(series: "f1")]
-    
-    return TimerTab(appData: appData)
+    return TimerTab(appData: AppData())
 }

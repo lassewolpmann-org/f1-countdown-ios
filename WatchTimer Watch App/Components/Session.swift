@@ -93,7 +93,7 @@ struct Session: View {
             if (startTimestamp == currentTimestamp || endTimestamp == currentTimestamp) {
                 Task {
                     do {
-                        appData.races = try await appData.getAllRaces()
+                        try await appData.loadAPIData()
                     } catch {
                         print("\(error), while updating appData in Session")
                     }

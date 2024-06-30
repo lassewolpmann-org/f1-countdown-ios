@@ -9,34 +9,28 @@ import SwiftUI
 
 struct SeriesPicker: View {
     @Bindable var appData: AppData;
-    @Binding var reloadingData: Bool;
-
-    let availableSeries: [String] = ["f1", "f2", "f3"];
     
     var body: some View {
-        Picker(selection: $appData.series) {
-            ForEach(availableSeries, id:\.self) { series in
+        Picker(selection: $appData.currentSeries) {
+            ForEach(appData.availableSeries, id:\.self) { series in
                 Text(series.uppercased())
             }
         } label: {
             Text("Select Series")
         }
-        .onChange(of: appData.series) { oldValue, newValue in
+        .onChange(of: appData.currentSeries) { oldValue, newValue in
             Task {
-                reloadingData = true;
-                
                 do {
-                    appData.races = try await appData.getAllRaces();
-                    reloadingData = false;
+                    try await appData.loadAPIData()
                 } catch {
                     print("\(error), while changing Series")
                 }
             }
         }
-        .sensoryFeedback(.selection, trigger: appData.series)
+        .sensoryFeedback(.selection, trigger: appData.currentSeries)
     }
 }
 
 #Preview {
-    SeriesPicker(appData: AppData(), reloadingData: .constant(false))
+    SeriesPicker(appData: AppData())
 }

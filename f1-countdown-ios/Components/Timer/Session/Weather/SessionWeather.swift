@@ -13,7 +13,6 @@ struct SessionWeather: View {
     @State var weather: WeatherData = WeatherData();
     
     let race: RaceData
-    let series: String
     let session: SessionData
     
     var body: some View {
@@ -75,7 +74,7 @@ struct SessionWeather: View {
     VStack {
     }.sheet(isPresented: .constant(true)) {
         let nextRace = RaceData();
-        SessionWeather(weather: WeatherData(), race: nextRace, series: "f1", session: SessionData())
+        SessionWeather(weather: WeatherData(), race: nextRace, session: SessionData())
             .presentationDetents([.medium])
     }
 }

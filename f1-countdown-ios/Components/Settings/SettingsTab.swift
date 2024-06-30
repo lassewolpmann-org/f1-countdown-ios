@@ -9,13 +9,12 @@ import SwiftUI
 
 struct SettingsTab: View {
     var appData: AppData;
-    @State private var reloadingData: Bool = false;
 
     var body: some View {
         NavigationStack {
             List {
                 Section {
-                    SeriesPicker(appData: appData, reloadingData: $reloadingData)
+                    SeriesPicker(appData: appData)
                 } header: {
                     Text("Series")
                 }
@@ -41,20 +40,6 @@ struct SettingsTab: View {
                 }
             }
             .navigationTitle("Settings")
-        }
-        .disabled(reloadingData)
-        .overlay {
-            if (reloadingData) {
-                VStack {
-                    ProgressView()
-                    Text("Reloading data...")
-                }
-                .padding(10)
-                .background(
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(.background)
-                )
-            }
         }
     }
 }

@@ -75,11 +75,10 @@ func createNotification(identifier: String, date: DateComponents, title: String,
         let notification = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger);
         do {
             try await center.add(notification);
-            print("Notifcation created")
             
             return true
         } catch {
-            print("Error while creating notification")
+            print("Error while creating notification: \(error)")
             return false
         }
     } else {
@@ -122,20 +121,22 @@ func rescheduleNotifications(time: Int) async -> Void {
     }
 }
 
-func removeInvalidNotifications(races: [RaceData]) async {
+func removeInvalidNotifications(appData: AppData) async {
     let center = UNUserNotificationCenter.current();
     let notifications = await center.pendingNotificationRequests();
     
-    let sessionDates = races.flatMap { race in
-        return race.futureSessions.map { session in
-            return session.value.startDate.description
+    let sessionDates = appData.seriesData.flatMap { seriesData in
+        return seriesData.value.flatMap { races in
+            return races.futureSessions.map { session in
+                return session.value.startDate.ISO8601Format()
+            }
         }
     }
-    
+        
     let invalidNotifications = notifications.filter {
         return !sessionDates.contains($0.identifier)
     }
-    
+        
     let identifiers = invalidNotifications.map { $0.identifier }
     
     center.removePendingNotificationRequests(withIdentifiers: identifiers)

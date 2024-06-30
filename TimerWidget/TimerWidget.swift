@@ -67,7 +67,7 @@ struct TimerWidgetProvider: TimelineProvider {
             let appData = AppData()
             
             do {
-                appData.races = try await appData.getAllRaces();
+                try await appData.loadAPIData()
             } catch {
                 print(error)
             }
@@ -86,7 +86,7 @@ struct TimerWidgetProvider: TimelineProvider {
             let appData = AppData()
             
             do {
-                appData.races = try await appData.getAllRaces();
+                try await appData.loadAPIData()
             } catch {
                 print(error)
             }

@@ -16,14 +16,14 @@ struct CalendarTab: View {
 
         NavigationStack {
             List(appData.filteredRaces, id: \.self) { race in
-                RaceSheet(race: race, series: appData.series)
+                RaceSheet(race: race, series: appData.currentSeries)
             }
-            .navigationTitle("\(year) \(appData.series.uppercased()) Calendar")
+            .navigationTitle("\(year) \(appData.currentSeries.uppercased()) Calendar")
         }
         .searchable(text: $appData.calendarSearchFilter)
         .refreshable {
             do {
-                appData.races = try await appData.getAllRaces()
+                try await appData.loadAPIData()
             } catch {
                 print(error)
             }
