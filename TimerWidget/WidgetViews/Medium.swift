@@ -12,7 +12,7 @@ struct Medium: View {
     let entry: TimerEntry;
     
     var body: some View {
-        if let session = entry.race.futureSessions.first?.value {
+        if let session = entry.race.ongoingSessions.first?.value {
             VStack(alignment: .leading) {
                 WidgetHeader(entry: entry)
                 SessionInfo(session: session)

@@ -81,16 +81,13 @@ struct RaceData: Decodable, Identifiable, Hashable {
     
     var ongoingSessions: [(key: String, value: SessionData)] {
         sortedSessions.filter { session in
-            let startDate = session.value.startDate
-            let endDate = session.value.endDate
-            
-            return startDate < Date() && endDate > Date()
+            return session.value.startDate < Date() && session.value.endDate >= Date()
         }
     }
 
     var futureSessions: [(key: String, value: SessionData)] {
         sortedSessions.filter { session in
-            return session.value.startDate > Date()
+            return session.value.startDate >= Date()
         }
     }
     
