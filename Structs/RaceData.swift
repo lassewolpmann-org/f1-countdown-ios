@@ -32,14 +32,7 @@ struct RaceData: Decodable, Identifiable, Hashable {
     
     // Optionals
     var tbc: Bool? = false
-    var series: String? = "f1"
-    var sessionLengths: [String: Double]? {
-        if let series {
-            return SessionLengths().series[series]
-        } else {
-            return nil
-        }
-    }
+    var sessionLengths: [String: Int]?
     
     var sortedSessions: [(key: String, value: SessionData)] {
         // Step 1: Fix session date values
@@ -62,7 +55,7 @@ struct RaceData: Decodable, Identifiable, Hashable {
             let formatter = ISO8601DateFormatter()
             
             guard let startDate = formatter.date(from: startDateString) else { return (key: sessionName, value: SessionData()) }
-            let endDate = startDate.addingTimeInterval(sessionLength * 60)
+            let endDate = startDate.addingTimeInterval(Double(sessionLength) * 60)
                         
             return (key: sessionName, value: SessionData(formattedName: parseSessionName(sessionName: sessionName), startDate: startDate, endDate: endDate))
         }

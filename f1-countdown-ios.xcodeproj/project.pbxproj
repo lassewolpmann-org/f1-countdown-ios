@@ -19,8 +19,6 @@
 		251DC16E2BD0FD0300D08D56 /* WeatherButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251DC16D2BD0FD0300D08D56 /* WeatherButton.swift */; };
 		251DC1702BD0FD0C00D08D56 /* InfoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251DC16F2BD0FD0C00D08D56 /* InfoButton.swift */; };
 		2521762B2B08BEB00023C9B3 /* SessionWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2521762A2B08BEB00023C9B3 /* SessionWeather.swift */; };
-		252BE9DB2B9394070030DFC2 /* SessionLengths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252BE9DA2B9394070030DFC2 /* SessionLengths.swift */; };
-		252BE9DC2B9394070030DFC2 /* SessionLengths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252BE9DA2B9394070030DFC2 /* SessionLengths.swift */; };
 		2534A14B2B287279003B0BE3 /* CountryFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2534A14A2B287279003B0BE3 /* CountryFlags.swift */; };
 		2534A14C2B287279003B0BE3 /* CountryFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2534A14A2B287279003B0BE3 /* CountryFlags.swift */; };
 		254019252B343CBC007AEAE1 /* SheetContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254019242B343CBC007AEAE1 /* SheetContent.swift */; };
@@ -79,7 +77,6 @@
 		25F11CB42BD0204B007D0DE6 /* CountryFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2534A14A2B287279003B0BE3 /* CountryFlags.swift */; };
 		25F11CB52BD0204F007D0DE6 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2575791F2B84C4FA00FC1A81 /* WeatherData.swift */; };
 		25F11CB62BD02050007D0DE6 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2575791F2B84C4FA00FC1A81 /* WeatherData.swift */; };
-		25F11CB72BD02052007D0DE6 /* SessionLengths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252BE9DA2B9394070030DFC2 /* SessionLengths.swift */; };
 		25F11CB82BD0205A007D0DE6 /* RaceTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C5442B17799500818265 /* RaceTitle.swift */; };
 		25F11CB92BD0205C007D0DE6 /* DateFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C5512B1779FC00818265 /* DateFormatters.swift */; };
 		25F11CBA2BD0205E007D0DE6 /* SessionName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C5542B177A0F00818265 /* SessionName.swift */; };
@@ -163,7 +160,6 @@
 		251DC1712BD0FFDB00D08D56 /* WatchTimer Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "WatchTimer Watch App.entitlements"; sourceTree = "<group>"; };
 		2521762A2B08BEB00023C9B3 /* SessionWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionWeather.swift; sourceTree = "<group>"; };
 		2521762C2B08C4270023C9B3 /* f1-countdown-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "f1-countdown-ios.entitlements"; sourceTree = "<group>"; };
-		252BE9DA2B9394070030DFC2 /* SessionLengths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionLengths.swift; sourceTree = "<group>"; };
 		2534A14A2B287279003B0BE3 /* CountryFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryFlags.swift; sourceTree = "<group>"; };
 		254019242B343CBC007AEAE1 /* SheetContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetContent.swift; sourceTree = "<group>"; };
 		2540A4232B973F9A00684AEA /* SeriesPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesPicker.swift; sourceTree = "<group>"; };
@@ -473,7 +469,6 @@
 				25BE0E472B2349E20089B5BA /* DeltaValues.swift */,
 				2571837D2B73B264003D12F9 /* RaceData.swift */,
 				2575791F2B84C4FA00FC1A81 /* WeatherData.swift */,
-				252BE9DA2B9394070030DFC2 /* SessionLengths.swift */,
 			);
 			path = Structs;
 			sourceTree = "<group>";
@@ -680,7 +675,6 @@
 				25C6C5532B1779FC00818265 /* DateFormatters.swift in Sources */,
 				25C6C5592B177DB400818265 /* SessionInfo.swift in Sources */,
 				25DCE0872BE8CC6000CE4CF6 /* Notifications.swift in Sources */,
-				252BE9DC2B9394070030DFC2 /* SessionLengths.swift in Sources */,
 				2571837F2B73B264003D12F9 /* RaceData.swift in Sources */,
 				25C6C5562B177A0F00818265 /* SessionName.swift in Sources */,
 				25B4041B2B10B660007EF384 /* Large.swift in Sources */,
@@ -696,7 +690,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				252BE9DB2B9394070030DFC2 /* SessionLengths.swift in Sources */,
 				25B5C3F12B6B7CFA00057E4D /* AppLicense.swift in Sources */,
 				25AF34682B2FA79F00E7D83A /* CalendarTab.swift in Sources */,
 				254019252B343CBC007AEAE1 /* SheetContent.swift in Sources */,
@@ -740,7 +733,6 @@
 				251DC1702BD0FD0C00D08D56 /* InfoButton.swift in Sources */,
 				25F11CCF2BD03361007D0DE6 /* TimerCircle.swift in Sources */,
 				251DC16E2BD0FD0300D08D56 /* WeatherButton.swift in Sources */,
-				25F11CB72BD02052007D0DE6 /* SessionLengths.swift in Sources */,
 				25F11C882BD01E97007D0DE6 /* ContentView.swift in Sources */,
 				25F11CB32BD02049007D0DE6 /* DeltaValues.swift in Sources */,
 				25F11CB82BD0205A007D0DE6 /* RaceTitle.swift in Sources */,

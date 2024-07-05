@@ -7,8 +7,12 @@
 
 import Foundation
 
-struct API: Decodable {
+struct Races: Decodable {
     var races: [RaceData];
+}
+
+struct Config: Decodable {
+    var sessionLengths: [String: Int]
 }
 
 enum AppDataError: Error {
@@ -17,9 +21,10 @@ enum AppDataError: Error {
 }
 
 @Observable class AppData {
-    let availableSeries: [String] = ["f1", "f2", "f3"]
+    let availableSeries: [String] = ["f1", "f2", "f3", "f1-academy"]
     var currentSeries: String
     var seriesData: [String: [RaceData]]
+    var sessionLengths: [String: [String: Int]]
     var dataLoaded: Bool
     var calendarSearchFilter = ""
     
@@ -30,15 +35,15 @@ enum AppDataError: Error {
     init() {
         self.currentSeries = availableSeries.first ?? "f1"
         self.seriesData = [:]
+        self.sessionLengths = [:]
         self.dataLoaded = false
         self.selectedOffsetOption = UserDefaults.standard.integer(forKey: "Notification")
         
         Task {
             do {
                 try await self.loadAPIData()
-                if (seriesData.isEmpty) {
-                    print("No data.")
-                } else {
+                
+                if (!seriesData.isEmpty && !sessionLengths.isEmpty) {
                     self.dataLoaded = true
                 }
             } catch {
@@ -47,27 +52,44 @@ enum AppDataError: Error {
         }
     }
     
-    // MARK: Function for loading data from API
+    // MARK: Loading Functions
     func loadAPIData() async throws -> Void {
+        for series in availableSeries {
+            let baseURL = "https://raw.githubusercontent.com/sportstimes/f1/main/_db/\(series)"
+            
+            self.sessionLengths[series] = try await loadSessionsLenghts(url: baseURL)
+            self.seriesData[series] = try await loadRaces(url: baseURL, series: series)
+        }
+    }
+    
+    func loadSessionsLenghts(url: String) async throws -> [String: Int] {
+        guard let configURL = URL(string: "\(url)/config.json") else { throw AppDataError.URLError("Could not create Config URL string") }
+
+        let (data, _) = try await URLSession.shared.data(from: configURL)
+        let config = try JSONDecoder().decode(Config.self, from: data)
+        
+        return config.sessionLengths
+    }
+    
+    func loadRaces(url: String, series: String) async throws -> [RaceData] {
         let date = Date.now
         let calendar = Calendar.current
         let year = calendar.component(.year, from: date)
         
-        for series in availableSeries {
-            guard let url = URL(string: "https://raw.githubusercontent.com/sportstimes/f1/main/_db/\(series)/\(year).json") else { throw AppDataError.URLError("Could not create API URL string") }
-            let (data, _) = try await URLSession.shared.data(from: url)
-            var races = try JSONDecoder().decode(API.self, from: data).races
+        guard let racesURL = URL(string: "\(url)/\(year).json") else { throw AppDataError.URLError("Could not create Races URL string") }
+
+        let (data, _) = try await URLSession.shared.data(from: racesURL)
+        var races = try JSONDecoder().decode(Races.self, from: data).races
+        
+        // Add extra information to races
+        races = races.map { race in
+            var race = race
+            race.sessionLengths = self.sessionLengths[series]
             
-            // Add extra information to races
-            races = races.map { race in
-                var race = race
-                race.series = series
-                
-                return race
-            }
-            
-            self.seriesData[series] = races
+            return race
         }
+        
+        return races
     }
     
     // MARK: Computed properties
@@ -91,7 +113,7 @@ enum AppDataError: Error {
     
     var filteredRaces: [RaceData] {
         nextRaces.filter { race in
-            if (self.calendarSearchFilter == "") { return true }
+            if (self.calendarSearchFilter.isEmpty) { return true }
             
             let raceName = race.name.lowercased()
             let locationName = race.location.lowercased()
