@@ -16,8 +16,8 @@ func calcFutureDate(days: Double) -> String {
 
 struct SessionData {
     var formattedName: String = "Session"
-    var startDate: Date = Date().addingTimeInterval(60)
-    var endDate: Date = Date().addingTimeInterval(120)
+    var startDate: Date = Date().addingTimeInterval(5)
+    var endDate: Date = Date().addingTimeInterval(10)
 }
 
 struct RaceData: Decodable, Identifiable, Hashable {

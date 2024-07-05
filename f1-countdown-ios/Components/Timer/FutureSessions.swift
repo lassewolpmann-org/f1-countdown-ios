@@ -12,12 +12,6 @@ struct FutureSessions: View {
     let nextRace: RaceData
     
     var body: some View {
-        let upcomingSessionCount = nextRace.futureSessions.count
-        
-        Text("\(upcomingSessionCount) Upcoming \(upcomingSessionCount == 1 ? "Session" : "Sessions")")
-            .font(.subheadline)
-            .bold()
-
         ForEach(nextRace.futureSessions, id: \.key) { session in
             let delta = DeltaValues(date: session.value.startDate)
             Session(appData: appData, nextRace: nextRace, session: session.value, delta: delta)
@@ -26,5 +20,9 @@ struct FutureSessions: View {
 }
 
 #Preview {
-    FutureSessions(appData: AppData(), nextRace: RaceData())
+    ScrollView {
+        VStack {
+            FutureSessions(appData: AppData(), nextRace: RaceData())
+        }
+    }
 }

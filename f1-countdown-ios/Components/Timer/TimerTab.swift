@@ -14,15 +14,15 @@ struct TimerTab: View {
         NavigationStack {
             ScrollView(.vertical) {
                 if let nextRace = appData.nextRace {
-                    VStack(alignment: .leading, spacing: 15) {
-                        PastSession(appData: appData, nextRace: nextRace)
-                        Divider()
-                        OngoingSessions(appData: appData, nextRace: nextRace)
-                        Divider()
+                    VStack(alignment: .center, spacing: 15) {
                         FutureSessions(appData: appData, nextRace: nextRace)
                     }
                     .padding(.horizontal, 10)
                     .navigationTitle(getRaceTitle(race: nextRace))
+                    .toolbar {
+                        OngoingSessions(appData: appData, nextRace: nextRace)
+                        PastSession(appData: appData, nextRace: nextRace)
+                    }
                 } else {
                     Label {
                         Text("It seems like there is no data available to display here.")
@@ -59,5 +59,5 @@ struct TimerTab: View {
 }
 
 #Preview {
-    return TimerTab(appData: AppData())
+    TimerTab(appData: AppData())
 }

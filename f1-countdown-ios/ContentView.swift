@@ -26,7 +26,8 @@ struct ContentView: View {
             .tabItem {
                 Label("Settings", systemImage: "gear")
             }
-        }.task {
+        }
+        .task {
             await removeInvalidNotifications(appData: appData)
         }
     }
