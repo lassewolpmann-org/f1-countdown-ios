@@ -9,6 +9,8 @@ import SwiftUI
 
 struct CalendarRace: View {
     let race: RaceData
+    let previousRace: RaceData?
+    let followingRace: RaceData?
 
     var body: some View {
         RoundedRectangle(cornerRadius: 15)
@@ -18,27 +20,71 @@ struct CalendarRace: View {
                 VStack(alignment: .center, spacing: 30) {
                     VStack {
                         Text(getRaceTitle(race: race))
-                            .font(.title)
+                            .font(.title2)
                             .bold()
                         
                         Text(race.location)
-                            .font(.headline)
+                            .font(.title3)
                     }
+                    
+                    HStack {
+                        if let previousRace {
+                            if let previousRaceSession = previousRace.sortedSessions.last?.value.startDate,
+                            let currentRaceSession = race.sortedSessions.last?.value.startDate {
+                                let delta = currentRaceSession.timeIntervalSince(previousRaceSession)
+                                let days = Int(round(delta / 86400))
+                                
+                                VStack(alignment: .leading) {
+                                    HStack {
+                                        Image(systemName: "arrow.left")
+                                        Text(previousRace.flag)
+                                    }
+                                    
+                                    Text("\(days) days")
+                                }
+                            }
+                        }
+                        
+                        Spacer()
+                        
+                        if let followingRace {
+                            if let followingRaceSession = followingRace.sortedSessions.last?.value.startDate,
+                               let currentRaceSession = race.sortedSessions.last?.value.startDate {
+                                let delta = followingRaceSession.timeIntervalSince(currentRaceSession)
+                                let days = Int(round(delta / 86400))
+                                
+                                VStack(alignment: .leading) {
+                                    HStack {
+                                        Text(followingRace.flag)
+                                        Image(systemName: "arrow.right")
+                                    }
+                                    
+                                    Text("\(days) days")
+                                }
+                            }
+                        }
+                    }
+                    .foregroundStyle(.secondary)
                     
                     Divider()
                     
                     ForEach(race.sortedSessions, id: \.key) { session in
                         let sessionDate = SessionDate(d: session.value.startDate)
                         
-                        HStack(alignment: .top) {
-                            VStack(alignment: .leading) {
-                                Text(sessionDate.dateString)
-                                Text(sessionDate.timeString)
+                        VStack {
+                            HStack {
+                                Text(session.value.formattedName)
+                                    .foregroundStyle(.red)
+                                Spacer()
+                                Text(sessionDate.dayString)
+                                    .foregroundStyle(.secondary)
                             }
                             
-                            Spacer()
-                            Text(session.value.formattedName)
-                                .bold()
+                            HStack {
+                                Text(sessionDate.dateString)
+                                Spacer()
+                                Text(DateInterval(start: session.value.startDate, end: session.value.endDate))
+                            }
                         }
                         .strikethrough(session.value.endDate.timeIntervalSinceNow < 0)
                     }
@@ -71,8 +117,14 @@ struct SessionDate {
         
         return dateFormatter.string(from: date)
     }
+    
+    var dayString: String {
+        dateFormatter.dateFormat = "EEEE"
+        
+        return dateFormatter.string(from: date)
+    }
 }
 
 #Preview {
-    CalendarRace(race: RaceData())
+    CalendarRace(race: RaceData(), previousRace: RaceData(), followingRace: RaceData())
 }

@@ -23,9 +23,6 @@
 		2534A14B2B287279003B0BE3 /* CountryFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2534A14A2B287279003B0BE3 /* CountryFlags.swift */; };
 		2534A14C2B287279003B0BE3 /* CountryFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2534A14A2B287279003B0BE3 /* CountryFlags.swift */; };
 		2540A4242B973F9A00684AEA /* SeriesPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2540A4232B973F9A00684AEA /* SeriesPicker.swift */; };
-		2568D5742C2EB4B5005EBBF0 /* PastSessions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2568D5732C2EB4B5005EBBF0 /* PastSessions.swift */; };
-		2568D5762C2EB4CA005EBBF0 /* OngoingSessions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2568D5752C2EB4CA005EBBF0 /* OngoingSessions.swift */; };
-		2568D5782C2EB4D0005EBBF0 /* FutureSessions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2568D5772C2EB4D0005EBBF0 /* FutureSessions.swift */; };
 		2571837C2B73B241003D12F9 /* DeltaValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BE0E472B2349E20089B5BA /* DeltaValues.swift */; };
 		2571837E2B73B264003D12F9 /* RaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2571837D2B73B264003D12F9 /* RaceData.swift */; };
 		2571837F2B73B264003D12F9 /* RaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2571837D2B73B264003D12F9 /* RaceData.swift */; };
@@ -161,9 +158,6 @@
 		252976902C5242E10088E35D /* CalendarRace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarRace.swift; sourceTree = "<group>"; };
 		2534A14A2B287279003B0BE3 /* CountryFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryFlags.swift; sourceTree = "<group>"; };
 		2540A4232B973F9A00684AEA /* SeriesPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesPicker.swift; sourceTree = "<group>"; };
-		2568D5732C2EB4B5005EBBF0 /* PastSessions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastSessions.swift; sourceTree = "<group>"; };
-		2568D5752C2EB4CA005EBBF0 /* OngoingSessions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OngoingSessions.swift; sourceTree = "<group>"; };
-		2568D5772C2EB4D0005EBBF0 /* FutureSessions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureSessions.swift; sourceTree = "<group>"; };
 		2571837D2B73B264003D12F9 /* RaceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceData.swift; sourceTree = "<group>"; };
 		2575791F2B84C4FA00FC1A81 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		257959D22B04FB000033DFAB /* f1-countdown-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "f1-countdown-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -373,9 +367,6 @@
 			isa = PBXGroup;
 			children = (
 				25AF34622B2F99BA00E7D83A /* Session */,
-				2568D5732C2EB4B5005EBBF0 /* PastSessions.swift */,
-				2568D5752C2EB4CA005EBBF0 /* OngoingSessions.swift */,
-				2568D5772C2EB4D0005EBBF0 /* FutureSessions.swift */,
 				25AF34602B2F98CA00E7D83A /* TimerTab.swift */,
 			);
 			path = Timer;
@@ -674,12 +665,10 @@
 				25AF34612B2F98CA00E7D83A /* TimerTab.swift in Sources */,
 				2571837E2B73B264003D12F9 /* RaceData.swift in Sources */,
 				25BE0E482B2349E20089B5BA /* DeltaValues.swift in Sources */,
-				2568D5742C2EB4B5005EBBF0 /* PastSessions.swift in Sources */,
 				251C655F2B73779B003E4A13 /* AppData.swift in Sources */,
 				25BFB0322B0F68D90062E4BC /* SettingsTab.swift in Sources */,
 				25F1D8732B853A53007D360F /* WeatherElement.swift in Sources */,
 				25DE90792B09168A00632B61 /* NotificationButton.swift in Sources */,
-				2568D5762C2EB4CA005EBBF0 /* OngoingSessions.swift in Sources */,
 				25DA1FB42B70C659008615FD /* TrademarkNotice.swift in Sources */,
 				25DCE0862BE8CC6000CE4CF6 /* Notifications.swift in Sources */,
 				25B5C3F42B6B7D4300057E4D /* SettingsFooter.swift in Sources */,
@@ -692,7 +681,6 @@
 				2534A14B2B287279003B0BE3 /* CountryFlags.swift in Sources */,
 				25B5C3EC2B6B7CA300057E4D /* RemoveNotificationsButton.swift in Sources */,
 				25EDC7952B054D320094DBBA /* TimerElement.swift in Sources */,
-				2568D5782C2EB4D0005EBBF0 /* FutureSessions.swift in Sources */,
 				25AF34662B2F9D0200E7D83A /* Session.swift in Sources */,
 				2521762B2B08BEB00023C9B3 /* SessionWeather.swift in Sources */,
 				257959D62B04FB000033DFAB /* f1_countdown_iosApp.swift in Sources */,

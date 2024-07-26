@@ -127,7 +127,7 @@ func removeInvalidNotifications(appData: AppData) async {
     
     let sessionDates = appData.seriesData.flatMap { seriesData in
         return seriesData.value.flatMap { races in
-            return races.futureSessions.map { session in
+            return races.sortedSessions.map { session in
                 return session.value.startDate.ISO8601Format()
             }
         }

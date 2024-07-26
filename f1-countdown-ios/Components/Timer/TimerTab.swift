@@ -19,21 +19,20 @@ struct TimerTab: View {
             ScrollView(.vertical) {
                 if let nextRace = appData.nextRace {
                     VStack(alignment: .center, spacing: 15) {
-                        ForEach(nextRace.sortedSessions, id: \.key) { session in
-                            if (session.value.endDate < Date()) {
-                                // Session is in past
-                                // Calculate to current date to instantly set delta to 0
-                                let delta = DeltaValues(date: Date.now)
-                                Session(appData: appData, nextRace: nextRace, session: session.value, status: .finished, delta: delta)
-                            } else if (session.value.startDate < Date() && session.value.endDate >= Date()) {
-                                // Session is ongoing
-                                let delta = DeltaValues(date: session.value.endDate)
-                                Session(appData: appData, nextRace: nextRace, session: session.value, status: .ongoing, delta: delta)
-                            } else {
-                                // Session is in future
-                                let delta = DeltaValues(date: session.value.startDate)
-                                Session(appData: appData, nextRace: nextRace, session: session.value, status: .upcoming, delta: delta)
-                            }
+                        ForEach(nextRace.pastSessions, id: \.key) { session in
+                            // Calculate to current date to instantly set delta to 0
+                            let delta = DeltaValues(date: Date.now)
+                            Session(appData: appData, nextRace: nextRace, session: session.value, status: .finished, delta: delta)
+                        }
+                        
+                        ForEach(nextRace.ongoingSessions, id: \.key) { session in
+                            let delta = DeltaValues(date: session.value.endDate)
+                            Session(appData: appData, nextRace: nextRace, session: session.value, status: .ongoing, delta: delta)
+                        }
+                        
+                        ForEach(nextRace.futureSessions, id: \.key) { session in
+                            let delta = DeltaValues(date: session.value.startDate)
+                            Session(appData: appData, nextRace: nextRace, session: session.value, status: .upcoming, delta: delta)
                         }
                     }
                     .padding(.horizontal, 10)

@@ -15,11 +15,19 @@ struct CalendarTab: View {
             ScrollView(.horizontal) {
                 HStack(spacing: 20) {
                     ForEach(appData.filteredRaces) { race in
-                        CalendarRace(race: race)
-                        .scrollTransition { content, phase in
-                            content
-                                .opacity(phase.isIdentity ? 1.0 : 0.3)
-                                .blur(radius: phase.value)
+                        if let index = appData.filteredRaces.firstIndex(of: race) {
+                            let previousIndex = appData.filteredRaces.index(before: index)
+                            let followingIndex = appData.filteredRaces.index(after: index)
+                            
+                            let previousRace = appData.filteredRaces[safe: previousIndex]
+                            let followingRace = appData.filteredRaces[safe: followingIndex]
+                            
+                            CalendarRace(race: race, previousRace: previousRace, followingRace: followingRace)
+                            .scrollTransition { content, phase in
+                                content
+                                    .opacity(phase.isIdentity ? 1.0 : 0.5)
+                                    .blur(radius: abs(phase.value) * 3)
+                            }
                         }
                     }
                 }
@@ -27,10 +35,21 @@ struct CalendarTab: View {
             }
             .contentMargins(.horizontal, 40, for: .scrollContent)
             .scrollTargetBehavior(.paging)
-            .navigationTitle("All Upcoming Races")
+            .navigationTitle("Upcoming Races")
         }
         .searchable(text: $appData.calendarSearchFilter)
     }
+}
+
+extension Array {
+    subscript(safe index: Int) -> Element? {
+        guard indices.contains(index) else {
+            return nil
+        }
+
+        return self[index]
+    }
+
 }
 
 #Preview {
