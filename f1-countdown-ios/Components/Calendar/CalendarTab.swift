@@ -26,7 +26,7 @@ struct CalendarTab: View {
                             .scrollTransition { content, phase in
                                 content
                                     .opacity(phase.isIdentity ? 1.0 : 0.5)
-                                    .blur(radius: abs(phase.value) * 3)
+                                    .blur(radius: abs(phase.value))
                             }
                         }
                     }
