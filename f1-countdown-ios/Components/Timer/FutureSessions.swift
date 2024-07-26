@@ -14,7 +14,7 @@ struct FutureSessions: View {
     var body: some View {
         ForEach(nextRace.futureSessions, id: \.key) { session in
             let delta = DeltaValues(date: session.value.startDate)
-            Session(appData: appData, nextRace: nextRace, session: session.value, delta: delta)
+            Session(appData: appData, nextRace: nextRace, session: session.value, status: .upcoming, delta: delta)
         }
     }
 }

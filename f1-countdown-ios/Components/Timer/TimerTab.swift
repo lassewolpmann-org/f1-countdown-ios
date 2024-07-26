@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+enum SessionStatus: String {
+    case finished, ongoing, upcoming
+}
+
 struct TimerTab: View {
     var appData: AppData;
 
@@ -15,14 +19,25 @@ struct TimerTab: View {
             ScrollView(.vertical) {
                 if let nextRace = appData.nextRace {
                     VStack(alignment: .center, spacing: 15) {
-                        FutureSessions(appData: appData, nextRace: nextRace)
+                        ForEach(nextRace.sortedSessions, id: \.key) { session in
+                            if (session.value.endDate < Date()) {
+                                // Session is in past
+                                // Calculate to current date to instantly set delta to 0
+                                let delta = DeltaValues(date: Date.now)
+                                Session(appData: appData, nextRace: nextRace, session: session.value, status: .finished, delta: delta)
+                            } else if (session.value.startDate < Date() && session.value.endDate >= Date()) {
+                                // Session is ongoing
+                                let delta = DeltaValues(date: session.value.endDate)
+                                Session(appData: appData, nextRace: nextRace, session: session.value, status: .ongoing, delta: delta)
+                            } else {
+                                // Session is in future
+                                let delta = DeltaValues(date: session.value.startDate)
+                                Session(appData: appData, nextRace: nextRace, session: session.value, status: .upcoming, delta: delta)
+                            }
+                        }
                     }
                     .padding(.horizontal, 10)
                     .navigationTitle(getRaceTitle(race: nextRace))
-                    .toolbar {
-                        OngoingSessions(appData: appData, nextRace: nextRace)
-                        PastSession(appData: appData, nextRace: nextRace)
-                    }
                 } else {
                     Label {
                         Text("It seems like there is no data available to display here.")

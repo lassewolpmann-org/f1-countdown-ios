@@ -22,7 +22,7 @@ struct SessionData {
 
 struct RaceData: Decodable, Identifiable, Hashable {
     var name: String = "Preview Grand Prix"
-    var location: String = ""
+    var location: String = "Location"
     var latitude: Double = 0.0
     var longitude: Double = 0.0
     var round: Int = 0
@@ -34,7 +34,7 @@ struct RaceData: Decodable, Identifiable, Hashable {
     var tbc: Bool? = false
     var sessionLengths: [String: Int]?
     
-    var sortedSessions: [(key: String, value: SessionData)] {
+    var formattedSessions: [(key: String, value: SessionData)] {
         // Step 1: Fix session date values
         let fixedSessions = sessions.map { session in
             if (session.value.contains(".000")) {
@@ -60,8 +60,11 @@ struct RaceData: Decodable, Identifiable, Hashable {
             return (key: sessionName, value: SessionData(formattedName: parseSessionName(sessionName: sessionName), startDate: startDate, endDate: endDate))
         }
         
-        // Step 3: Sort session by ascending date
-        return formattedSessions.sorted { a, b in
+        return formattedSessions
+    }
+    
+    var sortedSessions: [(key: String, value: SessionData)] {
+        formattedSessions.sorted { a, b in
             a.value.startDate < b.value.startDate
         }
     }

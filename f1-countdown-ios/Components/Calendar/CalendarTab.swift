@@ -8,26 +8,28 @@
 import SwiftUI
 
 struct CalendarTab: View {
-    @Bindable var appData: AppData;
+    @Bindable var appData: AppData
 
     var body: some View {
-        let calendar = Calendar.current;
-        let year = calendar.dateComponents([.year], from: Date()).year!.description;
-
         NavigationStack {
-            List(appData.filteredRaces, id: \.self) { race in
-                RaceSheet(race: race, series: appData.currentSeries)
+            ScrollView(.horizontal) {
+                HStack(spacing: 20) {
+                    ForEach(appData.filteredRaces) { race in
+                        CalendarRace(race: race)
+                        .scrollTransition { content, phase in
+                            content
+                                .opacity(phase.isIdentity ? 1.0 : 0.3)
+                                .blur(radius: phase.value)
+                        }
+                    }
+                }
+                .scrollTargetLayout()
             }
-            .navigationTitle("\(year) \(appData.currentSeries.uppercased()) Calendar")
+            .contentMargins(.horizontal, 40, for: .scrollContent)
+            .scrollTargetBehavior(.paging)
+            .navigationTitle("All Upcoming Races")
         }
         .searchable(text: $appData.calendarSearchFilter)
-        .refreshable {
-            do {
-                try await appData.loadAPIData()
-            } catch {
-                print(error)
-            }
-        }
     }
 }
 

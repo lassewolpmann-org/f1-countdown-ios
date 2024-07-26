@@ -12,23 +12,9 @@ struct OngoingSessions: View {
     let nextRace: RaceData
 
     var body: some View {
-        NavigationLink {
-            ScrollView {
-                VStack {
-                    ForEach(nextRace.ongoingSessions, id: \.key) { session in
-                        let delta = DeltaValues(date: session.value.endDate)
-                        Session(appData: appData, nextRace: nextRace, session: session.value, delta: delta)
-                    }
-                }
-                .padding(.horizontal, 10)
-                .navigationTitle("Ongoing Sessions")
-            }
-        } label: {
-            Label {
-                Text("Ongoing Sessions")
-            } icon: {
-                Image(systemName: "clock")
-            }
+        ForEach(nextRace.ongoingSessions, id: \.key) { session in
+            let delta = DeltaValues(date: session.value.endDate)
+            Session(appData: appData, nextRace: nextRace, session: session.value, status: .ongoing, delta: delta)
         }
     }
 }

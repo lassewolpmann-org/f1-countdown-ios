@@ -13,6 +13,7 @@ struct Session: View {
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     let nextRace: RaceData
     let session: SessionData
+    let status: SessionStatus
     
     @State var delta: DeltaValues
     @State var showWeather: Bool = false
@@ -25,6 +26,28 @@ struct Session: View {
                     .foregroundStyle(.secondary)
                 
                 Spacer()
+                
+                Label {
+                    switch status {
+                    case .finished:
+                        Text("Finished")
+                    case .ongoing:
+                        Text("Ongoing")
+                    case .upcoming:
+                        Text("Upcoming")
+                    }
+                } icon: {
+                    switch status {
+                    case .finished:
+                        Image(systemName: "flag.checkered.2.crossed")
+                    case .ongoing:
+                        Image(systemName: "flag.checkered")
+                    case .upcoming:
+                        Image(systemName: "clock")
+                    }
+                }
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
             }
             
             HStack {
@@ -91,6 +114,6 @@ struct Session: View {
 #Preview {
     ScrollView {
         let session = SessionData()
-        Session(appData: AppData(), nextRace: RaceData(), session: session, delta: DeltaValues(date: session.startDate))
+        Session(appData: AppData(), nextRace: RaceData(), session: session, status: .finished, delta: DeltaValues(date: session.startDate))
     }
 }

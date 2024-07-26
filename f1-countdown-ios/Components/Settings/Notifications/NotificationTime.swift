@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct NotificationTime: View {
-    @Bindable var appData: AppData;
-    @State private var showAlert = false;
+    @Bindable var appData: AppData
+    @State private var showAlert = false
     
     var body: some View {
         Picker("Send Notification", selection: $appData.selectedOffsetOption) {
