@@ -150,7 +150,7 @@
 		2505E6A02B0F844000876783 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2505E6A22B0F844000876783 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2505E6B22B10842700876783 /* NextUpdateDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextUpdateDate.swift; sourceTree = "<group>"; };
-		2507CEB52C556BE000272430 /* NotificationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationController.swift; path = ../../../../.Trash/NotificationController.swift; sourceTree = "<group>"; };
+		2507CEB52C556BE000272430 /* NotificationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		25104C5C2B0A51E3001FDF49 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		25125EFB2B14914400CA10EE /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		251C655E2B73779B003E4A13 /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
