@@ -8,6 +8,10 @@
 import Foundation
 import UserNotifications
 
+enum NotificationError: Error {
+    case error(String)
+}
+
 func deleteNotification(sessionDate: Date) -> Bool {
     let notificationCenter = UNUserNotificationCenter.current();
     
@@ -50,17 +54,13 @@ func addNewNotification(race: RaceData, series: String, sessionDate: Date, sessi
     
     for offset in userDefaults.offsetValues {
         let date = sessionDate.addingTimeInterval(TimeInterval(-offset * 60));
-        let calendarDate = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: date);
-        
         let series = series.uppercased();
         let title = "\(getRaceTitle(race: race))";
         let body = offset == 0 ? "\(series) \(sessionName) is now live!" : "\(series) \(sessionName) starts in \(offset.description) minutes!";
         
-        success.append(await createNotification(identifier: identifier, date: calendarDate, title: title, body: body, series: series, session: sessionName))
+        success.append(await createNotification(identifier: identifier, date: date, title: title, body: body, series: series, session: sessionName))
     }
-    
-    print(success)
-    
+        
     if success.contains(false) {
         return false
     } else {
@@ -68,10 +68,10 @@ func addNewNotification(race: RaceData, series: String, sessionDate: Date, sessi
     }
 }
 
-func createNotification(identifier: String, date: DateComponents, title: String, body: String, series: String, session: String) async -> Bool {
+func createNotification(identifier: String, date: Date, title: String, body: String, series: String, session: String) async -> Bool {
     if (await checkForPermission()) {
         let center = UNUserNotificationCenter.current();
-        let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: false);
+        let trigger = UNCalendarNotificationTrigger(dateMatching: Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: date), repeats: false);
         
         let content = UNMutableNotificationContent();
         content.title = title;
@@ -85,13 +85,16 @@ func createNotification(identifier: String, date: DateComponents, title: String,
                 
         let notification = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger);
         do {
-            try await center.add(notification);
+            guard date.timeIntervalSinceNow > 0 else {
+                throw NotificationError.error("Notification is in past")
+            }
             
-            return true
+            try await center.add(notification);
         } catch {
             print("Error while creating notification: \(error)")
-            return false
         }
+        
+        return true
     } else {
         return false
     }
@@ -100,7 +103,7 @@ func createNotification(identifier: String, date: DateComponents, title: String,
 func rescheduleNotifications(time: Int) async -> Void {
     // Update all Notifications
     let center = UNUserNotificationCenter.current();
-    let notifications = await center.pendingNotificationRequests();
+    let notifications = await center.pendingNotificationRequests()
     
     for notification in notifications {
         // Step 1: Get Current Identifier which is the Date in ISO8601 format
@@ -115,13 +118,12 @@ func rescheduleNotifications(time: Int) async -> Void {
         
         // Step 3: Create new Date with added Minutes
         let date = ISO8601DateFormatter().date(from: identifier)?.addingTimeInterval(TimeInterval(-time * 60)) ?? Date();
-        let calendarDate = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: date);
         
         // Step 4: Remove current Notification
         center.removePendingNotificationRequests(withIdentifiers: [identifier]);
         
         // Step 5: Create new Notification
-        let success = await createNotification(identifier: identifier, date: calendarDate, title: title, body: body, series: series, session: session);
+        let success = await createNotification(identifier: identifier, date: date, title: title, body: body, series: series, session: session);
         
         if (!success) {
             print("Rescheduling of notification didn't work");
@@ -146,7 +148,6 @@ func removeInvalidNotifications(appData: AppData) async {
     }
         
     let identifiers = invalidNotifications.map { $0.identifier }
-    print("Removing: \(identifiers)")
     center.removePendingNotificationRequests(withIdentifiers: identifiers)
 }
 

@@ -22,6 +22,7 @@ import Foundation
     init() {
         if (self.offsetValues.isEmpty) {
             self.selectedOffsetOptions = [0]
+            userDefaults.set(self.selectedOffsetOptions, forKey: self.key)
         } else {
             selectedOffsetOptions = self.offsetValues
         }
@@ -54,9 +55,9 @@ import Foundation
             message.success = true
             message.message = "Added option"
         }
-                
-        userDefaults.set(currentValues, forKey: self.key)
+        
         self.selectedOffsetOptions = currentValues
+        userDefaults.set(self.selectedOffsetOptions, forKey: self.key)
     }
     
     var offsetValues: [Int] {

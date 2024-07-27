@@ -19,6 +19,9 @@
 		251DC16E2BD0FD0300D08D56 /* WeatherButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251DC16D2BD0FD0300D08D56 /* WeatherButton.swift */; };
 		251DC1702BD0FD0C00D08D56 /* InfoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251DC16F2BD0FD0C00D08D56 /* InfoButton.swift */; };
 		2521762B2B08BEB00023C9B3 /* SessionWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2521762A2B08BEB00023C9B3 /* SessionWeather.swift */; };
+		2521D8752C551892006EDEDE /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2521D8742C551892006EDEDE /* NotificationController.swift */; };
+		2521D8762C551892006EDEDE /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2521D8742C551892006EDEDE /* NotificationController.swift */; };
+		2521D8772C551892006EDEDE /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2521D8742C551892006EDEDE /* NotificationController.swift */; };
 		252976912C5242E10088E35D /* CalendarRace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252976902C5242E10088E35D /* CalendarRace.swift */; };
 		2534A14B2B287279003B0BE3 /* CountryFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2534A14A2B287279003B0BE3 /* CountryFlags.swift */; };
 		2534A14C2B287279003B0BE3 /* CountryFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2534A14A2B287279003B0BE3 /* CountryFlags.swift */; };
@@ -158,6 +161,7 @@
 		251DC1712BD0FFDB00D08D56 /* WatchTimer Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "WatchTimer Watch App.entitlements"; sourceTree = "<group>"; };
 		2521762A2B08BEB00023C9B3 /* SessionWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionWeather.swift; sourceTree = "<group>"; };
 		2521762C2B08C4270023C9B3 /* f1-countdown-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "f1-countdown-ios.entitlements"; sourceTree = "<group>"; };
+		2521D8742C551892006EDEDE /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		252976902C5242E10088E35D /* CalendarRace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarRace.swift; sourceTree = "<group>"; };
 		2534A14A2B287279003B0BE3 /* CountryFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryFlags.swift; sourceTree = "<group>"; };
 		2540A4232B973F9A00684AEA /* SeriesPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesPicker.swift; sourceTree = "<group>"; };
@@ -304,6 +308,7 @@
 			children = (
 				251C655E2B73779B003E4A13 /* AppData.swift */,
 				256A0DC12C5425BD00B11D4B /* UserDefaultsController.swift */,
+				2521D8742C551892006EDEDE /* NotificationController.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -647,6 +652,7 @@
 				256A0DC32C5425BD00B11D4B /* UserDefaultsController.swift in Sources */,
 				25C6C5462B17799500818265 /* RaceTitle.swift in Sources */,
 				2505E69D2B0F843E00876783 /* TimerWidgetBundle.swift in Sources */,
+				2521D8762C551892006EDEDE /* NotificationController.swift in Sources */,
 				25C6C5532B1779FC00818265 /* DateFormatters.swift in Sources */,
 				25C6C5592B177DB400818265 /* SessionInfo.swift in Sources */,
 				25DCE0872BE8CC6000CE4CF6 /* Notifications.swift in Sources */,
@@ -665,6 +671,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2521D8752C551892006EDEDE /* NotificationController.swift in Sources */,
 				25B5C3F12B6B7CFA00057E4D /* AppLicense.swift in Sources */,
 				25AF34682B2FA79F00E7D83A /* CalendarTab.swift in Sources */,
 				257959D82B04FB000033DFAB /* ContentView.swift in Sources */,
@@ -714,6 +721,7 @@
 				25F11CB22BD02045007D0DE6 /* RaceData.swift in Sources */,
 				25DCE0882BE8CC6000CE4CF6 /* Notifications.swift in Sources */,
 				25F11CB42BD0204B007D0DE6 /* CountryFlags.swift in Sources */,
+				2521D8772C551892006EDEDE /* NotificationController.swift in Sources */,
 				25F11CC72BD02105007D0DE6 /* f1_countdown_iosApp.swift in Sources */,
 				25D5AF512BEDED1600B6F656 /* WeatherElement.swift in Sources */,
 				25F11CB12BD01FE0007D0DE6 /* AppData.swift in Sources */,
