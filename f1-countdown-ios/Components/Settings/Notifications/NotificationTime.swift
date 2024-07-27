@@ -9,8 +9,8 @@ import SwiftUI
 
 struct NotificationTime: View {
     @Bindable var appData: AppData
-    @State private var showAlert = false
     var userDefaults: UserDefaultsController
+    var notificationController: NotificationController
     
     var body: some View {
         NavigationLink {
@@ -26,10 +26,6 @@ struct NotificationTime: View {
                     
                     Button {
                         userDefaults.toggleOffsetValue(offset: option)
-                        
-                        if (userDefaults.message.success == false) {
-                            showAlert.toggle()
-                        }
                     } label: {
                         userDefaults.selectedOffsetOptions.contains(option)
                         ? Image(systemName: "checkmark.circle")
@@ -60,19 +56,37 @@ struct NotificationTime: View {
         }
         .onChange(of: userDefaults.selectedOffsetOptions, { oldOffsets, newOffsets in
             Task {
-                for offset in newOffsets {
-                    await rescheduleNotifications(time: offset)
+                let currentNotifications = await notificationController.currentNotifications
+                let difference = newOffsets.difference(from: oldOffsets).first
+
+                if let currentSessionDates = currentNotifications.map({ $0.content.userInfo["sessionDate"] }) as? [Date] {
+                    let dateSet = Set(currentSessionDates)
+                    
+                    switch difference {
+                    case let .remove(_, offset, _):
+                        for date in dateSet {
+                            let dateWithOffset = date.addingTimeInterval(TimeInterval(offset * -60))
+                            notificationController.removeNotification(identifier: dateWithOffset.ISO8601Format())
+                        }
+                    case let .insert(_, offset, _):
+                        for date in dateSet {
+                            if let currentNotification = currentNotifications.first(where: { notification in
+                                notification.content.userInfo["sessionDate"] as? Date == date
+                            }) {
+                                if let date = currentNotification.content.userInfo["sessionDate"] as? Date,
+                                   let name = currentNotification.content.userInfo["sessionName"] as? String,
+                                   let series = currentNotification.content.userInfo["series"] as? String {
+                                    
+                                    let _ = await notificationController.addNotification(sessionDate: date, sessionName: name, series: series, title: currentNotification.content.title, offset: offset)
+                                }
+                            }
+                        }
+                    case .none:
+                        print("No difference")
+                    }
                 }
             }
         })
-        .alert("Notification Error", isPresented: $showAlert, actions: {
-            Button("OK") {
-                showAlert.toggle()
-            }
-        }, message: {
-            Text(userDefaults.message.message)
-        })
-        .sensoryFeedback(.selection, trigger: userDefaults.selectedOffsetOptions)
     }
     
     func optionDisabled(option: Int) -> Bool {
@@ -85,5 +99,5 @@ struct NotificationTime: View {
 }
 
 #Preview {
-    NotificationTime(appData: AppData(), userDefaults: UserDefaultsController())
+    NotificationTime(appData: AppData(), userDefaults: UserDefaultsController(), notificationController: NotificationController())
 }

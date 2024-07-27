@@ -9,28 +9,44 @@ import SwiftUI
 
 struct NotificationButton: View {
     var userDefaults: UserDefaultsController
+    var notificationController: NotificationController
 
     let session: SessionData
     let race: RaceData
     let series: String
     
-    @State private var notificationEnabled: Bool = false;
-    @State private var showAlert = false;
-    @State private var allowButton: Bool = false;
+    @State private var notificationEnabled: Bool = false
+    @State private var buttonDisabled: Bool = false
     
     // Used to track sensory feedback
-    @State private var buttonState: Bool = false;
+    @State private var buttonState: Bool = false
     
     var body: some View {
         Button {
             buttonState.toggle();
             
             if (notificationEnabled) {
-                notificationEnabled = deleteNotification(sessionDate: session.startDate)
+                for offset in userDefaults.selectedOffsetOptions {
+                    let notificationDate = session.startDate.addingTimeInterval(TimeInterval(offset * -60))
+                    notificationController.removeNotification(identifier: notificationDate.ISO8601Format())
+                }
+                
+                notificationEnabled = false
             } else {
                 Task {
-                    notificationEnabled = await addNewNotification(race: race, series: series, sessionDate: session.startDate, sessionName: session.formattedName, userDefaults: userDefaults);
-                    showAlert = !notificationEnabled;
+                    let status = await notificationController.permissionStatus
+                    if (status == .authorized) {
+                        for offset in userDefaults.selectedOffsetOptions {
+                            let notificationDate = session.startDate.addingTimeInterval(TimeInterval(offset * -60))
+                            guard notificationDate.timeIntervalSinceNow > 0 else { continue }
+                            
+                            notificationEnabled = await notificationController.addNotification(sessionDate: session.startDate, sessionName: session.formattedName, series: series.uppercased(), title: getRaceTitle(race: race), offset: offset)
+                        }
+                    } else if (status == .notDetermined) {
+                        await notificationController.createNotificationPermission()
+                    } else {
+                        print("Not allowed")
+                    }
                 }
             }
         } label: {
@@ -48,26 +64,27 @@ struct NotificationButton: View {
                 }
         }
         .sensoryFeedback(.success, trigger: buttonState)
-        .sensoryFeedback(.error, trigger: showAlert)
         .buttonStyle(.bordered)
-        .disabled(allowButton)
-        .alert(
-            Text("Notifications disabled"),
-            isPresented: $showAlert
-        ) {
-            Button("OK") {
-                showAlert.toggle()
-            }
-        } message: {
-            Text("Please enable Notifications for Formula Countdown in your System Settings.")
-        }
+        .disabled(buttonDisabled)
         .task {
-            allowButton = notificationButtonDisabled(sessionDate: session.startDate, userDefaults: userDefaults);
-            notificationEnabled = await checkForExistingNotification(sessionDate: session.startDate);
+            buttonDisabled = session.startDate.timeIntervalSinceNow <= 0
+            notificationEnabled = await isNotificationEnabled()
         }
+    }
+    
+    func isNotificationEnabled() async -> Bool {
+        let currentNotifications = await notificationController.currentNotifications.map { $0.identifier }
+        for offset in userDefaults.selectedOffsetOptions {
+            let notificationDate = session.startDate.addingTimeInterval(TimeInterval(offset * -60))
+            if (currentNotifications.contains(notificationDate.ISO8601Format())) {
+                return true
+            }
+        }
+        
+        return false
     }
 }
 
 #Preview {
-    NotificationButton(userDefaults: UserDefaultsController(), session: SessionData(), race: RaceData(), series: "f1")
+    NotificationButton(userDefaults: UserDefaultsController(), notificationController: NotificationController(), session: SessionData(), race: RaceData(), series: "f1")
 }

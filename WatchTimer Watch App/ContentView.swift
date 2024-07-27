@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     var appData: AppData
     var userDefaults: UserDefaultsController
+    var notificationController: NotificationController
     
     var body: some View {
         TabView {
@@ -37,5 +38,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(appData: AppData(), userDefaults: UserDefaultsController())
+    ContentView(appData: AppData(), userDefaults: UserDefaultsController(), notificationController: NotificationController())
 }

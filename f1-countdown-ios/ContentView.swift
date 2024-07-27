@@ -10,10 +10,11 @@ import SwiftUI
 struct ContentView: View {
     var appData: AppData
     var userDefaults: UserDefaultsController
+    var notificationController: NotificationController
     
     var body: some View {
         TabView {
-            TimerTab(appData: appData, userDefaults: userDefaults)
+            TimerTab(appData: appData, userDefaults: userDefaults, notificationController: notificationController)
             .tabItem {
                 Label("Timer", systemImage: "stopwatch")
             }
@@ -23,17 +24,14 @@ struct ContentView: View {
                 Label("Upcoming", systemImage: "calendar")
             }
             
-            SettingsTab(appData: appData, userDefaults: userDefaults)
+            SettingsTab(appData: appData, userDefaults: userDefaults, notificationController: notificationController)
             .tabItem {
                 Label("Settings", systemImage: "gear")
             }
-        }
-        .task {
-            await removeInvalidNotifications(appData: appData)
         }
     }
 }
 
 #Preview {
-    ContentView(appData: AppData(), userDefaults: UserDefaultsController())
+    ContentView(appData: AppData(), userDefaults: UserDefaultsController(), notificationController: NotificationController())
 }

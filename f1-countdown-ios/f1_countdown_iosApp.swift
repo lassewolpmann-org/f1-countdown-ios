@@ -11,12 +11,12 @@ import SwiftUI
 struct f1_countdown_iosApp: App {
     @State private var appData: AppData = AppData()
     @State private var userDefaults: UserDefaultsController = UserDefaultsController()
-    @State private var notificationController: NotificationController = NotificationController()
+    private var notificationController: NotificationController = NotificationController()
     
     var body: some Scene {
         WindowGroup {
             if (appData.dataLoaded) {
-                ContentView(appData: appData, userDefaults: userDefaults)
+                ContentView(appData: appData, userDefaults: userDefaults, notificationController: notificationController)
             } else {
                 ProgressView {
                     Text("Loading data...")

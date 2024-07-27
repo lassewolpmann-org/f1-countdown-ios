@@ -14,6 +14,7 @@ enum SessionStatus: String {
 struct TimerTab: View {
     var appData: AppData
     var userDefaults: UserDefaultsController
+    var notificationController: NotificationController
 
     var body: some View {
         NavigationStack {
@@ -23,17 +24,17 @@ struct TimerTab: View {
                         ForEach(nextRace.pastSessions, id: \.key) { session in
                             // Calculate to current date to instantly set delta to 0
                             let delta = DeltaValues(date: Date.now)
-                            Session(appData: appData, userDefaults: userDefaults, nextRace: nextRace, session: session.value, status: .finished, delta: delta)
+                            Session(appData: appData, userDefaults: userDefaults, notificationController: notificationController, nextRace: nextRace, session: session.value, status: .finished, delta: delta)
                         }
                         
                         ForEach(nextRace.ongoingSessions, id: \.key) { session in
                             let delta = DeltaValues(date: session.value.endDate)
-                            Session(appData: appData, userDefaults: userDefaults, nextRace: nextRace, session: session.value, status: .ongoing, delta: delta)
+                            Session(appData: appData, userDefaults: userDefaults, notificationController: notificationController, nextRace: nextRace, session: session.value, status: .ongoing, delta: delta)
                         }
                         
                         ForEach(nextRace.futureSessions, id: \.key) { session in
                             let delta = DeltaValues(date: session.value.startDate)
-                            Session(appData: appData, userDefaults: userDefaults, nextRace: nextRace, session: session.value, status: .upcoming, delta: delta)
+                            Session(appData: appData, userDefaults: userDefaults, notificationController: notificationController, nextRace: nextRace, session: session.value, status: .upcoming, delta: delta)
                         }
                     }
                     .padding(.horizontal, 10)
@@ -74,5 +75,5 @@ struct TimerTab: View {
 }
 
 #Preview {
-    TimerTab(appData: AppData(), userDefaults: UserDefaultsController())
+    TimerTab(appData: AppData(), userDefaults: UserDefaultsController(), notificationController: NotificationController())
 }

@@ -10,6 +10,7 @@ import SwiftUI
 struct Session: View {
     var appData: AppData
     var userDefaults: UserDefaultsController
+    var notificationController: NotificationController
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     let nextRace: RaceData
@@ -60,7 +61,7 @@ struct Session: View {
                 Divider()
                 
                 VStack {
-                    NotificationButton(userDefaults: userDefaults, session: session, race: nextRace, series: appData.currentSeries)
+                    NotificationButton(userDefaults: userDefaults, notificationController: notificationController, session: session, race: nextRace, series: appData.currentSeries)
                     
                     Button {
                         showWeather.toggle()
@@ -115,6 +116,6 @@ struct Session: View {
 #Preview {
     ScrollView {
         let session = SessionData()
-        Session(appData: AppData(), userDefaults: UserDefaultsController(), nextRace: RaceData(), session: session, status: .finished, delta: DeltaValues(date: session.startDate))
+        Session(appData: AppData(), userDefaults: UserDefaultsController(), notificationController: NotificationController(), nextRace: RaceData(), session: session, status: .finished, delta: DeltaValues(date: session.startDate))
     }
 }
