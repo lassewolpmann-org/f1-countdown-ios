@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct NotificationButton: View {
+    var userDefaults: UserDefaultsController
+
     let session: SessionData
     let race: RaceData
     let series: String
@@ -27,7 +29,7 @@ struct NotificationButton: View {
                 notificationEnabled = deleteNotification(sessionDate: session.startDate)
             } else {
                 Task {
-                    notificationEnabled = await addNewNotification(race: race, series: series, sessionDate: session.startDate, sessionName: session.formattedName);
+                    notificationEnabled = await addNewNotification(race: race, series: series, sessionDate: session.startDate, sessionName: session.formattedName, userDefaults: userDefaults);
                     showAlert = !notificationEnabled;
                 }
             }
@@ -60,12 +62,12 @@ struct NotificationButton: View {
             Text("Please enable Notifications for Formula Countdown in your System Settings.")
         }
         .task {
-            allowButton = notificationButtonDisabled(sessionDate: session.startDate);
+            allowButton = notificationButtonDisabled(sessionDate: session.startDate, userDefaults: userDefaults);
             notificationEnabled = await checkForExistingNotification(sessionDate: session.startDate);
         }
     }
 }
 
 #Preview {
-    NotificationButton(session: SessionData(), race: RaceData(), series: "f1")
+    NotificationButton(userDefaults: UserDefaultsController(), session: SessionData(), race: RaceData(), series: "f1")
 }

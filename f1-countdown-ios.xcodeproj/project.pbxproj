@@ -23,6 +23,9 @@
 		2534A14B2B287279003B0BE3 /* CountryFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2534A14A2B287279003B0BE3 /* CountryFlags.swift */; };
 		2534A14C2B287279003B0BE3 /* CountryFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2534A14A2B287279003B0BE3 /* CountryFlags.swift */; };
 		2540A4242B973F9A00684AEA /* SeriesPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2540A4232B973F9A00684AEA /* SeriesPicker.swift */; };
+		256A0DC22C5425BD00B11D4B /* UserDefaultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256A0DC12C5425BD00B11D4B /* UserDefaultsController.swift */; };
+		256A0DC32C5425BD00B11D4B /* UserDefaultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256A0DC12C5425BD00B11D4B /* UserDefaultsController.swift */; };
+		256A0DC42C5425BD00B11D4B /* UserDefaultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256A0DC12C5425BD00B11D4B /* UserDefaultsController.swift */; };
 		2571837C2B73B241003D12F9 /* DeltaValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BE0E472B2349E20089B5BA /* DeltaValues.swift */; };
 		2571837E2B73B264003D12F9 /* RaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2571837D2B73B264003D12F9 /* RaceData.swift */; };
 		2571837F2B73B264003D12F9 /* RaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2571837D2B73B264003D12F9 /* RaceData.swift */; };
@@ -158,6 +161,7 @@
 		252976902C5242E10088E35D /* CalendarRace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarRace.swift; sourceTree = "<group>"; };
 		2534A14A2B287279003B0BE3 /* CountryFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryFlags.swift; sourceTree = "<group>"; };
 		2540A4232B973F9A00684AEA /* SeriesPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesPicker.swift; sourceTree = "<group>"; };
+		256A0DC12C5425BD00B11D4B /* UserDefaultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsController.swift; sourceTree = "<group>"; };
 		2571837D2B73B264003D12F9 /* RaceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceData.swift; sourceTree = "<group>"; };
 		2575791F2B84C4FA00FC1A81 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		257959D22B04FB000033DFAB /* f1-countdown-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "f1-countdown-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -299,6 +303,7 @@
 			isa = PBXGroup;
 			children = (
 				251C655E2B73779B003E4A13 /* AppData.swift */,
+				256A0DC12C5425BD00B11D4B /* UserDefaultsController.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -639,6 +644,7 @@
 				25F11CB52BD0204F007D0DE6 /* WeatherData.swift in Sources */,
 				2571837C2B73B241003D12F9 /* DeltaValues.swift in Sources */,
 				25B404192B10B3D7007EF384 /* Medium.swift in Sources */,
+				256A0DC32C5425BD00B11D4B /* UserDefaultsController.swift in Sources */,
 				25C6C5462B17799500818265 /* RaceTitle.swift in Sources */,
 				2505E69D2B0F843E00876783 /* TimerWidgetBundle.swift in Sources */,
 				25C6C5532B1779FC00818265 /* DateFormatters.swift in Sources */,
@@ -670,6 +676,7 @@
 				25F1D8732B853A53007D360F /* WeatherElement.swift in Sources */,
 				25DE90792B09168A00632B61 /* NotificationButton.swift in Sources */,
 				25DA1FB42B70C659008615FD /* TrademarkNotice.swift in Sources */,
+				256A0DC22C5425BD00B11D4B /* UserDefaultsController.swift in Sources */,
 				25DCE0862BE8CC6000CE4CF6 /* Notifications.swift in Sources */,
 				25B5C3F42B6B7D4300057E4D /* SettingsFooter.swift in Sources */,
 				25C6C5552B177A0F00818265 /* SessionName.swift in Sources */,
@@ -710,6 +717,7 @@
 				25F11CC72BD02105007D0DE6 /* f1_countdown_iosApp.swift in Sources */,
 				25D5AF512BEDED1600B6F656 /* WeatherElement.swift in Sources */,
 				25F11CB12BD01FE0007D0DE6 /* AppData.swift in Sources */,
+				256A0DC42C5425BD00B11D4B /* UserDefaultsController.swift in Sources */,
 				25D5AF522BEDED6C00B6F656 /* SessionWeather.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
-    var appData: AppData;
+    var appData: AppData
+    var userDefaults: UserDefaultsController
     
     var body: some View {
         TabView {
-            TimerTab(appData: appData)
+            TimerTab(appData: appData, userDefaults: userDefaults)
             .tabItem {
                 Label("Timer", systemImage: "stopwatch")
             }
@@ -22,7 +23,7 @@ struct ContentView: View {
                 Label("Upcoming", systemImage: "calendar")
             }
             
-            SettingsTab(appData: appData)
+            SettingsTab(appData: appData, userDefaults: userDefaults)
             .tabItem {
                 Label("Settings", systemImage: "gear")
             }
@@ -34,5 +35,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(appData: AppData())
+    ContentView(appData: AppData(), userDefaults: UserDefaultsController())
 }

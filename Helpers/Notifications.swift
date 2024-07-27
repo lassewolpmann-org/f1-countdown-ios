@@ -43,18 +43,29 @@ func checkForPermission() async -> Bool {
     }
 }
 
-func addNewNotification(race: RaceData, series: String, sessionDate: Date, sessionName: String) async -> Bool {
+func addNewNotification(race: RaceData, series: String, sessionDate: Date, sessionName: String, userDefaults: UserDefaultsController) async -> Bool {
     let identifier = sessionDate.ISO8601Format();
     
-    let notificationTimeSetting = UserDefaults.standard.integer(forKey: "Notification");
-    let date = sessionDate.addingTimeInterval(TimeInterval(-notificationTimeSetting * 60));
-    let calendarDate = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: date);
+    var success: [Bool] = []
     
-    let series = series.uppercased();
-    let title = "\(getRaceTitle(race: race))";
-    let body = notificationTimeSetting == 0 ? "\(series) \(sessionName) is now live!" : "\(series) \(sessionName) starts in \(notificationTimeSetting.description) minutes!";
+    for offset in userDefaults.offsetValues {
+        let date = sessionDate.addingTimeInterval(TimeInterval(-offset * 60));
+        let calendarDate = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: date);
+        
+        let series = series.uppercased();
+        let title = "\(getRaceTitle(race: race))";
+        let body = offset == 0 ? "\(series) \(sessionName) is now live!" : "\(series) \(sessionName) starts in \(offset.description) minutes!";
+        
+        success.append(await createNotification(identifier: identifier, date: calendarDate, title: title, body: body, series: series, session: sessionName))
+    }
     
-    return await createNotification(identifier: identifier, date: calendarDate, title: title, body: body, series: series, session: sessionName)
+    print(success)
+    
+    if success.contains(false) {
+        return false
+    } else {
+        return true
+    }
 }
 
 func createNotification(identifier: String, date: DateComponents, title: String, body: String, series: String, session: String) async -> Bool {
@@ -87,9 +98,6 @@ func createNotification(identifier: String, date: DateComponents, title: String,
 }
 
 func rescheduleNotifications(time: Int) async -> Void {
-    // Save option ot User Defaults
-    UserDefaults.standard.set(time, forKey: "Notification")
-    
     // Update all Notifications
     let center = UNUserNotificationCenter.current();
     let notifications = await center.pendingNotificationRequests();
@@ -138,14 +146,16 @@ func removeInvalidNotifications(appData: AppData) async {
     }
         
     let identifiers = invalidNotifications.map { $0.identifier }
-    
+    print("Removing: \(identifiers)")
     center.removePendingNotificationRequests(withIdentifiers: identifiers)
 }
 
-func notificationButtonDisabled(sessionDate: Date) -> Bool {
-    let notificationTimeSetting = UserDefaults.standard.integer(forKey: "Notification");
-    
-    return sessionDate.addingTimeInterval(TimeInterval(-notificationTimeSetting * 60)).timeIntervalSinceNow <= 0
+func notificationButtonDisabled(sessionDate: Date, userDefaults: UserDefaultsController) -> Bool {
+    if let firstOffset = userDefaults.offsetValues.first {
+        return sessionDate.addingTimeInterval(TimeInterval(-firstOffset * 60)).timeIntervalSinceNow <= 0
+    } else {
+        return false
+    }
 }
 
 func checkForExistingNotification(sessionDate: Date) async -> Bool {

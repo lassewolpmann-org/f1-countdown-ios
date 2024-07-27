@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct SettingsTab: View {
-    var appData: AppData;
-
+    var appData: AppData
+    var userDefaults: UserDefaultsController
+    
     var body: some View {
         NavigationStack {
             List {
@@ -20,7 +21,7 @@ struct SettingsTab: View {
                 }
                 
                 Section {
-                    NotificationTime(appData: appData)
+                    NotificationTime(appData: appData, userDefaults: userDefaults)
                     RemoveNotificationsButton()
                 } header: {
                     Text("Notifications")
@@ -45,5 +46,5 @@ struct SettingsTab: View {
 }
 
 #Preview {
-    SettingsTab(appData: AppData())
+    SettingsTab(appData: AppData(), userDefaults: UserDefaultsController())
 }

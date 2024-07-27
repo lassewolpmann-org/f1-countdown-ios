@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    var appData: AppData;
+    var appData: AppData
+    var userDefaults: UserDefaultsController
     
     var body: some View {
         TabView {
@@ -36,5 +37,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(appData: AppData())
+    ContentView(appData: AppData(), userDefaults: UserDefaultsController())
 }

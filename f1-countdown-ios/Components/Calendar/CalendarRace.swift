@@ -61,6 +61,7 @@ struct CalendarRace: View {
                         }
                     }
                 }
+                .font(.footnote)
                 .foregroundStyle(.secondary)
                 
                 Divider()
@@ -84,6 +85,7 @@ struct CalendarRace: View {
                         }
                     }
                     .strikethrough(session.value.endDate.timeIntervalSinceNow < 0)
+                    .opacity(session.value.endDate.timeIntervalSinceNow < 0 ? 0.5 : 1.0)
                 }
             }
             .padding(.vertical, 20)

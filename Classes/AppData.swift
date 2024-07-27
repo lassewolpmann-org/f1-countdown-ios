@@ -22,14 +22,13 @@ enum AppDataError: Error {
 
 @Observable class AppData {
     let availableSeries: [String] = ["f1", "f2", "f3", "f1-academy"]
+    let notificationOffsetOptions = [0, 5, 10, 15, 30, 60]
+
     var currentSeries: String
     var seriesData: [String: [RaceData]]
     var sessionLengths: [String: [String: Int]]
     var dataLoaded: Bool
     var calendarSearchFilter = ""
-    
-    var notificationOffsetOptions = [0, 5, 10, 15, 30, 60]
-    var selectedOffsetOption: Int
     
     // MARK: Init Class
     init() {
@@ -37,7 +36,6 @@ enum AppDataError: Error {
         self.seriesData = [:]
         self.sessionLengths = [:]
         self.dataLoaded = false
-        self.selectedOffsetOption = UserDefaults.standard.integer(forKey: "Notification")
         
         Task {
             do {

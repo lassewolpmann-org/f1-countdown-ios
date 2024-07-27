@@ -13,7 +13,7 @@ struct CalendarTab: View {
     var body: some View {
         NavigationStack {
             ScrollView(.horizontal) {
-                HStack(spacing: 20) {
+                LazyHStack(spacing: 20) {
                     ForEach(appData.filteredRaces) { race in
                         if let index = appData.filteredRaces.firstIndex(of: race) {
                             let previousIndex = appData.filteredRaces.index(before: index)
