@@ -42,6 +42,7 @@ class NotificationController {
         
         let notificationDate = sessionDate.addingTimeInterval(TimeInterval(offset * -60))
         let dateComponents = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: notificationDate)
+        
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
         let content = UNMutableNotificationContent()
         
