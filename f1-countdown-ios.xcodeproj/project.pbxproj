@@ -22,6 +22,7 @@
 		251DC16E2BD0FD0300D08D56 /* WeatherButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251DC16D2BD0FD0300D08D56 /* WeatherButton.swift */; };
 		251DC1702BD0FD0C00D08D56 /* InfoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251DC16F2BD0FD0C00D08D56 /* InfoButton.swift */; };
 		2521762B2B08BEB00023C9B3 /* SessionWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2521762A2B08BEB00023C9B3 /* SessionWeather.swift */; };
+		2528462C2C5765B00064D5FE /* SessionWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2528462B2C5765B00064D5FE /* SessionWeather.swift */; };
 		252976912C5242E10088E35D /* CalendarRace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252976902C5242E10088E35D /* CalendarRace.swift */; };
 		2534A14B2B287279003B0BE3 /* CountryFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2534A14A2B287279003B0BE3 /* CountryFlags.swift */; };
 		2534A14C2B287279003B0BE3 /* CountryFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2534A14A2B287279003B0BE3 /* CountryFlags.swift */; };
@@ -53,15 +54,8 @@
 		25C06D4E2BD2AF6500A375A4 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 25C06D4D2BD2AF6500A375A4 /* PrivacyInfo.xcprivacy */; };
 		25C06D4F2BD2AF6500A375A4 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 25C06D4D2BD2AF6500A375A4 /* PrivacyInfo.xcprivacy */; };
 		25C06D502BD2AF6500A375A4 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 25C06D4D2BD2AF6500A375A4 /* PrivacyInfo.xcprivacy */; };
-		25C6C5452B17799500818265 /* RaceTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C5442B17799500818265 /* RaceTitle.swift */; };
-		25C6C5462B17799500818265 /* RaceTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C5442B17799500818265 /* RaceTitle.swift */; };
-		25C6C5522B1779FC00818265 /* DateFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C5512B1779FC00818265 /* DateFormatters.swift */; };
-		25C6C5532B1779FC00818265 /* DateFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C5512B1779FC00818265 /* DateFormatters.swift */; };
-		25C6C5552B177A0F00818265 /* SessionName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C5542B177A0F00818265 /* SessionName.swift */; };
-		25C6C5562B177A0F00818265 /* SessionName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C5542B177A0F00818265 /* SessionName.swift */; };
 		25C6C5592B177DB400818265 /* SessionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C5582B177DB400818265 /* SessionInfo.swift */; };
 		25D5AF512BEDED1600B6F656 /* WeatherElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F1D8722B853A53007D360F /* WeatherElement.swift */; };
-		25D5AF522BEDED6C00B6F656 /* SessionWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2521762A2B08BEB00023C9B3 /* SessionWeather.swift */; };
 		25DA1FB42B70C659008615FD /* TrademarkNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DA1FB32B70C659008615FD /* TrademarkNotice.swift */; };
 		25DE90792B09168A00632B61 /* NotificationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DE90782B09168A00632B61 /* NotificationButton.swift */; };
 		25EDC7952B054D320094DBBA /* TimerElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDC7942B054D320094DBBA /* TimerElement.swift */; };
@@ -75,9 +69,6 @@
 		25F11CB42BD0204B007D0DE6 /* CountryFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2534A14A2B287279003B0BE3 /* CountryFlags.swift */; };
 		25F11CB52BD0204F007D0DE6 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2575791F2B84C4FA00FC1A81 /* WeatherData.swift */; };
 		25F11CB62BD02050007D0DE6 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2575791F2B84C4FA00FC1A81 /* WeatherData.swift */; };
-		25F11CB82BD0205A007D0DE6 /* RaceTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C5442B17799500818265 /* RaceTitle.swift */; };
-		25F11CB92BD0205C007D0DE6 /* DateFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C5512B1779FC00818265 /* DateFormatters.swift */; };
-		25F11CBA2BD0205E007D0DE6 /* SessionName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C5542B177A0F00818265 /* SessionName.swift */; };
 		25F11CC72BD02105007D0DE6 /* f1_countdown_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257959D52B04FB000033DFAB /* f1_countdown_iosApp.swift */; };
 		25F11CCD2BD031D7007D0DE6 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F11CCC2BD031D7007D0DE6 /* Session.swift */; };
 		25F11CCF2BD03361007D0DE6 /* TimerCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F11CCE2BD03361007D0DE6 /* TimerCircle.swift */; };
@@ -159,6 +150,7 @@
 		251DC1712BD0FFDB00D08D56 /* WatchTimer Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "WatchTimer Watch App.entitlements"; sourceTree = "<group>"; };
 		2521762A2B08BEB00023C9B3 /* SessionWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionWeather.swift; sourceTree = "<group>"; };
 		2521762C2B08C4270023C9B3 /* f1-countdown-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "f1-countdown-ios.entitlements"; sourceTree = "<group>"; };
+		2528462B2C5765B00064D5FE /* SessionWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionWeather.swift; sourceTree = "<group>"; };
 		252976902C5242E10088E35D /* CalendarRace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarRace.swift; sourceTree = "<group>"; };
 		2534A14A2B287279003B0BE3 /* CountryFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryFlags.swift; sourceTree = "<group>"; };
 		2540A4232B973F9A00684AEA /* SeriesPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesPicker.swift; sourceTree = "<group>"; };
@@ -186,9 +178,6 @@
 		25BE0E472B2349E20089B5BA /* DeltaValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaValues.swift; sourceTree = "<group>"; };
 		25BFB0312B0F68D90062E4BC /* SettingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTab.swift; sourceTree = "<group>"; };
 		25C06D4D2BD2AF6500A375A4 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		25C6C5442B17799500818265 /* RaceTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceTitle.swift; sourceTree = "<group>"; };
-		25C6C5512B1779FC00818265 /* DateFormatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatters.swift; sourceTree = "<group>"; };
-		25C6C5542B177A0F00818265 /* SessionName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionName.swift; sourceTree = "<group>"; };
 		25C6C5582B177DB400818265 /* SessionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionInfo.swift; sourceTree = "<group>"; };
 		25DA1FB32B70C659008615FD /* TrademarkNotice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrademarkNotice.swift; sourceTree = "<group>"; };
 		25DE90782B09168A00632B61 /* NotificationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationButton.swift; sourceTree = "<group>"; };
@@ -302,9 +291,10 @@
 		25486B1B2B9851CA002681A7 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				2507CEB52C556BE000272430 /* NotificationController.swift */,
 				251C655E2B73779B003E4A13 /* AppData.swift */,
+				2507CEB52C556BE000272430 /* NotificationController.swift */,
 				256A0DC12C5425BD00B11D4B /* UserDefaultsController.swift */,
+				2575791F2B84C4FA00FC1A81 /* WeatherData.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -318,7 +308,6 @@
 				25125EFB2B14914400CA10EE /* Config.xcconfig */,
 				25486B1B2B9851CA002681A7 /* Classes */,
 				25C6C53D2B17793B00818265 /* Structs */,
-				25C6C5382B1778D200818265 /* Helpers */,
 				257959D42B04FB000033DFAB /* f1-countdown-ios */,
 				2505E69B2B0F843E00876783 /* TimerWidget */,
 				25F11C842BD01E97007D0DE6 /* WatchTimer Watch App */,
@@ -434,23 +423,12 @@
 			path = Footer;
 			sourceTree = "<group>";
 		};
-		25C6C5382B1778D200818265 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				25C6C5442B17799500818265 /* RaceTitle.swift */,
-				25C6C5512B1779FC00818265 /* DateFormatters.swift */,
-				25C6C5542B177A0F00818265 /* SessionName.swift */,
-			);
-			path = Helpers;
-			sourceTree = "<group>";
-		};
 		25C6C53D2B17793B00818265 /* Structs */ = {
 			isa = PBXGroup;
 			children = (
 				2534A14A2B287279003B0BE3 /* CountryFlags.swift */,
 				25BE0E472B2349E20089B5BA /* DeltaValues.swift */,
 				2571837D2B73B264003D12F9 /* RaceData.swift */,
-				2575791F2B84C4FA00FC1A81 /* WeatherData.swift */,
 			);
 			path = Structs;
 			sourceTree = "<group>";
@@ -499,6 +477,7 @@
 				251DC16C2BD0FCFA00D08D56 /* Buttons */,
 				25F11CCC2BD031D7007D0DE6 /* Session.swift */,
 				25F11CCE2BD03361007D0DE6 /* TimerCircle.swift */,
+				2528462B2C5765B00064D5FE /* SessionWeather.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -645,13 +624,10 @@
 				2571837C2B73B241003D12F9 /* DeltaValues.swift in Sources */,
 				25B404192B10B3D7007EF384 /* Medium.swift in Sources */,
 				256A0DC32C5425BD00B11D4B /* UserDefaultsController.swift in Sources */,
-				25C6C5462B17799500818265 /* RaceTitle.swift in Sources */,
 				2505E69D2B0F843E00876783 /* TimerWidgetBundle.swift in Sources */,
 				2507CEB72C556BE000272430 /* NotificationController.swift in Sources */,
-				25C6C5532B1779FC00818265 /* DateFormatters.swift in Sources */,
 				25C6C5592B177DB400818265 /* SessionInfo.swift in Sources */,
 				2571837F2B73B264003D12F9 /* RaceData.swift in Sources */,
-				25C6C5562B177A0F00818265 /* SessionName.swift in Sources */,
 				25B4041B2B10B660007EF384 /* Large.swift in Sources */,
 				2505E6B32B10842700876783 /* NextUpdateDate.swift in Sources */,
 				25B8C1512B8DFF2B009A270C /* WidgetHeader.swift in Sources */,
@@ -679,10 +655,8 @@
 				25DA1FB42B70C659008615FD /* TrademarkNotice.swift in Sources */,
 				256A0DC22C5425BD00B11D4B /* UserDefaultsController.swift in Sources */,
 				25B5C3F42B6B7D4300057E4D /* SettingsFooter.swift in Sources */,
-				25C6C5552B177A0F00818265 /* SessionName.swift in Sources */,
 				25FA35FA2BCEE5760044B586 /* WeatherLicense.swift in Sources */,
 				252976912C5242E10088E35D /* CalendarRace.swift in Sources */,
-				25C6C5522B1779FC00818265 /* DateFormatters.swift in Sources */,
 				257579202B84C4FA00FC1A81 /* WeatherData.swift in Sources */,
 				2540A4242B973F9A00684AEA /* SeriesPicker.swift in Sources */,
 				2534A14B2B287279003B0BE3 /* CountryFlags.swift in Sources */,
@@ -693,7 +667,6 @@
 				257959D62B04FB000033DFAB /* f1_countdown_iosApp.swift in Sources */,
 				25B5C3EF2B6B7CF400057E4D /* DataLicense.swift in Sources */,
 				2591C4A82B8C839000F87BE9 /* NotificationTime.swift in Sources */,
-				25C6C5452B17799500818265 /* RaceTitle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -703,14 +676,12 @@
 			files = (
 				251DC1702BD0FD0C00D08D56 /* InfoButton.swift in Sources */,
 				25F11CCF2BD03361007D0DE6 /* TimerCircle.swift in Sources */,
+				2528462C2C5765B00064D5FE /* SessionWeather.swift in Sources */,
 				251DC16E2BD0FD0300D08D56 /* WeatherButton.swift in Sources */,
 				25F11C882BD01E97007D0DE6 /* ContentView.swift in Sources */,
 				25F11CB32BD02049007D0DE6 /* DeltaValues.swift in Sources */,
-				25F11CB82BD0205A007D0DE6 /* RaceTitle.swift in Sources */,
 				25F11CCD2BD031D7007D0DE6 /* Session.swift in Sources */,
 				25F11CB62BD02050007D0DE6 /* WeatherData.swift in Sources */,
-				25F11CBA2BD0205E007D0DE6 /* SessionName.swift in Sources */,
-				25F11CB92BD0205C007D0DE6 /* DateFormatters.swift in Sources */,
 				25F11CB22BD02045007D0DE6 /* RaceData.swift in Sources */,
 				25F11CB42BD0204B007D0DE6 /* CountryFlags.swift in Sources */,
 				2507CEB82C556BE000272430 /* NotificationController.swift in Sources */,
@@ -718,7 +689,6 @@
 				25D5AF512BEDED1600B6F656 /* WeatherElement.swift in Sources */,
 				25F11CB12BD01FE0007D0DE6 /* AppData.swift in Sources */,
 				256A0DC42C5425BD00B11D4B /* UserDefaultsController.swift in Sources */,
-				25D5AF522BEDED6C00B6F656 /* SessionWeather.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

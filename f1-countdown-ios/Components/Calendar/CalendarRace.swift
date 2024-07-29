@@ -16,7 +16,7 @@ struct CalendarRace: View {
         ScrollView(.vertical) {
             VStack(alignment: .center, spacing: 20) {
                 VStack {
-                    Text(getRaceTitle(race: race))
+                    Text(race.title)
                         .font(.title2)
                         .bold()
                     
@@ -67,19 +67,17 @@ struct CalendarRace: View {
                 Divider()
                 
                 ForEach(race.sortedSessions, id: \.key) { session in
-                    let sessionDate = SessionDate(d: session.value.startDate)
-                    
                     VStack {
                         HStack {
-                            Text(session.value.formattedName)
+                            Text(session.value.longName)
                                 .foregroundStyle(.red)
                             Spacer()
-                            Text(sessionDate.dayString)
+                            Text(session.value.dayString)
                                 .foregroundStyle(.secondary)
                         }
                         
                         HStack {
-                            Text(sessionDate.dateString)
+                            Text(session.value.dateString)
                             Spacer()
                             Text(DateInterval(start: session.value.startDate, end: session.value.endDate))
                         }
@@ -97,35 +95,6 @@ struct CalendarRace: View {
                 .fill(.ultraThinMaterial.shadow(.drop(radius: 3)))
         )
         .padding(.vertical, 15)
-    }
-}
-
-struct SessionDate {
-    let date: Date
-    let dateFormatter = DateFormatter()
-    
-    init(d: Date) {
-        self.date = d
-    }
-    
-    var dateString: String {
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
-        
-        return dateFormatter.string(from: date)
-    }
-    
-    var timeString: String {
-        dateFormatter.dateStyle = .none
-        dateFormatter.timeStyle = .short
-        
-        return dateFormatter.string(from: date)
-    }
-    
-    var dayString: String {
-        dateFormatter.dateFormat = "EEEE"
-        
-        return dateFormatter.string(from: date)
     }
 }
 

@@ -51,7 +51,7 @@ struct SessionWeather: View {
                 .foregroundStyle(.secondary)
                 
             }
-            .navigationTitle(session.formattedName)
+            .navigationTitle(session.longName)
             .toolbar {
                 ToolbarItem {
                     Button {
@@ -74,7 +74,7 @@ struct SessionWeather: View {
     VStack {
     }.sheet(isPresented: .constant(true)) {
         let nextRace = RaceData();
-        SessionWeather(weather: WeatherData(), race: nextRace, session: SessionData())
+        SessionWeather(weather: WeatherData(), race: nextRace, session: SessionData(rawName: "undefined"))
             .presentationDetents([.medium])
     }
 }

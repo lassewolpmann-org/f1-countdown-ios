@@ -15,9 +15,101 @@ func calcFutureDate(days: Double) -> String {
 }
 
 struct SessionData {
-    var formattedName: String = "Session"
+    let dateFormatter = DateFormatter()
+    let rawName: String
+    
     var startDate: Date = Date().addingTimeInterval(5)
     var endDate: Date = Date().addingTimeInterval(10)
+    
+    var dateString: String {
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        
+        return dateFormatter.string(from: startDate)
+    }
+    
+    var timeString: String {
+        dateFormatter.dateStyle = .none
+        dateFormatter.timeStyle = .short
+        
+        return dateFormatter.string(from: startDate)
+    }
+    
+    var dayString: String {
+        dateFormatter.dateFormat = "EEEE"
+        
+        return dateFormatter.string(from: startDate)
+    }
+    
+    var shortName: String {
+        switch (self.rawName) {
+        case "fp1":
+            return "FP1"
+        case "fp2":
+            return "FP2"
+        case "fp3":
+            return "FP3"
+        case "practice":
+            return "P"
+        case "qualifying":
+            return "Q"
+        case "qualifying1":
+            return "Q1"
+        case "qualifying2":
+            return "Q2"
+        case "sprintQualifying":
+            return "SQ"
+        case "sprint":
+            return "Sprint"
+        case "gp":
+            return "Race"
+        case "feature":
+            return "Feature"
+        case "race1":
+            return "Race 1"
+        case "race2":
+            return "Race 2"
+        case "race3":
+            return "Race 3"
+        default:
+            return "?"
+        }
+    }
+    
+    var longName: String {
+        switch (self.rawName) {
+        case "fp1":
+            return "Free Practice 1"
+        case "fp2":
+            return "Free Practice 2"
+        case "fp3":
+            return "Free Practice 3"
+        case "practice":
+            return "Practice"
+        case "qualifying":
+            return "Qualifying"
+        case "qualifying1":
+            return "1st Qualifying"
+        case "qualifying2":
+            return "2nd Qualifying"
+        case "sprintQualifying":
+            return "Sprint Qualifying"
+        case "sprint":
+            return "Sprint"
+        case "gp":
+            return "Race"
+        case "feature":
+            return "Feature"
+        case "race1":
+            return "1st Race"
+        case "race2":
+            return "2nd Race"
+        case "race3":
+            return "3rd Race"
+        default:
+            return "Undefined Session"
+        }
+    }
 }
 
 struct RaceData: Decodable, Identifiable, Hashable {
@@ -50,14 +142,14 @@ struct RaceData: Decodable, Identifiable, Hashable {
         let formattedSessions: [(key: String, value: SessionData)] = fixedSessions.map { session in
             let sessionName = session.key
             let startDateString = session.value
-            guard let sessionLength = sessionLengths?[sessionName] else { return (key: sessionName, value: SessionData()) }
+            guard let sessionLength = sessionLengths?[sessionName] else { return (key: sessionName, value: SessionData(rawName: sessionName)) }
             
             let formatter = ISO8601DateFormatter()
             
-            guard let startDate = formatter.date(from: startDateString) else { return (key: sessionName, value: SessionData()) }
+            guard let startDate = formatter.date(from: startDateString) else { return (key: sessionName, value: SessionData(rawName: sessionName)) }
             let endDate = startDate.addingTimeInterval(Double(sessionLength) * 60)
                         
-            return (key: sessionName, value: SessionData(formattedName: parseSessionName(sessionName: sessionName), startDate: startDate, endDate: endDate))
+            return (key: sessionName, value: SessionData(rawName: sessionName, startDate: startDate, endDate: endDate))
         }
         
         return formattedSessions
@@ -93,5 +185,16 @@ struct RaceData: Decodable, Identifiable, Hashable {
     
     var id: String {
         name
+    }
+    
+    var title: String {
+        let name = self.name;
+        let flag = self.flag;
+        
+        if (name.contains("Grand Prix")) {
+            return "\(flag) \(name)"
+        } else {
+            return "\(flag) \(name) Grand Prix"
+        }
     }
 }

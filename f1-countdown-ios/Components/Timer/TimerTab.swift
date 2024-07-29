@@ -38,7 +38,7 @@ struct TimerTab: View {
                         }
                     }
                     .padding(.horizontal, 10)
-                    .navigationTitle(getRaceTitle(race: nextRace))
+                    .navigationTitle(nextRace.title)
                 } else {
                     Label {
                         Text("It seems like there is no data available to display here.")

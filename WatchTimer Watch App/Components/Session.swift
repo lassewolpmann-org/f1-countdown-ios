@@ -41,19 +41,17 @@ struct Session: View {
                 )
             
             HStack {
-                // WeatherButton(showWeatherSheet: $showWeatherSheet)
+                WeatherButton(showWeatherSheet: $showWeatherSheet)
                 Spacer()
                 InfoButton(showInfoSheet: $showInfoSheet)
             }
         }
-        /*
         .sheet(isPresented: $showWeatherSheet, content: {
             ScrollView {
-                SessionWeather(race: nextRace, series: appData.series, session: session)
+                SessionWeather(race: nextRace, session: session)
                     .labelStyle(.iconOnly)
             }
         })
-         */
         .sheet(isPresented: $showInfoSheet, content: {
             ScrollView(.vertical) {
                 VStack(alignment: .leading) {
@@ -105,9 +103,9 @@ struct Session: View {
 
 #Preview {
     TabView {
-        let session = SessionData()
+        let session = SessionData(rawName: "undefined")
         
-        Session(appData: AppData(), nextRace: RaceData(), session: session, name: parseShortSessionName(sessionName: "fp1"), delta: DeltaValues(date: session.startDate))
+        Session(appData: AppData(), nextRace: RaceData(), session: session, name: session.shortName, delta: DeltaValues(date: session.startDate))
     }
     .tabViewStyle(.verticalPage)
 }

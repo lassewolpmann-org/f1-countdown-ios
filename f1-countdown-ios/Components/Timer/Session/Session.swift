@@ -23,7 +23,7 @@ struct Session: View {
     var body: some View {
         VStack {
             HStack {
-                Text(session.formattedName)
+                Text(session.longName)
                     .font(.headline)
                     .foregroundStyle(.secondary)
                 
@@ -115,7 +115,7 @@ struct Session: View {
 
 #Preview {
     ScrollView {
-        let session = SessionData()
+        let session = SessionData(rawName: "undefined")
         Session(appData: AppData(), userDefaults: UserDefaultsController(), notificationController: NotificationController(), nextRace: RaceData(), session: session, status: .finished, delta: DeltaValues(date: session.startDate))
     }
 }

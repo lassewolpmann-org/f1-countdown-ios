@@ -13,7 +13,7 @@ struct WidgetHeader: View {
     
     var body: some View {
         HStack {
-            Text(getRaceTitle(race: entry.race))
+            Text(entry.race.title)
                 .font(.headline)
             Spacer()
             

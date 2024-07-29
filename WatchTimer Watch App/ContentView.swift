@@ -14,23 +14,12 @@ struct ContentView: View {
     
     var body: some View {
         TabView {
-            let nextRace = appData.nextRace ?? RaceData()
-            
-            /*
-            ForEach(nextRace.pastSessions, id: \.key) { session in
-                let sessionName = parseShortSessionName(sessionName: session.key)
-                Session(appData: appData, nextRace: nextRace, session: session.value, name: sessionName, delta: session.value.delta)
-            }
-            
-            ForEach(nextRace.ongoingSessions, id: \.key) { session in
-                let sessionName = parseShortSessionName(sessionName: session.key)
-                Session(appData: appData, nextRace: nextRace, session: session.value, name: sessionName, delta: session.value.delta)
-            }
-             */
-            
-            ForEach(nextRace.futureSessions, id: \.key) { session in
-                let sessionName = parseShortSessionName(sessionName: session.key)
-                Session(appData: appData, nextRace: nextRace, session: session.value, name: sessionName, delta: DeltaValues(date: session.value.startDate))
+            if let nextRace = appData.nextRace {
+                ForEach(nextRace.futureSessions, id: \.key) { session in
+                    Session(appData: appData, nextRace: nextRace, session: session.value, name: session.value.shortName, delta: DeltaValues(date: session.value.startDate))
+                }
+            } else {
+                Text("No data available.")
             }
         }
         .tabViewStyle(.verticalPage)

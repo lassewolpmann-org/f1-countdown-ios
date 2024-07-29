@@ -14,12 +14,12 @@ struct SessionInfo: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Text(session.formattedName)
+                Text(session.longName)
                     .foregroundStyle(.red)
                 
                 Spacer()
                 
-                Text(getDayName(date: session.startDate))
+                Text(session.dayString)
                     .foregroundStyle(.secondary)
             }
             

@@ -40,7 +40,7 @@ struct NotificationButton: View {
                             let notificationDate = session.startDate.addingTimeInterval(TimeInterval(offset * -60))
                             guard notificationDate.timeIntervalSinceNow > 0 else { continue }
                             
-                            notificationEnabled = await notificationController.addNotification(sessionDate: session.startDate, sessionName: session.formattedName, series: series.uppercased(), title: getRaceTitle(race: race), offset: offset)
+                            notificationEnabled = await notificationController.addNotification(sessionDate: session.startDate, sessionName: session.longName, series: series.uppercased(), title: race.title, offset: offset)
                         }
                     } else if (status == .notDetermined) {
                         await notificationController.createNotificationPermission()
@@ -86,5 +86,5 @@ struct NotificationButton: View {
 }
 
 #Preview {
-    NotificationButton(userDefaults: UserDefaultsController(), notificationController: NotificationController(), session: SessionData(), race: RaceData(), series: "f1")
+    NotificationButton(userDefaults: UserDefaultsController(), notificationController: NotificationController(), session: SessionData(rawName: "undefined"), race: RaceData(), series: "f1")
 }
