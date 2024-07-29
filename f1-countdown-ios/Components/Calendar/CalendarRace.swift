@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct CalendarRace: View {
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+
     let race: RaceData
     let previousRace: RaceData?
     let followingRace: RaceData?
@@ -89,7 +91,11 @@ struct CalendarRace: View {
             .padding(.vertical, 20)
             .padding(.horizontal, 15)
         }
-        .containerRelativeFrame(.horizontal)
+        .containerRelativeFrame(.horizontal, { length, axis in
+            return horizontalSizeClass == .regular
+            ? (length / 2) - 10
+            : length
+        })
         .background(
             RoundedRectangle(cornerRadius: 15)
                 .fill(.ultraThinMaterial.shadow(.drop(radius: 3)))
