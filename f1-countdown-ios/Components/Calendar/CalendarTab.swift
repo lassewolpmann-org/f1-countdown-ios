@@ -14,15 +14,11 @@ struct CalendarTab: View {
         NavigationStack {
             ScrollView(.horizontal) {
                 LazyHStack(spacing: 20) {
-                    ForEach(appData.filteredRaces) { race in
-                        if let index = appData.filteredRaces.firstIndex(of: race) {
-                            let previousIndex = appData.filteredRaces.index(before: index)
-                            let followingIndex = appData.filteredRaces.index(after: index)
-                            
-                            let previousRace = appData.filteredRaces[safe: previousIndex]
-                            let followingRace = appData.filteredRaces[safe: followingIndex]
-                            
-                            CalendarRace(race: race, previousRace: previousRace, followingRace: followingRace)
+                    ForEach(appData.filteredRaces.indices, id: \.self) { currentIndex in
+                        let previousRace = appData.filteredRaces[safe: currentIndex - 1]
+                        let followingRace = appData.filteredRaces[safe: currentIndex + 1]
+                        if let currentRace = appData.filteredRaces[safe: currentIndex] {
+                            CalendarRace(race: currentRace, previousRace: previousRace, followingRace: followingRace)
                             .scrollTransition { content, phase in
                                 content
                                     .opacity(phase.isIdentity ? 1.0 : 0.5)
