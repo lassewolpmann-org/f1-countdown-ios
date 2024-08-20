@@ -15,7 +15,48 @@ struct TimerTab: View {
     var appData: AppData
     var userDefaults: UserDefaultsController
     var notificationController: NotificationController
+    
+    @State var icon: Image?
 
+    private func checkForExistingNotifications() async -> Bool {
+        if let nextRace = appData.nextRace {
+            let sessionDates = nextRace.futureSessions.map { $0.value.startDate }
+            if let notificationsDates = await notificationController.currentNotifications.map({ $0.content.userInfo["sessionDate"] }) as? Array<Date> {
+                let set1: Set<Date> = Set(sessionDates)
+                let set2: Set<Date> = Set(notificationsDates)
+                
+                let intersect = set1.intersection(set2)
+                if (intersect.count == 0) {
+                    return false
+                } else {
+                    return true
+                }
+            }
+                        
+            return false
+        } else {
+            return false
+        }
+    }
+    
+    private func removeNotifications() async -> Void {
+        if let nextRace = appData.nextRace {
+            let sessionDates = nextRace.futureSessions.map { $0.value.startDate }
+            let offsets = userDefaults.selectedOffsetOptions
+            let sessionDatesWithOffsets = sessionDates.flatMap { date in
+                let dateWithOffsets = offsets.map { offset in
+                    date.addingTimeInterval(TimeInterval(offset * -60))
+                }
+                
+                let dateStrings = dateWithOffsets.map { ISO8601DateFormatter().string(from: $0) }
+                
+                return dateStrings
+            }
+            
+            notificationController.center.removePendingNotificationRequests(withIdentifiers: sessionDatesWithOffsets)
+        }
+    }
+    
     var body: some View {
         NavigationStack {
             ScrollView(.vertical) {
@@ -51,6 +92,26 @@ struct TimerTab: View {
                 }
             }
             .background(FlagBackground(flag: appData.nextRace?.flag ?? ""))
+            .toolbar {
+                Button {
+                    Task {
+                        if (await checkForExistingNotifications()) {
+                            await removeNotifications()
+                            
+                            // TODO: UI ISN'T UPDATED AFTER REMOVING NOTIFICATIONS
+                        } else {
+                            // TODO: ADD NOTIFICATIONS
+                        }
+                    }
+                } label: {
+                    icon
+                }
+                .task {
+                    icon = await checkForExistingNotifications()
+                    ? Image(systemName: "bell.slash")
+                    : Image(systemName: "bell")
+                }
+            }
         }
         .refreshable {
             do {
