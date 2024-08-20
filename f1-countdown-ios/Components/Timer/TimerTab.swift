@@ -50,19 +50,7 @@ struct TimerTab: View {
                     .navigationTitle("Timer")
                 }
             }
-            .background(
-                GeometryReader { geo in
-                    if let flag = appData.nextRace?.flag {
-                        Text(flag)
-                            .font(.system(size: 1000))
-                            .minimumScaleFactor(0.005)
-                            .lineLimit(1)
-                            .frame(width: geo.size.width, height: geo.size.height)
-                            .rotationEffect(.degrees(90))
-                            .blur(radius: 50)
-                    }
-                }
-            )
+            .background(FlagBackground(flag: appData.nextRace?.flag ?? ""))
         }
         .refreshable {
             do {

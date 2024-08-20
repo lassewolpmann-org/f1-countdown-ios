@@ -26,6 +26,7 @@
 		252976912C5242E10088E35D /* CalendarRace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252976902C5242E10088E35D /* CalendarRace.swift */; };
 		2534A14B2B287279003B0BE3 /* CountryFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2534A14A2B287279003B0BE3 /* CountryFlags.swift */; };
 		2534A14C2B287279003B0BE3 /* CountryFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2534A14A2B287279003B0BE3 /* CountryFlags.swift */; };
+		2534D9E12C747E170095551D /* FlagBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2534D9E02C747E170095551D /* FlagBackground.swift */; };
 		2540A4242B973F9A00684AEA /* SeriesPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2540A4232B973F9A00684AEA /* SeriesPicker.swift */; };
 		256A0DC22C5425BD00B11D4B /* UserDefaultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256A0DC12C5425BD00B11D4B /* UserDefaultsController.swift */; };
 		256A0DC32C5425BD00B11D4B /* UserDefaultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256A0DC12C5425BD00B11D4B /* UserDefaultsController.swift */; };
@@ -153,6 +154,7 @@
 		2528462B2C5765B00064D5FE /* SessionWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionWeather.swift; sourceTree = "<group>"; };
 		252976902C5242E10088E35D /* CalendarRace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarRace.swift; sourceTree = "<group>"; };
 		2534A14A2B287279003B0BE3 /* CountryFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryFlags.swift; sourceTree = "<group>"; };
+		2534D9E02C747E170095551D /* FlagBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlagBackground.swift; sourceTree = "<group>"; };
 		2540A4232B973F9A00684AEA /* SeriesPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesPicker.swift; sourceTree = "<group>"; };
 		256A0DC12C5425BD00B11D4B /* UserDefaultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsController.swift; sourceTree = "<group>"; };
 		2571837D2B73B264003D12F9 /* RaceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceData.swift; sourceTree = "<group>"; };
@@ -280,6 +282,14 @@
 			path = Buttons;
 			sourceTree = "<group>";
 		};
+		2534D9DF2C747E070095551D /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				2534D9E02C747E170095551D /* FlagBackground.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		2540A4222B973F8F00684AEA /* Series */ = {
 			isa = PBXGroup;
 			children = (
@@ -307,6 +317,7 @@
 				25BC66F72B6A9310006DCE8D /* README.md */,
 				25125EFB2B14914400CA10EE /* Config.xcconfig */,
 				25486B1B2B9851CA002681A7 /* Classes */,
+				2534D9DF2C747E070095551D /* Components */,
 				25C6C53D2B17793B00818265 /* Structs */,
 				257959D42B04FB000033DFAB /* f1-countdown-ios */,
 				2505E69B2B0F843E00876783 /* TimerWidget */,
@@ -646,6 +657,7 @@
 				25AF34682B2FA79F00E7D83A /* CalendarTab.swift in Sources */,
 				257959D82B04FB000033DFAB /* ContentView.swift in Sources */,
 				25AF34612B2F98CA00E7D83A /* TimerTab.swift in Sources */,
+				2534D9E12C747E170095551D /* FlagBackground.swift in Sources */,
 				2571837E2B73B264003D12F9 /* RaceData.swift in Sources */,
 				25BE0E482B2349E20089B5BA /* DeltaValues.swift in Sources */,
 				251C655F2B73779B003E4A13 /* AppData.swift in Sources */,

@@ -96,10 +96,8 @@ struct CalendarRace: View {
             ? (length / 2) - 10
             : length
         })
-        .background(
-            RoundedRectangle(cornerRadius: 15)
-                .fill(.ultraThinMaterial.shadow(.drop(radius: 3)))
-        )
+        .background(RoundedRectangle(cornerRadius: 10).fill(.ultraThinMaterial))
+        .background(FlagBackground(flag: race.flag))
         .padding(.vertical, 15)
     }
 }

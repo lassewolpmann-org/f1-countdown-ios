@@ -80,9 +80,7 @@ struct Session: View {
                 .presentationBackground(.regularMaterial)
         })
         .padding(10)
-        .background(.ultraThinMaterial, in:
-            RoundedRectangle(cornerRadius: 10)
-        )
+        .background(RoundedRectangle(cornerRadius: 10).fill(.ultraThinMaterial))
         .onReceive(timer) { _ in
             let date = Date()
             
