@@ -66,22 +66,19 @@ struct NotificationButton: View {
         .sensoryFeedback(.success, trigger: buttonState)
         .buttonStyle(.bordered)
         .disabled(buttonDisabled)
-        .task {
+        .onAppear {
             buttonDisabled = session.startDate.timeIntervalSinceNow <= 0
-            notificationEnabled = await isNotificationEnabled()
+            notificationEnabled = isNotificationEnabled()
         }
+        .onChange(of: notificationController.currentNotificationDates, { _, _ in
+            notificationEnabled = isNotificationEnabled()
+        })
     }
     
-    func isNotificationEnabled() async -> Bool {
-        let currentNotifications = await notificationController.currentNotifications.map { $0.identifier }
-        for offset in userDefaults.selectedOffsetOptions {
-            let notificationDate = session.startDate.addingTimeInterval(TimeInterval(offset * -60))
-            if (currentNotifications.contains(notificationDate.ISO8601Format())) {
-                return true
-            }
-        }
+    func isNotificationEnabled() -> Bool {
+        let sessionDate = session.startDate
         
-        return false
+        return notificationController.currentNotificationDates.contains(sessionDate)
     }
 }
 

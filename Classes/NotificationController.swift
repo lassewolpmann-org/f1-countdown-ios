@@ -8,8 +8,15 @@
 import Foundation
 import UserNotifications
 
-class NotificationController {
+@Observable class NotificationController {
     let center = UNUserNotificationCenter.current()
+    var currentNotificationDates: Set<Date> = []
+    
+    init() {
+        Task {
+            currentNotificationDates = await getCurrentNotificationDates()
+        }
+    }
     
     // MARK: Computed properties
     var permissionStatus: UNAuthorizationStatus {
@@ -25,6 +32,18 @@ class NotificationController {
     }
     
     // MARK: Functions
+    func getCurrentNotificationDates() async -> Set<Date> {
+        let currentDates = await currentNotifications.compactMap { notification in
+            if let sessionDate = notification.content.userInfo["sessionDate"] as? Date {
+                return sessionDate
+            } else {
+                return nil
+            }
+        }
+        
+        return Set(currentDates)
+    }
+    
     func createNotificationPermission() async -> Void {
         do {
             try await center.requestAuthorization(options: [.alert, .sound, .badge])
@@ -60,6 +79,7 @@ class NotificationController {
         
         do {
             try await center.add(notification)
+            currentNotificationDates.insert(sessionDate)
         } catch {
             print(error)
         }
@@ -69,5 +89,9 @@ class NotificationController {
     
     func removeNotification(identifier: String) -> Void {
         center.removePendingNotificationRequests(withIdentifiers: [identifier])
+        
+        Task {
+            currentNotificationDates = await getCurrentNotificationDates()
+        }
     }
 }
