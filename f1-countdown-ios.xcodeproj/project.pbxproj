@@ -561,7 +561,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1530;
-				LastUpgradeCheck = 1510;
+				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					2505E6942B0F843E00876783 = {
 						CreatedOnToolsVersion = 15.0.1;
@@ -911,7 +911,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 25125EFB2B14914400CA10EE /* Config.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "f1-countdown-ios/f1-countdown-ios.entitlements";
@@ -947,7 +946,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 25125EFB2B14914400CA10EE /* Config.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "f1-countdown-ios/f1-countdown-ios.entitlements";
