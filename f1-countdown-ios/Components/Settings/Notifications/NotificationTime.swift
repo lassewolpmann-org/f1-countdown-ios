@@ -64,10 +64,11 @@ struct NotificationTime: View {
                     
                     switch difference {
                     case let .remove(_, offset, _):
-                        for date in dateSet {
-                            let dateWithOffset = date.addingTimeInterval(TimeInterval(offset * -60))
-                            notificationController.removeNotification(identifier: dateWithOffset.ISO8601Format())
+                        let dates = dateSet.map { date in
+                            return date.addingTimeInterval(TimeInterval(offset * -60)).ISO8601Format()
                         }
+                        
+                        notificationController.center.removePendingNotificationRequests(withIdentifiers: dates)
                     case let .insert(_, offset, _):
                         for date in dateSet {
                             if let currentNotification = currentNotifications.first(where: { notification in

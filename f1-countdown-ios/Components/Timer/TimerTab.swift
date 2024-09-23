@@ -17,46 +17,6 @@ struct TimerTab: View {
     var notificationController: NotificationController
     
     @State private var notificationsEnabled: Bool = false
-
-    private func checkForExistingNotifications() -> Bool {
-        if let nextRace = appData.nextRace {
-            let sessionDates = Set(nextRace.futureSessions.map { $0.value.startDate })
-            let notificationDates = notificationController.currentNotificationDates
-            let intersect = sessionDates.intersection(notificationDates)
-                        
-            if (intersect.count == 0) {
-                return false
-            } else {
-                return true
-            }
-        } else {
-            return false
-        }
-    }
-    
-    private func removeNotifications() async -> Bool {
-        if let nextRace = appData.nextRace {
-            let sessionDates = nextRace.futureSessions.map { $0.value.startDate }
-            let offsets = userDefaults.selectedOffsetOptions
-            let sessionDatesWithOffsets = sessionDates.flatMap { date in
-                let dateWithOffsets = offsets.map { offset in
-                    date.addingTimeInterval(TimeInterval(offset * -60))
-                }
-                
-                let dateStrings = dateWithOffsets.map { ISO8601DateFormatter().string(from: $0) }
-                
-                return dateStrings
-            }
-            
-            for sessionDatesWithOffset in sessionDatesWithOffsets {
-                notificationController.removeNotification(identifier: sessionDatesWithOffset)
-            }
-            
-            return false
-        } else {
-            return notificationsEnabled
-        }
-    }
     
     private func createNotifications() async -> Void {
         if let nextRace = appData.nextRace {
@@ -114,32 +74,7 @@ struct TimerTab: View {
                 }
             }
             .background(FlagBackground(flag: appData.nextRace?.flag ?? ""))
-            .toolbar {
-                Button {
-                    Task {
-                        notificationsEnabled = checkForExistingNotifications()
-                        
-                        if (notificationsEnabled) {
-                            notificationsEnabled = await removeNotifications()
-                        } else {
-                            await createNotifications()
-                        }
-                    }
-                } label: {
-                    notificationsEnabled
-                    ? Image(systemName: "bell.slash")
-                    : Image(systemName: "bell")
-                }
-                .symbolRenderingMode(notificationsEnabled ? .multicolor : .monochrome)
-                .contentTransition(.symbolEffect(.replace))
-            }
         }
-        .onAppear {
-            notificationsEnabled = checkForExistingNotifications()
-        }
-        .onChange(of: notificationController.currentNotificationDates, { _, _ in
-            notificationsEnabled = checkForExistingNotifications()
-        })
         .refreshable {
             do {
                 try await appData.loadAPIData()

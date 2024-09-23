@@ -10,13 +10,6 @@ import UserNotifications
 
 @Observable class NotificationController {
     let center = UNUserNotificationCenter.current()
-    var currentNotificationDates: Set<Date> = []
-    
-    init() {
-        Task {
-            currentNotificationDates = await getCurrentNotificationDates()
-        }
-    }
     
     // MARK: Computed properties
     var permissionStatus: UNAuthorizationStatus {
@@ -79,19 +72,10 @@ import UserNotifications
         
         do {
             try await center.add(notification)
-            currentNotificationDates.insert(sessionDate)
         } catch {
             print(error)
         }
         
         return true
-    }
-    
-    func removeNotification(identifier: String) -> Void {
-        center.removePendingNotificationRequests(withIdentifiers: [identifier])
-        
-        Task {
-            currentNotificationDates = await getCurrentNotificationDates()
-        }
     }
 }

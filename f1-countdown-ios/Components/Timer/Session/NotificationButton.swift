@@ -26,11 +26,11 @@ struct NotificationButton: View {
             buttonState.toggle();
             
             if (notificationEnabled) {
-                for offset in userDefaults.selectedOffsetOptions {
-                    let notificationDate = session.startDate.addingTimeInterval(TimeInterval(offset * -60))
-                    notificationController.removeNotification(identifier: notificationDate.ISO8601Format())
+                let dates = userDefaults.selectedOffsetOptions.map { offset in
+                    return session.startDate.addingTimeInterval(TimeInterval(offset * -60)).ISO8601Format()
                 }
                 
+                notificationController.center.removePendingNotificationRequests(withIdentifiers: dates)
                 notificationEnabled = false
             } else {
                 Task {
@@ -50,35 +50,20 @@ struct NotificationButton: View {
                 }
             }
         } label: {
-            // This needs to be done to avoid the Button Label changing size when Label Image changes.
-            Image(systemName: "bell.slash")
-                .hidden()
-                .overlay {
-                    Label(
-                        notificationEnabled ? "Disable Notification" : "Enable Notification",
-                        systemImage: notificationEnabled ? "bell.slash" : "bell"
-                    )
-                    .labelStyle(.iconOnly)
-                    .symbolRenderingMode(notificationEnabled ? .multicolor : .monochrome)
-                    .contentTransition(.symbolEffect(.replace))
-                }
+            Label(
+                notificationEnabled ? "Disable Notification" : "Enable Notification",
+                systemImage: notificationEnabled ? "bell.slash" : "bell"
+            )
+            .labelStyle(.iconOnly)
+            .symbolRenderingMode(notificationEnabled ? .multicolor : .monochrome)
+            .contentTransition(.symbolEffect(.replace))
         }
         .sensoryFeedback(.success, trigger: buttonState)
         .buttonStyle(.bordered)
         .disabled(buttonDisabled)
         .onAppear {
             buttonDisabled = session.startDate.timeIntervalSinceNow <= 0
-            notificationEnabled = isNotificationEnabled()
         }
-        .onChange(of: notificationController.currentNotificationDates, { _, _ in
-            notificationEnabled = isNotificationEnabled()
-        })
-    }
-    
-    func isNotificationEnabled() -> Bool {
-        let sessionDate = session.startDate
-        
-        return notificationController.currentNotificationDates.contains(sessionDate)
     }
 }
 
