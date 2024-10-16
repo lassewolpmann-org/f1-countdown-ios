@@ -312,6 +312,7 @@
 		257959C92B04FB000033DFAB = {
 			isa = PBXGroup;
 			children = (
+				25B2F9CC2CAE6FD200A3107F /* Views */,
 				25C06D4D2BD2AF6500A375A4 /* PrivacyInfo.xcprivacy */,
 				25BC66F82B6A9384006DCE8D /* LICENSE.md */,
 				25BC66F72B6A9310006DCE8D /* README.md */,
@@ -395,6 +396,13 @@
 				25EDC7942B054D320094DBBA /* TimerElement.swift */,
 			);
 			path = Timer;
+			sourceTree = "<group>";
+		};
+		25B2F9CC2CAE6FD200A3107F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		25B404172B10B391007EF384 /* WidgetViews */ = {
