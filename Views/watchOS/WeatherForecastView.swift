@@ -45,9 +45,8 @@ struct SessionWeather: View {
                     .labelStyle(.titleAndIcon)
             }
             
-            HStack {
+            VStack(alignment: .leading, spacing: 5) {
                 Text("\(race.flag) \(race.location)")
-                Spacer()
                 Text(" Weather")
             }
             .font(.subheadline)

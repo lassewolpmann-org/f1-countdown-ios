@@ -79,11 +79,12 @@ struct Session: View {
                 // If end date is reached, set delta to 0
                 delta = DeltaValues(date: date)
             } else if (date > session.startDate && date < session.endDate) {
+                // If session is ongoing, calculate delta to end date
                 delta = DeltaValues(date: session.endDate)
             } else {
                 delta = DeltaValues(date: session.startDate)
             }
-            
+                        
             let startTimestamp = Int(session.startDate.timeIntervalSince1970)
             let endTimestamp = Int(session.endDate.timeIntervalSince1970)
             let currentTimestamp = Int(date.timeIntervalSince1970)
