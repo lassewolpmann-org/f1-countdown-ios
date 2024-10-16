@@ -7,6 +7,22 @@
 
 import SwiftUI
 
+struct WeatherElement: View {
+    let labelText: String;
+    let systemImage: String;
+    let weatherText: String;
+    
+    var body: some View {
+        HStack {
+            Label(labelText, systemImage: systemImage)
+                .foregroundStyle(.secondary)
+            Spacer()
+            Text(weatherText)
+        }
+        .font(.subheadline)
+    }
+}
+
 struct SessionWeather: View {
     @Environment(\.dismiss) var dismiss
     
