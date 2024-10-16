@@ -11,86 +11,34 @@ struct CalendarRace: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
 
     let race: RaceData
-    let previousRace: RaceData?
-    let followingRace: RaceData?
 
     var body: some View {
-        ScrollView(.vertical) {
-            VStack(alignment: .center, spacing: 20) {
+        VStack(alignment: .center, spacing: 20) {
+            Text(race.title)
+                .font(.title2)
+                .bold()
+            
+            ForEach(race.sortedSessions, id: \.key) { session in
                 VStack {
-                    Text(race.title)
-                        .font(.title2)
-                        .bold()
-                    
-                    Text(race.location)
-                        .font(.title3)
-                }
-                
-                HStack {
-                    if let previousRace {
-                        if let previousRaceSession = previousRace.sortedSessions.last?.value.startDate,
-                        let currentRaceSession = race.sortedSessions.last?.value.startDate {
-                            let delta = currentRaceSession.timeIntervalSince(previousRaceSession)
-                            let days = Int(round(delta / 86400))
-                            
-                            VStack(alignment: .leading) {
-                                HStack {
-                                    Image(systemName: "arrow.left")
-                                    Text(previousRace.flag)
-                                }
-                                
-                                Text("\(days) days")
-                            }
-                        }
+                    HStack {
+                        Text(session.value.longName)
+                            .foregroundStyle(.red)
+                        Spacer()
+                        Text(session.value.dayString)
+                            .foregroundStyle(.secondary)
                     }
                     
-                    Spacer()
-                    
-                    if let followingRace {
-                        if let followingRaceSession = followingRace.sortedSessions.last?.value.startDate,
-                           let currentRaceSession = race.sortedSessions.last?.value.startDate {
-                            let delta = followingRaceSession.timeIntervalSince(currentRaceSession)
-                            let days = Int(round(delta / 86400))
-                            
-                            VStack(alignment: .leading) {
-                                HStack {
-                                    Text(followingRace.flag)
-                                    Image(systemName: "arrow.right")
-                                }
-                                
-                                Text("\(days) days")
-                            }
-                        }
+                    HStack {
+                        Text(session.value.dateString)
+                        Spacer()
+                        Text(DateInterval(start: session.value.startDate, end: session.value.endDate))
                     }
                 }
-                .font(.footnote)
-                .foregroundStyle(.secondary)
-                
-                Divider()
-                
-                ForEach(race.sortedSessions, id: \.key) { session in
-                    VStack {
-                        HStack {
-                            Text(session.value.longName)
-                                .foregroundStyle(.red)
-                            Spacer()
-                            Text(session.value.dayString)
-                                .foregroundStyle(.secondary)
-                        }
-                        
-                        HStack {
-                            Text(session.value.dateString)
-                            Spacer()
-                            Text(DateInterval(start: session.value.startDate, end: session.value.endDate))
-                        }
-                    }
-                    .strikethrough(session.value.endDate.timeIntervalSinceNow < 0)
-                    .opacity(session.value.endDate.timeIntervalSinceNow < 0 ? 0.5 : 1.0)
-                }
+                .strikethrough(session.value.endDate.timeIntervalSinceNow < 0)
+                .opacity(session.value.endDate.timeIntervalSinceNow < 0 ? 0.5 : 1.0)
             }
-            .padding(.vertical, 20)
-            .padding(.horizontal, 15)
         }
+        .padding(20)
         .containerRelativeFrame(.horizontal, { length, axis in
             return horizontalSizeClass == .regular
             ? (length / 2) - 10
@@ -98,10 +46,9 @@ struct CalendarRace: View {
         })
         .background(RoundedRectangle(cornerRadius: 10).fill(.ultraThinMaterial))
         .background(FlagBackground(flag: race.flag))
-        .padding(.vertical, 15)
     }
 }
 
 #Preview {
-    CalendarRace(race: RaceData(), previousRace: RaceData(), followingRace: RaceData())
+    CalendarRace(race: RaceData())
 }
