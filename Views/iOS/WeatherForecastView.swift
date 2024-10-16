@@ -7,6 +7,22 @@
 
 import SwiftUI
 
+struct WeatherElement: View {
+    let labelText: String;
+    let systemImage: String;
+    let weatherText: String;
+    
+    var body: some View {
+        HStack {
+            Label(labelText, systemImage: systemImage)
+                .foregroundStyle(.secondary)
+            Spacer()
+            Text(weatherText)
+        }
+        .font(.subheadline)
+    }
+}
+
 struct SessionWeather: View {
     @Environment(\.dismiss) var dismiss
     
@@ -34,21 +50,13 @@ struct SessionWeather: View {
                 }
                 
                 HStack {
-                    Text(session.startDate, style: .date)
-                    Spacer()
-                    Text(DateInterval(start: session.startDate, end: session.endDate))
-                }
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-                .padding(.top, 10)
-                
-                HStack {
                     Text("\(race.flag) \(race.location)")
                     Spacer()
                     Text(" Weather")
                 }
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
+                .padding(.top, 10)
                 
             }
             .navigationTitle(session.longName)

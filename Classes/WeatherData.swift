@@ -10,9 +10,16 @@ import CoreLocation
 import WeatherKit
 
 class WeatherData {
+    private let formatter = MeasurementFormatter();
     private let service = WeatherService();
+    
     var weather: HourWeather?
     var available: Bool = true;
+    
+    init() {
+        formatter.numberFormatter.maximumFractionDigits = 2;
+        formatter.unitStyle = .medium;
+    }
     
     func getWeather(race: RaceData, startDate: Date, endDate: Date) async {
         // We know, that the Weather Forecast is only available for 10 days in the future. This prevents unnecessary API calls.
@@ -42,7 +49,11 @@ class WeatherData {
     }
     
     var temp: String {
-        weather?.temperature.formatted(.measurement(width: .abbreviated)) ?? "Loading..."
+        if let temp = weather?.temperature {
+            return formatter.string(from: temp)
+        } else {
+            return "Loading..."
+        }
     }
     
     var rainChance: String {
@@ -54,6 +65,10 @@ class WeatherData {
     }
     
     var windSpeed: String {
-        weather?.wind.speed.description ?? "Loading..."
+        if let windSpeed = weather?.wind.speed {
+            return formatter.string(from: windSpeed)
+        } else {
+            return "Loading..."
+        }
     }
 }

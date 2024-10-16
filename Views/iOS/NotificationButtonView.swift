@@ -64,6 +64,9 @@ struct NotificationButton: View {
         .onAppear {
             buttonDisabled = session.startDate.timeIntervalSinceNow <= 0
         }
+        .task {
+            notificationEnabled = await notificationController.getCurrentNotificationDates().contains(session.startDate)
+        }
     }
 }
 
