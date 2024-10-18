@@ -13,6 +13,7 @@ struct f1_countdown_iosApp: App {
     @State private var userDefaults: UserDefaultsController = UserDefaultsController()
     @State private var notificationController: NotificationController = NotificationController()
     
+    // MARK: Main Entry
     var body: some Scene {
         WindowGroup {
             if (appData.dataLoaded) {

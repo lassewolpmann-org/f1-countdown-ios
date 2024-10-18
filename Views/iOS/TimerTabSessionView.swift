@@ -52,13 +52,14 @@ struct Session: View {
                 .foregroundStyle(.secondary)
             }
             
-            HStack {
-                TimerElement(delta: delta.days, deltaPct: delta.daysPct, ringColor: Color.primary, timeUnit: "days")
-                TimerElement(delta: delta.hours, deltaPct: delta.hoursPct, ringColor: Color.red, timeUnit: "hr")
-                TimerElement(delta: delta.minutes, deltaPct: delta.minutesPct, ringColor: Color.green, timeUnit: "min")
-                TimerElement(delta: delta.seconds, deltaPct: delta.secondsPct, ringColor: Color.blue, timeUnit: "sec")
-                
-                Divider()
+            HStack(spacing: 5) {
+                TimerElement(delta: delta.days, deltaPct: delta.daysPct, timeUnit: "days")
+                Text(":")
+                TimerElement(delta: delta.hours, deltaPct: delta.hoursPct, timeUnit: "hours")
+                Text(":")
+                TimerElement(delta: delta.minutes, deltaPct: delta.minutesPct, timeUnit: "minutes")
+                Text(":")
+                TimerElement(delta: delta.seconds, deltaPct: delta.secondsPct, timeUnit: "seconds")
                 
                 VStack {
                     NotificationButton(userDefaults: userDefaults, notificationController: notificationController, session: session, race: nextRace, series: appData.currentSeries)
@@ -72,6 +73,7 @@ struct Session: View {
                     .buttonStyle(.bordered)
                     .disabled(session.startDate < Date())
                 }
+                .padding(.leading, 10)
             }
         }
         .sheet(isPresented: $showWeather, content: {

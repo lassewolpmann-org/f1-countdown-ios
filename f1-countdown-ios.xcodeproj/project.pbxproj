@@ -22,7 +22,7 @@
 		251DC1702BD0FD0C00D08D56 /* InfoButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251DC16F2BD0FD0C00D08D56 /* InfoButtonView.swift */; };
 		2521762B2B08BEB00023C9B3 /* WeatherForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2521762A2B08BEB00023C9B3 /* WeatherForecastView.swift */; };
 		2528462C2C5765B00064D5FE /* WeatherForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2528462B2C5765B00064D5FE /* WeatherForecastView.swift */; };
-		252976912C5242E10088E35D /* UpcomingRaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252976902C5242E10088E35D /* UpcomingRaceView.swift */; };
+		252976912C5242E10088E35D /* UpcomingTabRaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252976902C5242E10088E35D /* UpcomingTabRaceView.swift */; };
 		2534A14B2B287279003B0BE3 /* CountryFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2534A14A2B287279003B0BE3 /* CountryFlags.swift */; };
 		2534A14C2B287279003B0BE3 /* CountryFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2534A14A2B287279003B0BE3 /* CountryFlags.swift */; };
 		2534D9E12C747E170095551D /* FlagBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2534D9E02C747E170095551D /* FlagBackgroundView.swift */; };
@@ -40,7 +40,7 @@
 		257959DD2B04FB010033DFAB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 257959DC2B04FB010033DFAB /* Preview Assets.xcassets */; };
 		2591C4A82B8C839000F87BE9 /* NotificationTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2591C4A72B8C839000F87BE9 /* NotificationTimeView.swift */; };
 		25AF34612B2F98CA00E7D83A /* TimerTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AF34602B2F98CA00E7D83A /* TimerTabView.swift */; };
-		25AF34662B2F9D0200E7D83A /* SessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AF34652B2F9D0200E7D83A /* SessionView.swift */; };
+		25AF34662B2F9D0200E7D83A /* TimerTabSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AF34652B2F9D0200E7D83A /* TimerTabSessionView.swift */; };
 		25AF34682B2FA79F00E7D83A /* UpcomingTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AF34672B2FA79F00E7D83A /* UpcomingTabView.swift */; };
 		25B404192B10B3D7007EF384 /* MediumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B404182B10B3D7007EF384 /* MediumView.swift */; };
 		25B4041B2B10B660007EF384 /* LargeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B4041A2B10B660007EF384 /* LargeView.swift */; };
@@ -53,7 +53,7 @@
 		25C06D502BD2AF6500A375A4 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 25C06D4D2BD2AF6500A375A4 /* PrivacyInfo.xcprivacy */; };
 		25C6C5592B177DB400818265 /* SessionInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C5582B177DB400818265 /* SessionInfoView.swift */; };
 		25DE90792B09168A00632B61 /* NotificationButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DE90782B09168A00632B61 /* NotificationButtonView.swift */; };
-		25EDC7952B054D320094DBBA /* TimerElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDC7942B054D320094DBBA /* TimerElement.swift */; };
+		25EDC7952B054D320094DBBA /* TimerTabElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDC7942B054D320094DBBA /* TimerTabElementView.swift */; };
 		25F11C882BD01E97007D0DE6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F11C872BD01E97007D0DE6 /* ContentView.swift */; };
 		25F11C8A2BD01E98007D0DE6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25F11C892BD01E98007D0DE6 /* Assets.xcassets */; };
 		25F11C8D2BD01E98007D0DE6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25F11C8C2BD01E98007D0DE6 /* Preview Assets.xcassets */; };
@@ -143,7 +143,7 @@
 		2521762A2B08BEB00023C9B3 /* WeatherForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherForecastView.swift; sourceTree = "<group>"; };
 		2521762C2B08C4270023C9B3 /* f1-countdown-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "f1-countdown-ios.entitlements"; sourceTree = "<group>"; };
 		2528462B2C5765B00064D5FE /* WeatherForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherForecastView.swift; sourceTree = "<group>"; };
-		252976902C5242E10088E35D /* UpcomingRaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingRaceView.swift; sourceTree = "<group>"; };
+		252976902C5242E10088E35D /* UpcomingTabRaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingTabRaceView.swift; sourceTree = "<group>"; };
 		2534A14A2B287279003B0BE3 /* CountryFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryFlags.swift; sourceTree = "<group>"; };
 		2534D9E02C747E170095551D /* FlagBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlagBackgroundView.swift; sourceTree = "<group>"; };
 		2540A4232B973F9A00684AEA /* SeriesPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesPickerView.swift; sourceTree = "<group>"; };
@@ -157,7 +157,7 @@
 		257959DC2B04FB010033DFAB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2591C4A72B8C839000F87BE9 /* NotificationTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTimeView.swift; sourceTree = "<group>"; };
 		25AF34602B2F98CA00E7D83A /* TimerTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTabView.swift; sourceTree = "<group>"; };
-		25AF34652B2F9D0200E7D83A /* SessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionView.swift; sourceTree = "<group>"; };
+		25AF34652B2F9D0200E7D83A /* TimerTabSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTabSessionView.swift; sourceTree = "<group>"; };
 		25AF34672B2FA79F00E7D83A /* UpcomingTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingTabView.swift; sourceTree = "<group>"; };
 		25B404182B10B3D7007EF384 /* MediumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediumView.swift; sourceTree = "<group>"; };
 		25B4041A2B10B660007EF384 /* LargeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeView.swift; sourceTree = "<group>"; };
@@ -170,7 +170,7 @@
 		25C06D4D2BD2AF6500A375A4 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		25C6C5582B177DB400818265 /* SessionInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionInfoView.swift; sourceTree = "<group>"; };
 		25DE90782B09168A00632B61 /* NotificationButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationButtonView.swift; sourceTree = "<group>"; };
-		25EDC7942B054D320094DBBA /* TimerElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerElement.swift; sourceTree = "<group>"; };
+		25EDC7942B054D320094DBBA /* TimerTabElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTabElementView.swift; sourceTree = "<group>"; };
 		25F11C832BD01E97007D0DE6 /* Formula Countdown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Formula Countdown.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		25F11C872BD01E97007D0DE6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		25F11C892BD01E98007D0DE6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -226,13 +226,6 @@
 			path = TimerWidget;
 			sourceTree = "<group>";
 		};
-		251C655D2B737721003E4A13 /* Weather */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Weather;
-			sourceTree = "<group>";
-		};
 		25486B1B2B9851CA002681A7 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -253,10 +246,11 @@
 				2591C4A72B8C839000F87BE9 /* NotificationTimeView.swift */,
 				25B5C3EB2B6B7CA300057E4D /* RemoveNotificationsButtonView.swift */,
 				2540A4232B973F9A00684AEA /* SeriesPickerView.swift */,
-				25AF34652B2F9D0200E7D83A /* SessionView.swift */,
 				25BFB0312B0F68D90062E4BC /* SettingsTabView.swift */,
+				25EDC7942B054D320094DBBA /* TimerTabElementView.swift */,
+				25AF34652B2F9D0200E7D83A /* TimerTabSessionView.swift */,
 				25AF34602B2F98CA00E7D83A /* TimerTabView.swift */,
-				252976902C5242E10088E35D /* UpcomingRaceView.swift */,
+				252976902C5242E10088E35D /* UpcomingTabRaceView.swift */,
 				25AF34672B2FA79F00E7D83A /* UpcomingTabView.swift */,
 				2521762A2B08BEB00023C9B3 /* WeatherForecastView.swift */,
 			);
@@ -320,7 +314,6 @@
 			children = (
 				25104C5C2B0A51E3001FDF49 /* Info.plist */,
 				2521762C2B08C4270023C9B3 /* f1-countdown-ios.entitlements */,
-				257959E32B04FB410033DFAB /* Components */,
 				257959D52B04FB000033DFAB /* f1_countdown_iosApp.swift */,
 				257959D92B04FB010033DFAB /* Assets.xcassets */,
 				257959DB2B04FB010033DFAB /* Preview Content */,
@@ -334,39 +327,6 @@
 				257959DC2B04FB010033DFAB /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		257959E32B04FB410033DFAB /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				25AF345D2B2F985100E7D83A /* Timer */,
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
-		25AF345D2B2F985100E7D83A /* Timer */ = {
-			isa = PBXGroup;
-			children = (
-				25AF34622B2F99BA00E7D83A /* Session */,
-			);
-			path = Timer;
-			sourceTree = "<group>";
-		};
-		25AF34622B2F99BA00E7D83A /* Session */ = {
-			isa = PBXGroup;
-			children = (
-				25AF34692B2FA9AE00E7D83A /* Timer */,
-				251C655D2B737721003E4A13 /* Weather */,
-			);
-			path = Session;
-			sourceTree = "<group>";
-		};
-		25AF34692B2FA9AE00E7D83A /* Timer */ = {
-			isa = PBXGroup;
-			children = (
-				25EDC7942B054D320094DBBA /* TimerElement.swift */,
-			);
-			path = Timer;
 			sourceTree = "<group>";
 		};
 		25B2F9CC2CAE6FD200A3107F /* Views */ = {
@@ -576,13 +536,13 @@
 				25BFB0322B0F68D90062E4BC /* SettingsTabView.swift in Sources */,
 				25DE90792B09168A00632B61 /* NotificationButtonView.swift in Sources */,
 				256A0DC22C5425BD00B11D4B /* UserDefaultsController.swift in Sources */,
-				252976912C5242E10088E35D /* UpcomingRaceView.swift in Sources */,
+				252976912C5242E10088E35D /* UpcomingTabRaceView.swift in Sources */,
 				257579202B84C4FA00FC1A81 /* WeatherData.swift in Sources */,
 				2540A4242B973F9A00684AEA /* SeriesPickerView.swift in Sources */,
 				2534A14B2B287279003B0BE3 /* CountryFlags.swift in Sources */,
 				25B5C3EC2B6B7CA300057E4D /* RemoveNotificationsButtonView.swift in Sources */,
-				25EDC7952B054D320094DBBA /* TimerElement.swift in Sources */,
-				25AF34662B2F9D0200E7D83A /* SessionView.swift in Sources */,
+				25EDC7952B054D320094DBBA /* TimerTabElementView.swift in Sources */,
+				25AF34662B2F9D0200E7D83A /* TimerTabSessionView.swift in Sources */,
 				2521762B2B08BEB00023C9B3 /* WeatherForecastView.swift in Sources */,
 				257959D62B04FB000033DFAB /* f1_countdown_iosApp.swift in Sources */,
 				2591C4A82B8C839000F87BE9 /* NotificationTimeView.swift in Sources */,
