@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct NotificationButton: View {
-    var userDefaults: UserDefaultsController
     var notificationController: NotificationController
 
     let session: SessionData
@@ -26,7 +25,7 @@ struct NotificationButton: View {
             buttonState.toggle();
             
             if (notificationEnabled) {
-                let dates = userDefaults.selectedOffsetOptions.map { offset in
+                let dates = notificationController.selectedOffsetOptions.map { offset in
                     return session.startDate.addingTimeInterval(TimeInterval(offset * -60)).ISO8601Format()
                 }
                 
@@ -36,7 +35,7 @@ struct NotificationButton: View {
                 Task {
                     let status = await notificationController.permissionStatus
                     if (status == .authorized) {
-                        for offset in userDefaults.selectedOffsetOptions {
+                        for offset in notificationController.selectedOffsetOptions {
                             let notificationDate = session.startDate.addingTimeInterval(TimeInterval(offset * -60))
                             guard notificationDate.timeIntervalSinceNow > 0 else { continue }
                             
@@ -71,5 +70,5 @@ struct NotificationButton: View {
 }
 
 #Preview {
-    NotificationButton(userDefaults: UserDefaultsController(), notificationController: NotificationController(), session: SessionData(rawName: "undefined"), race: RaceData(), series: "f1")
+    NotificationButton(notificationController: NotificationController(), session: SessionData(rawName: "undefined"), race: RaceData(), series: "f1")
 }

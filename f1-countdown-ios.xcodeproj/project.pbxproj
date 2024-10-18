@@ -27,9 +27,6 @@
 		2534A14C2B287279003B0BE3 /* CountryFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2534A14A2B287279003B0BE3 /* CountryFlags.swift */; };
 		2534D9E12C747E170095551D /* FlagBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2534D9E02C747E170095551D /* FlagBackgroundView.swift */; };
 		2540A4242B973F9A00684AEA /* SeriesPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2540A4232B973F9A00684AEA /* SeriesPickerView.swift */; };
-		256A0DC22C5425BD00B11D4B /* UserDefaultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256A0DC12C5425BD00B11D4B /* UserDefaultsController.swift */; };
-		256A0DC32C5425BD00B11D4B /* UserDefaultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256A0DC12C5425BD00B11D4B /* UserDefaultsController.swift */; };
-		256A0DC42C5425BD00B11D4B /* UserDefaultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256A0DC12C5425BD00B11D4B /* UserDefaultsController.swift */; };
 		2571837C2B73B241003D12F9 /* DeltaValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BE0E472B2349E20089B5BA /* DeltaValues.swift */; };
 		2571837E2B73B264003D12F9 /* RaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2571837D2B73B264003D12F9 /* RaceData.swift */; };
 		2571837F2B73B264003D12F9 /* RaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2571837D2B73B264003D12F9 /* RaceData.swift */; };
@@ -39,6 +36,9 @@
 		257959DA2B04FB010033DFAB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 257959D92B04FB010033DFAB /* Assets.xcassets */; };
 		257959DD2B04FB010033DFAB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 257959DC2B04FB010033DFAB /* Preview Assets.xcassets */; };
 		2591C4A82B8C839000F87BE9 /* NotificationTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2591C4A72B8C839000F87BE9 /* NotificationTimeView.swift */; };
+		25ACE3652CC278BF00F9E3E2 /* ColorSchemeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ACE3642CC278BF00F9E3E2 /* ColorSchemeController.swift */; };
+		25ACE3662CC278BF00F9E3E2 /* ColorSchemeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ACE3642CC278BF00F9E3E2 /* ColorSchemeController.swift */; };
+		25ACE3672CC278BF00F9E3E2 /* ColorSchemeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ACE3642CC278BF00F9E3E2 /* ColorSchemeController.swift */; };
 		25AF34612B2F98CA00E7D83A /* TimerTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AF34602B2F98CA00E7D83A /* TimerTabView.swift */; };
 		25AF34662B2F9D0200E7D83A /* TimerTabSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AF34652B2F9D0200E7D83A /* TimerTabSessionView.swift */; };
 		25AF34682B2FA79F00E7D83A /* UpcomingTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AF34672B2FA79F00E7D83A /* UpcomingTabView.swift */; };
@@ -147,7 +147,6 @@
 		2534A14A2B287279003B0BE3 /* CountryFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryFlags.swift; sourceTree = "<group>"; };
 		2534D9E02C747E170095551D /* FlagBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlagBackgroundView.swift; sourceTree = "<group>"; };
 		2540A4232B973F9A00684AEA /* SeriesPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesPickerView.swift; sourceTree = "<group>"; };
-		256A0DC12C5425BD00B11D4B /* UserDefaultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsController.swift; sourceTree = "<group>"; };
 		2571837D2B73B264003D12F9 /* RaceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceData.swift; sourceTree = "<group>"; };
 		2575791F2B84C4FA00FC1A81 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		257959D22B04FB000033DFAB /* f1-countdown-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "f1-countdown-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -156,6 +155,7 @@
 		257959D92B04FB010033DFAB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		257959DC2B04FB010033DFAB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2591C4A72B8C839000F87BE9 /* NotificationTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTimeView.swift; sourceTree = "<group>"; };
+		25ACE3642CC278BF00F9E3E2 /* ColorSchemeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeController.swift; sourceTree = "<group>"; };
 		25AF34602B2F98CA00E7D83A /* TimerTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTabView.swift; sourceTree = "<group>"; };
 		25AF34652B2F9D0200E7D83A /* TimerTabSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTabSessionView.swift; sourceTree = "<group>"; };
 		25AF34672B2FA79F00E7D83A /* UpcomingTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingTabView.swift; sourceTree = "<group>"; };
@@ -231,8 +231,8 @@
 			children = (
 				251C655E2B73779B003E4A13 /* AppData.swift */,
 				2507CEB52C556BE000272430 /* NotificationController.swift */,
-				256A0DC12C5425BD00B11D4B /* UserDefaultsController.swift */,
 				2575791F2B84C4FA00FC1A81 /* WeatherData.swift */,
+				25ACE3642CC278BF00F9E3E2 /* ColorSchemeController.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -508,12 +508,12 @@
 				25F11CB52BD0204F007D0DE6 /* WeatherData.swift in Sources */,
 				2571837C2B73B241003D12F9 /* DeltaValues.swift in Sources */,
 				25B404192B10B3D7007EF384 /* MediumView.swift in Sources */,
-				256A0DC32C5425BD00B11D4B /* UserDefaultsController.swift in Sources */,
 				2505E69D2B0F843E00876783 /* TimerWidgetBundle.swift in Sources */,
 				2507CEB72C556BE000272430 /* NotificationController.swift in Sources */,
 				25C6C5592B177DB400818265 /* SessionInfoView.swift in Sources */,
 				2571837F2B73B264003D12F9 /* RaceData.swift in Sources */,
 				25B4041B2B10B660007EF384 /* LargeView.swift in Sources */,
+				25ACE3662CC278BF00F9E3E2 /* ColorSchemeController.swift in Sources */,
 				25B8C1512B8DFF2B009A270C /* WidgetHeaderView.swift in Sources */,
 				2534A14C2B287279003B0BE3 /* CountryFlags.swift in Sources */,
 				2505E69F2B0F843E00876783 /* TimerWidget.swift in Sources */,
@@ -533,9 +533,9 @@
 				2571837E2B73B264003D12F9 /* RaceData.swift in Sources */,
 				25BE0E482B2349E20089B5BA /* DeltaValues.swift in Sources */,
 				251C655F2B73779B003E4A13 /* AppData.swift in Sources */,
+				25ACE3672CC278BF00F9E3E2 /* ColorSchemeController.swift in Sources */,
 				25BFB0322B0F68D90062E4BC /* SettingsTabView.swift in Sources */,
 				25DE90792B09168A00632B61 /* NotificationButtonView.swift in Sources */,
-				256A0DC22C5425BD00B11D4B /* UserDefaultsController.swift in Sources */,
 				252976912C5242E10088E35D /* UpcomingTabRaceView.swift in Sources */,
 				257579202B84C4FA00FC1A81 /* WeatherData.swift in Sources */,
 				2540A4242B973F9A00684AEA /* SeriesPickerView.swift in Sources */,
@@ -561,12 +561,12 @@
 				25F11CB32BD02049007D0DE6 /* DeltaValues.swift in Sources */,
 				25F11CCD2BD031D7007D0DE6 /* SessionView.swift in Sources */,
 				25F11CB62BD02050007D0DE6 /* WeatherData.swift in Sources */,
+				25ACE3652CC278BF00F9E3E2 /* ColorSchemeController.swift in Sources */,
 				25F11CB22BD02045007D0DE6 /* RaceData.swift in Sources */,
 				25F11CB42BD0204B007D0DE6 /* CountryFlags.swift in Sources */,
 				2507CEB82C556BE000272430 /* NotificationController.swift in Sources */,
 				25F11CC72BD02105007D0DE6 /* f1_countdown_iosApp.swift in Sources */,
 				25F11CB12BD01FE0007D0DE6 /* AppData.swift in Sources */,
-				256A0DC42C5425BD00B11D4B /* UserDefaultsController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

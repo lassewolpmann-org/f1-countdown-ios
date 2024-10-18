@@ -11,8 +11,8 @@ struct SettingsTab: View {
     @Environment(\.openURL) private var openURL;
     
     var appData: AppData
-    var userDefaults: UserDefaultsController
     var notificationController: NotificationController
+    @Bindable var colorSchemeController: ColorSchemeController
     
     var body: some View {
         NavigationStack {
@@ -24,12 +24,37 @@ struct SettingsTab: View {
                 }
                 
                 Section {
-                    NotificationTime(appData: appData, userDefaults: userDefaults, notificationController: notificationController)
+                    NotificationTime(appData: appData, notificationController: notificationController)
                     RemoveNotificationsButton()
                 } header: {
                     Text("Notifications")
                 } footer: {
                     Text("Changing Time of Notification reschedules all existing ones.")
+                }
+                
+                Section {
+                    Picker(selection: $colorSchemeController.selectedOption) {
+                        ForEach(colorSchemeController.options, id:\.self) { option in
+                            Label {
+                                Text(option.rawValue.uppercased())
+                            } icon: {
+                                switch (option) {
+                                case .dark:
+                                    Image(systemName: "moon")
+                                case .light:
+                                    Image(systemName: "sun.max")
+                                case .system:
+                                    Image(systemName: "candybarphone")
+                                }
+                            }
+                        }
+                    } label: {
+                        Text("Color Scheme")
+                    }
+                    .onChange(of: colorSchemeController.selectedOption) { oldValue, newValue in
+                        colorSchemeController.updateSelectedScheme()
+                    }
+                    .sensoryFeedback(.selection, trigger: colorSchemeController.selectedOption)
                 }
                 
                 Section {
@@ -83,5 +108,5 @@ struct SettingsTab: View {
 }
 
 #Preview {
-    SettingsTab(appData: AppData(), userDefaults: UserDefaultsController(), notificationController: NotificationController())
+    SettingsTab(appData: AppData(), notificationController: NotificationController(), colorSchemeController: ColorSchemeController())
 }
