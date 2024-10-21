@@ -10,7 +10,6 @@ import SwiftUI
 struct ContentView: View {
     var appData: AppData
     var notificationController: NotificationController
-    var colorSchemeController: ColorSchemeController
     
     var body: some View {
         TabView {
@@ -24,7 +23,7 @@ struct ContentView: View {
                 Label("Upcoming", systemImage: "calendar")
             }
             
-            SettingsTab(appData: appData, notificationController: notificationController, colorSchemeController: colorSchemeController)
+            SettingsTab(appData: appData, notificationController: notificationController)
             .tabItem {
                 Label("Settings", systemImage: "gear")
             }
@@ -33,5 +32,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(appData: AppData(), notificationController: NotificationController(), colorSchemeController: ColorSchemeController())
+    ContentView(appData: AppData(), notificationController: NotificationController())
 }

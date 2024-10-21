@@ -17,27 +17,6 @@ struct TimerTab: View {
     
     @State private var notificationsEnabled: Bool = false
     
-    private func createNotifications() async -> Void {
-        if let nextRace = appData.nextRace {
-            let status = await notificationController.permissionStatus
-            
-            if (status == .authorized) {
-                for session in nextRace.futureSessions {
-                    for offset in notificationController.selectedOffsetOptions {
-                        let notificationDate = session.value.startDate.addingTimeInterval(TimeInterval(offset * -60))
-                        guard notificationDate.timeIntervalSinceNow > 0 else { continue }
-                        
-                        notificationsEnabled = await notificationController.addNotification(sessionDate: session.value.startDate, sessionName: session.value.longName, series: appData.currentSeries, title: nextRace.title, offset: offset)
-                    }
-                }
-            } else if (status == .notDetermined) {
-                await notificationController.createNotificationPermission()
-            } else {
-                print("Not allowed")
-            }
-        }
-    }
-    
     var body: some View {
         NavigationStack {
             ScrollView(.vertical) {

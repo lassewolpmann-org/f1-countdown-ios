@@ -12,7 +12,6 @@ struct SettingsTab: View {
     
     var appData: AppData
     var notificationController: NotificationController
-    @Bindable var colorSchemeController: ColorSchemeController
     
     var body: some View {
         NavigationStack {
@@ -30,31 +29,6 @@ struct SettingsTab: View {
                     Text("Notifications")
                 } footer: {
                     Text("Changing Time of Notification reschedules all existing ones.")
-                }
-                
-                Section {
-                    Picker(selection: $colorSchemeController.selectedOption) {
-                        ForEach(colorSchemeController.options, id:\.self) { option in
-                            Label {
-                                Text(option.rawValue.uppercased())
-                            } icon: {
-                                switch (option) {
-                                case .dark:
-                                    Image(systemName: "moon")
-                                case .light:
-                                    Image(systemName: "sun.max")
-                                case .system:
-                                    Image(systemName: "candybarphone")
-                                }
-                            }
-                        }
-                    } label: {
-                        Text("Color Scheme")
-                    }
-                    .onChange(of: colorSchemeController.selectedOption) { oldValue, newValue in
-                        colorSchemeController.updateSelectedScheme()
-                    }
-                    .sensoryFeedback(.selection, trigger: colorSchemeController.selectedOption)
                 }
                 
                 Section {
@@ -108,5 +82,5 @@ struct SettingsTab: View {
 }
 
 #Preview {
-    SettingsTab(appData: AppData(), notificationController: NotificationController(), colorSchemeController: ColorSchemeController())
+    SettingsTab(appData: AppData(), notificationController: NotificationController())
 }
