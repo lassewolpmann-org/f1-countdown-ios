@@ -82,7 +82,7 @@ struct Session: View {
         })
         .padding(10)
         .background(RoundedRectangle(cornerRadius: 10).fill(.ultraThinMaterial))
-        .onReceive(timer) { _ in            
+        .onReceive(timer) { _ in
             let date = Date()
             
             if (date >= session.endDate) {
@@ -116,7 +116,7 @@ struct Session: View {
 
 #Preview {
     ScrollView {
-        let session = SessionData(rawName: "undefined")
-        return Session(appData: AppData(), notificationController: NotificationController(), nextRace: RaceData(), session: session, status: .finished, delta: DeltaValues(date: session.startDate))
+        let session = SessionData(rawName: "fp1")
+        return Session(appData: AppData(), notificationController: NotificationController(), nextRace: RaceData(), session: session, status: .upcoming, delta: DeltaValues(date: session.startDate))
     }
 }

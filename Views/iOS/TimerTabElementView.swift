@@ -39,28 +39,6 @@ struct TimerElement: View {
                 .foregroundStyle(.secondary)
                 .font(.caption)
         }
-        
-        /*
-        ZStack {
-            Circle()
-                .fill(ringColor)
-                .opacity(0.1)
-            
-            Circle()
-                .trim(from: 0, to: CGFloat(deltaPct))
-                .stroke(ringColor, style: StrokeStyle(lineWidth: lineWidth, lineCap: .round))
-                .opacity(0.75)
-                .animation(.easeInOut(duration: 0.5), value: deltaPct)
-                .rotationEffect(.degrees(270))
-                .padding(lineWidth / 2)
-            
-            VStack {
-                Text(String(delta))
-                    .font(.title)
-            }
-        }
-        .frame(maxWidth: 100, maxHeight: 100)
-         */
     }
 }
 
