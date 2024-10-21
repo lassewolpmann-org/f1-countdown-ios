@@ -14,12 +14,18 @@ func calcFutureDate(days: Double) -> String {
     return ISO8601DateFormatter().string(from: futureDate)
 }
 
+func calcFutureSeconds(seconds: Double) -> String {
+    let futureDate = Date().addingTimeInterval(seconds);
+    
+    return ISO8601DateFormatter().string(from: futureDate)
+}
+
 struct SessionData {
     let dateFormatter = DateFormatter()
     let rawName: String
     
-    var startDate: Date = Date().addingTimeInterval(5)
-    var endDate: Date = Date().addingTimeInterval(10)
+    var startDate: Date = Date().addingTimeInterval(10)
+    var endDate: Date = Date().addingTimeInterval(20)
     
     var dateString: String {
         dateFormatter.dateStyle = .medium
@@ -120,7 +126,7 @@ struct RaceData: Decodable, Identifiable, Hashable {
     var round: Int = 0
     var slug: String = ""
     var localeKey: String = ""
-    var sessions: [String: String] = ["fp1": calcFutureDate(days: -1), "sprintQualifying": calcFutureDate(days: -0.0208333333), "sprint": calcFutureDate(days: 0.0001736111), "qualifying": calcFutureDate(days: 2), "gp": calcFutureDate(days: 3)]
+    var sessions: [String: String] = ["fp1": calcFutureSeconds(seconds: -55), "sprintQualifying": calcFutureSeconds(seconds: -50), "sprint": calcFutureSeconds(seconds: -45), "qualifying": calcFutureSeconds(seconds: -40), "gp": calcFutureSeconds(seconds: 5)]
     
     // Optionals
     var tbc: Bool? = false

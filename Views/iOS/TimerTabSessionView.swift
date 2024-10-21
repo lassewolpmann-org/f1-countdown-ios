@@ -14,8 +14,8 @@ struct Session: View {
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     let nextRace: RaceData
     let session: SessionData
-    let status: SessionStatus
     
+    @State var status: SessionStatus
     @State var delta: DeltaValues
     @State var showWeather: Bool = false
         
@@ -61,7 +61,7 @@ struct Session: View {
                 TimerElement(delta: delta.seconds, deltaPct: delta.secondsPct, timeUnit: "seconds")
                 
                 VStack {
-                    NotificationButton(notificationController: notificationController, session: session, race: nextRace, series: appData.currentSeries)
+                    NotificationButton(notificationController: notificationController, session: session, status: status, race: nextRace, series: appData.currentSeries)
                     
                     Button {
                         showWeather.toggle()
@@ -82,24 +82,26 @@ struct Session: View {
         })
         .padding(10)
         .background(RoundedRectangle(cornerRadius: 10).fill(.ultraThinMaterial))
-        .onReceive(timer) { _ in
+        .onReceive(timer) { _ in            
             let date = Date()
             
             if (date >= session.endDate) {
                 // If end date is reached, set delta to 0
                 delta = DeltaValues(date: date)
+                status = .finished
             } else if (date > session.startDate && date < session.endDate) {
                 // If session is ongoing, calculate delta to end date
                 delta = DeltaValues(date: session.endDate)
+                status = .ongoing
             } else {
                 delta = DeltaValues(date: session.startDate)
+                status = .upcoming
             }
                         
-            let startTimestamp = Int(session.startDate.timeIntervalSince1970)
             let endTimestamp = Int(session.endDate.timeIntervalSince1970)
             let currentTimestamp = Int(date.timeIntervalSince1970)
             
-            if (startTimestamp == currentTimestamp || endTimestamp == currentTimestamp) {
+            if (endTimestamp == currentTimestamp && session.rawName == "gp") {
                 Task {
                     do {
                         try await appData.loadAPIData()
@@ -115,6 +117,6 @@ struct Session: View {
 #Preview {
     ScrollView {
         let session = SessionData(rawName: "undefined")
-        Session(appData: AppData(), notificationController: NotificationController(), nextRace: RaceData(), session: session, status: .finished, delta: DeltaValues(date: session.startDate))
+        return Session(appData: AppData(), notificationController: NotificationController(), nextRace: RaceData(), session: session, status: .finished, delta: DeltaValues(date: session.startDate))
     }
 }

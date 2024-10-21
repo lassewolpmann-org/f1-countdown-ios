@@ -64,5 +64,16 @@ struct TimerTab: View {
 }
 
 #Preview {
-    TimerTab(appData: AppData(), notificationController: NotificationController())
+    let sessionLengths = ["fp1": 1, "sprintQualifying": 1, "sprint": 1, "qualifying": 1, "gp": 1]
+    var data = AppData()
+    data.currentSeries = "f1"
+    data.sessionLengths = ["f1": sessionLengths]
+
+    var raceData = RaceData()
+    raceData.sessionLengths = sessionLengths
+    
+    data.seriesData = ["f1": [raceData]]
+    data.dataLoaded = true
+    
+    return TimerTab(appData: data, notificationController: NotificationController())
 }

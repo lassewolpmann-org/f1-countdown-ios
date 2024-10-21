@@ -21,6 +21,17 @@ struct f1_countdown_iosApp: App {
                 ProgressView {
                     Text("Loading data...")
                 }
+                .task {
+                    do {
+                        try await appData.loadAPIData()
+                        
+                        if (!appData.seriesData.isEmpty && !appData.sessionLengths.isEmpty) {
+                            appData.dataLoaded = true
+                        }
+                    } catch {
+                        print(error)
+                    }
+                }
             }
         }
     }

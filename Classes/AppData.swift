@@ -36,18 +36,6 @@ enum AppDataError: Error {
         self.seriesData = [:]
         self.sessionLengths = [:]
         self.dataLoaded = false
-        
-        Task {
-            do {
-                try await self.loadAPIData()
-                
-                if (!seriesData.isEmpty && !sessionLengths.isEmpty) {
-                    self.dataLoaded = true
-                }
-            } catch {
-                print(error)
-            }
-        }
     }
     
     // MARK: Loading Functions
