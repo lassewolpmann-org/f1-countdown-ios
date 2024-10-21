@@ -13,7 +13,7 @@ struct CalendarTab: View {
     var body: some View {
         NavigationStack {
             ScrollView(.horizontal) {
-                LazyHStack(spacing: 20) {
+                LazyHStack(spacing: 15) {
                     ForEach(appData.filteredRaces, id: \.self) { race in
                         CalendarRace(race: race)
                         .scrollTransition { content, phase in

@@ -38,7 +38,7 @@ struct CalendarRace: View {
                 .opacity(session.value.endDate.timeIntervalSinceNow < 0 ? 0.5 : 1.0)
             }
         }
-        .padding(20)
+        .padding(15)
         .containerRelativeFrame(.horizontal, { length, axis in
             return horizontalSizeClass == .regular
             ? (length / 2) - 10
