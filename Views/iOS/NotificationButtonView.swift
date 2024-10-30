@@ -63,6 +63,11 @@ struct NotificationButton: View {
         .task {
             notificationEnabled = await notificationController.getCurrentNotificationDates().contains(session.startDate)
         }
+        .onChange(of: status) { oldStatus, newStatus in
+            if (newStatus == .ongoing || newStatus == .finished) {
+                notificationEnabled = false
+            }
+        }
     }
 }
 

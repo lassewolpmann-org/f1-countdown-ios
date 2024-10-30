@@ -70,7 +70,6 @@ struct Session: View {
                             .labelStyle(.iconOnly)
                     }
                     .buttonStyle(.bordered)
-                    .disabled(session.startDate < Date())
                 }
                 .padding(.leading, 10)
             }

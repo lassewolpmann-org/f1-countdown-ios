@@ -22,7 +22,6 @@ enum AppDataError: Error {
 
 @Observable class AppData {
     let availableSeries: [String] = ["f1", "f2", "f3", "f1-academy"]
-    let notificationOffsetOptions = [0, 5, 10, 15, 30, 60]
 
     var currentSeries: String
     var seriesData: [String: [RaceData]]
@@ -32,6 +31,7 @@ enum AppDataError: Error {
     
     // MARK: Init Class
     init() {
+        // TODO: Save selected series to UserDefaults
         self.currentSeries = availableSeries.first ?? "f1"
         self.seriesData = [:]
         self.sessionLengths = [:]

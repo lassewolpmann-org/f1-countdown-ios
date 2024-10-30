@@ -23,7 +23,7 @@ struct SettingsTab: View {
                 }
                 
                 Section {
-                    NotificationTime(appData: appData, notificationController: notificationController)
+                    NotificationTime(notificationController: notificationController)
                     RemoveNotificationsButton()
                 } header: {
                     Text("Notifications")

@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct NotificationTime: View {
-    @Bindable var appData: AppData
     var notificationController: NotificationController
     
     var body: some View {
         NavigationLink {
-            List(appData.notificationOffsetOptions, id: \.self) { option in
+            List(notificationController.notificationOffsetOptions, id: \.self) { option in
                 HStack {
                     if (option == 0) {
                         Text("At Start of Session").tag(option)
@@ -99,5 +98,5 @@ struct NotificationTime: View {
 }
 
 #Preview {
-    NotificationTime(appData: AppData(), notificationController: NotificationController())
+    NotificationTime(notificationController: NotificationController())
 }

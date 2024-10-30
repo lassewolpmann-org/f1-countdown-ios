@@ -17,6 +17,8 @@ struct ReturnMessage {
     // Create variables for UserDefaults
     let key: String = "NotificationOffsets"
     let userDefaults = UserDefaults.standard
+    let notificationOffsetOptions = [0, 5, 10, 15, 30, 60]
+    
     var selectedOffsetOptions: [Int] = []
     var message: ReturnMessage = ReturnMessage(success: nil, message: "")
     
