@@ -9,14 +9,13 @@ import SwiftUI
 
 struct Session: View {
     var appData: AppData
-    var userDefaults: UserDefaultsController
     var notificationController: NotificationController
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     let nextRace: RaceData
     let session: SessionData
-    let status: SessionStatus
     
+    @State var status: SessionStatus
     @State var delta: DeltaValues
     @State var showWeather: Bool = false
         
@@ -52,16 +51,17 @@ struct Session: View {
                 .foregroundStyle(.secondary)
             }
             
-            HStack {
-                TimerElement(delta: delta.days, deltaPct: delta.daysPct, ringColor: Color.primary, timeUnit: "days")
-                TimerElement(delta: delta.hours, deltaPct: delta.hoursPct, ringColor: Color.red, timeUnit: "hr")
-                TimerElement(delta: delta.minutes, deltaPct: delta.minutesPct, ringColor: Color.green, timeUnit: "min")
-                TimerElement(delta: delta.seconds, deltaPct: delta.secondsPct, ringColor: Color.blue, timeUnit: "sec")
-                
-                Divider()
+            HStack(spacing: 5) {
+                TimerElement(delta: delta.days, deltaPct: delta.daysPct, timeUnit: "days")
+                Text(":")
+                TimerElement(delta: delta.hours, deltaPct: delta.hoursPct, timeUnit: "hours")
+                Text(":")
+                TimerElement(delta: delta.minutes, deltaPct: delta.minutesPct, timeUnit: "minutes")
+                Text(":")
+                TimerElement(delta: delta.seconds, deltaPct: delta.secondsPct, timeUnit: "seconds")
                 
                 VStack {
-                    NotificationButton(userDefaults: userDefaults, notificationController: notificationController, session: session, race: nextRace, series: appData.currentSeries)
+                    NotificationButton(notificationController: notificationController, session: session, status: status, race: nextRace, series: appData.currentSeries)
                     
                     Button {
                         showWeather.toggle()
@@ -70,8 +70,8 @@ struct Session: View {
                             .labelStyle(.iconOnly)
                     }
                     .buttonStyle(.bordered)
-                    .disabled(session.startDate < Date())
                 }
+                .padding(.leading, 10)
             }
         }
         .sheet(isPresented: $showWeather, content: {
@@ -87,18 +87,20 @@ struct Session: View {
             if (date >= session.endDate) {
                 // If end date is reached, set delta to 0
                 delta = DeltaValues(date: date)
+                status = .finished
             } else if (date > session.startDate && date < session.endDate) {
                 // If session is ongoing, calculate delta to end date
                 delta = DeltaValues(date: session.endDate)
+                status = .ongoing
             } else {
                 delta = DeltaValues(date: session.startDate)
+                status = .upcoming
             }
                         
-            let startTimestamp = Int(session.startDate.timeIntervalSince1970)
             let endTimestamp = Int(session.endDate.timeIntervalSince1970)
             let currentTimestamp = Int(date.timeIntervalSince1970)
             
-            if (startTimestamp == currentTimestamp || endTimestamp == currentTimestamp) {
+            if (endTimestamp == currentTimestamp && session.rawName == "gp") {
                 Task {
                     do {
                         try await appData.loadAPIData()
@@ -113,7 +115,7 @@ struct Session: View {
 
 #Preview {
     ScrollView {
-        let session = SessionData(rawName: "undefined")
-        Session(appData: AppData(), userDefaults: UserDefaultsController(), notificationController: NotificationController(), nextRace: RaceData(), session: session, status: .finished, delta: DeltaValues(date: session.startDate))
+        let session = SessionData(rawName: "fp1")
+        return Session(appData: AppData(), notificationController: NotificationController(), nextRace: RaceData(), session: session, status: .upcoming, delta: DeltaValues(date: session.startDate))
     }
 }

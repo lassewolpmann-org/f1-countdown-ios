@@ -8,15 +8,14 @@
 import SwiftUI
 
 struct NotificationButton: View {
-    var userDefaults: UserDefaultsController
     var notificationController: NotificationController
 
     let session: SessionData
+    let status: SessionStatus
     let race: RaceData
     let series: String
     
     @State private var notificationEnabled: Bool = false
-    @State private var buttonDisabled: Bool = false
     
     // Used to track sensory feedback
     @State private var buttonState: Bool = false
@@ -26,7 +25,7 @@ struct NotificationButton: View {
             buttonState.toggle();
             
             if (notificationEnabled) {
-                let dates = userDefaults.selectedOffsetOptions.map { offset in
+                let dates = notificationController.selectedOffsetOptions.map { offset in
                     return session.startDate.addingTimeInterval(TimeInterval(offset * -60)).ISO8601Format()
                 }
                 
@@ -36,7 +35,7 @@ struct NotificationButton: View {
                 Task {
                     let status = await notificationController.permissionStatus
                     if (status == .authorized) {
-                        for offset in userDefaults.selectedOffsetOptions {
+                        for offset in notificationController.selectedOffsetOptions {
                             let notificationDate = session.startDate.addingTimeInterval(TimeInterval(offset * -60))
                             guard notificationDate.timeIntervalSinceNow > 0 else { continue }
                             
@@ -60,16 +59,18 @@ struct NotificationButton: View {
         }
         .sensoryFeedback(.success, trigger: buttonState)
         .buttonStyle(.bordered)
-        .disabled(buttonDisabled)
-        .onAppear {
-            buttonDisabled = session.startDate.timeIntervalSinceNow <= 0
-        }
+        .disabled(status != .upcoming)
         .task {
             notificationEnabled = await notificationController.getCurrentNotificationDates().contains(session.startDate)
+        }
+        .onChange(of: status) { oldStatus, newStatus in
+            if (newStatus == .ongoing || newStatus == .finished) {
+                notificationEnabled = false
+            }
         }
     }
 }
 
 #Preview {
-    NotificationButton(userDefaults: UserDefaultsController(), notificationController: NotificationController(), session: SessionData(rawName: "undefined"), race: RaceData(), series: "f1")
+    NotificationButton(notificationController: NotificationController(), session: SessionData(rawName: "undefined"), status: .upcoming, race: RaceData(), series: "f1")
 }

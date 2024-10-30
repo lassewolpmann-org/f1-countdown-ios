@@ -8,13 +8,11 @@
 import SwiftUI
 
 struct NotificationTime: View {
-    @Bindable var appData: AppData
-    var userDefaults: UserDefaultsController
     var notificationController: NotificationController
     
     var body: some View {
         NavigationLink {
-            List(appData.notificationOffsetOptions, id: \.self) { option in
+            List(notificationController.notificationOffsetOptions, id: \.self) { option in
                 HStack {
                     if (option == 0) {
                         Text("At Start of Session").tag(option)
@@ -25,9 +23,9 @@ struct NotificationTime: View {
                     Spacer()
                     
                     Button {
-                        userDefaults.toggleOffsetValue(offset: option)
+                        notificationController.toggleOffsetValue(offset: option)
                     } label: {
-                        userDefaults.selectedOffsetOptions.contains(option)
+                        notificationController.selectedOffsetOptions.contains(option)
                         ? Image(systemName: "checkmark.circle")
                         : Image(systemName: "circle")
                     }
@@ -37,11 +35,11 @@ struct NotificationTime: View {
                         : .primary
                     )
                     .foregroundStyle(
-                        userDefaults.selectedOffsetOptions.contains(option)
+                        notificationController.selectedOffsetOptions.contains(option)
                         ? .green
                         : .red
                     )
-                    .animation(.easeInOut(duration: 0.2), value: userDefaults.selectedOffsetOptions.contains(option))
+                    .animation(.easeInOut(duration: 0.2), value: notificationController.selectedOffsetOptions.contains(option))
                     .disabled(optionDisabled(option: option))
                 }
                 .foregroundStyle(
@@ -54,7 +52,7 @@ struct NotificationTime: View {
         } label: {
             Text("Choose Notification Time")
         }
-        .onChange(of: userDefaults.selectedOffsetOptions, { oldOffsets, newOffsets in
+        .onChange(of: notificationController.selectedOffsetOptions, { oldOffsets, newOffsets in
             Task {
                 let currentNotifications = await notificationController.currentNotifications
                 let difference = newOffsets.difference(from: oldOffsets).first
@@ -91,7 +89,7 @@ struct NotificationTime: View {
     }
     
     func optionDisabled(option: Int) -> Bool {
-        if (userDefaults.selectedOffsetOptions.contains(option) && userDefaults.selectedOffsetOptions.count == 1) {
+        if (notificationController.selectedOffsetOptions.contains(option) && notificationController.selectedOffsetOptions.count == 1) {
             return true
         } else {
             return false
@@ -100,5 +98,5 @@ struct NotificationTime: View {
 }
 
 #Preview {
-    NotificationTime(appData: AppData(), userDefaults: UserDefaultsController(), notificationController: NotificationController())
+    NotificationTime(notificationController: NotificationController())
 }

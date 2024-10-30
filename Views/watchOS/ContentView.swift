@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ContentView: View {
     var appData: AppData
-    var userDefaults: UserDefaultsController
     var notificationController: NotificationController
     
     var body: some View {
@@ -27,5 +26,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(appData: AppData(), userDefaults: UserDefaultsController(), notificationController: NotificationController())
+    ContentView(appData: AppData(), notificationController: NotificationController())
 }

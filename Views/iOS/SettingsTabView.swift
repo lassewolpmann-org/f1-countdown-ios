@@ -11,7 +11,6 @@ struct SettingsTab: View {
     @Environment(\.openURL) private var openURL;
     
     var appData: AppData
-    var userDefaults: UserDefaultsController
     var notificationController: NotificationController
     
     var body: some View {
@@ -24,7 +23,7 @@ struct SettingsTab: View {
                 }
                 
                 Section {
-                    NotificationTime(appData: appData, userDefaults: userDefaults, notificationController: notificationController)
+                    NotificationTime(notificationController: notificationController)
                     RemoveNotificationsButton()
                 } header: {
                     Text("Notifications")
@@ -83,5 +82,5 @@ struct SettingsTab: View {
 }
 
 #Preview {
-    SettingsTab(appData: AppData(), userDefaults: UserDefaultsController(), notificationController: NotificationController())
+    SettingsTab(appData: AppData(), notificationController: NotificationController())
 }
