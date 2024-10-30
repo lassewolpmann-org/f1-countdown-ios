@@ -65,7 +65,7 @@ struct TimerTab: View {
 
 #Preview {
     let sessionLengths = ["fp1": 1, "sprintQualifying": 1, "sprint": 1, "qualifying": 1, "gp": 1]
-    var data = AppData()
+    let data = AppData()
     data.currentSeries = "f1"
     data.sessionLengths = ["f1": sessionLengths]
 
