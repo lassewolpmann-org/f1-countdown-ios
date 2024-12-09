@@ -14,8 +14,8 @@ struct ContentView: View {
     var body: some View {
         TabView {
             if let nextRace = appData.nextRace {
-                ForEach(nextRace.futureSessions, id: \.key) { session in
-                    Session(appData: appData, nextRace: nextRace, session: session.value, name: session.value.shortName, delta: DeltaValues(date: session.value.startDate))
+                ForEach(nextRace.futureSessions, id: \.shortName) { session in
+                    Session(appData: appData, nextRace: nextRace, session: session, name: session.shortName, delta: DeltaValues(date: session.startDate))
                 }
             } else {
                 Text("No data available.")

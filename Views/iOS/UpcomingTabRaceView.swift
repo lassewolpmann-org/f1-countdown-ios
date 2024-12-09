@@ -18,24 +18,24 @@ struct CalendarRace: View {
                 .font(.title2)
                 .bold()
             
-            ForEach(race.sortedSessions, id: \.key) { session in
+            ForEach(race.sortedSessions, id: \.shortName) { session in
                 VStack {
                     HStack {
-                        Text(session.value.longName)
+                        Text(session.longName)
                             .foregroundStyle(.red)
                         Spacer()
-                        Text(session.value.dayString)
+                        Text(session.dayString)
                             .foregroundStyle(.secondary)
                     }
                     
                     HStack {
-                        Text(session.value.dateString)
+                        Text(session.dateString)
                         Spacer()
-                        Text(DateInterval(start: session.value.startDate, end: session.value.endDate))
+                        Text(DateInterval(start: session.startDate, end: session.endDate))
                     }
                 }
-                .strikethrough(session.value.endDate.timeIntervalSinceNow < 0)
-                .opacity(session.value.endDate.timeIntervalSinceNow < 0 ? 0.5 : 1.0)
+                .strikethrough(session.endDate.timeIntervalSinceNow < 0)
+                .opacity(session.endDate.timeIntervalSinceNow < 0 ? 0.5 : 1.0)
             }
         }
         .padding(15)

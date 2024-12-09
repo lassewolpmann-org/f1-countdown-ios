@@ -104,7 +104,7 @@ struct Session: View {
 
 #Preview {
     TabView {
-        let session = SessionData(rawName: "undefined")
+        let session = SessionData(rawName: "undefined", startDate: Date.now, endDate: Date.now)
         
         Session(appData: AppData(), nextRace: RaceData(), session: session, name: session.shortName, delta: DeltaValues(date: session.startDate))
     }

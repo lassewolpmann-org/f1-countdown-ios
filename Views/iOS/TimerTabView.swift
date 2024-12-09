@@ -7,37 +7,37 @@
 
 import SwiftUI
 
-enum SessionStatus: String {
-    case finished, ongoing, upcoming
-}
-
 struct TimerTab: View {
     var appData: AppData
     var notificationController: NotificationController
-    
-    @State private var notificationsEnabled: Bool = false
     
     var body: some View {
         NavigationStack {
             ScrollView(.vertical) {
                 if let nextRace = appData.nextRace {
                     VStack(alignment: .center, spacing: 15) {
-                        ForEach(nextRace.pastSessions, id: \.key) { session in
+                        ForEach(nextRace.pastSessions, id: \.shortName) { session in
                             // Calculate to current date to instantly set delta to 0
                             let delta = DeltaValues(date: Date.now)
-                            Session(appData: appData, notificationController: notificationController, nextRace: nextRace, session: session.value, status: .finished, delta: delta)
+                            
+                            Session(appData: appData, notificationController: notificationController, nextRace: nextRace, session: session, delta: delta)
                         }
                         
-                        ForEach(nextRace.ongoingSessions, id: \.key) { session in
-                            let delta = DeltaValues(date: session.value.endDate)
-                            Session(appData: appData, notificationController: notificationController, nextRace: nextRace, session: session.value, status: .ongoing, delta: delta)
+                        ForEach(nextRace.ongoingSessions, id: \.shortName) { session in
+                            // Calculate to end date
+                            let delta = DeltaValues(date: session.endDate)
+                            
+                            Session(appData: appData, notificationController: notificationController, nextRace: nextRace, session: session, delta: delta)
                         }
                         
-                        ForEach(nextRace.futureSessions, id: \.key) { session in
-                            let delta = DeltaValues(date: session.value.startDate)
-                            Session(appData: appData, notificationController: notificationController, nextRace: nextRace, session: session.value, status: .upcoming, delta: delta)
+                        ForEach(nextRace.futureSessions, id: \.shortName) { session in
+                            // Calculate to start date
+                            let delta = DeltaValues(date: session.startDate)
+                            
+                            Session(appData: appData, notificationController: notificationController, nextRace: nextRace, session: session, delta: delta)
                         }
                     }
+                    .background(FlagBackground(flag: nextRace.flag))
                     .padding(.horizontal, 10)
                     .navigationTitle(nextRace.title)
                 } else {
@@ -50,14 +50,6 @@ struct TimerTab: View {
                     .symbolRenderingMode(.multicolor)
                     .navigationTitle("Timer")
                 }
-            }
-            .background(FlagBackground(flag: appData.nextRace?.flag ?? ""))
-        }
-        .refreshable {
-            do {
-                try await appData.loadAPIData()
-            } catch {
-                print("\(error), while refreshing TimerTab")
             }
         }
     }

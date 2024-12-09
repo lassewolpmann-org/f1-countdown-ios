@@ -15,7 +15,6 @@ struct Session: View {
     let nextRace: RaceData
     let session: SessionData
     
-    @State var status: SessionStatus
     @State var delta: DeltaValues
     @State var showWeather: Bool = false
         
@@ -29,16 +28,9 @@ struct Session: View {
                 Spacer()
                 
                 Label {
-                    switch status {
-                    case .finished:
-                        Text("Finished")
-                    case .ongoing:
-                        Text("Ongoing")
-                    case .upcoming:
-                        Text("Upcoming")
-                    }
+                    Text(session.status.rawValue)
                 } icon: {
-                    switch status {
+                    switch session.status {
                     case .finished:
                         Image(systemName: "flag.checkered.2.crossed")
                     case .ongoing:
@@ -61,7 +53,7 @@ struct Session: View {
                 TimerElement(delta: delta.seconds, deltaPct: delta.secondsPct, timeUnit: "seconds")
                 
                 VStack {
-                    NotificationButton(notificationController: notificationController, session: session, status: status, race: nextRace, series: appData.currentSeries)
+                    NotificationButton(notificationController: notificationController, session: session, race: nextRace, series: appData.currentSeries)
                     
                     Button {
                         showWeather.toggle()
@@ -71,6 +63,7 @@ struct Session: View {
                     }
                     .buttonStyle(.bordered)
                 }
+                .disabled(session.status != .upcoming)
                 .padding(.leading, 10)
             }
         }
@@ -80,21 +73,21 @@ struct Session: View {
                 .presentationBackground(.regularMaterial)
         })
         .padding(10)
-        .background(RoundedRectangle(cornerRadius: 10).fill(.ultraThinMaterial))
+        .background(
+            RoundedRectangle(cornerRadius: 10)
+                .fill(.regularMaterial)
+        )
         .onReceive(timer) { _ in
             let date = Date()
             
             if (date >= session.endDate) {
                 // If end date is reached, set delta to 0
                 delta = DeltaValues(date: date)
-                status = .finished
             } else if (date > session.startDate && date < session.endDate) {
                 // If session is ongoing, calculate delta to end date
                 delta = DeltaValues(date: session.endDate)
-                status = .ongoing
             } else {
                 delta = DeltaValues(date: session.startDate)
-                status = .upcoming
             }
                         
             let endTimestamp = Int(session.endDate.timeIntervalSince1970)
@@ -115,7 +108,7 @@ struct Session: View {
 
 #Preview {
     ScrollView {
-        let session = SessionData(rawName: "fp1")
-        return Session(appData: AppData(), notificationController: NotificationController(), nextRace: RaceData(), session: session, status: .upcoming, delta: DeltaValues(date: session.startDate))
+        let session = SessionData(rawName: "fp1", startDate: Date.now, endDate: Date.now)
+        return Session(appData: AppData(), notificationController: NotificationController(), nextRace: RaceData(), session: session, delta: DeltaValues(date: session.startDate))
     }
 }

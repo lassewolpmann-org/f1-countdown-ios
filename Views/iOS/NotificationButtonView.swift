@@ -11,7 +11,6 @@ struct NotificationButton: View {
     var notificationController: NotificationController
 
     let session: SessionData
-    let status: SessionStatus
     let race: RaceData
     let series: String
     
@@ -59,11 +58,11 @@ struct NotificationButton: View {
         }
         .sensoryFeedback(.success, trigger: buttonState)
         .buttonStyle(.bordered)
-        .disabled(status != .upcoming)
         .task {
             notificationEnabled = await notificationController.getCurrentNotificationDates().contains(session.startDate)
         }
-        .onChange(of: status) { oldStatus, newStatus in
+        .onChange(of: session.status) { oldStatus, newStatus in
+            print(newStatus)
             if (newStatus == .ongoing || newStatus == .finished) {
                 notificationEnabled = false
             }
@@ -72,5 +71,5 @@ struct NotificationButton: View {
 }
 
 #Preview {
-    NotificationButton(notificationController: NotificationController(), session: SessionData(rawName: "undefined"), status: .upcoming, race: RaceData(), series: "f1")
+    NotificationButton(notificationController: NotificationController(), session: SessionData(rawName: "undefined", startDate: Date.now, endDate: Date.now), race: RaceData(), series: "f1")
 }

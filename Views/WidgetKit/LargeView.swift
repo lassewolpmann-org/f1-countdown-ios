@@ -19,16 +19,16 @@ struct Large: View {
             let ongoingSessions = entry.race.ongoingSessions
             let futureSessions = entry.race.futureSessions
             
-            ForEach(pastSessions, id: \.key) { session in
-                SessionInfo(session: session.value)
+            ForEach(pastSessions, id: \.shortName) { session in
+                SessionInfo(session: session)
             }
             
-            ForEach(ongoingSessions, id: \.key) { session in
-                SessionInfo(session: session.value)
+            ForEach(ongoingSessions, id: \.shortName) { session in
+                SessionInfo(session: session)
             }
             
-            ForEach(futureSessions, id: \.key) { session in
-                SessionInfo(session: session.value)
+            ForEach(futureSessions, id: \.shortName) { session in
+                SessionInfo(session: session)
             }
         }
         .containerBackground(for: .widget) {

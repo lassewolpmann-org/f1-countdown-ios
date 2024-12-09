@@ -20,9 +20,9 @@ func getNextUpdateDate(nextRace: RaceData?) -> Date {
         
         for sessions in allSessions {
             for session in sessions {
-                allDates.append(session.value.startDate.addingTimeInterval(-60 * 60))   // Date one hour before session starts
-                allDates.append(session.value.startDate)
-                allDates.append(session.value.endDate)
+                allDates.append(session.startDate.addingTimeInterval(-60 * 60))   // Date one hour before session starts
+                allDates.append(session.startDate)
+                allDates.append(session.endDate)
             }
         }
         

@@ -85,16 +85,22 @@ enum AppDataError: Error {
     
     var nextRaces: [RaceData] {
         let nextRaces = self.currentData.filter { race in
-            let lastSessionEndDate = race.sortedSessions.last?.value.endDate ?? Date()
+            let lastSessionEndDate = race.sortedSessions.last?.endDate ?? Date()
             
             return lastSessionEndDate > Date()
         }
         
-        return nextRaces
+        if !nextRaces.isEmpty { return nextRaces }
+        
+        if let lastRace = self.currentData.last {
+            return [lastRace]
+        } else {
+            return []
+        }
     }
     
     var nextRace: RaceData? {
-        return self.nextRaces.first
+        self.nextRaces.first
     }
     
     var filteredRaces: [RaceData] {

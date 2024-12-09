@@ -82,7 +82,7 @@ struct SessionWeather: View {
     VStack {
     }.sheet(isPresented: .constant(true)) {
         let nextRace = RaceData();
-        SessionWeather(weather: WeatherData(), race: nextRace, session: SessionData(rawName: "undefined"))
+        SessionWeather(weather: WeatherData(), race: nextRace, session: SessionData(rawName: "undefined", startDate: Date.now, endDate: Date.now))
             .presentationDetents([.medium])
     }
 }

@@ -61,5 +61,5 @@ struct SessionWeather: View {
 }
 
 #Preview {
-    SessionWeather(race: RaceData(), session: SessionData(rawName: "undefined"))
+    SessionWeather(race: RaceData(), session: SessionData(rawName: "undefined", startDate: Date.now, endDate: Date.now))
 }

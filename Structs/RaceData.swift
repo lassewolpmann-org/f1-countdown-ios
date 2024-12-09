@@ -20,12 +20,29 @@ func calcFutureSeconds(seconds: Double) -> String {
     return ISO8601DateFormatter().string(from: futureDate)
 }
 
+enum SessionStatus: String {
+    case finished = "Finished"
+    case ongoing = "Ongoing"
+    case upcoming = "Upcoming"
+}
+
 struct SessionData {
     let dateFormatter = DateFormatter()
     let rawName: String
     
-    var startDate: Date = Date().addingTimeInterval(10)
-    var endDate: Date = Date().addingTimeInterval(20)
+    var startDate: Date
+    var endDate: Date
+    var status: SessionStatus {
+        let date = Date.now
+        
+        if (date >= endDate) {
+            return .finished
+        } else if (date >= startDate && date < endDate) {
+            return .ongoing
+        } else {
+            return .upcoming
+        }
+    }
     
     var dateString: String {
         dateFormatter.dateStyle = .medium
@@ -132,56 +149,58 @@ struct RaceData: Decodable, Identifiable, Hashable {
     var tbc: Bool? = false
     var sessionLengths: [String: Int]?
     
-    var formattedSessions: [(key: String, value: SessionData)] {
+    var formattedSessions: [SessionData] {
         // Step 1: Fix session date values
-        let fixedSessions = sessions.map { session in
+        var fixedSessions: [String: String] = [:]
+        for session in sessions {
             if (session.value.contains(".000")) {
                 let fixedDate = session.value.components(separatedBy: ".000");
-                
-                return (key: session.key, value: fixedDate.first! + fixedDate.last!)
+                fixedSessions[session.key] = fixedDate.first! + fixedDate.last!
             } else {
-                return (key: session.key, value: session.value)
+                fixedSessions[session.key] = session.value
             }
         }
         
         // Step 2: Add extra data
-        let formattedSessions: [(key: String, value: SessionData)] = fixedSessions.map { session in
+        var formattedSessions: [SessionData] = []
+        
+        for session in fixedSessions {
             let sessionName = session.key
             let startDateString = session.value
-            guard let sessionLength = sessionLengths?[sessionName] else { return (key: sessionName, value: SessionData(rawName: sessionName)) }
+            guard let sessionLength = sessionLengths?[sessionName] else { continue }
             
             let formatter = ISO8601DateFormatter()
             
-            guard let startDate = formatter.date(from: startDateString) else { return (key: sessionName, value: SessionData(rawName: sessionName)) }
+            guard let startDate = formatter.date(from: startDateString) else { continue }
             let endDate = startDate.addingTimeInterval(Double(sessionLength) * 60)
-                        
-            return (key: sessionName, value: SessionData(rawName: sessionName, startDate: startDate, endDate: endDate))
+            
+            formattedSessions.append(SessionData(rawName: sessionName, startDate: startDate, endDate: endDate))
         }
         
         return formattedSessions
     }
     
-    var sortedSessions: [(key: String, value: SessionData)] {
+    var sortedSessions: [SessionData] {
         formattedSessions.sorted { a, b in
-            a.value.startDate < b.value.startDate
+            a.startDate < b.startDate
         }
     }
     
-    var pastSessions: [(key: String, value: SessionData)] {
+    var pastSessions: [SessionData] {
         sortedSessions.filter { session in
-            return session.value.endDate < Date()
+            return session.endDate < Date()
         }
     }
     
-    var ongoingSessions: [(key: String, value: SessionData)] {
+    var ongoingSessions: [SessionData] {
         sortedSessions.filter { session in
-            return session.value.startDate < Date() && session.value.endDate >= Date()
+            return session.startDate < Date() && session.endDate >= Date()
         }
     }
 
-    var futureSessions: [(key: String, value: SessionData)] {
+    var futureSessions: [SessionData] {
         sortedSessions.filter { session in
-            return session.value.startDate >= Date()
+            return session.startDate >= Date()
         }
     }
     
