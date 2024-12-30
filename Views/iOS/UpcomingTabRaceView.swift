@@ -18,7 +18,7 @@ struct CalendarRace: View {
                 .font(.title2)
                 .bold()
             
-            ForEach(race.sortedSessions, id: \.shortName) { session in
+            ForEach(race.sessions, id: \.shortName) { session in
                 VStack {
                     HStack {
                         Text(session.longName)

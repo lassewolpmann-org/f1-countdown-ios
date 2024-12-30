@@ -7,6 +7,7 @@
 
 import WidgetKit
 import SwiftUI
+import SwiftData
 
 func getNextUpdateDate(nextRace: RaceData?) -> Date {
     if let nextRace {
@@ -90,7 +91,7 @@ struct TimerWidgetProvider: TimelineProvider {
     func placeholder(in context: Context) -> TimerEntry {
         let race = RaceData(
             name: "Loading Grand Prix...",
-            sessions: [:]
+            sessions: []
         )
         
         return TimerEntry(race: race, date: Date())
@@ -98,16 +99,8 @@ struct TimerWidgetProvider: TimelineProvider {
     
     func getSnapshot(in context: Context, completion: @escaping (TimerEntry) -> Void) {
         Task {
-            let appData = AppData()
-            
-            do {
-                try await appData.loadAPIData()
-            } catch {
-                print(error)
-            }
-            
             let entry = TimerEntry(
-                race: appData.nextRace ?? RaceData(),
+                race: RaceData(),
                 date: Date()
             )
             
@@ -117,15 +110,7 @@ struct TimerWidgetProvider: TimelineProvider {
     
     func getTimeline(in context: Context, completion: @escaping (Timeline<TimerEntry>) -> Void) {
         Task {
-            let appData = AppData()
-            
-            do {
-                try await appData.loadAPIData()
-            } catch {
-                print(error)
-            }
-            
-            let race = appData.nextRace ?? RaceData()
+            let race = RaceData()
             
             let entry = TimerEntry(
                 race: race,
@@ -145,6 +130,7 @@ struct TimerWidget: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: "com.lassewolpmann.f1-countdown-ios.TimerWidget", provider: TimerWidgetProvider()) { entry in
             TimerWidgetView(entry: entry)
+                .modelContainer(for: [SeriesData.self])
         }
         .configurationDisplayName("Timer")
         .description("Timer Widget to next F1 Grand Prix")

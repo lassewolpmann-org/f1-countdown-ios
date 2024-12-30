@@ -23,8 +23,6 @@
 		2521762B2B08BEB00023C9B3 /* WeatherForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2521762A2B08BEB00023C9B3 /* WeatherForecastView.swift */; };
 		2528462C2C5765B00064D5FE /* WeatherForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2528462B2C5765B00064D5FE /* WeatherForecastView.swift */; };
 		252976912C5242E10088E35D /* UpcomingTabRaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252976902C5242E10088E35D /* UpcomingTabRaceView.swift */; };
-		2534A14B2B287279003B0BE3 /* CountryFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2534A14A2B287279003B0BE3 /* CountryFlags.swift */; };
-		2534A14C2B287279003B0BE3 /* CountryFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2534A14A2B287279003B0BE3 /* CountryFlags.swift */; };
 		2534D9E12C747E170095551D /* FlagBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2534D9E02C747E170095551D /* FlagBackgroundView.swift */; };
 		2540A4242B973F9A00684AEA /* SeriesPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2540A4232B973F9A00684AEA /* SeriesPickerView.swift */; };
 		2571837C2B73B241003D12F9 /* DeltaValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BE0E472B2349E20089B5BA /* DeltaValues.swift */; };
@@ -58,7 +56,6 @@
 		25F11CB12BD01FE0007D0DE6 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C655E2B73779B003E4A13 /* AppData.swift */; };
 		25F11CB22BD02045007D0DE6 /* RaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2571837D2B73B264003D12F9 /* RaceData.swift */; };
 		25F11CB32BD02049007D0DE6 /* DeltaValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BE0E472B2349E20089B5BA /* DeltaValues.swift */; };
-		25F11CB42BD0204B007D0DE6 /* CountryFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2534A14A2B287279003B0BE3 /* CountryFlags.swift */; };
 		25F11CB52BD0204F007D0DE6 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2575791F2B84C4FA00FC1A81 /* WeatherData.swift */; };
 		25F11CB62BD02050007D0DE6 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2575791F2B84C4FA00FC1A81 /* WeatherData.swift */; };
 		25F11CC72BD02105007D0DE6 /* f1_countdown_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257959D52B04FB000033DFAB /* f1_countdown_iosApp.swift */; };
@@ -141,7 +138,6 @@
 		2521762C2B08C4270023C9B3 /* f1-countdown-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "f1-countdown-ios.entitlements"; sourceTree = "<group>"; };
 		2528462B2C5765B00064D5FE /* WeatherForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherForecastView.swift; sourceTree = "<group>"; };
 		252976902C5242E10088E35D /* UpcomingTabRaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingTabRaceView.swift; sourceTree = "<group>"; };
-		2534A14A2B287279003B0BE3 /* CountryFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryFlags.swift; sourceTree = "<group>"; };
 		2534D9E02C747E170095551D /* FlagBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlagBackgroundView.swift; sourceTree = "<group>"; };
 		2540A4232B973F9A00684AEA /* SeriesPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesPickerView.swift; sourceTree = "<group>"; };
 		2571837D2B73B264003D12F9 /* RaceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceData.swift; sourceTree = "<group>"; };
@@ -164,6 +160,7 @@
 		25BE0E472B2349E20089B5BA /* DeltaValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaValues.swift; sourceTree = "<group>"; };
 		25BFB0312B0F68D90062E4BC /* SettingsTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTabView.swift; sourceTree = "<group>"; };
 		25C06D4D2BD2AF6500A375A4 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		25C3DA662D23190B00B24C61 /* TimerWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TimerWidgetExtension.entitlements; sourceTree = "<group>"; };
 		25C6C5582B177DB400818265 /* SessionInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionInfoView.swift; sourceTree = "<group>"; };
 		25DE90782B09168A00632B61 /* NotificationButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationButtonView.swift; sourceTree = "<group>"; };
 		25EDC7942B054D320094DBBA /* TimerTabElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTabElementView.swift; sourceTree = "<group>"; };
@@ -279,6 +276,7 @@
 		257959C92B04FB000033DFAB = {
 			isa = PBXGroup;
 			children = (
+				25C3DA662D23190B00B24C61 /* TimerWidgetExtension.entitlements */,
 				25BC66F82B6A9384006DCE8D /* LICENSE.md */,
 				25BC66F72B6A9310006DCE8D /* README.md */,
 				25125EFB2B14914400CA10EE /* Config.xcconfig */,
@@ -337,7 +335,6 @@
 		25C6C53D2B17793B00818265 /* Structs */ = {
 			isa = PBXGroup;
 			children = (
-				2534A14A2B287279003B0BE3 /* CountryFlags.swift */,
 				25BE0E472B2349E20089B5BA /* DeltaValues.swift */,
 				2571837D2B73B264003D12F9 /* RaceData.swift */,
 			);
@@ -509,7 +506,6 @@
 				2571837F2B73B264003D12F9 /* RaceData.swift in Sources */,
 				25B4041B2B10B660007EF384 /* LargeView.swift in Sources */,
 				25B8C1512B8DFF2B009A270C /* WidgetHeaderView.swift in Sources */,
-				2534A14C2B287279003B0BE3 /* CountryFlags.swift in Sources */,
 				2505E69F2B0F843E00876783 /* TimerWidget.swift in Sources */,
 				251C65602B73779B003E4A13 /* AppData.swift in Sources */,
 			);
@@ -532,7 +528,6 @@
 				252976912C5242E10088E35D /* UpcomingTabRaceView.swift in Sources */,
 				257579202B84C4FA00FC1A81 /* WeatherData.swift in Sources */,
 				2540A4242B973F9A00684AEA /* SeriesPickerView.swift in Sources */,
-				2534A14B2B287279003B0BE3 /* CountryFlags.swift in Sources */,
 				25B5C3EC2B6B7CA300057E4D /* RemoveNotificationsButtonView.swift in Sources */,
 				25EDC7952B054D320094DBBA /* TimerTabElementView.swift in Sources */,
 				25AF34662B2F9D0200E7D83A /* TimerTabSessionView.swift in Sources */,
@@ -555,7 +550,6 @@
 				25F11CCD2BD031D7007D0DE6 /* SessionView.swift in Sources */,
 				25F11CB62BD02050007D0DE6 /* WeatherData.swift in Sources */,
 				25F11CB22BD02045007D0DE6 /* RaceData.swift in Sources */,
-				25F11CB42BD0204B007D0DE6 /* CountryFlags.swift in Sources */,
 				2507CEB82C556BE000272430 /* NotificationController.swift in Sources */,
 				25F11CC72BD02105007D0DE6 /* f1_countdown_iosApp.swift in Sources */,
 				25F11CB12BD01FE0007D0DE6 /* AppData.swift in Sources */,
@@ -594,6 +588,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = TimerWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = "$(BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = UU6Y3A827V;
@@ -610,6 +605,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lassewolpmann.f1-countdown-ios.TimerWidget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -622,6 +621,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = TimerWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = "$(BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = UU6Y3A827V;
@@ -638,6 +638,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lassewolpmann.f1-countdown-ios.TimerWidget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -785,7 +789,6 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -794,6 +797,10 @@
 				MARKETING_VERSION = "$(VERSION)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lassewolpmann.f1-countdown-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -820,7 +827,6 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -829,6 +835,10 @@
 				MARKETING_VERSION = "$(VERSION)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lassewolpmann.f1-countdown-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

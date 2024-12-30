@@ -10,14 +10,13 @@ import SwiftUI
 struct SettingsTab: View {
     @Environment(\.openURL) private var openURL;
     
-    var appData: AppData
     var notificationController: NotificationController
     
     var body: some View {
         NavigationStack {
             List {
                 Section {
-                    SeriesPicker(appData: appData)
+                    SeriesPicker()
                 } header: {
                     Text("Series")
                 }
@@ -82,5 +81,5 @@ struct SettingsTab: View {
 }
 
 #Preview {
-    SettingsTab(appData: AppData(), notificationController: NotificationController())
+    SettingsTab(notificationController: NotificationController())
 }

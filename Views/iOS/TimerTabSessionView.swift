@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct Session: View {
-    var appData: AppData
     var notificationController: NotificationController
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -53,7 +52,7 @@ struct Session: View {
                 TimerElement(delta: delta.seconds, deltaPct: delta.secondsPct, timeUnit: "seconds")
                 
                 VStack {
-                    NotificationButton(notificationController: notificationController, session: session, race: nextRace, series: appData.currentSeries)
+                    NotificationButton(notificationController: notificationController, session: session, race: nextRace, series: "f1")
                     
                     Button {
                         showWeather.toggle()
@@ -94,6 +93,7 @@ struct Session: View {
             let currentTimestamp = Int(date.timeIntervalSince1970)
             
             if (endTimestamp == currentTimestamp && session.rawName == "gp") {
+                /*
                 Task {
                     do {
                         try await appData.loadAPIData()
@@ -101,6 +101,7 @@ struct Session: View {
                         print("\(error), while updating appData in Session")
                     }
                 }
+                 */
             }
         }
     }
@@ -109,6 +110,6 @@ struct Session: View {
 #Preview {
     ScrollView {
         let session = SessionData(rawName: "fp1", startDate: Date.now, endDate: Date.now)
-        return Session(appData: AppData(), notificationController: NotificationController(), nextRace: RaceData(), session: session, delta: DeltaValues(date: session.startDate))
+        return Session(notificationController: NotificationController(), nextRace: RaceData(), session: session, delta: DeltaValues(date: session.startDate))
     }
 }

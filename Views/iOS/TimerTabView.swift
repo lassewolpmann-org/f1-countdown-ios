@@ -6,16 +6,26 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct TimerTab: View {
-    var appData: AppData
+    @Query var allSeries: [SeriesData]
+    
+    var nextRace: RaceData? {
+        let currentSeries = allSeries.first { $0.series == "f1" }
+        let currentSeason = currentSeries?.seasons.first { $0.year == 2024 }
+        return currentSeason?.races.first
+    }
+    
     var notificationController: NotificationController
     
     var body: some View {
         NavigationStack {
             ScrollView(.vertical) {
-                if let nextRace = appData.nextRace {
+                if let nextRace {
                     VStack(alignment: .center, spacing: 15) {
+                        Text(nextRace.title)
+                        /*
                         ForEach(nextRace.pastSessions, id: \.shortName) { session in
                             // Calculate to current date to instantly set delta to 0
                             let delta = DeltaValues(date: Date.now)
@@ -36,6 +46,7 @@ struct TimerTab: View {
                             
                             Session(appData: appData, notificationController: notificationController, nextRace: nextRace, session: session, delta: delta)
                         }
+                         */
                     }
                     .background(FlagBackground(flag: nextRace.flag))
                     .padding(.horizontal, 10)
@@ -56,16 +67,5 @@ struct TimerTab: View {
 }
 
 #Preview {
-    let sessionLengths = ["fp1": 1, "sprintQualifying": 1, "sprint": 1, "qualifying": 1, "gp": 1]
-    let data = AppData()
-    data.currentSeries = "f1"
-    data.sessionLengths = ["f1": sessionLengths]
-
-    var raceData = RaceData()
-    raceData.sessionLengths = sessionLengths
-    
-    data.seriesData = ["f1": [raceData]]
-    data.dataLoaded = true
-    
-    return TimerTab(appData: data, notificationController: NotificationController())
+    TimerTab(notificationController: NotificationController())
 }

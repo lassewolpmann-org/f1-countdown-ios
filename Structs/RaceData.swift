@@ -20,11 +20,7 @@ func calcFutureSeconds(seconds: Double) -> String {
     return ISO8601DateFormatter().string(from: futureDate)
 }
 
-enum SessionStatus: String {
-    case finished = "Finished"
-    case ongoing = "Ongoing"
-    case upcoming = "Upcoming"
-}
+/*
 
 struct SessionData {
     let dateFormatter = DateFormatter()
@@ -205,7 +201,7 @@ struct RaceData: Decodable, Identifiable, Hashable {
     }
     
     var flag: String {
-        return CountryFlags().flags[self.localeKey] ?? "🏳️"
+        return flags[self.localeKey] ?? "🏳️"
     }
     
     var id: String {
@@ -223,3 +219,4 @@ struct RaceData: Decodable, Identifiable, Hashable {
         }
     }
 }
+*/

@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct Session: View {
-    var appData: AppData
-    
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     let nextRace: RaceData
     let session: SessionData
@@ -90,6 +88,7 @@ struct Session: View {
             let currentTimestamp = Int(date.timeIntervalSince1970)
             
             if (startTimestamp == currentTimestamp || endTimestamp == currentTimestamp) {
+                /*
                 Task {
                     do {
                         try await appData.loadAPIData()
@@ -97,6 +96,7 @@ struct Session: View {
                         print("\(error), while updating appData in Session")
                     }
                 }
+                 */
             }
         }
     }
@@ -106,7 +106,7 @@ struct Session: View {
     TabView {
         let session = SessionData(rawName: "undefined", startDate: Date.now, endDate: Date.now)
         
-        Session(appData: AppData(), nextRace: RaceData(), session: session, name: session.shortName, delta: DeltaValues(date: session.startDate))
+        Session(nextRace: RaceData(), session: session, name: session.shortName, delta: DeltaValues(date: session.startDate))
     }
     .tabViewStyle(.verticalPage)
 }

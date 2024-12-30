@@ -8,17 +8,19 @@
 import SwiftUI
 
 struct SeriesPicker: View {
-    @Bindable var appData: AppData;
+    @State private var seriesSelection: String = "f1"
     
     var body: some View {
-        Picker(selection: $appData.currentSeries) {
-            ForEach(appData.availableSeries, id:\.self) { series in
+        Picker(selection: $seriesSelection) {
+            ForEach(availableSeries, id:\.self) { series in
                 Text(series.uppercased())
             }
         } label: {
             Text("Select Series")
         }
-        .onChange(of: appData.currentSeries) { oldValue, newValue in
+        .onChange(of: seriesSelection) { _, newSeries in
+            print(newSeries)
+            /*
             Task {
                 do {
                     try await appData.loadAPIData()
@@ -26,11 +28,12 @@ struct SeriesPicker: View {
                     print("\(error), while changing Series")
                 }
             }
+             */
         }
-        .sensoryFeedback(.selection, trigger: appData.currentSeries)
+        .sensoryFeedback(.selection, trigger: seriesSelection)
     }
 }
 
 #Preview {
-    SeriesPicker(appData: AppData())
+    SeriesPicker()
 }

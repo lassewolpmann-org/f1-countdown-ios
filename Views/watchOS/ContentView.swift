@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
-    var appData: AppData
     var notificationController: NotificationController
     
     var body: some View {
+        Text("Test")
+        /*
         TabView {
             if let nextRace = appData.nextRace {
                 ForEach(nextRace.futureSessions, id: \.shortName) { session in
@@ -22,9 +23,10 @@ struct ContentView: View {
             }
         }
         .tabViewStyle(.verticalPage)
+         */
     }
 }
 
 #Preview {
-    ContentView(appData: AppData(), notificationController: NotificationController())
+    ContentView(notificationController: NotificationController())
 }

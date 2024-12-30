@@ -7,17 +7,26 @@
 
 import SwiftUI
 import WidgetKit
+import SwiftData
 
 struct Large: View {
+    @Query var allSeries: [SeriesData]
+    
+    var nextRace: RaceData? {
+        let currentSeries = allSeries.first { $0.series == "f1" }
+        let currentSeason = currentSeries?.seasons.first { $0.year == 2024 }
+        return currentSeason?.races.first
+    }
+    
     let entry: TimerEntry;
     
     var body: some View {
         VStack(alignment: .leading) {
             WidgetHeader(entry: entry)
             
-            let pastSessions = entry.race.pastSessions
-            let ongoingSessions = entry.race.ongoingSessions
-            let futureSessions = entry.race.futureSessions
+            let pastSessions = nextRace?.pastSessions ?? []
+            let ongoingSessions = nextRace?.ongoingSessions ?? []
+            let futureSessions = nextRace?.futureSessions ?? []
             
             ForEach(pastSessions, id: \.shortName) { session in
                 SessionInfo(session: session)
