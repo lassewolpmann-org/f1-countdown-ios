@@ -10,8 +10,7 @@ import SwiftUI
 struct NotificationButton: View {
     var notificationController: NotificationController
 
-    let session: SessionData
-    let sessionStatus: SessionStatus
+    let session: Season.Race.Session
     let raceTitle: String
     let series: String
     
@@ -60,8 +59,8 @@ struct NotificationButton: View {
         .task {
             notificationEnabled = await notificationController.getCurrentNotificationDates().contains(session.startDate)
         }
-        .onChange(of: sessionStatus) { _, newStatus in
-            if (newStatus == SessionStatus.ongoing || newStatus == SessionStatus.finished) {
+        .onChange(of: session.status) { _, newStatus in
+            if (newStatus == .ongoing || newStatus == .finished) {
                 notificationEnabled = false
             }
         }
@@ -70,7 +69,7 @@ struct NotificationButton: View {
 
 #Preview {
     let session = sampleSessionData
-    let status = getSessionStatus(session: session)
+    let status = getSessionStatus(startDate: session.startDate, endDate: session.endDate)
     
-    NotificationButton(notificationController: NotificationController(), session: session, sessionStatus: status, raceTitle: "Test Race", series: "f1")
+    NotificationButton(notificationController: NotificationController(), session: session, raceTitle: "Test Race", series: "f1")
 }

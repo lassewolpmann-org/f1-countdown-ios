@@ -10,7 +10,7 @@ import SwiftData
 
 struct TimerTab: View {
     @Query var allSeries: [SeriesData]
-    @State private var nextRace: RaceData?
+    @State private var nextRace: Season.Race?
     
     var currentSeries: SeriesData? { allSeries.filter({ $0.series == selectedSeries }).first }
     
@@ -24,7 +24,7 @@ struct TimerTab: View {
                 if let nextRace {
                     VStack(alignment: .center, spacing: 15) {
                         ForEach(nextRace.sessions, id: \.shortName) { session in
-                            Session(delta: getDelta(session: session), sessionStatus: getSessionStatus(session: session), nextRace: nextRace, selectedSeries: selectedSeries, notificationController: notificationController, session: session)
+                            Session(delta: getDelta(session: session), nextRace: nextRace, selectedSeries: selectedSeries, notificationController: notificationController, session: session)
                         }
                     }
                     .background(FlagBackground(flag: nextRace.flag))

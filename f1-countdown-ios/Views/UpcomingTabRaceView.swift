@@ -10,7 +10,7 @@ import SwiftUI
 struct UpcomingTabRaceView: View {
     @State var showSessions: Bool = false
     
-    let race: RaceData
+    let race: Season.Race
     
     var body: some View {
         VStack(spacing: 15) {

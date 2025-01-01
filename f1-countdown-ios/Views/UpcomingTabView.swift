@@ -13,7 +13,7 @@ struct CalendarTab: View {
     
     let selectedSeries: String
     
-    var currentSeason: SeasonData? {
+    var currentSeason: Season? {
         let calendar = Calendar(identifier: .gregorian)
         let year = calendar.component(.year, from: Date.now)
         
@@ -29,7 +29,7 @@ struct CalendarTab: View {
         }
     }
     
-    var filteredRaces: [RaceData] {
+    var filteredRaces: [Season.Race] {
         guard let allRaces = currentSeason?.races else { return [] }
         
         if (searchFilter.isEmpty) { return allRaces }

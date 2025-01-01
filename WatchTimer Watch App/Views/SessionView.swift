@@ -9,15 +9,14 @@ import SwiftUI
 import SwiftData
 
 struct Session: View {
+    @State var session: Season.Race.Session
     @State var delta: DeltaValues
-    @State var sessionStatus: SessionStatus
     @State var showInfoSheet: Bool = false
     @State var showSettingsSheet: Bool = false
     @Binding var selectedSeries: String
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    let race: RaceData
-    let session: SessionData
+    let race: Season.Race
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -98,11 +97,11 @@ struct Session: View {
             let date = Date()
 
             if (date >= session.endDate) {
-                sessionStatus = .finished
+                session.status = .finished
             } else if (date > session.startDate && date < session.endDate) {
-                sessionStatus = .ongoing
+                session.status = .ongoing
             } else {
-                sessionStatus = .upcoming
+                session.status = .upcoming
             }
 
             delta = getDelta(session: session)
@@ -116,7 +115,7 @@ struct Session: View {
         let session = sampleSessionData
         let delta = DeltaValues(date: session.startDate)
         
-        Session(delta: delta, sessionStatus: getSessionStatus(session: session), selectedSeries: .constant("f1"), race: nextRace, session: session)
+        Session(session: session, delta: delta, selectedSeries: .constant("f1"), race: nextRace)
     }
     .tabViewStyle(.verticalPage)
 }

@@ -10,7 +10,7 @@ import WidgetKit
 import SwiftData
 
 struct WidgetHeader: View {
-    let race: RaceData
+    let race: Season.Race
         
     var body: some View {
         HStack {

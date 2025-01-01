@@ -27,9 +27,9 @@ struct DeltaValues {
     }
 }
 
-func getDelta(session: SessionData) -> DeltaValues {
+func getDelta(session: Season.Race.Session) -> DeltaValues {
     let delta: DeltaValues
-    let status = getSessionStatus(session: session)
+    let status = getSessionStatus(startDate: session.startDate, endDate: session.endDate)
     
     switch status {
     case .finished:

@@ -21,7 +21,7 @@ struct TimerWidgetView: View {
     @Environment(\.widgetFamily) var family: WidgetFamily;
     @Query var allSeries: [SeriesData]
     var currentSeries: SeriesData? { allSeries.filter({ $0.series == "f1" }).first }
-    var nextRace: RaceData? { currentSeries?.nextRace }
+    var nextRace: Season.Race? { currentSeries?.nextRace }
     
     let entry: TimerEntry;
 

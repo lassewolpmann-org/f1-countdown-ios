@@ -9,7 +9,7 @@ import SwiftUI
 import WidgetKit
 
 struct Medium: View {
-    let race: RaceData
+    let race: Season.Race
 
     var body: some View {
         if let session = race.futureSessions.first {

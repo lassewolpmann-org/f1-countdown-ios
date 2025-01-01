@@ -9,7 +9,7 @@ import SwiftUI
 import WidgetKit
 
 struct Large: View {
-    let race: RaceData
+    let race: Season.Race
     
     var body: some View {
         VStack(alignment: .leading) {

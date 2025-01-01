@@ -21,37 +21,37 @@ var sampleSeriesData: [SeriesData] {
     
     return availableSeries.map { series in
         let firstRaceSessions = [
-            SessionData(rawName: "fp1", startDate: Date.now.addingTimeInterval(2), endDate: Date.now.addingTimeInterval(4)),
-            SessionData(rawName: "fp2", startDate: Date.now.addingTimeInterval(6), endDate: Date.now.addingTimeInterval(8)),
-            SessionData(rawName: "fp3", startDate: Date.now.addingTimeInterval(10), endDate: Date.now.addingTimeInterval(12)),
-            SessionData(rawName: "qualifying", startDate: Date.now.addingTimeInterval(14), endDate: Date.now.addingTimeInterval(16)),
-            SessionData(rawName: "gp", startDate: Date.now.addingTimeInterval(18), endDate: Date.now.addingTimeInterval(20)),
+            Season.Race.Session(rawName: "fp1", startDate: Date.now.addingTimeInterval(2), endDate: Date.now.addingTimeInterval(4), status: .upcoming),
+            Season.Race.Session(rawName: "fp2", startDate: Date.now.addingTimeInterval(6), endDate: Date.now.addingTimeInterval(8), status: .upcoming),
+            Season.Race.Session(rawName: "fp3", startDate: Date.now.addingTimeInterval(10), endDate: Date.now.addingTimeInterval(12), status: .upcoming),
+            Season.Race.Session(rawName: "qualifying", startDate: Date.now.addingTimeInterval(14), endDate: Date.now.addingTimeInterval(16), status: .upcoming),
+            Season.Race.Session(rawName: "gp", startDate: Date.now.addingTimeInterval(18), endDate: Date.now.addingTimeInterval(20), status: .upcoming),
         ]
         
-        let firstRace = RaceData(name: "Test Race 1", location: "Test Location", latitude: 0.0, longitude: 0.0, sessions: firstRaceSessions, slug: "bahrain-grand-prix")
+        let firstRace = Season.Race(name: "Test Race 1", location: "Test Location", latitude: 0.0, longitude: 0.0, sessions: firstRaceSessions, slug: "bahrain-grand-prix")
         
         let secondRaceSessions = [
-            SessionData(rawName: "fp1", startDate: Date.now.addingTimeInterval(22), endDate: Date.now.addingTimeInterval(24)),
-            SessionData(rawName: "fp2", startDate: Date.now.addingTimeInterval(26), endDate: Date.now.addingTimeInterval(28)),
-            SessionData(rawName: "fp3", startDate: Date.now.addingTimeInterval(30), endDate: Date.now.addingTimeInterval(32)),
-            SessionData(rawName: "qualifying", startDate: Date.now.addingTimeInterval(34), endDate: Date.now.addingTimeInterval(36)),
-            SessionData(rawName: "gp", startDate: Date.now.addingTimeInterval(38), endDate: Date.now.addingTimeInterval(40)),
+            Season.Race.Session(rawName: "fp1", startDate: Date.now.addingTimeInterval(22), endDate: Date.now.addingTimeInterval(24), status: .upcoming),
+            Season.Race.Session(rawName: "fp2", startDate: Date.now.addingTimeInterval(26), endDate: Date.now.addingTimeInterval(28), status: .upcoming),
+            Season.Race.Session(rawName: "fp3", startDate: Date.now.addingTimeInterval(30), endDate: Date.now.addingTimeInterval(32), status: .upcoming),
+            Season.Race.Session(rawName: "qualifying", startDate: Date.now.addingTimeInterval(34), endDate: Date.now.addingTimeInterval(36), status: .upcoming),
+            Season.Race.Session(rawName: "gp", startDate: Date.now.addingTimeInterval(38), endDate: Date.now.addingTimeInterval(40), status: .upcoming),
         ]
         
-        let secondRace = RaceData(name: "Test Race 2", location: "Test Location", latitude: 0.0, longitude: 0.0, sessions: secondRaceSessions, slug: "saudi-arabia-grand-prix")
+        let secondRace = Season.Race(name: "Test Race 2", location: "Test Location", latitude: 0.0, longitude: 0.0, sessions: secondRaceSessions, slug: "saudi-arabia-grand-prix")
         
-        let seasonData = SeasonData(year: 2025, races: [firstRace, secondRace])
+        let seasonData = Season(year: 2025, races: [firstRace, secondRace])
         
         return SeriesData(series: series, seasons: [seasonData], config: config)
     }
 }
 
-var sampleRaceData: RaceData {
-    RaceData(name: "Test Race 1", location: "Test Location", latitude: 0.0, longitude: 0.0, sessions: [sampleSessionData, sampleSessionData, sampleSessionData, sampleSessionData, sampleSessionData], slug: "bahrain-grand-prix")
+var sampleRaceData: Season.Race {
+    .init(name: "Test Race 1", location: "Test Location", latitude: 0.0, longitude: 0.0, sessions: [sampleSessionData, sampleSessionData, sampleSessionData, sampleSessionData, sampleSessionData], slug: "bahrain-grand-prix")
 }
 
-var sampleSessionData: SessionData {
-    SessionData(rawName: "fp1", startDate: Date.now.addingTimeInterval(10), endDate: Date.now.addingTimeInterval(20))
+var sampleSessionData: Season.Race.Session {
+    .init(rawName: "fp1", startDate: Date.now.addingTimeInterval(10), endDate: Date.now.addingTimeInterval(20), status: .upcoming)
 }
 
 struct SampleData: PreviewModifier {

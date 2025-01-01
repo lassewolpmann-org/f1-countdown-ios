@@ -9,7 +9,7 @@ import SwiftUI
 import WidgetKit
 
 struct SessionInfo: View {
-    let session: SessionData
+    let session: Season.Race.Session
     
     var body: some View {
         VStack(alignment: .leading) {

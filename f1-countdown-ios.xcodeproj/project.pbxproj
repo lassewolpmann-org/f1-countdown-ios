@@ -31,6 +31,12 @@
 		257959DA2B04FB010033DFAB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 257959D92B04FB010033DFAB /* Assets.xcassets */; };
 		257959DD2B04FB010033DFAB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 257959DC2B04FB010033DFAB /* Preview Assets.xcassets */; };
 		2591C4A82B8C839000F87BE9 /* NotificationTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2591C4A72B8C839000F87BE9 /* NotificationTimeView.swift */; };
+		25AB92BC2D25986D00295255 /* RawAPIData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AB92BB2D25986D00295255 /* RawAPIData.swift */; };
+		25AB92BD2D25986D00295255 /* RawAPIData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AB92BB2D25986D00295255 /* RawAPIData.swift */; };
+		25AB92BE2D25986D00295255 /* RawAPIData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AB92BB2D25986D00295255 /* RawAPIData.swift */; };
+		25AB92C02D25989300295255 /* SeasonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AB92BF2D25989300295255 /* SeasonData.swift */; };
+		25AB92C12D25989300295255 /* SeasonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AB92BF2D25989300295255 /* SeasonData.swift */; };
+		25AB92C22D25989300295255 /* SeasonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AB92BF2D25989300295255 /* SeasonData.swift */; };
 		25AF34612B2F98CA00E7D83A /* TimerTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AF34602B2F98CA00E7D83A /* TimerTabView.swift */; };
 		25AF34662B2F9D0200E7D83A /* TimerTabSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AF34652B2F9D0200E7D83A /* TimerTabSessionView.swift */; };
 		25AF34682B2FA79F00E7D83A /* UpcomingTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AF34672B2FA79F00E7D83A /* UpcomingTabView.swift */; };
@@ -138,6 +144,8 @@
 		257959D92B04FB010033DFAB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		257959DC2B04FB010033DFAB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2591C4A72B8C839000F87BE9 /* NotificationTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTimeView.swift; sourceTree = "<group>"; };
+		25AB92BB2D25986D00295255 /* RawAPIData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawAPIData.swift; sourceTree = "<group>"; };
+		25AB92BF2D25989300295255 /* SeasonData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonData.swift; sourceTree = "<group>"; };
 		25AF34602B2F98CA00E7D83A /* TimerTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTabView.swift; sourceTree = "<group>"; };
 		25AF34652B2F9D0200E7D83A /* TimerTabSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTabSessionView.swift; sourceTree = "<group>"; };
 		25AF34672B2FA79F00E7D83A /* UpcomingTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingTabView.swift; sourceTree = "<group>"; };
@@ -201,6 +209,7 @@
 		2505E69B2B0F843E00876783 /* TimerWidget */ = {
 			isa = PBXGroup;
 			children = (
+				25AB92B82D25971800295255 /* Views */,
 				2505E69C2B0F843E00876783 /* TimerWidgetBundle.swift */,
 				2505E69E2B0F843E00876783 /* TimerWidget.swift */,
 				2505E6A02B0F844000876783 /* Assets.xcassets */,
@@ -218,47 +227,6 @@
 			path = Classes;
 			sourceTree = "<group>";
 		};
-		2558C48D2CBF7E16008C9B7E /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				257959D72B04FB000033DFAB /* ContentView.swift */,
-				2534D9E02C747E170095551D /* FlagBackgroundView.swift */,
-				25DE90782B09168A00632B61 /* NotificationButtonView.swift */,
-				2591C4A72B8C839000F87BE9 /* NotificationTimeView.swift */,
-				25B5C3EB2B6B7CA300057E4D /* RemoveNotificationsButtonView.swift */,
-				2540A4232B973F9A00684AEA /* SeriesPickerView.swift */,
-				25BFB0312B0F68D90062E4BC /* SettingsTabView.swift */,
-				25EDC7942B054D320094DBBA /* TimerTabElementView.swift */,
-				25AF34652B2F9D0200E7D83A /* TimerTabSessionView.swift */,
-				25AF34602B2F98CA00E7D83A /* TimerTabView.swift */,
-				25AF34672B2FA79F00E7D83A /* UpcomingTabView.swift */,
-				2527B9AF2D25557300D5F915 /* UpcomingTabRaceView.swift */,
-			);
-			path = iOS;
-			sourceTree = "<group>";
-		};
-		2558C48E2CBF7E1C008C9B7E /* watchOS */ = {
-			isa = PBXGroup;
-			children = (
-				25F11C872BD01E97007D0DE6 /* ContentView.swift */,
-				251DC16F2BD0FD0C00D08D56 /* InfoButtonView.swift */,
-				25F11CCC2BD031D7007D0DE6 /* SessionView.swift */,
-				25F11CCE2BD03361007D0DE6 /* TimerCircleView.swift */,
-			);
-			path = watchOS;
-			sourceTree = "<group>";
-		};
-		2558C48F2CBF7E33008C9B7E /* WidgetKit */ = {
-			isa = PBXGroup;
-			children = (
-				25B404182B10B3D7007EF384 /* MediumView.swift */,
-				25B4041A2B10B660007EF384 /* LargeView.swift */,
-				25B8C1502B8DFF2B009A270C /* WidgetHeaderView.swift */,
-				25C6C5582B177DB400818265 /* SessionInfoView.swift */,
-			);
-			path = WidgetKit;
-			sourceTree = "<group>";
-		};
 		257959C92B04FB000033DFAB = {
 			isa = PBXGroup;
 			children = (
@@ -268,13 +236,12 @@
 				25125EFB2B14914400CA10EE /* Config.xcconfig */,
 				25C06D4D2BD2AF6500A375A4 /* PrivacyInfo.xcprivacy */,
 				25486B1B2B9851CA002681A7 /* Classes */,
+				25C6C53D2B17793B00818265 /* Structs */,
 				257959D42B04FB000033DFAB /* f1-countdown-ios */,
+				2505E69B2B0F843E00876783 /* TimerWidget */,
+				25F11C842BD01E97007D0DE6 /* WatchTimer Watch App */,
 				2505E6962B0F843E00876783 /* Frameworks */,
 				257959D32B04FB000033DFAB /* Products */,
-				25C6C53D2B17793B00818265 /* Structs */,
-				2505E69B2B0F843E00876783 /* TimerWidget */,
-				25B2F9CC2CAE6FD200A3107F /* Views */,
-				25F11C842BD01E97007D0DE6 /* WatchTimer Watch App */,
 			);
 			sourceTree = "<group>";
 		};
@@ -291,6 +258,7 @@
 		257959D42B04FB000033DFAB /* f1-countdown-ios */ = {
 			isa = PBXGroup;
 			children = (
+				25AB92BA2D25973000295255 /* Views */,
 				25104C5C2B0A51E3001FDF49 /* Info.plist */,
 				2521762C2B08C4270023C9B3 /* f1-countdown-ios.entitlements */,
 				257959D52B04FB000033DFAB /* f1_countdown_iosApp.swift */,
@@ -308,12 +276,43 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		25B2F9CC2CAE6FD200A3107F /* Views */ = {
+		25AB92B82D25971800295255 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				2558C48F2CBF7E33008C9B7E /* WidgetKit */,
-				2558C48E2CBF7E1C008C9B7E /* watchOS */,
-				2558C48D2CBF7E16008C9B7E /* iOS */,
+				25B404182B10B3D7007EF384 /* MediumView.swift */,
+				25B4041A2B10B660007EF384 /* LargeView.swift */,
+				25B8C1502B8DFF2B009A270C /* WidgetHeaderView.swift */,
+				25C6C5582B177DB400818265 /* SessionInfoView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		25AB92B92D25972400295255 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				25F11C872BD01E97007D0DE6 /* ContentView.swift */,
+				251DC16F2BD0FD0C00D08D56 /* InfoButtonView.swift */,
+				25F11CCC2BD031D7007D0DE6 /* SessionView.swift */,
+				25F11CCE2BD03361007D0DE6 /* TimerCircleView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		25AB92BA2D25973000295255 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				257959D72B04FB000033DFAB /* ContentView.swift */,
+				2534D9E02C747E170095551D /* FlagBackgroundView.swift */,
+				25DE90782B09168A00632B61 /* NotificationButtonView.swift */,
+				2591C4A72B8C839000F87BE9 /* NotificationTimeView.swift */,
+				25B5C3EB2B6B7CA300057E4D /* RemoveNotificationsButtonView.swift */,
+				2540A4232B973F9A00684AEA /* SeriesPickerView.swift */,
+				25BFB0312B0F68D90062E4BC /* SettingsTabView.swift */,
+				25EDC7942B054D320094DBBA /* TimerTabElementView.swift */,
+				25AF34652B2F9D0200E7D83A /* TimerTabSessionView.swift */,
+				25AF34602B2F98CA00E7D83A /* TimerTabView.swift */,
+				25AF34672B2FA79F00E7D83A /* UpcomingTabView.swift */,
+				2527B9AF2D25557300D5F915 /* UpcomingTabRaceView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -323,6 +322,8 @@
 			children = (
 				256D6C542D23D78D004BF92C /* SampleData.swift */,
 				25BE0E472B2349E20089B5BA /* DeltaValues.swift */,
+				25AB92BB2D25986D00295255 /* RawAPIData.swift */,
+				25AB92BF2D25989300295255 /* SeasonData.swift */,
 			);
 			path = Structs;
 			sourceTree = "<group>";
@@ -330,6 +331,7 @@
 		25F11C842BD01E97007D0DE6 /* WatchTimer Watch App */ = {
 			isa = PBXGroup;
 			children = (
+				25AB92B92D25972400295255 /* Views */,
 				251DC1712BD0FFDB00D08D56 /* WatchTimer Watch App.entitlements */,
 				25F11C892BD01E98007D0DE6 /* Assets.xcassets */,
 				25F11C8B2BD01E98007D0DE6 /* Preview Content */,
@@ -491,7 +493,9 @@
 				25B4041B2B10B660007EF384 /* LargeView.swift in Sources */,
 				25B8C1512B8DFF2B009A270C /* WidgetHeaderView.swift in Sources */,
 				256D6C552D23D78D004BF92C /* SampleData.swift in Sources */,
+				25AB92BD2D25986D00295255 /* RawAPIData.swift in Sources */,
 				2505E69F2B0F843E00876783 /* TimerWidget.swift in Sources */,
+				25AB92C12D25989300295255 /* SeasonData.swift in Sources */,
 				251C65602B73779B003E4A13 /* AppData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -503,6 +507,8 @@
 				2507CEB62C556BE000272430 /* NotificationController.swift in Sources */,
 				25AF34682B2FA79F00E7D83A /* UpcomingTabView.swift in Sources */,
 				257959D82B04FB000033DFAB /* ContentView.swift in Sources */,
+				25AB92C22D25989300295255 /* SeasonData.swift in Sources */,
+				25AB92BC2D25986D00295255 /* RawAPIData.swift in Sources */,
 				25AF34612B2F98CA00E7D83A /* TimerTabView.swift in Sources */,
 				2534D9E12C747E170095551D /* FlagBackgroundView.swift in Sources */,
 				25BE0E482B2349E20089B5BA /* DeltaValues.swift in Sources */,
@@ -530,9 +536,11 @@
 				25F11CB32BD02049007D0DE6 /* DeltaValues.swift in Sources */,
 				25F11CCD2BD031D7007D0DE6 /* SessionView.swift in Sources */,
 				256D6C562D23D78D004BF92C /* SampleData.swift in Sources */,
+				25AB92C02D25989300295255 /* SeasonData.swift in Sources */,
 				2507CEB82C556BE000272430 /* NotificationController.swift in Sources */,
 				25F11CC72BD02105007D0DE6 /* f1_countdown_iosApp.swift in Sources */,
 				25F11CB12BD01FE0007D0DE6 /* AppData.swift in Sources */,
+				25AB92BE2D25986D00295255 /* RawAPIData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -771,6 +779,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -809,6 +818,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -1,8 +1,8 @@
 //
 //  ContentView.swift
-//  f1-countdown-ios
+//  WatchTimer Watch App
 //
-//  Created by Lasse Wolpmann on 15.11.2023.
+//  Created by Lasse Wolpmann on 17.4.2024.
 //
 
 import SwiftUI
@@ -15,8 +15,9 @@ struct ContentView: View {
     @State var loadingData: Bool = true
     @State var selectedSeries: String = "f1"
     
-    // var appData: AppData
-    var notificationController: NotificationController
+    var currentSeries: SeriesData? { allSeries.filter({ $0.series == selectedSeries }).first }
+    
+    let notificationController: NotificationController
     
     var body: some View {
         if (loadingData) {
@@ -32,13 +33,13 @@ struct ContentView: View {
                                 
                                 for year in missingYears {
                                     let seasonData = try await loadSeasonData(baseURL: baseURL, year: year, sessionLengths: existingSeriesData.config.sessionLengths)
-                                    existingSeriesData.seasons.append(SeasonData(year: year, races: seasonData.races))
+                                    existingSeriesData.seasons.append(Season(year: year, races: seasonData.races))
                                 }
                             } else {
                                 let seriesConfig = try await loadSeriesConfig(baseURL: baseURL)
 
                                 // MARK: If series data does not exist yet
-                                var allSeasons: [SeasonData] = []
+                                var allSeasons: [Season] = []
                                 
                                 for year in seriesConfig.availableYears {
                                     let seasonData = try await loadSeasonData(baseURL: baseURL, year: year, sessionLengths: seriesConfig.sessionLengths)
@@ -56,24 +57,27 @@ struct ContentView: View {
                 }
         } else {
             TabView {
-                Tab {
-                    TimerTab(selectedSeries: selectedSeries, notificationController: notificationController)
-                } label: {
-                    Label("Timer", systemImage: "stopwatch")
-                }
-                
-                Tab {
-                    CalendarTab(selectedSeries: selectedSeries)
-                } label: {
-                    Label("Upcoming", systemImage: "calendar")
-                }
-                
-                Tab {
-                    SettingsTab(selectedSeries: $selectedSeries, notificationController: notificationController)
-                } label: {
-                    Label("Settings", systemImage: "gear")
+                if let nextRace = currentSeries?.nextRace {
+                    ForEach(nextRace.futureSessions, id: \.shortName) { session in
+                        Session(session: session, delta: getDelta(session: session), selectedSeries: $selectedSeries, race: nextRace)
+                    }
+                } else {
+                    VStack {
+                        Text("No data available for \(selectedSeries.uppercased()).")
+
+                        Picker(selection: $selectedSeries) {
+                            ForEach(availableSeries, id:\.self) { series in
+                                Text(series.uppercased())
+                            }
+                        } label: {
+                            Text("Select Series")
+                        }
+                        .sensoryFeedback(.selection, trigger: selectedSeries)
+                        .pickerStyle(.navigationLink)
+                    }
                 }
             }
+            .tabViewStyle(.verticalPage)
         }
     }
 }

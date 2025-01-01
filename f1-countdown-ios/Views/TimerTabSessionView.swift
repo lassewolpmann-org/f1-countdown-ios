@@ -10,13 +10,12 @@ import WidgetKit
 
 struct Session: View {
     @State var delta: DeltaValues
-    @State var sessionStatus: SessionStatus
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    let nextRace: RaceData
+    let nextRace: Season.Race
     let selectedSeries: String
     let notificationController: NotificationController
-    let session: SessionData
+    @State var session: Season.Race.Session
     
     var body: some View {
         VStack {
@@ -28,9 +27,9 @@ struct Session: View {
                 Spacer()
                 
                 Label {
-                    Text(sessionStatus.rawValue)
+                    Text(session.status.rawValue)
                 } icon: {
-                    switch sessionStatus {
+                    switch session.status {
                     case .finished:
                         Image(systemName: "flag.checkered.2.crossed")
                     case .ongoing:
@@ -52,8 +51,8 @@ struct Session: View {
                 Text(":")
                 TimerElement(delta: delta.seconds, deltaPct: delta.secondsPct, timeUnit: "seconds")
                 
-                NotificationButton(notificationController: notificationController, session: session, sessionStatus: sessionStatus, raceTitle: nextRace.title, series: selectedSeries)
-                    .disabled(sessionStatus != .upcoming)
+                NotificationButton(notificationController: notificationController, session: session, raceTitle: nextRace.title, series: selectedSeries)
+                    .disabled(session.status != .upcoming)
                     .padding(.leading, 10)
             }
         }
@@ -66,16 +65,16 @@ struct Session: View {
             let date = Date()
             
             if (date >= session.endDate) {
-                sessionStatus = .finished
+                session.status = .finished
             } else if (date > session.startDate && date < session.endDate) {
-                sessionStatus = .ongoing
+                session.status = .ongoing
             } else {
-                sessionStatus = .upcoming
+                session.status = .upcoming
             }
             
             delta = getDelta(session: session)
         }
-        .onChange(of: sessionStatus) { _, _ in
+        .onChange(of: session.status) { _, _ in
             // Reload widgets when Session Status changes
             WidgetCenter.shared.reloadAllTimelines()
         }
@@ -88,9 +87,8 @@ struct Session: View {
         let selectedSeries = "f1"
         let notificationController = NotificationController()
         let session = sampleSessionData
-        let sessionStatus = getSessionStatus(session: session)
         let delta = DeltaValues(date: session.startDate)
         
-        Session(delta: delta, sessionStatus: sessionStatus, nextRace: nextRace, selectedSeries: selectedSeries, notificationController: notificationController, session: session)
+        Session(delta: delta, nextRace: nextRace, selectedSeries: selectedSeries, notificationController: notificationController, session: session)
     }
 }
