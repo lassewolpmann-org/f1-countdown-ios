@@ -34,7 +34,7 @@ struct CalendarTab: View {
         
         if (searchFilter.isEmpty) { return allRaces }
         
-        return allRaces.filter { $0.name.localizedStandardContains(searchFilter) }
+        return allRaces.filter { $0.name.localizedStandardContains(searchFilter) || $0.location.localizedStandardContains(searchFilter) }
     }
     
     @State private var searchFilter: String = ""
@@ -51,63 +51,19 @@ struct CalendarTab: View {
                 .symbolRenderingMode(.multicolor)
                 .navigationTitle("Upcoming Races")
             } else {
-                if (!filteredRaces.isEmpty) {
-                    ScrollView(.horizontal) {
-                        LazyHStack(spacing: 15) {
-                            ForEach(filteredRaces, id: \.slug) { race in
-                                VStack(alignment: .center, spacing: 20) {
-                                    Text(race.title)
-                                        .font(.title2)
-                                        .bold()
-                                    
-                                    ForEach(race.sessions, id: \.shortName) { session in
-                                        VStack {
-                                            HStack {
-                                                Text(session.longName)
-                                                    .foregroundStyle(.red)
-                                                Spacer()
-                                                Text(session.dayString)
-                                                    .foregroundStyle(.secondary)
-                                            }
-                                            
-                                            HStack {
-                                                Text(session.dateString)
-                                                Spacer()
-                                                Text(DateInterval(start: session.startDate, end: session.endDate))
-                                            }
-                                        }
-                                        .strikethrough(session.endDate.timeIntervalSinceNow < 0)
-                                        .opacity(session.endDate.timeIntervalSinceNow < 0 ? 0.5 : 1.0)
-                                    }
-                                }
-                                .padding(15)
-                                .background(RoundedRectangle(cornerRadius: 10).fill(.ultraThinMaterial))
-                                .background(FlagBackground(flag: race.flag))
-                                .scrollTransition { content, phase in
-                                    content
-                                        .opacity(phase.isIdentity ? 1.0 : 0.5)
-                                        .blur(radius: abs(phase.value))
-                                }
-                            }
-                        }
+                ScrollView {
+                    ForEach(filteredRaces, id: \.slug) { race in
+                        UpcomingTabRaceView(race: race)
                     }
-                    .navigationTitle("Upcoming Races")
-                } else {
-                    Label {
-                        Text("Couldn't find an event matching your search.")
-                    } icon: {
-                        Image(systemName: "exclamationmark.triangle.fill")
-                    }
-                    .bold()
-                    .symbolRenderingMode(.multicolor)
-                    .navigationTitle("Upcoming Races")
                 }
+                .padding(.horizontal)
+                .searchable(text: $searchFilter)
+                .navigationTitle("Upcoming Races")
             }
         }
-        .searchable(text: $searchFilter)
     }
 }
 
-#Preview {
+#Preview(traits: .sampleData) {
     CalendarTab(selectedSeries: "f1")
 }

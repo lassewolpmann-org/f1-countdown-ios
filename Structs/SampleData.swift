@@ -22,17 +22,23 @@ var sampleSeriesData: [SeriesData] {
     return availableSeries.map { series in
         let firstRaceSessions = [
             SessionData(rawName: "fp1", startDate: Date.now.addingTimeInterval(10), endDate: Date.now.addingTimeInterval(20)),
-            SessionData(rawName: "fp2", startDate: Date.now.addingTimeInterval(30), endDate: Date.now.addingTimeInterval(40))
+            SessionData(rawName: "fp2", startDate: Date.now.addingTimeInterval(30), endDate: Date.now.addingTimeInterval(40)),
+            SessionData(rawName: "fp3", startDate: Date.now.addingTimeInterval(50), endDate: Date.now.addingTimeInterval(60)),
+            SessionData(rawName: "qualifying", startDate: Date.now.addingTimeInterval(70), endDate: Date.now.addingTimeInterval(80)),
+            SessionData(rawName: "gp", startDate: Date.now.addingTimeInterval(90), endDate: Date.now.addingTimeInterval(100)),
         ]
         
-        let firstRace = RaceData(name: "Test Race 1", location: "Test Location", latitude: 0.0, longitude: 0.0, sessions: firstRaceSessions, slug: "test-race-one")
+        let firstRace = RaceData(name: "Test Race 1", location: "Test Location", latitude: 0.0, longitude: 0.0, sessions: firstRaceSessions, slug: "bahrain-grand-prix")
         
         let secondRaceSessions = [
-            SessionData(rawName: "fp1", startDate: Date.now.addingTimeInterval(50), endDate: Date.now.addingTimeInterval(60)),
-            SessionData(rawName: "fp2", startDate: Date.now.addingTimeInterval(70), endDate: Date.now.addingTimeInterval(80))
+            SessionData(rawName: "fp1", startDate: Date.now.addingTimeInterval(110), endDate: Date.now.addingTimeInterval(120)),
+            SessionData(rawName: "fp2", startDate: Date.now.addingTimeInterval(130), endDate: Date.now.addingTimeInterval(140)),
+            SessionData(rawName: "fp3", startDate: Date.now.addingTimeInterval(150), endDate: Date.now.addingTimeInterval(160)),
+            SessionData(rawName: "qualifying", startDate: Date.now.addingTimeInterval(170), endDate: Date.now.addingTimeInterval(180)),
+            SessionData(rawName: "gp", startDate: Date.now.addingTimeInterval(190), endDate: Date.now.addingTimeInterval(200)),
         ]
         
-        let secondRace = RaceData(name: "Test Race 2", location: "Test Location", latitude: 0.0, longitude: 0.0, sessions: secondRaceSessions, slug: "test-race-two")
+        let secondRace = RaceData(name: "Test Race 2", location: "Test Location", latitude: 0.0, longitude: 0.0, sessions: secondRaceSessions, slug: "saudi-arabia-grand-prix")
         
         let seasonData = SeasonData(year: 2025, races: [firstRace, secondRace])
         
@@ -41,7 +47,7 @@ var sampleSeriesData: [SeriesData] {
 }
 
 var sampleRaceData: RaceData {
-    RaceData(name: "Test Race 1", location: "Test Location", latitude: 0.0, longitude: 0.0, sessions: [sampleSessionData], slug: "test-race-one")
+    RaceData(name: "Test Race 1", location: "Test Location", latitude: 0.0, longitude: 0.0, sessions: [sampleSessionData, sampleSessionData, sampleSessionData, sampleSessionData, sampleSessionData], slug: "bahrain-grand-prix")
 }
 
 var sampleSessionData: SessionData {

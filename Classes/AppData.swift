@@ -46,6 +46,7 @@ let flags = [
     "singapore": "🇸🇬",
     "us-grand-prix": "🇺🇸",
     "mexico-grand-prix": "🇲🇽",
+    "mexican-grand-prix": "🇲🇽",
     "brazilian-grand-prix": "🇧🇷",
     "las-vegas-grand-prix": "🇺🇸",
     "qatar-grand-prix": "🇶🇦",
