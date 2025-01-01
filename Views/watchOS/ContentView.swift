@@ -6,27 +6,82 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
-    var notificationController: NotificationController
+    @Environment(\.modelContext) private var context
+    @Query var allSeries: [SeriesData]
+    
+    @State var loadingData: Bool = true
+    @State var selectedSeries: String = "f1"
+    
+    var currentSeries: SeriesData? { allSeries.filter({ $0.series == selectedSeries }).first }
+    
+    let notificationController: NotificationController
     
     var body: some View {
-        Text("Test")
-        /*
-        TabView {
-            if let nextRace = appData.nextRace {
-                ForEach(nextRace.futureSessions, id: \.shortName) { session in
-                    Session(appData: appData, nextRace: nextRace, session: session, name: session.shortName, delta: DeltaValues(date: session.startDate))
+        if (loadingData) {
+            ProgressView("Loading data...")
+                .task {
+                    for series in availableSeries {
+                        let baseURL = "https://raw.githubusercontent.com/sportstimes/f1/main/_db/\(series)"
+                        
+                        do {
+                            if let existingSeriesData = allSeries.first(where: { $0.series == series }) {
+                                let storedYears = existingSeriesData.seasons.map { $0.year }
+                                let missingYears = existingSeriesData.config.availableYears.filter { !storedYears.contains($0) }
+                                
+                                for year in missingYears {
+                                    let seasonData = try await loadSeasonData(baseURL: baseURL, year: year, sessionLengths: existingSeriesData.config.sessionLengths)
+                                    existingSeriesData.seasons.append(SeasonData(year: year, races: seasonData.races))
+                                }
+                            } else {
+                                let seriesConfig = try await loadSeriesConfig(baseURL: baseURL)
+
+                                // MARK: If series data does not exist yet
+                                var allSeasons: [SeasonData] = []
+                                
+                                for year in seriesConfig.availableYears {
+                                    let seasonData = try await loadSeasonData(baseURL: baseURL, year: year, sessionLengths: seriesConfig.sessionLengths)
+                                    allSeasons.append(seasonData)
+                                }
+                                
+                                context.insert(SeriesData(series: series, seasons: allSeasons, config: seriesConfig))
+                            }
+                        } catch {
+                            print(error)
+                        }
+                    }
+                    
+                    loadingData = false
                 }
-            } else {
-                Text("No data available.")
+        } else {
+            TabView {
+                if let nextRace = currentSeries?.nextRace {
+                    ForEach(nextRace.futureSessions, id: \.shortName) { session in
+                        Session(delta: getDelta(session: session), sessionStatus: getSessionStatus(session: session), selectedSeries: $selectedSeries, race: nextRace, session: session)
+                    }
+                } else {
+                    VStack {
+                        Text("No data available for \(selectedSeries.uppercased()).")
+
+                        Picker(selection: $selectedSeries) {
+                            ForEach(availableSeries, id:\.self) { series in
+                                Text(series.uppercased())
+                            }
+                        } label: {
+                            Text("Select Series")
+                        }
+                        .sensoryFeedback(.selection, trigger: selectedSeries)
+                        .pickerStyle(.navigationLink)
+                    }
+                }
             }
+            .tabViewStyle(.verticalPage)
         }
-        .tabViewStyle(.verticalPage)
-         */
     }
 }
 
-#Preview {
+#Preview(traits: .sampleData) {
     ContentView(notificationController: NotificationController())
 }

@@ -28,16 +28,19 @@ struct TimerElement: View {
                     .animation(.easeInOut(duration: 0.5), value: deltaPct)
                     .rotationEffect(.degrees(270))
              
-                Text(String(delta))
-                    .font(.title2)
-                    .bold()
+                VStack {
+                    Text(delta.description)
+                        .font(.title2)
+                        .bold()
+                    
+                    Text(timeUnit)
+                        .foregroundStyle(.secondary)
+                        .font(.caption)
+                }
+                
             }
             .aspectRatio(1, contentMode: .fit)
             .frame(maxWidth: 100)
-            
-            Text(timeUnit)
-                .foregroundStyle(.secondary)
-                .font(.caption)
         }
     }
 }

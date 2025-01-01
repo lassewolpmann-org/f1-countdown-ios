@@ -8,38 +8,37 @@
 import Foundation
 
 struct DeltaValues {
-    var delta: Int;
+    var delta: Int
     
-    var days: Int;
-    var daysPct: Float;
+    var days: Int { self.delta / 86400 }
+    var daysPct: Float { self.days > 7 ? Float(self.days % 7) / 7 : Float(self.days) / 7 }
     
-    var hours: Int;
-    var hoursPct: Float;
+    var hours: Int { self.delta % 86400 / 3600 }
+    var hoursPct: Float { Float(self.hours) / 24 }
     
-    var minutes: Int;
-    var minutesPct: Float;
+    var minutes: Int { self.delta % 86400 % 3600 / 60 }
+    var minutesPct: Float { Float(self.minutes) / 60 }
     
-    var seconds: Int;
-    var secondsPct: Float;
+    var seconds: Int { self.delta % 86400 % 3600 % 60 }
+    var secondsPct: Float { Float(self.seconds) / 60 }
     
     init(date: Date) {
         self.delta = Int(date.timeIntervalSinceNow);
-        
-        self.days = self.delta / 86400;
-        
-        if (self.days > 7) {
-            daysPct = Float(self.days % 7) / 7;
-        } else {
-            daysPct = Float(self.days) / 7
-        }
-        
-        self.hours = self.delta % 86400 / 3600;
-        self.hoursPct = Float(self.hours) / 24;
-        
-        self.minutes = self.delta % 86400 % 3600 / 60;
-        self.minutesPct = Float(self.minutes) / 60;
-        
-        self.seconds = self.delta % 86400 % 3600 % 60;
-        self.secondsPct = Float(self.seconds) / 60;
     }
+}
+
+func getDelta(session: SessionData) -> DeltaValues {
+    let delta: DeltaValues
+    let status = getSessionStatus(session: session)
+    
+    switch status {
+    case .finished:
+        delta = DeltaValues(date: .now)
+    case .ongoing:
+        delta = DeltaValues(date: session.endDate)
+    case .upcoming:
+        delta = DeltaValues(date: session.startDate)
+    }
+    
+    return delta
 }

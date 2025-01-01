@@ -7,36 +7,15 @@
 
 import SwiftUI
 import WidgetKit
-import SwiftData
 
 struct Large: View {
-    @Query var allSeries: [SeriesData]
-    
-    var nextRace: RaceData? {
-        let currentSeries = allSeries.first { $0.series == "f1" }
-        let currentSeason = currentSeries?.seasons.first { $0.year == 2024 }
-        return currentSeason?.races.first
-    }
-    
-    let entry: TimerEntry;
+    let race: RaceData
     
     var body: some View {
         VStack(alignment: .leading) {
-            WidgetHeader(entry: entry)
+            WidgetHeader(race: race)
             
-            let pastSessions = nextRace?.pastSessions ?? []
-            let ongoingSessions = nextRace?.ongoingSessions ?? []
-            let futureSessions = nextRace?.futureSessions ?? []
-            
-            ForEach(pastSessions, id: \.shortName) { session in
-                SessionInfo(session: session)
-            }
-            
-            ForEach(ongoingSessions, id: \.shortName) { session in
-                SessionInfo(session: session)
-            }
-            
-            ForEach(futureSessions, id: \.shortName) { session in
+            ForEach(race.sessions, id: \.shortName) { session in
                 SessionInfo(session: session)
             }
         }
@@ -50,6 +29,6 @@ struct Large: View {
 #Preview(as: .systemLarge) {
     TimerWidget()
 } timeline: {
-    TimerEntry(race: RaceData(), date: Date.now)
+    TimerEntry(date: Date.now)
 }
 

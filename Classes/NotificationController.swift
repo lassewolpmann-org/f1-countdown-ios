@@ -13,7 +13,8 @@ struct ReturnMessage {
     var message: String
 }
 
-@Observable class NotificationController {
+@Observable
+class NotificationController {
     // Create variables for UserDefaults
     let key: String = "NotificationOffsets"
     let userDefaults = UserDefaults.standard

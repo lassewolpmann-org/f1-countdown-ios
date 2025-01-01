@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct Session: View {
-    var notificationController: NotificationController
+    @State var delta: DeltaValues
+    @State var sessionStatus: SessionStatus
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     let nextRace: RaceData
+    let selectedSeries: String
+    let notificationController: NotificationController
     let session: SessionData
     
-    @State var delta: DeltaValues
-    @State var showWeather: Bool = false
-        
     var body: some View {
         VStack {
             HStack {
@@ -27,9 +27,9 @@ struct Session: View {
                 Spacer()
                 
                 Label {
-                    Text(session.status.rawValue)
+                    Text(sessionStatus.rawValue)
                 } icon: {
-                    switch session.status {
+                    switch sessionStatus {
                     case .finished:
                         Image(systemName: "flag.checkered.2.crossed")
                     case .ongoing:
@@ -51,26 +51,11 @@ struct Session: View {
                 Text(":")
                 TimerElement(delta: delta.seconds, deltaPct: delta.secondsPct, timeUnit: "seconds")
                 
-                VStack {
-                    NotificationButton(notificationController: notificationController, session: session, race: nextRace, series: "f1")
-                    
-                    Button {
-                        showWeather.toggle()
-                    } label: {
-                        Label("Weather Forecast", systemImage: "cloud")
-                            .labelStyle(.iconOnly)
-                    }
-                    .buttonStyle(.bordered)
-                }
-                .disabled(session.status != .upcoming)
-                .padding(.leading, 10)
+                NotificationButton(notificationController: notificationController, session: session, sessionStatus: sessionStatus, raceTitle: nextRace.title, series: "f1")
+                    .disabled(sessionStatus != .upcoming)
+                    .padding(.leading, 10)
             }
         }
-        .sheet(isPresented: $showWeather, content: {
-            SessionWeather(race: nextRace, session: session)
-                .presentationDetents([.medium])
-                .presentationBackground(.regularMaterial)
-        })
         .padding(10)
         .background(
             RoundedRectangle(cornerRadius: 10)
@@ -80,36 +65,27 @@ struct Session: View {
             let date = Date()
             
             if (date >= session.endDate) {
-                // If end date is reached, set delta to 0
-                delta = DeltaValues(date: date)
+                sessionStatus = .finished
             } else if (date > session.startDate && date < session.endDate) {
-                // If session is ongoing, calculate delta to end date
-                delta = DeltaValues(date: session.endDate)
+                sessionStatus = .ongoing
             } else {
-                delta = DeltaValues(date: session.startDate)
+                sessionStatus = .upcoming
             }
-                        
-            let endTimestamp = Int(session.endDate.timeIntervalSince1970)
-            let currentTimestamp = Int(date.timeIntervalSince1970)
             
-            if (endTimestamp == currentTimestamp && session.rawName == "gp") {
-                /*
-                Task {
-                    do {
-                        try await appData.loadAPIData()
-                    } catch {
-                        print("\(error), while updating appData in Session")
-                    }
-                }
-                 */
-            }
+            delta = getDelta(session: session)
         }
     }
 }
 
-#Preview {
+#Preview(traits: .sampleData) {
     ScrollView {
-        let session = SessionData(rawName: "fp1", startDate: Date.now, endDate: Date.now)
-        return Session(notificationController: NotificationController(), nextRace: RaceData(), session: session, delta: DeltaValues(date: session.startDate))
+        let nextRace = sampleRaceData
+        let selectedSeries = "f1"
+        let notificationController = NotificationController()
+        let session = sampleSessionData
+        let sessionStatus = getSessionStatus(session: session)
+        let delta = DeltaValues(date: session.startDate)
+        
+        Session(delta: delta, sessionStatus: sessionStatus, nextRace: nextRace, selectedSeries: selectedSeries, notificationController: notificationController, session: session)
     }
 }

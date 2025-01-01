@@ -17,8 +17,9 @@ struct InfoButton: View {
             Label("Information", systemImage: "info.circle.fill")
                 .labelStyle(.iconOnly)
         }
-        .frame(width: 30, height: 30)
         .clipShape(Circle())
+        .frame(width: 20, height: 20)
+        .buttonStyle(.bordered)
     }
 }
 

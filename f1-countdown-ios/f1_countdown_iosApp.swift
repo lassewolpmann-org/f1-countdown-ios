@@ -10,12 +10,11 @@ import SwiftData
 
 @main
 struct f1_countdown_iosApp: App {
-    // @State private var appData: AppData = AppData()
     @State private var notificationController: NotificationController = NotificationController()
         
     var body: some Scene {
         WindowGroup {
-            ContentView(/*appData: appData, */notificationController: notificationController)
+            ContentView(notificationController: notificationController)
                 .modelContainer(for: [SeriesData.self])
         }
     }

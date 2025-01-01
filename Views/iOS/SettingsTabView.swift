@@ -9,14 +9,22 @@ import SwiftUI
 
 struct SettingsTab: View {
     @Environment(\.openURL) private var openURL;
+    @Binding var selectedSeries: String
     
-    var notificationController: NotificationController
+    let notificationController: NotificationController
     
     var body: some View {
         NavigationStack {
             List {
                 Section {
-                    SeriesPicker()
+                    Picker(selection: $selectedSeries) {
+                        ForEach(availableSeries, id:\.self) { series in
+                            Text(series.uppercased())
+                        }
+                    } label: {
+                        Text("Select Series")
+                    }
+                    .sensoryFeedback(.selection, trigger: selectedSeries)
                 } header: {
                     Text("Series")
                 }
@@ -81,5 +89,5 @@ struct SettingsTab: View {
 }
 
 #Preview {
-    SettingsTab(notificationController: NotificationController())
+    SettingsTab(selectedSeries: .constant("f1"), notificationController: NotificationController())
 }

@@ -9,74 +9,53 @@ import WidgetKit
 import SwiftUI
 import SwiftData
 
-func getNextUpdateDate(nextRace: RaceData?) -> Date {
-    if let nextRace {
-        let pastSessions = nextRace.pastSessions
-        let ongoingSessions = nextRace.ongoingSessions
-        let futureSessions = nextRace.futureSessions
-        
-        let allSessions = [pastSessions, ongoingSessions, futureSessions]
-        
-        var allDates: [Date] = []
-        
-        for sessions in allSessions {
-            for session in sessions {
-                allDates.append(session.startDate.addingTimeInterval(-60 * 60))   // Date one hour before session starts
-                allDates.append(session.startDate)
-                allDates.append(session.endDate)
-            }
-        }
-        
-        allDates = allDates.sorted { a, b in
-            return a < b
-        }
-        
-        let futureDates = allDates.filter { date in
-            return date > Date()
-        }
-        
-        guard let firstDate = futureDates.first else { return Date().addingTimeInterval(60 * 60) }
-
-        return firstDate
-    } else {
-        return Date().addingTimeInterval(60 * 60)
-    }
-}
-
 enum TimerWidgetError: Error {
     case nextUpdateError(String)
 }
 
 struct TimerEntry: TimelineEntry {
-    let race: RaceData
     let date: Date
 }
 
 struct TimerWidgetView: View {
-    let entry: TimerEntry;
-
     @Environment(\.widgetFamily) var family: WidgetFamily;
+    @Query var allSeries: [SeriesData]
+    var currentSeries: SeriesData? { allSeries.filter({ $0.series == "f1" }).first }
+    var nextRace: RaceData? { currentSeries?.nextRace }
+    
+    let entry: TimerEntry;
 
     @ViewBuilder
     var body: some View {
-        switch family {
-        /*
-        case .accessoryCircular:
-            print("circular")
-        case .accessoryRectangular:
-            print("rect")
-        case .accessoryInline:
-            print("inline")
-        case .systemSmall:
-            print("small")
-         */
-        case .systemLarge:
-            Large(entry: entry)
-        case .systemMedium:
-            Medium(entry: entry)
-        default:
+        if let nextRace = currentSeries?.nextRace {
+            switch family {
+            /*
+            case .accessoryCircular:
+                print("circular")
+            case .accessoryRectangular:
+                print("rect")
+            case .accessoryInline:
+                print("inline")
+            case .systemSmall:
+                print("small")
+             */
+            case .systemLarge:
+                Large(race: nextRace)
+            case .systemMedium:
+                Medium(race: nextRace)
+            default:
+                Label {
+                    Text("Formula Countdown Widget is not available in this size.")
+                } icon: {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                }
+                .containerBackground(for: .widget) {
+                    Color(.systemBackground)
+                }
+            }
+        } else {
             Label {
-                Text("Formula Countdown Widget is not available in this size.")
+                Text("It seems like there is no data available to display here.")
             } icon: {
                 Image(systemName: "exclamationmark.triangle.fill")
             }
@@ -89,40 +68,17 @@ struct TimerWidgetView: View {
 
 struct TimerWidgetProvider: TimelineProvider {
     func placeholder(in context: Context) -> TimerEntry {
-        let race = RaceData(
-            name: "Loading Grand Prix...",
-            sessions: []
-        )
-        
-        return TimerEntry(race: race, date: Date())
+        return TimerEntry(date: Date.now.addingTimeInterval(3600))
     }
     
     func getSnapshot(in context: Context, completion: @escaping (TimerEntry) -> Void) {
-        Task {
-            let entry = TimerEntry(
-                race: RaceData(),
-                date: Date()
-            )
-            
-            completion(entry)
-        }
+        completion(TimerEntry(date: Date.now.addingTimeInterval(3600)))
     }
     
     func getTimeline(in context: Context, completion: @escaping (Timeline<TimerEntry>) -> Void) {
-        Task {
-            let race = RaceData()
-            
-            let entry = TimerEntry(
-                race: race,
-                date: Date()
-            )
-                        
-            let nextUpdateDate = getNextUpdateDate(nextRace: race)
-            
-            let timeline = Timeline(entries: [entry], policy: .after(nextUpdateDate));
-            
-            completion(timeline)
-        }
+        let timeline = Timeline(entries: [TimerEntry(date: Date.now.addingTimeInterval(3600))], policy: .atEnd);
+        
+        completion(timeline)
     }
 }
 
@@ -141,5 +97,5 @@ struct TimerWidget: Widget {
 #Preview(as: .systemMedium) {
     TimerWidget()
 } timeline: {
-    TimerEntry(race: RaceData(), date: Date())
+    TimerEntry(date: Date.now.addingTimeInterval(3600))
 }

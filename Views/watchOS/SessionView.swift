@@ -6,16 +6,18 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct Session: View {
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    let nextRace: RaceData
-    let session: SessionData
-    let name: String
-    
     @State var delta: DeltaValues
-    @State var showWeatherSheet: Bool = false
+    @State var sessionStatus: SessionStatus
     @State var showInfoSheet: Bool = false
+    @State var showSettingsSheet: Bool = false
+    @Binding var selectedSeries: String
+    
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    let race: RaceData
+    let session: SessionData
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -29,27 +31,38 @@ struct Session: View {
                 .padding(24)
                 .background(
                     VStack {
-                        Text("\(nextRace.flag) \(name)")
-                            .font(.headline)
-                        
+                        Text("\(race.flag) \(session.shortName)")
+                        .font(.headline)
+
                         Text(session.startDate, style: .timer)
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
                     }
                 )
-            
+
             HStack {
-                WeatherButton(showWeatherSheet: $showWeatherSheet)
+                Button {
+                    showSettingsSheet.toggle()
+                } label: {
+                    Image(systemName: "gear")
+                }
+                .clipShape(Circle())
+                .frame(width: 20, height: 20)
+                .buttonStyle(.bordered)
+                
                 Spacer()
-                InfoButton(showInfoSheet: $showInfoSheet)
+                
+                Button {
+                    showInfoSheet.toggle()
+                } label: {
+                    Image(systemName: "info.circle.fill")
+                }
+                .clipShape(Circle())
+                .frame(width: 20, height: 20)
+                .buttonStyle(.bordered)
             }
         }
-        .sheet(isPresented: $showWeatherSheet, content: {
-            ScrollView {
-                SessionWeather(race: nextRace, session: session)
-                    .labelStyle(.iconOnly)
-            }
-        })
+        .padding(.horizontal, 5)
         .sheet(isPresented: $showInfoSheet, content: {
             ScrollView(.vertical) {
                 VStack(alignment: .leading) {
@@ -58,55 +71,52 @@ struct Session: View {
                     Text("\(session.startDate, style: .date), \(DateInterval(start: session.startDate, end: session.endDate))")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
-                    
+
                     Divider()
-                    
+
                     Text("Location")
                         .font(.headline)
-                    Text(nextRace.location)
+                    Text(race.location)
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }
             }
             .padding(10)
         })
+        .sheet(isPresented: $showSettingsSheet, content: {
+            Picker(selection: $selectedSeries) {
+                ForEach(availableSeries, id:\.self) { series in
+                    Text(series.uppercased())
+                }
+            } label: {
+                Text("Select Series")
+            }
+            .sensoryFeedback(.selection, trigger: selectedSeries)
+            .pickerStyle(.navigationLink)
+        })
         .onReceive(timer) { _ in
             let date = Date()
-            
+
             if (date >= session.endDate) {
-                // If end date is reached, set delta to 0
-                delta = DeltaValues(date: date)
+                sessionStatus = .finished
             } else if (date > session.startDate && date < session.endDate) {
-                // If session is ongoing, calculate delta to end date
-                delta = DeltaValues(date: session.endDate)
+                sessionStatus = .ongoing
             } else {
-                delta = DeltaValues(date: session.startDate)
+                sessionStatus = .upcoming
             }
-                        
-            let startTimestamp = Int(session.startDate.timeIntervalSince1970)
-            let endTimestamp = Int(session.endDate.timeIntervalSince1970)
-            let currentTimestamp = Int(date.timeIntervalSince1970)
-            
-            if (startTimestamp == currentTimestamp || endTimestamp == currentTimestamp) {
-                /*
-                Task {
-                    do {
-                        try await appData.loadAPIData()
-                    } catch {
-                        print("\(error), while updating appData in Session")
-                    }
-                }
-                 */
-            }
+
+            delta = getDelta(session: session)
         }
     }
 }
 
-#Preview {
+#Preview(traits: .sampleData) {
     TabView {
-        let session = SessionData(rawName: "undefined", startDate: Date.now, endDate: Date.now)
+        let nextRace = sampleRaceData
+        let session = sampleSessionData
+        let delta = DeltaValues(date: session.startDate)
         
-        Session(nextRace: RaceData(), session: session, name: session.shortName, delta: DeltaValues(date: session.startDate))
+        Session(delta: delta, sessionStatus: getSessionStatus(session: session), selectedSeries: .constant("f1"), race: nextRace, session: session)
     }
     .tabViewStyle(.verticalPage)
 }

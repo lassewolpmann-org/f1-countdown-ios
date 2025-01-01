@@ -7,39 +7,30 @@
 
 import SwiftUI
 import WidgetKit
-import SwiftData
 
 struct Medium: View {
-    @Query var allSeries: [SeriesData]
-    
-    var nextRace: RaceData? {
-        let currentSeries = allSeries.first { $0.series == "f1" }
-        let currentSeason = currentSeries?.seasons.first { $0.year == 2024 }
-        return currentSeason?.races.first
-    }
-    
-    let entry: TimerEntry;
-    
+    let race: RaceData
+
     var body: some View {
-        if let session = nextRace?.futureSessions.first {
+        if let session = race.futureSessions.first {
             VStack(alignment: .leading) {
-                WidgetHeader(entry: entry)
+                WidgetHeader(race: race)
                 SessionInfo(session: session)
             }
             .containerBackground(for: .widget) {
                 Color(.systemBackground)
             }
-        } else if let session = nextRace?.ongoingSessions.first {
+        } else if let session = race.ongoingSessions.first {
             VStack(alignment: .leading) {
-                WidgetHeader(entry: entry)
+                WidgetHeader(race: race)
                 SessionInfo(session: session)
             }
             .containerBackground(for: .widget) {
                 Color(.systemBackground)
             }
-        } else if let session = nextRace?.sessions.last {
+        } else if let session = race.sessions.last {
             VStack(alignment: .leading) {
-                WidgetHeader(entry: entry)
+                WidgetHeader(race: race)
                 SessionInfo(session: session)
             }
             .containerBackground(for: .widget) {
@@ -54,6 +45,6 @@ struct Medium: View {
 #Preview(as: .systemMedium) {
     TimerWidget()
 } timeline: {
-    TimerEntry(race: RaceData(), date: Date.now)
+    TimerEntry(date: Date.now)
 }
 

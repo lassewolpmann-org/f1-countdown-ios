@@ -13,6 +13,7 @@ struct ContentView: View {
     @Query var allSeries: [SeriesData]
     
     @State var loadingData: Bool = true
+    @State var selectedSeries: String = "f1"
     
     // var appData: AppData
     var notificationController: NotificationController
@@ -55,54 +56,28 @@ struct ContentView: View {
                 }
         } else {
             TabView {
-                TimerTab(notificationController: notificationController)
-                .tabItem {
+                Tab {
+                    TimerTab(selectedSeries: selectedSeries, notificationController: notificationController)
+                } label: {
                     Label("Timer", systemImage: "stopwatch")
                 }
                 
-                CalendarTab()
-                .tabItem {
+                Tab {
+                    CalendarTab(selectedSeries: selectedSeries)
+                } label: {
                     Label("Upcoming", systemImage: "calendar")
                 }
                 
-                SettingsTab(notificationController: notificationController)
-                .tabItem {
+                Tab {
+                    SettingsTab(selectedSeries: $selectedSeries, notificationController: notificationController)
+                } label: {
                     Label("Settings", systemImage: "gear")
                 }
             }
         }
     }
-    
-    func loadSeriesConfig(baseURL: String) async throws -> RawAPIData.Config {
-        guard let configURL = URL(string: "\(baseURL)/config.json") else { throw AppDataError.URLError("Could not create Config URL string") }
-
-        let (data, _) = try await URLSession.shared.data(from: configURL)
-        return try JSONDecoder().decode(RawAPIData.Config.self, from: data)
-    }
-    
-    func loadSeasonData(baseURL: String, year: Int, sessionLengths: [String: Int]) async throws -> SeasonData {
-        guard let racesURL = URL(string: "\(baseURL)/\(year).json") else { throw AppDataError.URLError("Could not create Season URL string") }
-
-        let (data, _) = try await URLSession.shared.data(from: racesURL)
-        let rawRaces = try JSONDecoder().decode(RawAPIData.Races.self, from: data).races
-        
-        let parsedRaces: [RaceData] = rawRaces.compactMap { rawRace in
-            let sessions: [SessionData] = rawRace.sessions.compactMap { rawSession in
-                let start = rawSession.value
-                guard let startDate = ISO8601DateFormatter().date(from: start) else { return nil }
-                guard let sessionLength = sessionLengths[rawSession.key] else { return nil }
-                let endDate = startDate.addingTimeInterval(TimeInterval(sessionLength))
-                
-                return SessionData(rawName: rawSession.key, startDate: startDate, endDate: endDate)
-            }.sorted { $0.startDate < $1.startDate }
-            
-            return RaceData(name: rawRace.name, location: rawRace.location, latitude: rawRace.latitude, longitude: rawRace.longitude, sessions: sessions, slug: rawRace.slug)
-        }
-        
-        return SeasonData(year: year, races: parsedRaces)
-    }
 }
 
-#Preview {
+#Preview(traits: .sampleData) {
     ContentView(notificationController: NotificationController())
 }

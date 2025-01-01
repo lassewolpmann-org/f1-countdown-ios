@@ -11,7 +11,8 @@ struct NotificationButton: View {
     var notificationController: NotificationController
 
     let session: SessionData
-    let race: RaceData
+    let sessionStatus: SessionStatus
+    let raceTitle: String
     let series: String
     
     @State private var notificationEnabled: Bool = false
@@ -38,7 +39,7 @@ struct NotificationButton: View {
                             let notificationDate = session.startDate.addingTimeInterval(TimeInterval(offset * -60))
                             guard notificationDate.timeIntervalSinceNow > 0 else { continue }
                             
-                            notificationEnabled = await notificationController.addNotification(sessionDate: session.startDate, sessionName: session.longName, series: series.uppercased(), title: race.title, offset: offset)
+                            notificationEnabled = await notificationController.addNotification(sessionDate: session.startDate, sessionName: session.longName, series: series.uppercased(), title: raceTitle, offset: offset)
                         }
                     } else if (status == .notDetermined) {
                         await notificationController.createNotificationPermission()
@@ -61,8 +62,7 @@ struct NotificationButton: View {
         .task {
             notificationEnabled = await notificationController.getCurrentNotificationDates().contains(session.startDate)
         }
-        .onChange(of: session.status) { oldStatus, newStatus in
-            print(newStatus)
+        .onChange(of: sessionStatus) { oldStatus, newStatus in
             if (newStatus == .ongoing || newStatus == .finished) {
                 notificationEnabled = false
             }
@@ -71,5 +71,8 @@ struct NotificationButton: View {
 }
 
 #Preview {
-    NotificationButton(notificationController: NotificationController(), session: SessionData(rawName: "undefined", startDate: Date.now, endDate: Date.now), race: RaceData(), series: "f1")
+    let session = sampleSessionData
+    let status = getSessionStatus(session: session)
+    
+    NotificationButton(notificationController: NotificationController(), session: session, sessionStatus: status, raceTitle: "Test Race", series: "f1")
 }
