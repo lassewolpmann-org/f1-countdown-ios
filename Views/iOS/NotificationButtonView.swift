@@ -16,8 +16,6 @@ struct NotificationButton: View {
     let series: String
     
     @State private var notificationEnabled: Bool = false
-    
-    // Used to track sensory feedback
     @State private var buttonState: Bool = false
     
     var body: some View {
@@ -62,8 +60,8 @@ struct NotificationButton: View {
         .task {
             notificationEnabled = await notificationController.getCurrentNotificationDates().contains(session.startDate)
         }
-        .onChange(of: sessionStatus) { oldStatus, newStatus in
-            if (newStatus == .ongoing || newStatus == .finished) {
+        .onChange(of: sessionStatus) { _, newStatus in
+            if (newStatus == SessionStatus.ongoing || newStatus == SessionStatus.finished) {
                 notificationEnabled = false
             }
         }

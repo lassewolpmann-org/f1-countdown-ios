@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import WidgetKit
 
 struct Session: View {
     @State var delta: DeltaValues
@@ -51,7 +52,7 @@ struct Session: View {
                 Text(":")
                 TimerElement(delta: delta.seconds, deltaPct: delta.secondsPct, timeUnit: "seconds")
                 
-                NotificationButton(notificationController: notificationController, session: session, sessionStatus: sessionStatus, raceTitle: nextRace.title, series: "f1")
+                NotificationButton(notificationController: notificationController, session: session, sessionStatus: sessionStatus, raceTitle: nextRace.title, series: selectedSeries)
                     .disabled(sessionStatus != .upcoming)
                     .padding(.leading, 10)
             }
@@ -73,6 +74,10 @@ struct Session: View {
             }
             
             delta = getDelta(session: session)
+        }
+        .onChange(of: sessionStatus) { _, _ in
+            // Reload widgets when Session Status changes
+            WidgetCenter.shared.reloadAllTimelines()
         }
     }
 }

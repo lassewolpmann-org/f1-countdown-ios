@@ -10,6 +10,8 @@ import SwiftData
 
 struct TimerTab: View {
     @Query var allSeries: [SeriesData]
+    @State private var nextRace: RaceData?
+    
     var currentSeries: SeriesData? { allSeries.filter({ $0.series == selectedSeries }).first }
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -19,7 +21,7 @@ struct TimerTab: View {
     var body: some View {
         NavigationStack {
             ScrollView(.vertical) {
-                if let nextRace = currentSeries?.nextRace {
+                if let nextRace {
                     VStack(alignment: .center, spacing: 15) {
                         ForEach(nextRace.sessions, id: \.shortName) { session in
                             Session(delta: getDelta(session: session), sessionStatus: getSessionStatus(session: session), nextRace: nextRace, selectedSeries: selectedSeries, notificationController: notificationController, session: session)
@@ -39,6 +41,12 @@ struct TimerTab: View {
                     .navigationTitle("Timer")
                 }
             }
+        }
+        .onAppear {
+            nextRace = currentSeries?.nextRace
+        }
+        .refreshable {
+            nextRace = currentSeries?.nextRace
         }
     }
 }

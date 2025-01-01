@@ -21,21 +21,21 @@ var sampleSeriesData: [SeriesData] {
     
     return availableSeries.map { series in
         let firstRaceSessions = [
-            SessionData(rawName: "fp1", startDate: Date.now.addingTimeInterval(10), endDate: Date.now.addingTimeInterval(20)),
-            SessionData(rawName: "fp2", startDate: Date.now.addingTimeInterval(30), endDate: Date.now.addingTimeInterval(40)),
-            SessionData(rawName: "fp3", startDate: Date.now.addingTimeInterval(50), endDate: Date.now.addingTimeInterval(60)),
-            SessionData(rawName: "qualifying", startDate: Date.now.addingTimeInterval(70), endDate: Date.now.addingTimeInterval(80)),
-            SessionData(rawName: "gp", startDate: Date.now.addingTimeInterval(90), endDate: Date.now.addingTimeInterval(100)),
+            SessionData(rawName: "fp1", startDate: Date.now.addingTimeInterval(2), endDate: Date.now.addingTimeInterval(4)),
+            SessionData(rawName: "fp2", startDate: Date.now.addingTimeInterval(6), endDate: Date.now.addingTimeInterval(8)),
+            SessionData(rawName: "fp3", startDate: Date.now.addingTimeInterval(10), endDate: Date.now.addingTimeInterval(12)),
+            SessionData(rawName: "qualifying", startDate: Date.now.addingTimeInterval(14), endDate: Date.now.addingTimeInterval(16)),
+            SessionData(rawName: "gp", startDate: Date.now.addingTimeInterval(18), endDate: Date.now.addingTimeInterval(20)),
         ]
         
         let firstRace = RaceData(name: "Test Race 1", location: "Test Location", latitude: 0.0, longitude: 0.0, sessions: firstRaceSessions, slug: "bahrain-grand-prix")
         
         let secondRaceSessions = [
-            SessionData(rawName: "fp1", startDate: Date.now.addingTimeInterval(110), endDate: Date.now.addingTimeInterval(120)),
-            SessionData(rawName: "fp2", startDate: Date.now.addingTimeInterval(130), endDate: Date.now.addingTimeInterval(140)),
-            SessionData(rawName: "fp3", startDate: Date.now.addingTimeInterval(150), endDate: Date.now.addingTimeInterval(160)),
-            SessionData(rawName: "qualifying", startDate: Date.now.addingTimeInterval(170), endDate: Date.now.addingTimeInterval(180)),
-            SessionData(rawName: "gp", startDate: Date.now.addingTimeInterval(190), endDate: Date.now.addingTimeInterval(200)),
+            SessionData(rawName: "fp1", startDate: Date.now.addingTimeInterval(22), endDate: Date.now.addingTimeInterval(24)),
+            SessionData(rawName: "fp2", startDate: Date.now.addingTimeInterval(26), endDate: Date.now.addingTimeInterval(28)),
+            SessionData(rawName: "fp3", startDate: Date.now.addingTimeInterval(30), endDate: Date.now.addingTimeInterval(32)),
+            SessionData(rawName: "qualifying", startDate: Date.now.addingTimeInterval(34), endDate: Date.now.addingTimeInterval(36)),
+            SessionData(rawName: "gp", startDate: Date.now.addingTimeInterval(38), endDate: Date.now.addingTimeInterval(40)),
         ]
         
         let secondRace = RaceData(name: "Test Race 2", location: "Test Location", latitude: 0.0, longitude: 0.0, sessions: secondRaceSessions, slug: "saudi-arabia-grand-prix")

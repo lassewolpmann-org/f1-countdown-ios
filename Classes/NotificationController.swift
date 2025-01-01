@@ -112,10 +112,6 @@ class NotificationController {
     func addNotification(sessionDate: Date, sessionName: String, series: String, title: String, offset: Int) async -> Bool {
         guard await self.permissionStatus == .authorized else { return false }
         
-        // FOR TESTING NOTIFICATIONS
-        // let testDate = Date().addingTimeInterval(5)
-        // let testDateComponents = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute, .second], from: testDate)
-        
         let notificationDate = sessionDate.addingTimeInterval(TimeInterval(offset * -60))
         let dateComponents = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: notificationDate)
         
