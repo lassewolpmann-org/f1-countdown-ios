@@ -93,29 +93,18 @@ struct Session: View {
             .sensoryFeedback(.selection, trigger: selectedSeries)
             .pickerStyle(.navigationLink)
         })
-        .onReceive(timer) { _ in
-            let date = Date()
-
-            if (date >= session.endDate) {
-                session.status = .finished
-            } else if (date > session.startDate && date < session.endDate) {
-                session.status = .ongoing
-            } else {
-                session.status = .upcoming
-            }
-
-            delta = getDelta(session: session)
-        }
     }
 }
 
 #Preview(traits: .sampleData) {
     TabView {
-        let nextRace = sampleRaceData
-        let session = sampleSessionData
-        let delta = DeltaValues(date: session.startDate)
-        
-        Session(session: session, delta: delta, selectedSeries: .constant("f1"), race: nextRace)
+        if let race = sampleRaces.first?.race {
+            if let session = race.sessions.first {
+                let delta = DeltaValues(date: session.startDate)
+                
+                Session(session: session, delta: delta, selectedSeries: .constant("f1"), race: race)
+            }
+        }
     }
     .tabViewStyle(.verticalPage)
 }

@@ -59,69 +59,18 @@ enum AppDataError: Error {
     case URLError(String)
 }
 
-func loadSeriesConfig(baseURL: String) async throws -> RawAPIData.Config {
-    guard let configURL = URL(string: "\(baseURL)/config.json") else { throw AppDataError.URLError("Could not create Config URL string") }
-
-    let (data, _) = try await URLSession.shared.data(from: configURL)
-    return try JSONDecoder().decode(RawAPIData.Config.self, from: data)
-}
-
-func loadSeasonData(baseURL: String, year: Int, sessionLengths: [String: Int]) async throws -> Season {
-    guard let racesURL = URL(string: "\(baseURL)/\(year).json") else { throw AppDataError.URLError("Could not create Season URL string") }
-
-    let (data, _) = try await URLSession.shared.data(from: racesURL)
-    let rawRaces = try JSONDecoder().decode(RawAPIData.Races.self, from: data).races
-    
-    let parsedRaces: [Season.Race] = rawRaces.compactMap { rawRace in
-        let sessions: [Season.Race.Session] = rawRace.sessions.compactMap { rawSession in
-            let start = rawSession.value
-            guard let startDate = ISO8601DateFormatter().date(from: start) else { return nil }
-            guard let sessionLength = sessionLengths[rawSession.key] else { return nil }
-            let endDate = startDate.addingTimeInterval(TimeInterval(sessionLength * 60))
-            
-            return Season.Race.Session(rawName: rawSession.key, startDate: startDate, endDate: endDate, status: getSessionStatus(startDate: startDate, endDate: endDate))
-        }.sorted { $0.startDate < $1.startDate }
-        
-        return Season.Race(name: rawRace.name, location: rawRace.location, latitude: rawRace.latitude, longitude: rawRace.longitude, sessions: sessions, slug: rawRace.slug)
-    }
-    
-    return Season(year: year, races: parsedRaces)
-}
-
 @Model
-class SeriesData {
+class RaceData {
     var series: String
-    var seasons: [Season]
-    var config: RawAPIData.Config
+    var season: Int
+    var race: Season.Race
     
-    var nextRace: Season.Race? {
-        let calendar = Calendar(identifier: .gregorian)
-        let year = calendar.component(.year, from: Date.now)
-
-        guard let currentSeason = self.seasons.first(where: { $0.year == year }) else { return nil }
-        
-        if let nextRace = currentSeason.races.filter({ race in
-            guard let raceEndDate = race.sessions.last?.endDate else { return false }
-            
-            return raceEndDate > Date.now
-        }).first {
-            return nextRace
-        } else {
-            if (!self.config.availableYears.contains(year + 1)) { return nil }
-            
-            guard let nextSeason = self.seasons.first(where: { $0.year == year + 1 }) else { return nil }
-            
-            return nextSeason.races.filter { race in
-                guard let raceEndDate = race.sessions.last?.endDate else { return false }
-                
-                return raceEndDate > Date.now
-            }.first
-        }
-    }
+    var startDate: Date { self.race.sessions.first?.startDate ?? .now }
+    var endDate: Date { self.race.sessions.last?.endDate ?? .now }
     
-    init(series: String, seasons: [Season], config: RawAPIData.Config) {
+    init(series: String, season: Int, race: Season.Race) {
         self.series = series
-        self.seasons = seasons
-        self.config = config
+        self.season = season
+        self.race = race
     }
 }

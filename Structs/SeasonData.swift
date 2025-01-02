@@ -6,23 +6,10 @@
 //
 
 import Foundation
-import CoreLocation
-
-func getSessionStatus(startDate: Date, endDate: Date) -> Season.Race.Session.Status {
-    let date: Date = .now
-    
-    if (date >= endDate) {
-        return .finished
-    } else if (date >= startDate && date < endDate) {
-        return .ongoing
-    } else {
-        return .upcoming
-    }
-}
 
 struct Season: Codable {
     struct Race: Codable {
-        struct Session: Codable {
+        struct Session: Codable, Equatable {
             enum Status: String, Codable {
                 case finished = "Finished"
                 case ongoing = "Ongoing"
@@ -32,7 +19,6 @@ struct Season: Codable {
             var rawName: String
             var startDate: Date
             var endDate: Date
-            var status: Season.Race.Session.Status
             
             var dateString: String {
                 let dateFormatter = DateFormatter()
@@ -131,16 +117,8 @@ struct Season: Codable {
         
         var name: String
         var location: String
-        var latitude: Double
-        var longitude: Double
         var sessions: [Season.Race.Session]
         var slug: String
-
-        // MARK: Computed Properties
-        var coords: CLLocationCoordinate2D {
-            CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude)
-        }
-        
         var flag: String { flags[self.slug] ?? "" }
         
         var title: String {

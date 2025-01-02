@@ -7,29 +7,38 @@
 
 import SwiftUI
 import WidgetKit
+import SwiftData
 
 struct Session: View {
     @State var delta: DeltaValues
-    
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    let nextRace: Season.Race
-    let selectedSeries: String
+
+    let nextRace: RaceData
+    let session: Season.Race.Session
+    let currentDate: Date
     let notificationController: NotificationController
-    @State var session: Season.Race.Session
+    
+    var sessionStatus: Season.Race.Session.Status {
+        if (currentDate >= session.endDate) {
+            return .finished
+        } else if (currentDate >= session.startDate && currentDate < session.endDate) {
+            return .ongoing
+        } else {
+            return .upcoming
+        }
+    }
     
     var body: some View {
-        VStack {
+        VStack(spacing: 15) {
             HStack {
                 Text(session.longName)
                     .font(.headline)
-                    .foregroundStyle(.secondary)
                 
                 Spacer()
                 
                 Label {
-                    Text(session.status.rawValue)
+                    Text(sessionStatus.rawValue)
                 } icon: {
-                    switch session.status {
+                    switch sessionStatus {
                     case .finished:
                         Image(systemName: "flag.checkered.2.crossed")
                     case .ongoing:
@@ -39,56 +48,59 @@ struct Session: View {
                     }
                 }
                 .font(.subheadline)
-                .foregroundStyle(.secondary)
             }
             
-            HStack(spacing: 5) {
-                TimerElement(delta: delta.days, deltaPct: delta.daysPct, timeUnit: "days")
-                Text(":")
-                TimerElement(delta: delta.hours, deltaPct: delta.hoursPct, timeUnit: "hours")
-                Text(":")
-                TimerElement(delta: delta.minutes, deltaPct: delta.minutesPct, timeUnit: "minutes")
-                Text(":")
-                TimerElement(delta: delta.seconds, deltaPct: delta.secondsPct, timeUnit: "seconds")
+            HStack {
+                VStack(alignment: .leading) {
+                    Label {
+                        Text("\(session.dayString), \(session.dateString)")
+                    } icon: {
+                        Image(systemName: "calendar")
+                    }
+                    
+                    Label {
+                        Text(DateInterval(start: session.startDate, end: session.endDate))
+                    } icon: {
+                        Image(systemName: "clock")
+                    }
+                }
                 
-                NotificationButton(notificationController: notificationController, session: session, raceTitle: nextRace.title, series: selectedSeries)
-                    .disabled(session.status != .upcoming)
-                    .padding(.leading, 10)
+                Spacer()
+                
+                NotificationButton(session: session, sessionStatus: sessionStatus, race: nextRace, notificationController: notificationController)
             }
+            .font(.body)
+            
+            HStack {
+                if (sessionStatus == .upcoming) {
+                    Text("Session starts in \(session.startDate, style: .relative)")
+                } else if (sessionStatus == .ongoing) {
+                    Text("Session ends in \(session.endDate, style: .relative)")
+                } else {
+                    Text("Session has ended.")
+                }
+                
+                Spacer()
+            }
+            .font(.callout)
         }
         .padding(10)
         .background(
             RoundedRectangle(cornerRadius: 10)
                 .fill(.regularMaterial)
         )
-        .onReceive(timer) { _ in
-            let date = Date()
-            
-            if (date >= session.endDate) {
-                session.status = .finished
-            } else if (date > session.startDate && date < session.endDate) {
-                session.status = .ongoing
-            } else {
-                session.status = .upcoming
-            }
-            
-            delta = getDelta(session: session)
-        }
-        .onChange(of: session.status) { _, _ in
-            // Reload widgets when Session Status changes
-            WidgetCenter.shared.reloadAllTimelines()
-        }
     }
 }
 
 #Preview(traits: .sampleData) {
     ScrollView {
-        let nextRace = sampleRaceData
-        let selectedSeries = "f1"
-        let notificationController = NotificationController()
-        let session = sampleSessionData
-        let delta = DeltaValues(date: session.startDate)
-        
-        Session(delta: delta, nextRace: nextRace, selectedSeries: selectedSeries, notificationController: notificationController, session: session)
+        if let race = sampleRaces.first {
+            if let session = race.race.sessions.first {
+                let notificationController = NotificationController()
+                let delta = DeltaValues(date: session.startDate)
+                
+                Session(delta: delta, nextRace: race, session: session, currentDate: Date(), notificationController: notificationController)
+            }
+        }
     }
 }

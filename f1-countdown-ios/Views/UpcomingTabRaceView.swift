@@ -13,7 +13,7 @@ struct UpcomingTabRaceView: View {
     let race: Season.Race
     
     var body: some View {
-        VStack(spacing: 15) {
+        VStack(spacing: 20) {
             HStack {
                 Text(race.title)
                 
@@ -51,13 +51,15 @@ struct UpcomingTabRaceView: View {
         .padding(10)
         .background(
             RoundedRectangle(cornerRadius: 10)
-                .fill(.regularMaterial)
+                .fill(.ultraThinMaterial)
         )
     }
 }
 
 #Preview {
     ScrollView {
-        UpcomingTabRaceView(showSessions: true, race: sampleRaceData)
+        if let race = sampleRaces.first?.race {
+            UpcomingTabRaceView(showSessions: true, race: race)
+        }
     }
 }

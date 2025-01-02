@@ -10,57 +10,55 @@ import Foundation
 import SwiftUI
 import SwiftData
 
-var sampleSeriesData: [SeriesData] {
-    let config = RawAPIData.Config(availableYears: [2024], sessions: ["fp1", "fp2", "fp3", "qualifying", "gp"], sessionLengths: [
-        "fp1": 60,
-        "fp2": 60,
-        "fp3": 60,
-        "qualifying": 60,
-        "gp": 120
-    ])
-    
-    return availableSeries.map { series in
-        let firstRaceSessions = [
-            Season.Race.Session(rawName: "fp1", startDate: Date.now.addingTimeInterval(2), endDate: Date.now.addingTimeInterval(4), status: .upcoming),
-            Season.Race.Session(rawName: "fp2", startDate: Date.now.addingTimeInterval(6), endDate: Date.now.addingTimeInterval(8), status: .upcoming),
-            Season.Race.Session(rawName: "fp3", startDate: Date.now.addingTimeInterval(10), endDate: Date.now.addingTimeInterval(12), status: .upcoming),
-            Season.Race.Session(rawName: "qualifying", startDate: Date.now.addingTimeInterval(14), endDate: Date.now.addingTimeInterval(16), status: .upcoming),
-            Season.Race.Session(rawName: "gp", startDate: Date.now.addingTimeInterval(18), endDate: Date.now.addingTimeInterval(20), status: .upcoming),
-        ]
+var sampleRaces: [RaceData] {
+    func parseSampleRace(rawRace: RawAPIData.Races.Race) -> Season.Race {
+        let sessions: [Season.Race.Session] = rawRace.sessions.compactMap { rawSession in
+            let start = rawSession.value
+            guard let startDate = ISO8601DateFormatter().date(from: start) else { return nil }
+            let endDate = startDate.addingTimeInterval(TimeInterval(2))
+            
+            return Season.Race.Session(rawName: rawSession.key, startDate: startDate, endDate: endDate)
+        }.sorted { $0.startDate < $1.startDate }
         
-        let firstRace = Season.Race(name: "Test Race 1", location: "Test Location", latitude: 0.0, longitude: 0.0, sessions: firstRaceSessions, slug: "bahrain-grand-prix")
-        
-        let secondRaceSessions = [
-            Season.Race.Session(rawName: "fp1", startDate: Date.now.addingTimeInterval(22), endDate: Date.now.addingTimeInterval(24), status: .upcoming),
-            Season.Race.Session(rawName: "fp2", startDate: Date.now.addingTimeInterval(26), endDate: Date.now.addingTimeInterval(28), status: .upcoming),
-            Season.Race.Session(rawName: "fp3", startDate: Date.now.addingTimeInterval(30), endDate: Date.now.addingTimeInterval(32), status: .upcoming),
-            Season.Race.Session(rawName: "qualifying", startDate: Date.now.addingTimeInterval(34), endDate: Date.now.addingTimeInterval(36), status: .upcoming),
-            Season.Race.Session(rawName: "gp", startDate: Date.now.addingTimeInterval(38), endDate: Date.now.addingTimeInterval(40), status: .upcoming),
-        ]
-        
-        let secondRace = Season.Race(name: "Test Race 2", location: "Test Location", latitude: 0.0, longitude: 0.0, sessions: secondRaceSessions, slug: "saudi-arabia-grand-prix")
-        
-        let seasonData = Season(year: 2025, races: [firstRace, secondRace])
-        
-        return SeriesData(series: series, seasons: [seasonData], config: config)
+        return Season.Race(name: rawRace.name, location: rawRace.location, sessions: sessions, slug: rawRace.slug)
     }
-}
-
-var sampleRaceData: Season.Race {
-    .init(name: "Test Race 1", location: "Test Location", latitude: 0.0, longitude: 0.0, sessions: [sampleSessionData, sampleSessionData, sampleSessionData, sampleSessionData, sampleSessionData], slug: "bahrain-grand-prix")
-}
-
-var sampleSessionData: Season.Race.Session {
-    .init(rawName: "fp1", startDate: Date.now.addingTimeInterval(10), endDate: Date.now.addingTimeInterval(20), status: .upcoming)
+    
+    let races: [RawAPIData.Races.Race] = [
+        RawAPIData.Races.Race(name: "Australian", location: "Melbourne", slug: "australian-grand-prix", sessions: [
+            "fp1": ISO8601DateFormatter().string(from: .now.addingTimeInterval(1)),
+            "fp2": ISO8601DateFormatter().string(from: .now.addingTimeInterval(3)),
+            "fp3": ISO8601DateFormatter().string(from: .now.addingTimeInterval(5)),
+            "qualifying": ISO8601DateFormatter().string(from: .now.addingTimeInterval(7)),
+            "gp": ISO8601DateFormatter().string(from: .now.addingTimeInterval(9))
+        ]),
+        RawAPIData.Races.Race(name: "Chinese", location: "Shanghai", slug: "chinese-grand-prix", sessions: [
+            "fp1": "2025-03-21T03:30:00Z",
+            "sprintQualifying": "2025-03-21T07:30:00Z",
+            "sprint": "2025-03-22T03:00:00Z",
+            "qualifying": "2025-03-22T07:00:00Z",
+            "gp": "2025-03-23T07:00:00Z"
+        ]),
+        RawAPIData.Races.Race(name: "Japanese", location: "Suzuka", slug: "japanese-grand-prix", sessions: [
+            "fp1": "2025-04-04T02:30:00Z",
+            "fp2": "2025-04-04T06:00:00Z",
+            "fp3": "2025-04-05T02:30:00Z",
+            "qualifying": "2025-04-05T06:00:00Z",
+            "gp": "2025-04-06T05:00:00Z"
+        ])
+    ]
+    
+    return races.map { race in
+        RaceData(series: "f1", season: 2025, race: parseSampleRace(rawRace: race))
+    }
 }
 
 struct SampleData: PreviewModifier {
     static func makeSharedContext() throws -> ModelContainer {
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
-        let container = try ModelContainer(for: SeriesData.self, configurations: config)
+        let container = try ModelContainer(for: RaceData.self, configurations: config)
         
-        for data in sampleSeriesData {
-            container.mainContext.insert(data)
+        for race in sampleRaces {
+            container.mainContext.insert(race)
         }
         
         try container.mainContext.save()

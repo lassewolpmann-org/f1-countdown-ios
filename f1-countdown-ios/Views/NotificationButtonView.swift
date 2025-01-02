@@ -8,14 +8,13 @@
 import SwiftUI
 
 struct NotificationButton: View {
-    var notificationController: NotificationController
-
-    let session: Season.Race.Session
-    let raceTitle: String
-    let series: String
-    
     @State private var notificationEnabled: Bool = false
     @State private var buttonState: Bool = false
+    
+    let session: Season.Race.Session
+    let sessionStatus: Season.Race.Session.Status
+    let race: RaceData
+    let notificationController: NotificationController
     
     var body: some View {
         Button {
@@ -36,7 +35,7 @@ struct NotificationButton: View {
                             let notificationDate = session.startDate.addingTimeInterval(TimeInterval(offset * -60))
                             guard notificationDate.timeIntervalSinceNow > 0 else { continue }
                             
-                            notificationEnabled = await notificationController.addNotification(sessionDate: session.startDate, sessionName: session.longName, series: series.uppercased(), title: raceTitle, offset: offset)
+                            notificationEnabled = await notificationController.addNotification(sessionDate: session.startDate, sessionName: session.longName, series: race.series.uppercased(), title: race.race.title, offset: offset)
                         }
                     } else if (status == .notDetermined) {
                         await notificationController.createNotificationPermission()
@@ -46,30 +45,23 @@ struct NotificationButton: View {
                 }
             }
         } label: {
-            Label(
-                notificationEnabled ? "Disable Notification" : "Enable Notification",
-                systemImage: notificationEnabled ? "bell.slash" : "bell"
-            )
-            .labelStyle(.iconOnly)
-            .symbolRenderingMode(notificationEnabled ? .multicolor : .monochrome)
-            .contentTransition(.symbolEffect(.replace))
+            Image(systemName: notificationEnabled ? "bell.slash" : "bell")
+                .foregroundStyle(notificationEnabled ? .red : .accentColor)
+                .contentTransition(.symbolEffect(.replace))
         }
+        .disabled(sessionStatus != .upcoming)
         .sensoryFeedback(.success, trigger: buttonState)
         .buttonStyle(.bordered)
         .task {
             notificationEnabled = await notificationController.getCurrentNotificationDates().contains(session.startDate)
         }
-        .onChange(of: session.status) { _, newStatus in
-            if (newStatus == .ongoing || newStatus == .finished) {
-                notificationEnabled = false
-            }
-        }
     }
 }
 
 #Preview {
-    let session = sampleSessionData
-    let status = getSessionStatus(startDate: session.startDate, endDate: session.endDate)
-    
-    NotificationButton(notificationController: NotificationController(), session: session, raceTitle: "Test Race", series: "f1")
+    if let race = sampleRaces.first {
+        if let session = race.race.sessions.first {
+            NotificationButton(session: session, sessionStatus: .upcoming, race: race, notificationController: NotificationController())
+        }
+    }
 }

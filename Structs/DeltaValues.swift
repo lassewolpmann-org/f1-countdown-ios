@@ -29,7 +29,17 @@ struct DeltaValues {
 
 func getDelta(session: Season.Race.Session) -> DeltaValues {
     let delta: DeltaValues
-    let status = getSessionStatus(startDate: session.startDate, endDate: session.endDate)
+    let status: Season.Race.Session.Status
+    
+    let date: Date = .now
+    
+    if (date >= session.endDate) {
+        status = .finished
+    } else if (date >= session.startDate && date < session.endDate) {
+        status = .ongoing
+    } else {
+        status = .upcoming
+    }
     
     switch status {
     case .finished:

@@ -10,6 +10,12 @@ import Foundation
 struct RawAPIData: Codable {
     struct Config: Codable {
         var availableYears: [Int]
+        
+        var yearsToParse: [Int] {
+            let currentYear = Calendar(identifier: .gregorian).component(.year, from: Date())
+            return availableYears.filter { $0 >= currentYear }
+        }
+        
         var sessions: [String]
         var sessionLengths: [String: Int]
     }
@@ -18,8 +24,6 @@ struct RawAPIData: Codable {
         struct Race: Codable {
             var name: String
             var location: String
-            var latitude: Double
-            var longitude: Double
             var slug: String
             var sessions: [String: String]
         }

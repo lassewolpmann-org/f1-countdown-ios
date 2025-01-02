@@ -19,15 +19,23 @@ struct TimerEntry: TimelineEntry {
 
 struct TimerWidgetView: View {
     @Environment(\.widgetFamily) var family: WidgetFamily;
-    @Query var allSeries: [SeriesData]
-    var currentSeries: SeriesData? { allSeries.filter({ $0.series == "f1" }).first }
-    var nextRace: Season.Race? { currentSeries?.nextRace }
+    @Query var allRaces: [RaceData]
+    
+    var nextRace: RaceData? {
+        let currentYear = Calendar(identifier: .gregorian).component(.year, from: .now)
+        let currentSeries = allRaces.filter { $0.series == "f1" }
+        let currentSeason = currentSeries.filter { $0.season == currentYear }
+        let futureRaces = currentSeason.filter { $0.endDate > Date() }
+        let sortedRaces = futureRaces.sorted { $0.startDate < $1.startDate }
+        
+        return sortedRaces.first
+    }
     
     let entry: TimerEntry;
 
     @ViewBuilder
     var body: some View {
-        if let nextRace = currentSeries?.nextRace {
+        if let nextRace {
             switch family {
             /*
             case .accessoryCircular:
@@ -40,9 +48,9 @@ struct TimerWidgetView: View {
                 print("small")
              */
             case .systemLarge:
-                Large(race: nextRace)
+                Large(race: nextRace.race)
             case .systemMedium:
-                Medium(race: nextRace)
+                Medium(race: nextRace.race)
             default:
                 Label {
                     Text("Formula Countdown Widget is not available in this size.")
@@ -86,7 +94,7 @@ struct TimerWidget: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: "com.lassewolpmann.f1-countdown-ios.TimerWidget", provider: TimerWidgetProvider()) { entry in
             TimerWidgetView(entry: entry)
-                .modelContainer(for: [SeriesData.self])
+                .modelContainer(for: [RaceData.self])
         }
         .configurationDisplayName("Timer")
         .description("Timer Widget to next F1 Grand Prix")

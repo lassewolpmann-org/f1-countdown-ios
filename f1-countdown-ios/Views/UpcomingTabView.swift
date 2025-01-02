@@ -9,39 +9,27 @@ import SwiftUI
 import SwiftData
 
 struct CalendarTab: View {
-    @Query var allSeries: [SeriesData]
+    @Query var allRaces: [RaceData]
     
     let selectedSeries: String
     
-    var currentSeason: Season? {
-        let calendar = Calendar(identifier: .gregorian)
-        let year = calendar.component(.year, from: Date.now)
+    var currentSeason: [RaceData] {
+        let currentYear = Calendar(identifier: .gregorian).component(.year, from: .now)
+        let currentSeries = allRaces.filter { $0.series == selectedSeries }
+        let currentSeason = currentSeries.filter { $0.season == currentYear }
+        let futureRaces = currentSeason.filter { $0.endDate > Date() }
+        let sortedRaces = futureRaces.sorted { $0.startDate < $1.startDate }
         
-        guard let currentSeries = allSeries.first(where: { $0.series == selectedSeries }) else { return nil }
-        guard let currentSeason = currentSeries.seasons.first(where: { $0.year == year }) else { return nil }
-        guard let lastRaceEndDate = currentSeason.races.last?.sessions.last?.endDate else { return nil }
+        if (searchFilter.isEmpty) { return sortedRaces }
         
-        if lastRaceEndDate > Date.now {
-            return currentSeason
-        } else {
-            if (!currentSeries.config.availableYears.contains(year + 1)) { return nil }
-            return currentSeries.seasons.first(where: { $0.year == year + 1 })
-        }
+        return sortedRaces.filter { $0.race.name.localizedStandardContains(searchFilter) || $0.race.location.localizedStandardContains(searchFilter) }
     }
-    
-    var filteredRaces: [Season.Race] {
-        guard let allRaces = currentSeason?.races else { return [] }
-        
-        if (searchFilter.isEmpty) { return allRaces }
-        
-        return allRaces.filter { $0.name.localizedStandardContains(searchFilter) || $0.location.localizedStandardContains(searchFilter) }
-    }
-    
+
     @State private var searchFilter: String = ""
     
     var body: some View {
         NavigationStack {
-            if (currentSeason == nil) {
+            if (currentSeason.isEmpty) {
                 Label {
                     Text("It seems like there is no data available to display here.")
                 } icon: {
@@ -52,8 +40,8 @@ struct CalendarTab: View {
                 .navigationTitle("Upcoming Races")
             } else {
                 ScrollView {
-                    ForEach(filteredRaces, id: \.slug) { race in
-                        UpcomingTabRaceView(race: race)
+                    ForEach(currentSeason, id: \.race.slug) { race in
+                        UpcomingTabRaceView(race: race.race)
                     }
                 }
                 .padding(.horizontal)
