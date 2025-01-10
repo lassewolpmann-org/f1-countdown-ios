@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import WidgetKit
 import SwiftData
 
 struct Session: View {
@@ -32,6 +31,7 @@ struct Session: View {
             HStack {
                 Text(session.longName)
                     .font(.headline)
+                    .foregroundStyle(.red)
                 
                 Spacer()
                 
@@ -48,6 +48,7 @@ struct Session: View {
                     }
                 }
                 .font(.subheadline)
+                .foregroundStyle(.secondary)
             }
             
             HStack {

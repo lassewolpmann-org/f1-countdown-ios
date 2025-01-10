@@ -7,7 +7,6 @@
 
 import WidgetKit
 import SwiftUI
-import SwiftData
 
 enum TimerWidgetError: Error {
     case nextUpdateError(String)
@@ -15,27 +14,17 @@ enum TimerWidgetError: Error {
 
 struct TimerEntry: TimelineEntry {
     let date: Date
+    let race: Season.Race?
 }
 
 struct TimerWidgetView: View {
     @Environment(\.widgetFamily) var family: WidgetFamily;
-    @Query var allRaces: [RaceData]
-    
-    var nextRace: RaceData? {
-        let currentYear = Calendar(identifier: .gregorian).component(.year, from: .now)
-        let currentSeries = allRaces.filter { $0.series == "f1" }
-        let currentSeason = currentSeries.filter { $0.season == currentYear }
-        let futureRaces = currentSeason.filter { $0.endDate > Date() }
-        let sortedRaces = futureRaces.sorted { $0.startDate < $1.startDate }
-        
-        return sortedRaces.first
-    }
     
     let entry: TimerEntry;
 
     @ViewBuilder
     var body: some View {
-        if let nextRace {
+        if let race = entry.race {
             switch family {
             /*
             case .accessoryCircular:
@@ -48,9 +37,9 @@ struct TimerWidgetView: View {
                 print("small")
              */
             case .systemLarge:
-                Large(race: nextRace.race)
+                Large(race: race)
             case .systemMedium:
-                Medium(race: nextRace.race)
+                Medium(race: race)
             default:
                 Label {
                     Text("Formula Countdown Widget is not available in this size.")
@@ -76,17 +65,73 @@ struct TimerWidgetView: View {
 
 struct TimerWidgetProvider: TimelineProvider {
     func placeholder(in context: Context) -> TimerEntry {
-        return TimerEntry(date: Date.now.addingTimeInterval(3600))
+        let race = sampleRaces.first?.race
+        let updateDate = race?.sessions.last?.endDate ?? Date()
+        
+        return TimerEntry(date: updateDate, race: race)
     }
     
     func getSnapshot(in context: Context, completion: @escaping (TimerEntry) -> Void) {
-        completion(TimerEntry(date: Date.now.addingTimeInterval(3600)))
+        Task {
+            completion(try await createEntryData())
+        }
     }
     
     func getTimeline(in context: Context, completion: @escaping (Timeline<TimerEntry>) -> Void) {
-        let timeline = Timeline(entries: [TimerEntry(date: Date.now.addingTimeInterval(3600))], policy: .atEnd);
+        Task {
+            let entry = try await createEntryData()
+            let timeline = Timeline(entries: [entry], policy: .atEnd);
+            
+            completion(timeline)
+        }
+    }
+    
+    func createEntryData() async throws -> TimerEntry {
+        let series = "f1"
+        let year = Calendar(identifier: .gregorian).component(.year, from: Date())
+        let baseURL = "https://raw.githubusercontent.com/sportstimes/f1/main/_db/\(series)"
         
-        completion(timeline)
+        guard let configURL = URL(string: "\(baseURL)/config.json") else { throw AppDataError.URLError("Could not create Config URL string") }
+        let (configData, _) = try await URLSession.shared.data(from: configURL)
+        let config = try JSONDecoder().decode(RawAPIData.Config.self, from: configData)
+        
+        guard let racesURL = URL(string: "\(baseURL)/\(year).json") else { throw AppDataError.URLError("Could not create Season URL string") }
+
+        let (racesData, _) = try await URLSession.shared.data(from: racesURL)
+        let rawRaces = try JSONDecoder().decode(RawAPIData.Races.self, from: racesData).races
+        let allRaces = rawRaces.map { newRace in
+            return parseRace(rawRace: newRace, sessionLengths: config.sessionLengths)
+        }
+        
+        let race = allRaces.first { race in
+            guard let lastSessionEndDate = race.sessions.last?.endDate else { return false }
+            return lastSessionEndDate > Date()
+        }
+        
+        var allDates: [Date] = []
+        
+        race?.sessions.forEach { session in
+            allDates.append(session.startDate)
+            allDates.append(session.endDate)
+        }
+        
+        let updateDate = allDates.first { $0 > Date() } ?? Date()
+        print(updateDate)
+        
+        return TimerEntry(date: updateDate, race: race)
+    }
+    
+    func parseRace(rawRace: RawAPIData.Races.Race, sessionLengths: [String: Int]) -> Season.Race {
+        let sessions: [Season.Race.Session] = rawRace.sessions.compactMap { rawSession in
+            let start = rawSession.value
+            guard let startDate = ISO8601DateFormatter().date(from: start) else { return nil }
+            guard let sessionLength = sessionLengths[rawSession.key] else { return nil }
+            let endDate = startDate.addingTimeInterval(TimeInterval(sessionLength * 60))
+            
+            return Season.Race.Session(rawName: rawSession.key, startDate: startDate, endDate: endDate)
+        }.sorted { $0.startDate < $1.startDate }
+        
+        return Season.Race(name: rawRace.name, location: rawRace.location, sessions: sessions, slug: rawRace.slug)
     }
 }
 
@@ -105,5 +150,5 @@ struct TimerWidget: Widget {
 #Preview(as: .systemMedium) {
     TimerWidget()
 } timeline: {
-    TimerEntry(date: Date.now.addingTimeInterval(3600))
+    TimerEntry(date: Date(), race: sampleRaces.first?.race)
 }

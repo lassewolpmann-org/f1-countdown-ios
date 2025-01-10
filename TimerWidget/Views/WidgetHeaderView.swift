@@ -7,7 +7,6 @@
 
 import SwiftUI
 import WidgetKit
-import SwiftData
 
 struct WidgetHeader: View {
     let race: Season.Race
@@ -25,5 +24,5 @@ struct WidgetHeader: View {
 #Preview(as: .systemMedium) {
     TimerWidget()
 } timeline: {
-    TimerEntry(date: .now)
+    TimerEntry(date: Date(), race: sampleRaces.first?.race)
 }

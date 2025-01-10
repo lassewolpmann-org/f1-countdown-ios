@@ -7,7 +7,6 @@
 
 import SwiftUI
 import SwiftData
-import WidgetKit
 
 struct TimerTab: View {
     @Query var allRaces: [RaceData]
@@ -56,19 +55,16 @@ struct TimerTab: View {
             
             for session in nextRace.race.sessions {
                 DispatchQueue.main.asyncAfter(deadline: .now() + session.startDate.timeIntervalSinceNow) {
-                    currentDate = .now
-                    WidgetCenter.shared.reloadAllTimelines()
+                    currentDate = Date()
                 }
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + session.endDate.timeIntervalSinceNow) {
-                    currentDate = .now
-                    WidgetCenter.shared.reloadAllTimelines()
+                    currentDate = Date()
                 }
             }
         }
         .refreshable {
             currentDate = Date()
-            WidgetCenter.shared.reloadAllTimelines()
         }
     }
 }
