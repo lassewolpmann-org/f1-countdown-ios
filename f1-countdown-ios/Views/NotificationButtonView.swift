@@ -29,19 +29,7 @@ struct NotificationButton: View {
                 notificationEnabled = false
             } else {
                 Task {
-                    let status = await notificationController.permissionStatus
-                    if (status == .authorized) {
-                        for offset in notificationController.selectedOffsetOptions {
-                            let notificationDate = session.startDate.addingTimeInterval(TimeInterval(offset * -60))
-                            guard notificationDate.timeIntervalSinceNow > 0 else { continue }
-                            
-                            notificationEnabled = await notificationController.addNotification(sessionDate: session.startDate, sessionName: session.longName, series: race.series.uppercased(), title: race.race.title, offset: offset)
-                        }
-                    } else if (status == .notDetermined) {
-                        await notificationController.createNotificationPermission()
-                    } else {
-                        print("Not allowed")
-                    }
+                    notificationEnabled = await notificationController.addSessionNotifications(race: race, session: session)
                 }
             }
         } label: {

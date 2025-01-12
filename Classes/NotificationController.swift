@@ -109,31 +109,36 @@ class NotificationController {
         }
     }
     
-    func addNotification(sessionDate: Date, sessionName: String, series: String, title: String, offset: Int) async -> Bool {
+    func addSessionNotifications(race: RaceData, session: Season.Race.Session) async -> Bool {
+        if await self.permissionStatus == .notDetermined { await createNotificationPermission() }
         guard await self.permissionStatus == .authorized else { return false }
         
-        let notificationDate = sessionDate.addingTimeInterval(TimeInterval(offset * -60))
-        let dateComponents = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: notificationDate)
-        
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
-        let content = UNMutableNotificationContent()
-        
-        content.title = title
-        content.body = offset == 0 ? "\(series) \(sessionName) is now live!" : "\(series) \(sessionName) starts in \(offset.description) minutes!"
-        content.sound = .default
-        content.interruptionLevel = .active
-        content.userInfo = [
-            "series": series,
-            "sessionName": sessionName,
-            "sessionDate": sessionDate
-        ]
-        
-        let notification = UNNotificationRequest(identifier: notificationDate.ISO8601Format(), content: content, trigger: trigger)
-        
-        do {
-            try await center.add(notification)
-        } catch {
-            print(error)
+        for offset in self.selectedOffsetOptions {
+            let notificationDate = session.startDate.addingTimeInterval(TimeInterval(offset * -60))
+            guard notificationDate.timeIntervalSinceNow > 0 else { continue }
+            
+            let dateComponents = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: notificationDate)
+            
+            let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+            let content = UNMutableNotificationContent()
+            
+            content.title = race.race.title
+            content.body = offset == 0 ? "\(race.series) \(session.longName) is now live!" : "\(race.series) \(session.longName) starts in \(offset.description) minutes!"
+            content.sound = .default
+            content.interruptionLevel = .active
+            content.userInfo = [
+                "series": race.series,
+                "sessionName": session.longName,
+                "sessionDate": session.startDate
+            ]
+            
+            let notification = UNNotificationRequest(identifier: notificationDate.ISO8601Format(), content: content, trigger: trigger)
+            
+            do {
+                try await center.add(notification)
+            } catch {
+                print(error)
+            }
         }
         
         return true

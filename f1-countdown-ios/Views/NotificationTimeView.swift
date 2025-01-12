@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct NotificationTime: View {
+    @Query var allRaces: [RaceData]
     var notificationController: NotificationController
     
     var body: some View {
@@ -55,33 +57,36 @@ struct NotificationTime: View {
         .onChange(of: notificationController.selectedOffsetOptions, { oldOffsets, newOffsets in
             Task {
                 let currentNotifications = await notificationController.currentNotifications
-                let difference = newOffsets.difference(from: oldOffsets).first
+                let difference = newOffsets.difference(from: oldOffsets)
 
-                if let currentSessionDates = currentNotifications.map({ $0.content.userInfo["sessionDate"] }) as? [Date] {
-                    let dateSet = Set(currentSessionDates)
+                for diff in difference {
+                    guard let currentDates = currentNotifications.map({ $0.content.userInfo["sessionDate"] }) as? [Date] else { continue }
+                    let currentDatesSet = Set(currentDates)
                     
-                    switch difference {
+                    switch diff {
                     case let .remove(_, offset, _):
-                        let dates = dateSet.map { date in
+                        let datesToRemove = currentDatesSet.map { date in
                             return date.addingTimeInterval(TimeInterval(offset * -60)).ISO8601Format()
                         }
                         
-                        notificationController.center.removePendingNotificationRequests(withIdentifiers: dates)
-                    case let .insert(_, offset, _):
-                        for date in dateSet {
-                            if let currentNotification = currentNotifications.first(where: { notification in
+                        notificationController.center.removePendingNotificationRequests(withIdentifiers: datesToRemove)
+                    case .insert:
+                        for date in currentDatesSet {
+                            if (currentNotifications.first(where: { notification in
                                 notification.content.userInfo["sessionDate"] as? Date == date
-                            }) {
-                                if let date = currentNotification.content.userInfo["sessionDate"] as? Date,
-                                   let name = currentNotification.content.userInfo["sessionName"] as? String,
-                                   let series = currentNotification.content.userInfo["series"] as? String {
-                                    
-                                    let _ = await notificationController.addNotification(sessionDate: date, sessionName: name, series: series, title: currentNotification.content.title, offset: offset)
-                                }
+                            }) != nil) {
+                                guard let race = allRaces.first(where: { race in
+                                    let raceSessionDates = race.race.sessions.map { $0.startDate }
+                                    return raceSessionDates.contains(date)
+                                }) else { continue }
+                                
+                                guard let session = race.race.sessions.first(where: { session in
+                                    session.startDate == date
+                                }) else { continue }
+                                        
+                                let _ = await notificationController.addSessionNotifications(race: race, session: session)
                             }
                         }
-                    case .none:
-                        print("No difference")
                     }
                 }
             }

@@ -41,7 +41,11 @@ struct ContentView: View {
                                     if let existingRace = allRaces.first(where: {
                                         $0.season == year && $0.series == series && $0.race.slug == newRace.slug
                                     }) {
-                                        // Existing race, updating info
+                                        // Check if notification times changes, if yes -> update notifications
+                                        let sessions = existingRace.race.sessions
+                                        // print(parsedRace.sessions == sessions)
+                                        
+                                        // Update locally stored information
                                         existingRace.race = parsedRace
                                     } else {
                                         // New race, inserting info
