@@ -116,20 +116,21 @@ class NotificationController {
         for offset in self.selectedOffsetOptions {
             let notificationDate = session.startDate.addingTimeInterval(TimeInterval(offset * -60))
             guard notificationDate.timeIntervalSinceNow > 0 else { continue }
-            
-            let dateComponents = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: notificationDate)
+
+            let dateComponents = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute, .second], from: notificationDate)
             
             let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
             let content = UNMutableNotificationContent()
             
             content.title = race.race.title
-            content.body = offset == 0 ? "\(race.series) \(session.longName) is now live!" : "\(race.series) \(session.longName) starts in \(offset.description) minutes!"
+            content.body = offset == 0 ? "\(race.series.uppercased()) \(session.longName) is now live!" : "\(race.series) \(session.longName) starts in \(offset.description) minutes!"
             content.sound = .default
             content.interruptionLevel = .active
             content.userInfo = [
                 "series": race.series,
                 "sessionName": session.longName,
-                "sessionDate": session.startDate
+                "sessionDate": session.startDate,
+                "raceSlug": race.race.slug
             ]
             
             let notification = UNNotificationRequest(identifier: notificationDate.ISO8601Format(), content: content, trigger: trigger)
@@ -138,6 +139,8 @@ class NotificationController {
                 try await center.add(notification)
             } catch {
                 print(error)
+                
+                return false
             }
         }
         

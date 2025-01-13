@@ -10,6 +10,30 @@ import Foundation
 import SwiftUI
 import SwiftData
 
+let rawSampleRaces: [RawAPIData.Races.Race] = [
+    RawAPIData.Races.Race(name: "Australian", location: "Melbourne", slug: "australian-grand-prix", sessions: [
+        "fp1": ISO8601DateFormatter().string(from: .now.addingTimeInterval(10)),
+        "fp2": ISO8601DateFormatter().string(from: .now.addingTimeInterval(20)),
+        "fp3": ISO8601DateFormatter().string(from: .now.addingTimeInterval(30)),
+        "qualifying": ISO8601DateFormatter().string(from: .now.addingTimeInterval(40)),
+        "gp": ISO8601DateFormatter().string(from: .now.addingTimeInterval(50))
+    ]),
+    RawAPIData.Races.Race(name: "Chinese", location: "Shanghai", slug: "chinese-grand-prix", sessions: [
+        "fp1": "2025-03-21T03:30:00Z",
+        "sprintQualifying": "2025-03-21T07:30:00Z",
+        "sprint": "2025-03-22T03:00:00Z",
+        "qualifying": "2025-03-22T07:00:00Z",
+        "gp": "2025-03-23T07:00:00Z"
+    ]),
+    RawAPIData.Races.Race(name: "Japanese", location: "Suzuka", slug: "japanese-grand-prix", sessions: [
+        "fp1": "2025-04-04T02:30:00Z",
+        "fp2": "2025-04-04T06:00:00Z",
+        "fp3": "2025-04-05T02:30:00Z",
+        "qualifying": "2025-04-05T06:00:00Z",
+        "gp": "2025-04-06T05:00:00Z"
+    ])
+]
+
 var sampleRaces: [RaceData] {
     func parseSampleRace(rawRace: RawAPIData.Races.Race) -> Season.Race {
         let sessions: [Season.Race.Session] = rawRace.sessions.compactMap { rawSession in
@@ -23,31 +47,7 @@ var sampleRaces: [RaceData] {
         return Season.Race(name: rawRace.name, location: rawRace.location, sessions: sessions, slug: rawRace.slug)
     }
     
-    let races: [RawAPIData.Races.Race] = [
-        RawAPIData.Races.Race(name: "Australian", location: "Melbourne", slug: "australian-grand-prix", sessions: [
-            "fp1": ISO8601DateFormatter().string(from: .now.addingTimeInterval(1)),
-            "fp2": ISO8601DateFormatter().string(from: .now.addingTimeInterval(3)),
-            "fp3": ISO8601DateFormatter().string(from: .now.addingTimeInterval(5)),
-            "qualifying": ISO8601DateFormatter().string(from: .now.addingTimeInterval(7)),
-            "gp": ISO8601DateFormatter().string(from: .now.addingTimeInterval(9))
-        ]),
-        RawAPIData.Races.Race(name: "Chinese", location: "Shanghai", slug: "chinese-grand-prix", sessions: [
-            "fp1": "2025-03-21T03:30:00Z",
-            "sprintQualifying": "2025-03-21T07:30:00Z",
-            "sprint": "2025-03-22T03:00:00Z",
-            "qualifying": "2025-03-22T07:00:00Z",
-            "gp": "2025-03-23T07:00:00Z"
-        ]),
-        RawAPIData.Races.Race(name: "Japanese", location: "Suzuka", slug: "japanese-grand-prix", sessions: [
-            "fp1": "2025-04-04T02:30:00Z",
-            "fp2": "2025-04-04T06:00:00Z",
-            "fp3": "2025-04-05T02:30:00Z",
-            "qualifying": "2025-04-05T06:00:00Z",
-            "gp": "2025-04-06T05:00:00Z"
-        ])
-    ]
-    
-    return races.map { race in
+    return rawSampleRaces.map { race in
         RaceData(series: "f1", season: 2025, race: parseSampleRace(rawRace: race))
     }
 }

@@ -22,6 +22,10 @@ struct ContentView: View {
         if (loadingData) {
             ProgressView("Loading data...")
                 .task {
+                    let currentNotifications = await notificationController.currentNotifications
+                    let notificationSlugs = Set(currentNotifications.compactMap { $0.content.userInfo["raceSlug"] as? String })
+                    let notificationSessionNames = Set(currentNotifications.compactMap { $0.content.userInfo["sessionName"] as? String })
+                    
                     for series in availableSeries {
                         let baseURL = "https://raw.githubusercontent.com/sportstimes/f1/main/_db/\(series)"
                         
@@ -35,15 +39,20 @@ struct ContentView: View {
 
                                 let (data, _) = try await URLSession.shared.data(from: racesURL)
                                 let rawRaces = try JSONDecoder().decode(RawAPIData.Races.self, from: data).races
-                                rawRaces.forEach { newRace in
-                                    let parsedRace = parseRace(rawRace: newRace, sessionLengths: config.sessionLengths)
+                                
+                                for rawRace in rawRaces {
+                                    let parsedRace = parseRace(rawRace: rawRace, sessionLengths: config.sessionLengths)
                                     
                                     if let existingRace = allRaces.first(where: {
-                                        $0.season == year && $0.series == series && $0.race.slug == newRace.slug
+                                        $0.season == year && $0.series == series && $0.race.slug == parsedRace.slug
                                     }) {
-                                        // Check if notification times changes, if yes -> update notifications
-                                        let sessions = existingRace.race.sessions
-                                        // print(parsedRace.sessions == sessions)
+                                        // Check if session times changed, if yes -> update notifications
+                                        let newSessions = parsedRace.sessions
+                                        let existingSessions = existingRace.race.sessions
+                                        
+                                        if (newSessions != existingSessions) {
+                                            await rescheduleNotifications(diffCollection: newSessions.difference(from: existingSessions), race: existingRace, notificationSlugs: notificationSlugs, notificationSessionNames: notificationSessionNames)
+                                        }
                                         
                                         // Update locally stored information
                                         existingRace.race = parsedRace
@@ -100,6 +109,30 @@ struct ContentView: View {
         }.sorted { $0.startDate < $1.startDate }
         
         return Season.Race(name: rawRace.name, location: rawRace.location, sessions: sessions, slug: rawRace.slug)
+    }
+    
+    func rescheduleNotifications(diffCollection: CollectionDifference<Season.Race.Session>, race: RaceData, notificationSlugs: Set<String>, notificationSessionNames: Set<String>) async -> Void {
+        let raceSlug = race.race.slug
+        
+        guard notificationSlugs.contains(raceSlug) else { return }
+        
+        for diff in diffCollection {
+            switch diff {
+            case let .insert(_, session, _):
+                guard notificationSessionNames.contains(session.longName) else { continue }
+                
+                let _ = await notificationController.addSessionNotifications(race: race, session: session)
+            case let .remove(_, session, _):
+                guard notificationSessionNames.contains(session.longName) else { continue }
+
+                for offset in notificationController.selectedOffsetOptions {
+                    let identifier = session.startDate.addingTimeInterval(TimeInterval(offset * -60)).ISO8601Format()
+                    notificationController.center.removePendingNotificationRequests(withIdentifiers: [identifier])
+                }
+            }
+        }
+        
+        let newNotifications = await notificationController.currentNotifications
     }
 }
 
