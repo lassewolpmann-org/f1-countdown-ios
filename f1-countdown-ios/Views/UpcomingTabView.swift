@@ -10,9 +10,10 @@ import SwiftData
 
 struct CalendarTab: View {
     @Query var allRaces: [RaceData]
-    
+
     let selectedSeries: String
-    
+    let notificationController: NotificationController
+
     var currentSeason: [RaceData] {
         let currentYear = Calendar(identifier: .gregorian).component(.year, from: .now)
         let currentSeries = allRaces.filter { $0.series == selectedSeries }
@@ -37,21 +38,23 @@ struct CalendarTab: View {
                 }
                 .bold()
                 .symbolRenderingMode(.multicolor)
-                .navigationTitle("Upcoming Races")
+                .navigationTitle("Current Season")
             } else {
                 ScrollView {
-                    ForEach(currentSeason, id: \.race.slug) { race in
-                        UpcomingTabRaceView(race: race.race)
+                    VStack(spacing: 15) {
+                        ForEach(currentSeason, id: \.race.slug) { race in
+                            UpcomingTabRaceView(race: race, notificationController: notificationController)
+                        }
                     }
                 }
                 .padding(.horizontal)
                 .searchable(text: $searchFilter)
-                .navigationTitle("Upcoming Races")
+                .navigationTitle("\(currentSeason.first!.season.description) Season")
             }
         }
     }
 }
 
 #Preview(traits: .sampleData) {
-    CalendarTab(selectedSeries: "f1")
+    CalendarTab(selectedSeries: "f1", notificationController: NotificationController())
 }

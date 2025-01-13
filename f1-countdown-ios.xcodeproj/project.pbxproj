@@ -60,7 +60,7 @@
 		25F11CA62BD01E98007D0DE6 /* Formula Countdown.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 25F11C832BD01E97007D0DE6 /* Formula Countdown.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		25F11CB12BD01FE0007D0DE6 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C655E2B73779B003E4A13 /* AppData.swift */; };
 		25F11CC72BD02105007D0DE6 /* f1_countdown_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257959D52B04FB000033DFAB /* f1_countdown_iosApp.swift */; };
-		25F11CCD2BD031D7007D0DE6 /* SessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F11CCC2BD031D7007D0DE6 /* SessionView.swift */; };
+		25F11CCD2BD031D7007D0DE6 /* SessionTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F11CCC2BD031D7007D0DE6 /* SessionTabView.swift */; };
 		25F11CCF2BD03361007D0DE6 /* TimerCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F11CCE2BD03361007D0DE6 /* TimerCircleView.swift */; };
 /* End PBXBuildFile section */
 
@@ -168,7 +168,7 @@
 		25F11C872BD01E97007D0DE6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		25F11C892BD01E98007D0DE6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		25F11C8C2BD01E98007D0DE6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		25F11CCC2BD031D7007D0DE6 /* SessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionView.swift; sourceTree = "<group>"; };
+		25F11CCC2BD031D7007D0DE6 /* SessionTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTabView.swift; sourceTree = "<group>"; };
 		25F11CCE2BD03361007D0DE6 /* TimerCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerCircleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -281,10 +281,10 @@
 		25AB92B82D25971800295255 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				25C6C5582B177DB400818265 /* SessionInfoView.swift */,
 				25B404182B10B3D7007EF384 /* MediumView.swift */,
 				25B4041A2B10B660007EF384 /* LargeView.swift */,
 				25B8C1502B8DFF2B009A270C /* WidgetHeaderView.swift */,
-				25C6C5582B177DB400818265 /* SessionInfoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -294,7 +294,7 @@
 			children = (
 				25F11C872BD01E97007D0DE6 /* ContentView.swift */,
 				251DC16F2BD0FD0C00D08D56 /* InfoButtonView.swift */,
-				25F11CCC2BD031D7007D0DE6 /* SessionView.swift */,
+				25F11CCC2BD031D7007D0DE6 /* SessionTabView.swift */,
 				25F11CCE2BD03361007D0DE6 /* TimerCircleView.swift */,
 				251CF12C2D26B8B7009EA986 /* TimerTabView.swift */,
 			);
@@ -536,7 +536,7 @@
 				251DC1702BD0FD0C00D08D56 /* InfoButtonView.swift in Sources */,
 				25F11CCF2BD03361007D0DE6 /* TimerCircleView.swift in Sources */,
 				25F11C882BD01E97007D0DE6 /* ContentView.swift in Sources */,
-				25F11CCD2BD031D7007D0DE6 /* SessionView.swift in Sources */,
+				25F11CCD2BD031D7007D0DE6 /* SessionTabView.swift in Sources */,
 				256D6C562D23D78D004BF92C /* SampleData.swift in Sources */,
 				25AB92C02D25989300295255 /* SeasonData.swift in Sources */,
 				254C361D2D26BB67007FFB3B /* DeltaValues.swift in Sources */,

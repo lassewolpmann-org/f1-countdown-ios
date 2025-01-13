@@ -76,7 +76,7 @@ struct SessionInfo: View {
         .padding(.vertical, 5)
         .background(
             RoundedRectangle(cornerRadius: 5)
-                .fill(.ultraThinMaterial)
+                .fill(.quinary)
         )
     }
 }

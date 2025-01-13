@@ -15,8 +15,7 @@ struct ContentView: View {
     @State var loadingData = true
     @State var selectedSeries: String = "f1"
     
-    // var appData: AppData
-    var notificationController: NotificationController
+    let notificationController: NotificationController
     
     var body: some View {
         if (loadingData) {
@@ -84,7 +83,7 @@ struct ContentView: View {
                 }
                 
                 Tab {
-                    CalendarTab(selectedSeries: selectedSeries)
+                    CalendarTab(selectedSeries: selectedSeries, notificationController: notificationController)
                 } label: {
                     Label("Upcoming", systemImage: "calendar")
                 }
@@ -131,8 +130,6 @@ struct ContentView: View {
                 }
             }
         }
-        
-        let newNotifications = await notificationController.currentNotifications
     }
 }
 

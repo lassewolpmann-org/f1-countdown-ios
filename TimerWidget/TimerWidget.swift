@@ -116,7 +116,6 @@ struct TimerWidgetProvider: TimelineProvider {
         }
         
         let updateDate = allDates.first { $0 > Date() } ?? Date()
-        print(updateDate)
         
         return TimerEntry(date: updateDate, race: race)
     }

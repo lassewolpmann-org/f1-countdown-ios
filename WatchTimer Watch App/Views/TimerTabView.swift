@@ -27,7 +27,7 @@ struct TimerTabView: View {
         TabView {
             if let nextRace {
                 ForEach(nextRace.race.futureSessions, id: \.shortName) { session in
-                    Session(session: session, delta: getDelta(session: session), selectedSeries: $selectedSeries, race: nextRace.race)
+                    SessionTab(session: session, delta: getDelta(session: session), selectedSeries: $selectedSeries, race: nextRace.race)
                 }
             } else {
                 VStack {

@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-struct Session: View {
+struct SessionTab: View {
     @State var session: Season.Race.Session
     @State var delta: DeltaValues
     @State var showInfoSheet: Bool = false
@@ -102,7 +102,7 @@ struct Session: View {
             if let session = race.sessions.first {
                 let delta = DeltaValues(date: session.startDate)
                 
-                Session(session: session, delta: delta, selectedSeries: .constant("f1"), race: race)
+                SessionTab(session: session, delta: delta, selectedSeries: .constant("f1"), race: race)
             }
         }
     }
