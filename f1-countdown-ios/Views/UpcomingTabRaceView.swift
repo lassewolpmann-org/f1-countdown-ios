@@ -11,6 +11,7 @@ struct UpcomingTabRaceView: View {
     @State var showSessions: Bool = false
     @State private var notificationsAdded = false
     @State private var notificationsAddedFeedback = false
+    @State private var existingNotifications = false
     
     let race: RaceData
     let notificationController: NotificationController
@@ -23,26 +24,42 @@ struct UpcomingTabRaceView: View {
                 Spacer()
                 
                 Button {
-                    notificationsAddedFeedback.toggle()
-
-                    Task {
-                        for session in race.race.sessions {
-                            let success = await notificationController.addSessionNotifications(race: race, session: session)
-                            guard success == true else { return }
+                    if (existingNotifications) {
+                        let sessionDates: [String] = race.race.sessions.flatMap { session in
+                            let datesWithOffsets = notificationController.selectedOffsetOptions.map { session.startDate.addingTimeInterval(Double($0 * -60)) }
+                            return datesWithOffsets.map { $0.ISO8601Format() }
                         }
                         
-                        notificationsAdded = true
-                        
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                            notificationsAdded = false
+                        notificationController.center.removePendingNotificationRequests(withIdentifiers: sessionDates)
+                        existingNotifications = false
+                    } else {
+                        Task {
+                            for session in race.race.sessions {
+                                await notificationController.addSessionNotifications(race: race, session: session)
+                                guard notificationController.returnMessage.success == true else { return }
+                            }
+                            
+                            notificationsAdded = true
+                            existingNotifications = true
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                notificationsAdded = false
+                            }
                         }
                     }
+                    notificationsAddedFeedback.toggle()
                 } label: {
-                    Image(systemName: notificationsAdded ? "checkmark" : "bell")
-                        .foregroundStyle(notificationsAdded ? .green : .blue)
+                    if (notificationsAdded) {
+                        Image(systemName: "checkmark" )
+                            .foregroundStyle(.green)
+                    } else {
+                        Image(systemName: existingNotifications ? "bell.slash" : "bell")
+                            .foregroundStyle(existingNotifications ? .red : .blue)
+                    }
                 }
                 .sensoryFeedback(.success, trigger: notificationsAddedFeedback)
                 .animation(.linear(duration: 0.2), value: notificationsAdded)
+                .animation(.linear(duration: 0.2), value: existingNotifications)
                 .frame(width: 30, height: 30)
                 .background(RoundedRectangle(cornerRadius: 5).fill(.quinary))
                 
@@ -100,6 +117,24 @@ struct UpcomingTabRaceView: View {
                 }
             }
         }
+        .task {
+            existingNotifications = await checkForExistingNotifications()
+        }
+    }
+    
+    func checkForExistingNotifications() async -> Bool {
+        let sessionDates: [String] = race.race.sessions.flatMap { session in
+            let datesWithOffsets = notificationController.selectedOffsetOptions.map { session.startDate.addingTimeInterval(Double($0 * -60)) }
+            return datesWithOffsets.map { $0.ISO8601Format() }
+        }
+        
+        let sessionDatesSet = Set(sessionDates)
+        
+        let currentNotifications = await notificationController.currentNotifications
+        let notificationIDs = Set(currentNotifications.map { $0.identifier })
+        let expectedNotificationCount = race.race.sessions.count * notificationController.selectedOffsetOptions.count
+        
+        return notificationIDs.intersection(sessionDatesSet).count == expectedNotificationCount
     }
 }
 

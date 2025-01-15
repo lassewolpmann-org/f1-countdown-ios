@@ -26,27 +26,29 @@ struct TimerTab: View {
     let notificationController: NotificationController
     
     var body: some View {
-        NavigationStack {
-            ScrollView(.vertical) {
-                if let nextRace {
-                    VStack(alignment: .center, spacing: 15) {
-                        ForEach(nextRace.race.sessions, id: \.shortName) { session in
-                            let delta = getDelta(session: session)
-                            Session(delta: delta, nextRace: nextRace, session: session, currentDate: currentDate, notificationController: notificationController)
+        ZStack(alignment: .bottom) {
+            NavigationStack {
+                ScrollView(.vertical) {
+                    if let nextRace {
+                        VStack(alignment: .center, spacing: 15) {
+                            ForEach(nextRace.race.sessions, id: \.shortName) { session in
+                                let delta = getDelta(session: session)
+                                Session(delta: delta, nextRace: nextRace, session: session, currentDate: currentDate, notificationController: notificationController)
+                            }
                         }
+                        .background(FlagBackground(flag: nextRace.race.flag))
+                        .padding(.horizontal, 10)
+                        .navigationTitle(nextRace.race.title)
+                    } else {
+                        Label {
+                            Text("It seems like there is no data available to display here.")
+                        } icon: {
+                            Image(systemName: "exclamationmark.triangle.fill")
+                        }
+                        .bold()
+                        .symbolRenderingMode(.multicolor)
+                        .navigationTitle("Timer")
                     }
-                    .background(FlagBackground(flag: nextRace.race.flag))
-                    .padding(.horizontal, 10)
-                    .navigationTitle(nextRace.race.title)
-                } else {
-                    Label {
-                        Text("It seems like there is no data available to display here.")
-                    } icon: {
-                        Image(systemName: "exclamationmark.triangle.fill")
-                    }
-                    .bold()
-                    .symbolRenderingMode(.multicolor)
-                    .navigationTitle("Timer")
                 }
             }
         }

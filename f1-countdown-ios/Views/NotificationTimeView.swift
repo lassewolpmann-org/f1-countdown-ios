@@ -84,7 +84,7 @@ struct NotificationTime: View {
                                     session.startDate == date
                                 }) else { continue }
                                         
-                                let _ = await notificationController.addSessionNotifications(race: race, session: session)
+                                await notificationController.addSessionNotifications(race: race, session: session)
                             }
                         }
                     }

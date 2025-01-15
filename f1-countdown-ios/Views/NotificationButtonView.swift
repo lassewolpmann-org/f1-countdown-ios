@@ -9,6 +9,7 @@ import SwiftUI
 
 struct NotificationButton: View {
     @State private var notificationEnabled: Bool = false
+    @State private var notificationAdded: Bool = false
     @State private var buttonState: Bool = false
     
     let session: Season.Race.Session
@@ -29,14 +30,26 @@ struct NotificationButton: View {
                 notificationEnabled = false
             } else {
                 Task {
-                    notificationEnabled = await notificationController.addSessionNotifications(race: race, session: session)
+                    await notificationController.addSessionNotifications(race: race, session: session)
+                    notificationAdded = notificationController.returnMessage.success
+                    notificationEnabled = notificationController.returnMessage.success
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        notificationAdded = false
+                    }
                 }
             }
         } label: {
-            Image(systemName: notificationEnabled ? "bell.slash" : "bell")
-                .foregroundStyle(notificationEnabled ? .red : .accentColor)
-                .contentTransition(.symbolEffect(.replace))
+            if (notificationAdded) {
+                Image(systemName: "checkmark")
+                    .foregroundStyle(.green)
+            } else {
+                Image(systemName: notificationEnabled ? "bell.slash" : "bell")
+                    .foregroundStyle(notificationEnabled ? .red : .accentColor)
+                    .contentTransition(.symbolEffect(.replace))
+            }
         }
+        .animation(.easeInOut, value: notificationAdded)
         .disabled(sessionStatus != .upcoming)
         .sensoryFeedback(.success, trigger: buttonState)
         .buttonStyle(.bordered)

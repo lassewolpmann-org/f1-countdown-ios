@@ -14,7 +14,7 @@ struct ContentView: View {
     
     @State var loadingData = true
     @State var selectedSeries: String = "f1"
-    
+
     let notificationController: NotificationController
     
     var body: some View {

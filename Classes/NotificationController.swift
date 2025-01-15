@@ -8,20 +8,23 @@
 import Foundation
 import UserNotifications
 
-struct ReturnMessage {
-    var success: Bool?
-    var message: String
-}
+
 
 @Observable
 class NotificationController {
+    struct ReturnMessage: Equatable, Identifiable {
+        var id: UUID = UUID()
+        var success: Bool
+        var message: String
+    }
+    
     // Create variables for UserDefaults
     let key: String = "NotificationOffsets"
     let userDefaults = UserDefaults.standard
     let notificationOffsetOptions = [0, 5, 10, 15, 30, 60]
     
     var selectedOffsetOptions: [Int] = []
-    var message: ReturnMessage = ReturnMessage(success: nil, message: "")
+    var returnMessage: NotificationController.ReturnMessage = .init(success: false, message: "")
     
     // Create variables for Notification Center
     let center = UNUserNotificationCenter.current()
@@ -57,36 +60,36 @@ class NotificationController {
     }
     
     // MARK: Functions
-    func toggleOffsetValue(offset: Int) -> Void {
+    func toggleOffsetValue(offset: Int) {
         var currentValues = self.offsetValues
-                
+        
         if (currentValues.contains(offset)) {
             guard currentValues.count > 1 else {
-                message.success = false
-                message.message = "Cannot remove only selected option"
+                self.returnMessage = .init(success: false, message: "Cannot remove only selected option")
+                
+                return
+            }
+            guard let index = currentValues.firstIndex(of: offset) else {
+                self.returnMessage = .init(success: false, message: "Could not find option in list of selected options")
                 
                 return
             }
             
-            // Remove offset
-            if let i = currentValues.firstIndex(of: offset) {
-                currentValues.remove(at: i)
-                message.success = true
-                message.message = "Removed option"
-            } else {
-                message.success = false
-                message.message = "Could not find option in list of selected options"
-            }
+            currentValues.remove(at: index)
+            self.selectedOffsetOptions = currentValues
+            userDefaults.set(self.selectedOffsetOptions, forKey: self.key)
+            self.returnMessage = .init(success: true, message: "Removed Option")
+            
+            return
         } else {
             // Append offset
             currentValues.append(offset)
+            self.selectedOffsetOptions = currentValues
+            userDefaults.set(self.selectedOffsetOptions, forKey: self.key)
+            self.returnMessage = .init(success: true, message: "Added Option")
             
-            message.success = true
-            message.message = "Added option"
+            return
         }
-        
-        self.selectedOffsetOptions = currentValues
-        userDefaults.set(self.selectedOffsetOptions, forKey: self.key)
     }
     
     func getCurrentNotificationDates() async -> Set<Date> {
@@ -109,9 +112,12 @@ class NotificationController {
         }
     }
     
-    func addSessionNotifications(race: RaceData, session: Season.Race.Session) async -> Bool {
+    func addSessionNotifications(race: RaceData, session: Season.Race.Session) async -> Void {
         if await self.permissionStatus == .notDetermined { await createNotificationPermission() }
-        guard await self.permissionStatus == .authorized else { return false }
+        guard await self.permissionStatus == .authorized else {
+            self.returnMessage = .init(success: false, message: "App does not have permission to send Notifications")
+            return
+        }
         
         for offset in self.selectedOffsetOptions {
             let notificationDate = session.startDate.addingTimeInterval(TimeInterval(offset * -60))
@@ -138,12 +144,14 @@ class NotificationController {
             do {
                 try await center.add(notification)
             } catch {
-                print(error)
+                self.returnMessage = .init(success: false, message: error.localizedDescription)
                 
-                return false
+                return
             }
         }
         
-        return true
+        self.returnMessage = .init(success: true, message: "Notification\(self.selectedOffsetOptions.count > 1 ? "s" : "") added for \(session.longName)")
+        
+        return
     }
 }
