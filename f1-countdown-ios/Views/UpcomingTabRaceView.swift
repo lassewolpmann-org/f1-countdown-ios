@@ -19,7 +19,15 @@ struct UpcomingTabRaceView: View {
     var body: some View {
         VStack(spacing: 5) {
             HStack {
-                Text(race.race.title)
+                VStack(alignment: .leading) {
+                    Text(race.race.title)
+                    
+                    if let firstSession = race.race.sessions.first, let lastSession = race.race.sessions.last {
+                        Text("\(firstSession.dateStringWithoutYear) - \(lastSession.dateStringWithoutYear)")
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                    }
+                }
                 
                 Spacer()
                 

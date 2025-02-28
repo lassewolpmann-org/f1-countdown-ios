@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import WidgetKit
 
 struct ContentView: View {
     @Environment(\.modelContext) private var context
@@ -45,7 +46,7 @@ struct ContentView: View {
                                     if let existingRace = allRaces.first(where: {
                                         $0.season == year && $0.series == series && $0.race.slug == parsedRace.slug
                                     }) {
-                                        // Check if session times changed, if yes -> update notifications
+                                        // Check if session times changed, if yes -> update notifications and reload widget timeline
                                         let newSessions = parsedRace.sessions
                                         let existingSessions = existingRace.race.sessions
                                         
@@ -111,6 +112,8 @@ struct ContentView: View {
     }
     
     func rescheduleNotifications(diffCollection: CollectionDifference<Season.Race.Session>, race: RaceData, notificationSlugs: Set<String>, notificationSessionNames: Set<String>) async -> Void {
+        WidgetCenter.shared.reloadAllTimelines()
+        
         let raceSlug = race.race.slug
         
         guard notificationSlugs.contains(raceSlug) else { return }

@@ -43,6 +43,13 @@ struct Season: Codable {
                 return dateFormatter.string(from: startDate)
             }
             
+            var dateStringWithoutYear: String {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "MMMM dd"
+                
+                return dateFormatter.string(from: startDate)
+            }
+            
             var shortName: String {
                 switch (self.rawName) {
                 case "fp1":
