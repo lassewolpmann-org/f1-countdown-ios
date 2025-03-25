@@ -50,6 +50,13 @@ struct CalendarTab: View {
                 .padding(.horizontal)
                 .searchable(text: $searchFilter)
                 .navigationTitle("\(currentSeason.first!.season.description) Season")
+                .toolbar {
+                    NavigationLink {
+                        UpcomingTabCalendarView()
+                    } label: {
+                        Image(systemName: "calendar")
+                    }
+                }
             }
         }
     }

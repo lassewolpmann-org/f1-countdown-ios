@@ -56,9 +56,10 @@ struct ContentView: View {
                                         
                                         // Update locally stored information
                                         existingRace.race = parsedRace
+                                        existingRace.tbc = rawRace.tbc ?? false
                                     } else {
                                         // New race, inserting info
-                                        context.insert(RaceData(series: series, season: year, race: parsedRace))
+                                        context.insert(RaceData(series: series, season: year, race: parsedRace, tbc: rawRace.tbc ?? false))
                                     }
                                 }
                             }

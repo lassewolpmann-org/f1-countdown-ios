@@ -19,6 +19,7 @@ let flags: [String: String] = [
     "melbourne": "🇦🇺",
     "japanese-grand-prix": "🇯🇵",
     "chinese-grand-prix": "🇨🇳",
+    "miami": "🇺🇸",
     "miami-grand-prix": "🇺🇸",
     "emilia-romagna-grand-prix": "🇮🇹",
     "emilia-romagna": "🇮🇹",
@@ -64,13 +65,15 @@ class RaceData {
     var series: String
     var season: Int
     var race: Season.Race
+    var tbc: Bool
     
     var startDate: Date { self.race.sessions.first?.startDate ?? .now }
     var endDate: Date { self.race.sessions.last?.endDate ?? .now }
     
-    init(series: String, season: Int, race: Season.Race) {
+    init(series: String, season: Int, race: Season.Race, tbc: Bool) {
         self.series = series
         self.season = season
         self.race = race
+        self.tbc = tbc
     }
 }

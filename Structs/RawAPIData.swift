@@ -25,6 +25,7 @@ struct RawAPIData: Codable {
             var name: String
             var location: String
             var slug: String
+            var tbc: Bool?
             var sessions: [String: String]
         }
         

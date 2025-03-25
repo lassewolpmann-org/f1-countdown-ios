@@ -38,11 +38,12 @@ struct ContentView: View {
                                     if let existingRace = allRaces.first(where: {
                                         $0.season == year && $0.series == series && $0.race.slug == newRace.slug
                                     }) {
-                                        // Existing race, updating info
+                                        // Update locally stored information
                                         existingRace.race = parsedRace
+                                        existingRace.tbc = newRace.tbc ?? false
                                     } else {
                                         // New race, inserting info
-                                        context.insert(RaceData(series: series, season: year, race: parsedRace))
+                                        context.insert(RaceData(series: series, season: year, race: parsedRace, tbc: newRace.tbc ?? false))
                                     }
                                 }
                             }

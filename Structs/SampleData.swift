@@ -48,7 +48,7 @@ var sampleRaces: [RaceData] {
     }
     
     return rawSampleRaces.map { race in
-        RaceData(series: "f1", season: 2025, race: parseSampleRace(rawRace: race))
+        RaceData(series: "f1", season: 2025, race: parseSampleRace(rawRace: race), tbc: true)
     }
 }
 
