@@ -131,18 +131,18 @@ struct UpcomingTabRaceView: View {
     }
     
     func checkForExistingNotifications() async -> Bool {
-        let sessionDates: [String] = race.race.sessions.flatMap { session in
+        let futureSessionDates: [String] = race.race.futureSessions.flatMap { session in
             let datesWithOffsets = notificationController.selectedOffsetOptions.map { session.startDate.addingTimeInterval(Double($0 * -60)) }
             return datesWithOffsets.map { $0.ISO8601Format() }
         }
         
-        let sessionDatesSet = Set(sessionDates)
+        let futureSessionDatesSet = Set(futureSessionDates)
         
         let currentNotifications = await notificationController.currentNotifications
         let notificationIDs = Set(currentNotifications.map { $0.identifier })
-        let expectedNotificationCount = race.race.sessions.count * notificationController.selectedOffsetOptions.count
+        let expectedNotificationCount = race.race.futureSessions.count * notificationController.selectedOffsetOptions.count
         
-        return notificationIDs.intersection(sessionDatesSet).count == expectedNotificationCount
+        return notificationIDs.intersection(futureSessionDatesSet).count == expectedNotificationCount
     }
 }
 

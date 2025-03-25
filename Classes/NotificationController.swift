@@ -129,7 +129,7 @@ class NotificationController {
             let content = UNMutableNotificationContent()
             
             content.title = race.race.title
-            content.body = offset == 0 ? "\(race.series.uppercased()) \(session.longName) is now live!" : "\(race.series) \(session.longName) starts in \(offset.description) minutes!"
+            content.body = offset == 0 ? "\(race.series.uppercased()) \(session.longName) is now live!" : "\(race.series.uppercased()) \(session.longName) starts in \(offset.description) minutes!"
             content.sound = .default
             content.interruptionLevel = .active
             content.userInfo = [
