@@ -15,6 +15,7 @@ let flags: [String: String] = [
     "bahrain": "🇧🇭",
     "saudi-arabia-grand-prix": "🇸🇦",
     "saudi-arabia": "🇸🇦",
+    "jeddah": "🇸🇦",
     "australian-grand-prix": "🇦🇺",
     "melbourne": "🇦🇺",
     "japanese-grand-prix": "🇯🇵",

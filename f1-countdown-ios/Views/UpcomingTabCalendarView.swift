@@ -165,7 +165,7 @@ struct DayView: View {
         } label: {
             VStack {
                 Text(dayNumber.description)
-                Text(sessions.first?.race.race.flag ?? " ")
+                Text(!sessions.isEmpty ? sessions.first?.race.race.flag ?? "🏳️" : " ")
             }
             .frame(width: 35)
         }
@@ -221,9 +221,9 @@ struct SessionsOfDayView: View {
                             Text(session.session.startDate, style: .time)
                             Text(session.session.endDate, style: .time).foregroundStyle(.secondary)
                         }
+                        
+                        NotificationButton(session: session.session, sessionStatus: sessionStatus, race: session.race, notificationController: notificationController)
                     }
-                    
-                    NotificationButton(session: session.session, sessionStatus: sessionStatus, race: session.race, notificationController: notificationController)
                 }
             }
             .navigationTitle(title)
