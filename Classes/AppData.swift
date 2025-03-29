@@ -68,7 +68,7 @@ class RaceData {
     var series: String
     var season: Int
     var race: Season.Race
-    var tbc: Bool
+    var tbc: Bool = false
     
     var startDate: Date { self.race.sessions.first?.startDate ?? .now }
     var endDate: Date { self.race.sessions.last?.endDate ?? .now }

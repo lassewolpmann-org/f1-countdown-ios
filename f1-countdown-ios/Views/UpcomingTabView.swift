@@ -49,10 +49,10 @@ struct CalendarTab: View {
                 }
                 .padding(.horizontal)
                 .searchable(text: $searchFilter)
-                .navigationTitle("\(currentSeason.first!.season.description) Season")
+                .navigationTitle("\(currentSeason.first!.season.description) \(currentSeason.first!.series.uppercased()) Season")
                 .toolbar {
                     NavigationLink {
-                        UpcomingTabCalendarView()
+                        UpcomingTabCalendarView(notificationController: notificationController)
                     } label: {
                         Image(systemName: "calendar")
                     }

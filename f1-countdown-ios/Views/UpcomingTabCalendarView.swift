@@ -8,46 +8,31 @@
 import SwiftUI
 import SwiftData
 
-struct CalendarSessionData {
-    var id: UUID = UUID()
-    var session: Season.Race.Session
-    var raceTitle: String
-    var flag: String
-    var series: String
-    var tbc: Bool
+struct Month {
+    struct Week {
+        struct Day {
+            struct Session: Identifiable {
+                var id: UUID = UUID()
+                var session: Season.Race.Session
+                var race: RaceData
+            }
+            
+            var date: Date
+            var sessions: [Month.Week.Day.Session]
+        }
+        
+        var days: [Int: Month.Week.Day]
+    }
+    
+    var name: String
+    var weeks: [Int: Month.Week]
 }
 
 struct UpcomingTabCalendarView: View {
     @Query var allRaces: [RaceData]
     
     let calendar = Calendar.current
-
-    var calendarSessionData: [CalendarSessionData] {
-        var allSessions: [CalendarSessionData] = []
-        
-        allRaces.forEach { race in
-            race.race.sessions.forEach { session in
-                allSessions.append(CalendarSessionData(session: session, raceTitle: race.race.title, flag: race.race.flag, series: race.series, tbc: race.tbc))
-            }
-        }
-        
-        return allSessions.sorted(by: { $0.session.startDate < $1.session.startDate })
-    }
-    
-    var sessionsGroupedByDate: [Date: [CalendarSessionData]] {
-        let groupedByDate = calendarSessionData.reduce(into: [Date: [CalendarSessionData]]()) {
-            let sessionDate = $1.session.startDate
-            let startOfDay = calendar.startOfDay(for: sessionDate)
-
-            if ($0[startOfDay] == nil) {
-                $0[startOfDay] = []
-            }
-            
-            $0[startOfDay]?.append($1)
-        }
-
-        return groupedByDate
-    }
+    let notificationController: NotificationController
     
     var allDaysInYear: [Date] {
         guard let yearRange = calendar.range(of: .day, in: .year, for: Date()) else { return [] }
@@ -64,149 +49,204 @@ struct UpcomingTabCalendarView: View {
         return dates
     }
     
-    var splitIntoMonths: [Int: [Date]] {
-        return allDaysInYear.reduce(into: [Int: [Date]]()) { partialResult, date in
+    var months: [Int: Month] {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM"
+        
+        var months: [Int: Month] = [:]
+        
+        for date in allDaysInYear {
             let month = calendar.component(.month, from: date)
-            
-            if (partialResult[month] == nil) {
-                partialResult[month] = []
-            }
-            
-            partialResult[month]?.append(date)
+            let week = calendar.component(.weekOfMonth, from: date)
+            let day = calendar.component(.day, from: date)
+         
+            if (months[month] == nil) { months[month] = Month(name: formatter.string(from: date), weeks: [:]) }
+            if (months[month]?.weeks[week] == nil) { months[month]?.weeks[week] = Month.Week(days: [:]) }
+            if (months[month]?.weeks[week]?.days[day] == nil) { months[month]?.weeks[week]?.days[day] = Month.Week.Day(date: date, sessions: []) }
         }
-    }
-    
-    var splitIntoMonthsAndWeeks: [Int: [Int: [Date: [CalendarSessionData]]]] {
-        return splitIntoMonths.reduce(into: [Int: [Int: [Date: [CalendarSessionData]]]]()) { partialResult, month in
-            let monthIndex = month.key
-            let daysInMonth = month.value
+        
+        for race in allRaces {
+            let sessions = race.race.sessions
             
-            let splitIntoWeeks = daysInMonth.reduce(into: [Int: [Date: [CalendarSessionData]]]()) { partialResult, date in
-                let week = calendar.component(.weekOfMonth, from: date)
-
-                if (partialResult[week] == nil) {
-                    partialResult[week] = [:]
-                }
+            for session in sessions {
+                let startDate = session.startDate
+                let month = calendar.component(.month, from: startDate)
+                let week = calendar.component(.weekOfMonth, from: startDate)
+                let day = calendar.component(.day, from: startDate)
                 
-                if let sessions = sessionsGroupedByDate[date] {
-                    partialResult[week]?[date] = sessions
-                } else {
-                    partialResult[week]?[date] = []
-                }
+                months[month]?.weeks[week]?.days[day]?.sessions.append(Month.Week.Day.Session(session: session, race: race))
             }
-            
-            partialResult[monthIndex] = splitIntoWeeks
         }
+        
+        return months
     }
     
     var body: some View {
         NavigationStack {
-            ScrollView(.vertical) {
+            ScrollView {
                 VStack(spacing: 20) {
-                    ForEach(splitIntoMonthsAndWeeks.sorted(by: { $0.key < $1.key }), id: \.key) { month in
-                        let weeks = month.value
-                        
-                        VStack(alignment: .leading, spacing: 15) {
-                            if let firstDayOfMonth = month.value.first?.value.first?.key {
-                                var monthString: String {
-                                    let dateFormatter = DateFormatter()
-                                    dateFormatter.dateFormat = "MMMM"
-                                    
-                                    return dateFormatter.string(from: firstDayOfMonth)
-                                }
-                                
-                                Text(monthString)
-                                    .bold()
-                            }
-                            
-                            Grid(verticalSpacing: 10) {
-                                GridRow {
-                                    Text("M")
-                                    Spacer()
-                                    Text("T")
-                                    Spacer()
-                                    Text("W")
-                                    Spacer()
-                                    Text("T")
-                                    Spacer()
-                                    Text("F")
-                                    Spacer()
-                                    Text("S")
-                                    Spacer()
-                                    Text("S")
-                                }
-                                .font(.footnote)
-                                .foregroundStyle(.secondary)
-                                
-                                ForEach(weeks.sorted(by: { $0.key < $1.key }), id: \.key) { week in
-                                    Divider()
-                                    
-                                    GridRow {
-                                        ForEach(week.value.sorted(by: { $0.key < $1.key }), id: \.key) { day in
-                                            let date = day.key
-                                            let sessions = day.value
-                                            
-                                            let dayNumber = calendar.component(.day, from: date)
-                                            
-                                            if (dayNumber == 1) {
-                                                let diff = 7 - week.value.count
-                                                
-                                                ForEach(0..<diff, id: \.self) { _ in
-                                                    Text("")
-                                                    Spacer()
-                                                }
-                                            }
-                                            
-                                            if (sessions.count > 0) {
-                                                NavigationLink {
-                                                    List(sessions, id: \.id) { data in
-                                                        HStack {
-                                                            Text("\(data.series.uppercased()) - \(data.session.longName)")
-                                                            
-                                                            Spacer()
-                                                            
-                                                            if (data.tbc) {
-                                                                Text("TBC")
-                                                            } else {
-                                                                Text(data.session.startDate, style: .time)
-                                                            }
-                                                        }
-                                                    }.navigationTitle(sessions.first?.raceTitle ?? "")
-                                                } label: {
-                                                    VStack {
-                                                        Text(dayNumber.description)
-                                                        Text(sessions.first?.flag ?? "")
-                                                            .font(.footnote)
-                                                    }
-                                                }
-                                            } else {
-                                                VStack {
-                                                    Text(dayNumber.description)
-                                                    Text(" ")
-                                                        .font(.footnote)
-                                                }
-                                            }
-                                            
-                                            Spacer()
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        .padding(10)
-                        .background(
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(.regularMaterial)
-                        )
+                    ForEach(months.sorted(by: { $0.key < $1.key }), id: \.key) { month in
+                        MonthView(month: month.value, notificationController: notificationController)
                     }
                 }
-                .padding(20)
             }
-            .navigationTitle("Season Calendar")
+            .navigationTitle("\(calendar.component(.year, from: Date.now).description) Calendar")
+            .padding(.horizontal)
         }
     }
 }
 
+struct MonthView: View {
+    let month: Month
+    let notificationController: NotificationController
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 20) {
+            Text(month.name).bold()
+            
+            Grid {
+                DaysOfWeek()
+                
+                ForEach(month.weeks.sorted(by: { $0.key < $1.key }), id: \.key) { week in
+                    WeekView(week: week.value, notificationController: notificationController)
+                }
+            }
+        }
+        .padding(10)
+        .background(
+            RoundedRectangle(cornerRadius: 10)
+                .fill(.regularMaterial)
+        )
+    }
+}
+
+struct WeekView: View {
+    let week: Month.Week
+    let notificationController: NotificationController
+    
+    var body: some View {
+        Divider()
+        
+        GridRow {
+            ForEach(week.days.sorted(by: { $0.key < $1.key }), id: \.key) { day in
+                if (day.key == 1) {
+                    let diff = 7 - week.days.count
+                    
+                    ForEach(0..<diff, id: \.self) { _ in
+                        Text("")
+                    }
+                }
+                
+                DayView(day: day, notificationController: notificationController)
+            }
+        }
+    }
+}
+
+struct DayView: View {
+    @State private var showSheet = false
+    
+    let day: [Int: Month.Week.Day].Element
+    let notificationController: NotificationController
+    
+    var body: some View {
+        let dayNumber = day.key
+        let sessions = day.value.sessions
+        let date = day.value.date
+        
+        var isDateToday: Bool {
+            let calendar = Calendar.current
+            
+            return calendar.startOfDay(for: date) == calendar.startOfDay(for: Date.now)
+        }
+        
+        Button {
+            showSheet.toggle()
+        } label: {
+            VStack {
+                Text(dayNumber.description)
+                Text(sessions.first?.race.race.flag ?? " ")
+            }
+            .frame(width: 35)
+        }
+        .disabled(sessions.isEmpty)
+        .sheet(isPresented: $showSheet) {
+            SessionsOfDayView(sessions: sessions, notificationController: notificationController)
+                .presentationDetents([.medium])
+        }
+        .background(
+            RoundedRectangle(cornerRadius: 5)
+                .fill(isDateToday ? .red.opacity(0.1) : .clear)
+        )
+    }
+}
+
+struct SessionsOfDayView: View {
+    let sessions: [Month.Week.Day.Session]
+    let notificationController: NotificationController
+
+    var title: String {
+        guard let race = sessions.first?.race.race else { return "Sessions" }
+        
+        return "\(race.flag) \(race.location)"
+    }
+    
+    var body: some View {
+        NavigationStack {
+            List(sessions.sorted(by: { $0.session.startDate < $1.session.startDate })) { session in
+                var sessionStatus: Season.Race.Session.Status {
+                    let currentDate = Date.now
+                    
+                    if (currentDate >= session.session.endDate) {
+                        return .finished
+                    } else if (currentDate >= session.session.startDate && currentDate < session.session.endDate) {
+                        return .ongoing
+                    } else {
+                        return .upcoming
+                    }
+                }
+                
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text(session.race.series.uppercased()).bold()
+                        Text(session.session.longName)
+                    }
+                    
+                    Spacer()
+                    
+                    if (session.race.tbc) {
+                        Text("TBC")
+                    } else {
+                        VStack(alignment: .trailing) {
+                            Text(session.session.startDate, style: .time)
+                            Text(session.session.endDate, style: .time).foregroundStyle(.secondary)
+                        }
+                    }
+                    
+                    NotificationButton(session: session.session, sessionStatus: sessionStatus, race: session.race, notificationController: notificationController)
+                }
+            }
+            .navigationTitle(title)
+        }
+    }
+}
+
+struct DaysOfWeek: View {
+    var body: some View {
+        GridRow {
+            Text("M")
+            Text("T")
+            Text("W")
+            Text("T")
+            Text("F")
+            Text("S")
+            Text("S")
+        }
+        .font(.footnote)
+        .foregroundStyle(.secondary)
+    }
+}
+
 #Preview(traits: .sampleData) {
-    UpcomingTabCalendarView()
+    UpcomingTabCalendarView(notificationController: NotificationController())
 }
