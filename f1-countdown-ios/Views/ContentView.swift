@@ -85,7 +85,7 @@ struct ContentView: View {
                 }
                 
                 Tab {
-                    CalendarTab(selectedSeries: selectedSeries, notificationController: notificationController)
+                    UpcomingTabView(selectedSeries: selectedSeries, notificationController: notificationController)
                 } label: {
                     Label("Upcoming", systemImage: "calendar")
                 }

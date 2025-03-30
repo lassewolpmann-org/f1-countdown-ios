@@ -11,6 +11,10 @@ import SwiftData
 struct Month {
     struct Week {
         struct Day {
+            static func == (lhs: Month.Week.Day, rhs: Month.Week.Day) -> Bool {
+                return lhs.date == rhs.date
+            }
+            
             struct Session: Identifiable {
                 var id: UUID = UUID()
                 var session: Season.Race.Session
@@ -20,10 +24,10 @@ struct Month {
             var date: Date
             var sessions: [Month.Week.Day.Session]
         }
-        
+
         var days: [Int: Month.Week.Day]
     }
-    
+
     var name: String
     var weeks: [Int: Month.Week]
 }
@@ -81,17 +85,28 @@ struct UpcomingTabCalendarView: View {
         return months
     }
     
+    @State private var scrollPosition = ScrollPosition(idType: Int.self)
+    
     var body: some View {
         NavigationStack {
-            ScrollView {
+            ScrollView(.vertical) {
                 VStack(spacing: 20) {
                     ForEach(months.sorted(by: { $0.key < $1.key }), id: \.key) { month in
                         MonthView(month: month.value, notificationController: notificationController)
+                            .tag(month.key)
                     }
+                }
+                .scrollTargetLayout()
+                .onAppear {
+                    let month = calendar.component(.month, from: Date.now)
+                    scrollPosition.scrollTo(id: month)
                 }
             }
             .navigationTitle("\(calendar.component(.year, from: Date.now).description) Calendar")
             .padding(.horizontal)
+            .scrollTargetBehavior(.viewAligned)
+            .safeAreaPadding(.vertical, 20)
+            .scrollPosition($scrollPosition)
         }
     }
 }
@@ -176,7 +191,7 @@ struct DayView: View {
         }
         .background(
             RoundedRectangle(cornerRadius: 5)
-                .fill(isDateToday ? .red.opacity(0.1) : .clear)
+                .fill(isDateToday ? .red.opacity(0.2) : .clear)
         )
     }
 }

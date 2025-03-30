@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-struct CalendarTab: View {
+struct UpcomingTabView: View {
     @Query var allRaces: [RaceData]
 
     let selectedSeries: String
@@ -22,7 +22,8 @@ struct CalendarTab: View {
         let sortedRaces = futureRaces.sorted { $0.startDate < $1.startDate }
         
         if (searchFilter.isEmpty) { return sortedRaces }
-        
+        if (!searchFilter.contains(/^[a-zA-Z]+$/)) { return sortedRaces }   // Only allow alphabet, no numbers or special characters
+
         return sortedRaces.filter { $0.race.name.localizedStandardContains(searchFilter) || $0.race.location.localizedStandardContains(searchFilter) }
     }
 
@@ -42,6 +43,19 @@ struct CalendarTab: View {
             } else {
                 ScrollView {
                     VStack(spacing: 15) {
+                        NavigationLink {
+                            UpcomingTabCalendarView(notificationController: notificationController)
+                        } label: {
+                            Label {
+                                Text("\(Calendar.current.component(.year, from: Date.now).description) Calendar")
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                            } icon: {
+                                Image(systemName: "calendar")
+                            }
+                        }
+                        .buttonStyle(.bordered)
+                        
                         ForEach(currentSeason, id: \.race.slug) { race in
                             UpcomingTabRaceView(race: race, notificationController: notificationController)
                         }
@@ -50,18 +64,11 @@ struct CalendarTab: View {
                 .padding(.horizontal)
                 .searchable(text: $searchFilter)
                 .navigationTitle("\(currentSeason.first!.season.description) \(currentSeason.first!.series.uppercased()) Season")
-                .toolbar {
-                    NavigationLink {
-                        UpcomingTabCalendarView(notificationController: notificationController)
-                    } label: {
-                        Image(systemName: "calendar")
-                    }
-                }
             }
         }
     }
 }
 
 #Preview(traits: .sampleData) {
-    CalendarTab(selectedSeries: "f1", notificationController: NotificationController())
+    UpcomingTabView(selectedSeries: "f1", notificationController: NotificationController())
 }
