@@ -6,15 +6,10 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct Month {
     struct Week {
         struct Day {
-            static func == (lhs: Month.Week.Day, rhs: Month.Week.Day) -> Bool {
-                return lhs.date == rhs.date
-            }
-            
             struct Session: Identifiable {
                 var id: UUID = UUID()
                 var session: Season.Race.Session
@@ -33,8 +28,7 @@ struct Month {
 }
 
 struct UpcomingTabCalendarView: View {
-    @Query var allRaces: [RaceData]
-    
+    let allRaces: [String: [RaceData]]
     let calendar = Calendar.current
     let notificationController: NotificationController
     
@@ -69,7 +63,8 @@ struct UpcomingTabCalendarView: View {
             if (months[month]?.weeks[week]?.days[day] == nil) { months[month]?.weeks[week]?.days[day] = Month.Week.Day(date: date, sessions: []) }
         }
         
-        for race in allRaces {
+        let allRacesMapped = allRaces.flatMap { $0.value }
+        for race in allRacesMapped {
             let sessions = race.race.sessions
             
             for session in sessions {
@@ -262,6 +257,6 @@ struct DaysOfWeek: View {
     }
 }
 
-#Preview(traits: .sampleData) {
-    UpcomingTabCalendarView(notificationController: NotificationController())
+#Preview {
+    UpcomingTabCalendarView(allRaces: ["f1": sampleRaces], notificationController: NotificationController())
 }

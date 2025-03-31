@@ -64,7 +64,6 @@ enum AppDataError: Error {
     case URLError(String)
 }
 
-@Model
 class RaceData {
     var series: String
     var season: Int

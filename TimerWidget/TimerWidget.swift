@@ -138,7 +138,6 @@ struct TimerWidget: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: "com.lassewolpmann.f1-countdown-ios.TimerWidget", provider: TimerWidgetProvider()) { entry in
             TimerWidgetView(entry: entry)
-                .modelContainer(for: [RaceData.self])
         }
         .configurationDisplayName("Timer")
         .description("Timer Widget to next F1 Grand Prix")

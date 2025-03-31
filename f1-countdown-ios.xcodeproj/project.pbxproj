@@ -18,14 +18,6 @@
 		2507CEB82C556BE000272430 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2507CEB52C556BE000272430 /* NotificationController.swift */; };
 		251C655F2B73779B003E4A13 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C655E2B73779B003E4A13 /* AppData.swift */; };
 		251C65602B73779B003E4A13 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C655E2B73779B003E4A13 /* AppData.swift */; };
-		251CF12D2D26B8B7009EA986 /* TimerTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251CF12C2D26B8B7009EA986 /* TimerTabView.swift */; };
-		251DC1702BD0FD0C00D08D56 /* InfoButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251DC16F2BD0FD0C00D08D56 /* InfoButtonView.swift */; };
-		2527B9B02D25557300D5F915 /* UpcomingTabRaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2527B9AF2D25557300D5F915 /* UpcomingTabRaceView.swift */; };
-		2534D9E12C747E170095551D /* FlagBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2534D9E02C747E170095551D /* FlagBackgroundView.swift */; };
-		2540A4242B973F9A00684AEA /* SeriesPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2540A4232B973F9A00684AEA /* SeriesPickerView.swift */; };
-		254C361B2D26BB67007FFB3B /* DeltaValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C361A2D26BB67007FFB3B /* DeltaValues.swift */; };
-		254C361C2D26BB67007FFB3B /* DeltaValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C361A2D26BB67007FFB3B /* DeltaValues.swift */; };
-		254C361D2D26BB67007FFB3B /* DeltaValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C361A2D26BB67007FFB3B /* DeltaValues.swift */; };
 		256D6C552D23D78D004BF92C /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256D6C542D23D78D004BF92C /* SampleData.swift */; };
 		256D6C562D23D78D004BF92C /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256D6C542D23D78D004BF92C /* SampleData.swift */; };
 		256D6C572D23D78D004BF92C /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256D6C542D23D78D004BF92C /* SampleData.swift */; };
@@ -33,7 +25,6 @@
 		257959D82B04FB000033DFAB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257959D72B04FB000033DFAB /* ContentView.swift */; };
 		257959DA2B04FB010033DFAB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 257959D92B04FB010033DFAB /* Assets.xcassets */; };
 		257959DD2B04FB010033DFAB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 257959DC2B04FB010033DFAB /* Preview Assets.xcassets */; };
-		2591C4A82B8C839000F87BE9 /* NotificationTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2591C4A72B8C839000F87BE9 /* NotificationTimeView.swift */; };
 		25A9E4FA2D92834C0037901B /* UpcomingTabCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A9E4F92D92834C0037901B /* UpcomingTabCalendarView.swift */; };
 		25AB92BC2D25986D00295255 /* RawAPIData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AB92BB2D25986D00295255 /* RawAPIData.swift */; };
 		25AB92BD2D25986D00295255 /* RawAPIData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AB92BB2D25986D00295255 /* RawAPIData.swift */; };
@@ -42,11 +33,9 @@
 		25AB92C12D25989300295255 /* SeasonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AB92BF2D25989300295255 /* SeasonData.swift */; };
 		25AB92C22D25989300295255 /* SeasonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AB92BF2D25989300295255 /* SeasonData.swift */; };
 		25AF34612B2F98CA00E7D83A /* TimerTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AF34602B2F98CA00E7D83A /* TimerTabView.swift */; };
-		25AF34662B2F9D0200E7D83A /* TimerTabSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AF34652B2F9D0200E7D83A /* TimerTabSessionView.swift */; };
 		25AF34682B2FA79F00E7D83A /* UpcomingTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AF34672B2FA79F00E7D83A /* UpcomingTabView.swift */; };
 		25B404192B10B3D7007EF384 /* MediumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B404182B10B3D7007EF384 /* MediumView.swift */; };
 		25B4041B2B10B660007EF384 /* LargeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B4041A2B10B660007EF384 /* LargeView.swift */; };
-		25B5C3EC2B6B7CA300057E4D /* RemoveNotificationsButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B5C3EB2B6B7CA300057E4D /* RemoveNotificationsButtonView.swift */; };
 		25B8C1512B8DFF2B009A270C /* WidgetHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B8C1502B8DFF2B009A270C /* WidgetHeaderView.swift */; };
 		25BFB0322B0F68D90062E4BC /* SettingsTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BFB0312B0F68D90062E4BC /* SettingsTabView.swift */; };
 		25C06D4E2BD2AF6500A375A4 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 25C06D4D2BD2AF6500A375A4 /* PrivacyInfo.xcprivacy */; };
@@ -54,15 +43,12 @@
 		25C06D502BD2AF6500A375A4 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 25C06D4D2BD2AF6500A375A4 /* PrivacyInfo.xcprivacy */; };
 		25C6C5592B177DB400818265 /* SessionInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C5582B177DB400818265 /* SessionInfoView.swift */; };
 		25DE90792B09168A00632B61 /* NotificationButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DE90782B09168A00632B61 /* NotificationButtonView.swift */; };
-		25EDC7952B054D320094DBBA /* TimerTabElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDC7942B054D320094DBBA /* TimerTabElementView.swift */; };
 		25F11C882BD01E97007D0DE6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F11C872BD01E97007D0DE6 /* ContentView.swift */; };
 		25F11C8A2BD01E98007D0DE6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25F11C892BD01E98007D0DE6 /* Assets.xcassets */; };
 		25F11C8D2BD01E98007D0DE6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25F11C8C2BD01E98007D0DE6 /* Preview Assets.xcassets */; };
 		25F11CA62BD01E98007D0DE6 /* Formula Countdown.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 25F11C832BD01E97007D0DE6 /* Formula Countdown.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		25F11CB12BD01FE0007D0DE6 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C655E2B73779B003E4A13 /* AppData.swift */; };
 		25F11CC72BD02105007D0DE6 /* f1_countdown_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257959D52B04FB000033DFAB /* f1_countdown_iosApp.swift */; };
-		25F11CCD2BD031D7007D0DE6 /* SessionTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F11CCC2BD031D7007D0DE6 /* SessionTabView.swift */; };
-		25F11CCF2BD03361007D0DE6 /* TimerCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F11CCE2BD03361007D0DE6 /* TimerCircleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,30 +119,21 @@
 		25104C5C2B0A51E3001FDF49 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		25125EFB2B14914400CA10EE /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		251C655E2B73779B003E4A13 /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
-		251CF12C2D26B8B7009EA986 /* TimerTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTabView.swift; sourceTree = "<group>"; };
-		251DC16F2BD0FD0C00D08D56 /* InfoButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoButtonView.swift; sourceTree = "<group>"; };
 		251DC1712BD0FFDB00D08D56 /* WatchTimer Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "WatchTimer Watch App.entitlements"; sourceTree = "<group>"; };
 		2521762C2B08C4270023C9B3 /* f1-countdown-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "f1-countdown-ios.entitlements"; sourceTree = "<group>"; };
-		2527B9AF2D25557300D5F915 /* UpcomingTabRaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingTabRaceView.swift; sourceTree = "<group>"; };
-		2534D9E02C747E170095551D /* FlagBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlagBackgroundView.swift; sourceTree = "<group>"; };
-		2540A4232B973F9A00684AEA /* SeriesPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesPickerView.swift; sourceTree = "<group>"; };
-		254C361A2D26BB67007FFB3B /* DeltaValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaValues.swift; sourceTree = "<group>"; };
 		256D6C542D23D78D004BF92C /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
 		257959D22B04FB000033DFAB /* f1-countdown-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "f1-countdown-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		257959D52B04FB000033DFAB /* f1_countdown_iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = f1_countdown_iosApp.swift; sourceTree = "<group>"; };
 		257959D72B04FB000033DFAB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		257959D92B04FB010033DFAB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		257959DC2B04FB010033DFAB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		2591C4A72B8C839000F87BE9 /* NotificationTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTimeView.swift; sourceTree = "<group>"; };
 		25A9E4F92D92834C0037901B /* UpcomingTabCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingTabCalendarView.swift; sourceTree = "<group>"; };
 		25AB92BB2D25986D00295255 /* RawAPIData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawAPIData.swift; sourceTree = "<group>"; };
 		25AB92BF2D25989300295255 /* SeasonData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonData.swift; sourceTree = "<group>"; };
 		25AF34602B2F98CA00E7D83A /* TimerTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTabView.swift; sourceTree = "<group>"; };
-		25AF34652B2F9D0200E7D83A /* TimerTabSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTabSessionView.swift; sourceTree = "<group>"; };
 		25AF34672B2FA79F00E7D83A /* UpcomingTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingTabView.swift; sourceTree = "<group>"; };
 		25B404182B10B3D7007EF384 /* MediumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediumView.swift; sourceTree = "<group>"; };
 		25B4041A2B10B660007EF384 /* LargeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeView.swift; sourceTree = "<group>"; };
-		25B5C3EB2B6B7CA300057E4D /* RemoveNotificationsButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveNotificationsButtonView.swift; sourceTree = "<group>"; };
 		25B8C1502B8DFF2B009A270C /* WidgetHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetHeaderView.swift; sourceTree = "<group>"; };
 		25BC66F72B6A9310006DCE8D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		25BC66F82B6A9384006DCE8D /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
@@ -165,13 +142,10 @@
 		25C3DA662D23190B00B24C61 /* TimerWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TimerWidgetExtension.entitlements; sourceTree = "<group>"; };
 		25C6C5582B177DB400818265 /* SessionInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionInfoView.swift; sourceTree = "<group>"; };
 		25DE90782B09168A00632B61 /* NotificationButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationButtonView.swift; sourceTree = "<group>"; };
-		25EDC7942B054D320094DBBA /* TimerTabElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTabElementView.swift; sourceTree = "<group>"; };
 		25F11C832BD01E97007D0DE6 /* Formula Countdown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Formula Countdown.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		25F11C872BD01E97007D0DE6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		25F11C892BD01E98007D0DE6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		25F11C8C2BD01E98007D0DE6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		25F11CCC2BD031D7007D0DE6 /* SessionTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTabView.swift; sourceTree = "<group>"; };
-		25F11CCE2BD03361007D0DE6 /* TimerCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerCircleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -295,10 +269,6 @@
 			isa = PBXGroup;
 			children = (
 				25F11C872BD01E97007D0DE6 /* ContentView.swift */,
-				251DC16F2BD0FD0C00D08D56 /* InfoButtonView.swift */,
-				25F11CCC2BD031D7007D0DE6 /* SessionTabView.swift */,
-				25F11CCE2BD03361007D0DE6 /* TimerCircleView.swift */,
-				251CF12C2D26B8B7009EA986 /* TimerTabView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -307,17 +277,10 @@
 			isa = PBXGroup;
 			children = (
 				257959D72B04FB000033DFAB /* ContentView.swift */,
-				2534D9E02C747E170095551D /* FlagBackgroundView.swift */,
 				25DE90782B09168A00632B61 /* NotificationButtonView.swift */,
-				2591C4A72B8C839000F87BE9 /* NotificationTimeView.swift */,
-				25B5C3EB2B6B7CA300057E4D /* RemoveNotificationsButtonView.swift */,
-				2540A4232B973F9A00684AEA /* SeriesPickerView.swift */,
 				25BFB0312B0F68D90062E4BC /* SettingsTabView.swift */,
-				25EDC7942B054D320094DBBA /* TimerTabElementView.swift */,
-				25AF34652B2F9D0200E7D83A /* TimerTabSessionView.swift */,
 				25AF34602B2F98CA00E7D83A /* TimerTabView.swift */,
 				25AF34672B2FA79F00E7D83A /* UpcomingTabView.swift */,
-				2527B9AF2D25557300D5F915 /* UpcomingTabRaceView.swift */,
 				25A9E4F92D92834C0037901B /* UpcomingTabCalendarView.swift */,
 			);
 			path = Views;
@@ -329,7 +292,6 @@
 				256D6C542D23D78D004BF92C /* SampleData.swift */,
 				25AB92BB2D25986D00295255 /* RawAPIData.swift */,
 				25AB92BF2D25989300295255 /* SeasonData.swift */,
-				254C361A2D26BB67007FFB3B /* DeltaValues.swift */,
 			);
 			path = Structs;
 			sourceTree = "<group>";
@@ -497,7 +459,6 @@
 				25C6C5592B177DB400818265 /* SessionInfoView.swift in Sources */,
 				25B4041B2B10B660007EF384 /* LargeView.swift in Sources */,
 				25B8C1512B8DFF2B009A270C /* WidgetHeaderView.swift in Sources */,
-				254C361B2D26BB67007FFB3B /* DeltaValues.swift in Sources */,
 				256D6C552D23D78D004BF92C /* SampleData.swift in Sources */,
 				25AB92BD2D25986D00295255 /* RawAPIData.swift in Sources */,
 				2505E69F2B0F843E00876783 /* TimerWidget.swift in Sources */,
@@ -512,24 +473,16 @@
 			files = (
 				2507CEB62C556BE000272430 /* NotificationController.swift in Sources */,
 				25AF34682B2FA79F00E7D83A /* UpcomingTabView.swift in Sources */,
-				254C361C2D26BB67007FFB3B /* DeltaValues.swift in Sources */,
 				257959D82B04FB000033DFAB /* ContentView.swift in Sources */,
 				25AB92C22D25989300295255 /* SeasonData.swift in Sources */,
 				25AB92BC2D25986D00295255 /* RawAPIData.swift in Sources */,
 				25AF34612B2F98CA00E7D83A /* TimerTabView.swift in Sources */,
-				2534D9E12C747E170095551D /* FlagBackgroundView.swift in Sources */,
 				251C655F2B73779B003E4A13 /* AppData.swift in Sources */,
 				25BFB0322B0F68D90062E4BC /* SettingsTabView.swift in Sources */,
 				25A9E4FA2D92834C0037901B /* UpcomingTabCalendarView.swift in Sources */,
 				25DE90792B09168A00632B61 /* NotificationButtonView.swift in Sources */,
 				256D6C572D23D78D004BF92C /* SampleData.swift in Sources */,
-				2527B9B02D25557300D5F915 /* UpcomingTabRaceView.swift in Sources */,
-				2540A4242B973F9A00684AEA /* SeriesPickerView.swift in Sources */,
-				25B5C3EC2B6B7CA300057E4D /* RemoveNotificationsButtonView.swift in Sources */,
-				25EDC7952B054D320094DBBA /* TimerTabElementView.swift in Sources */,
-				25AF34662B2F9D0200E7D83A /* TimerTabSessionView.swift in Sources */,
 				257959D62B04FB000033DFAB /* f1_countdown_iosApp.swift in Sources */,
-				2591C4A82B8C839000F87BE9 /* NotificationTimeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -537,15 +490,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				251DC1702BD0FD0C00D08D56 /* InfoButtonView.swift in Sources */,
-				25F11CCF2BD03361007D0DE6 /* TimerCircleView.swift in Sources */,
 				25F11C882BD01E97007D0DE6 /* ContentView.swift in Sources */,
-				25F11CCD2BD031D7007D0DE6 /* SessionTabView.swift in Sources */,
 				256D6C562D23D78D004BF92C /* SampleData.swift in Sources */,
 				25AB92C02D25989300295255 /* SeasonData.swift in Sources */,
-				254C361D2D26BB67007FFB3B /* DeltaValues.swift in Sources */,
 				2507CEB82C556BE000272430 /* NotificationController.swift in Sources */,
-				251CF12D2D26B8B7009EA986 /* TimerTabView.swift in Sources */,
 				25F11CC72BD02105007D0DE6 /* f1_countdown_iosApp.swift in Sources */,
 				25F11CB12BD01FE0007D0DE6 /* AppData.swift in Sources */,
 				25AB92BE2D25986D00295255 /* RawAPIData.swift in Sources */,

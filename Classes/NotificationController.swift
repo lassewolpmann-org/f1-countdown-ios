@@ -8,10 +8,7 @@
 import Foundation
 import UserNotifications
 
-
-
-@Observable
-class NotificationController {
+@Observable class NotificationController {
     struct ReturnMessage: Equatable, Identifiable {
         var id: UUID = UUID()
         var success: Bool

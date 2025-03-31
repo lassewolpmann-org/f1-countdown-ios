@@ -7,8 +7,6 @@
 
 
 import Foundation
-import SwiftUI
-import SwiftData
 
 let rawSampleRaces: [RawAPIData.Races.Race] = [
     RawAPIData.Races.Race(name: "Australian", location: "Melbourne", slug: "australian-grand-prix", sessions: [
@@ -50,27 +48,4 @@ var sampleRaces: [RaceData] {
     return rawSampleRaces.map { race in
         RaceData(series: "f1", season: 2025, race: parseSampleRace(rawRace: race), tbc: false)
     }
-}
-
-struct SampleData: PreviewModifier {
-    static func makeSharedContext() throws -> ModelContainer {
-        let config = ModelConfiguration(isStoredInMemoryOnly: true)
-        let container = try ModelContainer(for: RaceData.self, configurations: config)
-        
-        for race in sampleRaces {
-            container.mainContext.insert(race)
-        }
-        
-        try container.mainContext.save()
-        
-        return container
-    }
-    
-    func body(content: Content, context: ModelContainer) -> some View {
-        content.modelContainer(context)
-    }
-}
-
-extension PreviewTrait where T == Preview.ViewTraits {
-    @MainActor static var sampleData: Self = .modifier(SampleData())
 }

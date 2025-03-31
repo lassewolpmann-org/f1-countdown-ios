@@ -6,80 +6,134 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct ContentView: View {
-    @Environment(\.modelContext) private var context
-    @Query var allRaces: [RaceData]
-    @State var loadingData: Bool = true
-    
+    let allRaces: [String: [RaceData]]
     let notificationController: NotificationController
     
-    var body: some View {
-        if (loadingData) {
-            ProgressView("Loading data...")
-                .task {
-                    for series in availableSeries {
-                        let baseURL = "https://raw.githubusercontent.com/sportstimes/f1/main/_db/\(series)"
-                        
-                        do {
-                            guard let configURL = URL(string: "\(baseURL)/config.json") else { throw AppDataError.URLError("Could not create Config URL string") }
-                            let (data, _) = try await URLSession.shared.data(from: configURL)
-                            let config = try JSONDecoder().decode(RawAPIData.Config.self, from: data)
-                            
-                            for year in config.yearsToParse {
-                                guard let racesURL = URL(string: "\(baseURL)/\(year).json") else { throw AppDataError.URLError("Could not create Season URL string") }
+    @State var currentDate: Date = Date()
+    @State var selectedSeries: String = "f1"
+    
+    var nextRace: RaceData? {
+        guard let currentSeries = allRaces[selectedSeries] else { return nil }
 
-                                let (data, _) = try await URLSession.shared.data(from: racesURL)
-                                let rawRaces = try JSONDecoder().decode(RawAPIData.Races.self, from: data).races
-                                rawRaces.forEach { newRace in
-                                    let parsedRace = parseRace(rawRace: newRace, sessionLengths: config.sessionLengths)
-                                    
-                                    if let existingRace = allRaces.first(where: {
-                                        $0.season == year && $0.series == series && $0.race.slug == newRace.slug
-                                    }) {
-                                        // Update locally stored information
-                                        existingRace.race = parsedRace
-                                        existingRace.tbc = newRace.tbc ?? false
-                                    } else {
-                                        // New race, inserting info
-                                        context.insert(RaceData(series: series, season: year, race: parsedRace, tbc: newRace.tbc ?? false))
-                                    }
-                                }
-                            }
-                        } catch {
-                            print(error)
-                        }
-                    }
-                    
-                    do {
-                        try context.save()
-                    } catch {
-                        print(error)
-                    }
-                    
-                    loadingData = false
+        let currentYear = Calendar.current.component(.year, from: Date())
+        let currentSeason = currentSeries.filter { $0.season == currentYear }
+        let futureRaces = currentSeason.filter { $0.endDate > currentDate }
+        let sortedRaces = futureRaces.sorted { $0.startDate < $1.startDate }
+        
+        return sortedRaces.first
+    }
+    
+    
+    var body: some View {
+        TabView {
+            if let nextRace {
+                ForEach(nextRace.race.sessions, id: \.shortName) { session in
+                    SessionView(flag: nextRace.race.flag, session: session, currentDate: currentDate)
                 }
+            } else {
+                VStack {
+                    Text("No data available for \(selectedSeries.uppercased()).")
+                }
+            }
+            
+            Picker(selection: $selectedSeries) {
+                ForEach(availableSeries, id:\.self) { series in
+                    Text(series.uppercased())
+                }
+            } label: {
+                Text("Select Series")
+            }
+            .sensoryFeedback(.selection, trigger: selectedSeries)
+            .pickerStyle(.navigationLink)
+        }
+        .tabViewStyle(.verticalPage)
+        .onAppear {
+            guard let nextRace else { return }
+            
+            for session in nextRace.race.sessions {
+                DispatchQueue.main.asyncAfter(deadline: .now() + session.startDate.timeIntervalSinceNow) {
+                    currentDate = .now
+                }
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + session.endDate.timeIntervalSinceNow) {
+                    currentDate = .now
+                }
+            }
+        }
+    }
+}
+
+struct SessionView: View {
+    let flag: String
+    let session: Season.Race.Session
+    let currentDate: Date
+    
+    var sessionStatus: Season.Race.Session.Status {
+        if (currentDate >= session.endDate) {
+            return .finished
+        } else if (currentDate >= session.startDate && currentDate < session.endDate) {
+            return .ongoing
         } else {
-            TimerTabView()
+            return .upcoming
         }
     }
     
-    func parseRace(rawRace: RawAPIData.Races.Race, sessionLengths: [String: Int]) -> Season.Race {
-        let sessions: [Season.Race.Session] = rawRace.sessions.compactMap { rawSession in
-            let start = rawSession.value
-            guard let startDate = ISO8601DateFormatter().date(from: start) else { return nil }
-            guard let sessionLength = sessionLengths[rawSession.key] else { return nil }
-            let endDate = startDate.addingTimeInterval(TimeInterval(sessionLength * 60))
+    var body: some View {
+        VStack(alignment: .leading, spacing: 5) {
+            VStack(alignment: .leading) {
+                Text("\(flag) \(session.longName)")
+                    .font(.headline)
+                    .foregroundStyle(.red)
+                
+                Label {
+                    Text(sessionStatus.rawValue)
+                } icon: {
+                    switch sessionStatus {
+                    case .finished:
+                        Image(systemName: "flag.checkered.2.crossed")
+                    case .ongoing:
+                        Image(systemName: "flag.checkered")
+                    case .upcoming:
+                        Image(systemName: "clock")
+                    }
+                }
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+            }
             
-            return Season.Race.Session(rawName: rawSession.key, startDate: startDate, endDate: endDate)
-        }.sorted { $0.startDate < $1.startDate }
-        
-        return Season.Race(name: rawRace.name, location: rawRace.location, sessions: sessions, slug: rawRace.slug)
-    }
+            Divider()
+            
+            HStack {
+                Image(systemName: "calendar")
 
+                VStack(alignment: .leading) {
+                    Text(session.dayString)
+                    Text(session.dateString)
+                }
+            }
+            
+            Label {
+                Text(DateInterval(start: session.startDate, end: session.endDate))
+            } icon: {
+                Image(systemName: "clock")
+            }
+            
+            Divider()
+            
+            if (sessionStatus == .upcoming) {
+                Text("Starts in \(session.startDate, style: .relative)")
+            } else if (sessionStatus == .ongoing) {
+                Text("Ends in \(session.endDate, style: .relative)")
+            } else {
+                Text("Session has ended.")
+            }
+        }
+        .padding(.horizontal, 10)
+    }
 }
 
-#Preview(traits: .sampleData) {
-    ContentView(notificationController: NotificationController())
+#Preview {
+    ContentView(allRaces: ["f1": sampleRaces], notificationController: NotificationController())
 }
