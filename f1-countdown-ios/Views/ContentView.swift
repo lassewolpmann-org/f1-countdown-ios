@@ -22,13 +22,13 @@ struct ContentView: View {
     var body: some View {
         TabView {
             Tab {
-                TimerTabView(seriesRaces: seriesRaces, selectedSeries: selectedSeries, notificationController: notificationController)
+                TimerTabView(seriesRaces: seriesRaces, selectedSeries: $selectedSeries, notificationController: notificationController)
             } label: {
                 Label("Timer", systemImage: "stopwatch")
             }
             
             Tab {
-                UpcomingTabView(allRaces: allRaces, selectedSeries: selectedSeries, notificationController: notificationController)
+                UpcomingTabCalendarView(allRaces: allRaces, notificationController: notificationController)
             } label: {
                 Label("Upcoming", systemImage: "calendar")
             }
@@ -37,30 +37,6 @@ struct ContentView: View {
                 SettingsTab(selectedSeries: $selectedSeries, allRaces: allRaces, notificationController: notificationController)
             } label: {
                 Label("Settings", systemImage: "gear")
-            }
-        }
-    }
-    
-    func rescheduleNotifications(diffCollection: CollectionDifference<Season.Race.Session>, race: RaceData, notificationSlugs: Set<String>, notificationSessionNames: Set<String>) async -> Void {
-        WidgetCenter.shared.reloadAllTimelines()
-        
-        let raceSlug = race.race.slug
-        
-        guard notificationSlugs.contains(raceSlug) else { return }
-        
-        for diff in diffCollection {
-            switch diff {
-            case let .insert(_, session, _):
-                guard notificationSessionNames.contains(session.longName) else { continue }
-                
-                let _ = await notificationController.addSessionNotifications(race: race, session: session)
-            case let .remove(_, session, _):
-                guard notificationSessionNames.contains(session.longName) else { continue }
-
-                for offset in notificationController.selectedOffsetOptions {
-                    let identifier = session.startDate.addingTimeInterval(TimeInterval(offset * -60)).ISO8601Format()
-                    notificationController.center.removePendingNotificationRequests(withIdentifiers: [identifier])
-                }
             }
         }
     }

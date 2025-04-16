@@ -10,6 +10,7 @@ import SwiftUI
 struct TimerTabView: View {
     let seriesRaces: [RaceData]
     @State var currentDate: Date = .now
+    @State private var pickedSeries: [String] = []
     
     var nextRace: RaceData? {
         let currentYear = Calendar(identifier: .gregorian).component(.year, from: .now)
@@ -21,21 +22,24 @@ struct TimerTabView: View {
         return sortedRaces.first
     }
     
-    let selectedSeries: String
+    @Binding var selectedSeries: String
     let notificationController: NotificationController
     
     var body: some View {
         NavigationStack {
-            ScrollView {
+            List {
+                SeriesPickerView(selectedSeries: $selectedSeries)
+                
                 if let nextRace {
-                    VStack(alignment: .center, spacing: 15) {
-                        ForEach(nextRace.race.sessions, id: \.shortName) { session in
+                    ForEach(nextRace.race.sessions, id: \.shortName) { session in
+                        Section {
                             SessionView(nextRace: nextRace, session: session, currentDate: currentDate, notificationController: notificationController)
                         }
+                        .listRowBackground(
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(.regularMaterial)
+                        )
                     }
-                    .background(FlagBackgroundView(flag: nextRace.race.flag))
-                    .padding(.horizontal, 10)
-                    .navigationTitle(nextRace.race.title)
                 } else {
                     Label {
                         Text("It seems like there is no data available to display here.")
@@ -44,9 +48,13 @@ struct TimerTabView: View {
                     }
                     .bold()
                     .symbolRenderingMode(.multicolor)
-                    .navigationTitle("Timer")
                 }
+                
             }
+            .listSectionSpacing(10)
+            .navigationTitle(nextRace?.race.title ?? "No data available.")
+            .scrollContentBackground(.hidden)
+            .background(FlagBackgroundView(flag: nextRace?.race.flag ?? ""))
         }
         .onAppear {
             guard let nextRace else { return }
@@ -65,107 +73,118 @@ struct TimerTabView: View {
             currentDate = Date()
         }
     }
-}
-
-struct SessionView: View {
-    let nextRace: RaceData
-    let session: Season.Race.Session
-    let currentDate: Date
-    let notificationController: NotificationController
     
-    var sessionStatus: Season.Race.Session.Status {
-        if (currentDate >= session.endDate) {
-            return .finished
-        } else if (currentDate >= session.startDate && currentDate < session.endDate) {
-            return .ongoing
-        } else {
-            return .upcoming
+    struct SeriesPickerView: View {
+        @Binding var selectedSeries: String
+
+        var body: some View {
+            Section {
+                Picker(selection: $selectedSeries) {
+                    ForEach(availableSeries, id:\.self) { series in
+                        Text(series.uppercased())
+                    }
+                } label: {
+                    Text("Select Series")
+                }
+                .sensoryFeedback(.selection, trigger: selectedSeries)
+                .listRowBackground(
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(.ultraThickMaterial)
+                )
+            }
         }
     }
     
-    var body: some View {
-        VStack(spacing: 15) {
-            HStack {
-                Text(session.longName)
-                    .font(.headline)
-                    .foregroundStyle(.red)
-                
-                Spacer()
-                
-                Label {
-                    Text(sessionStatus.rawValue)
-                } icon: {
-                    switch sessionStatus {
-                    case .finished:
-                        Image(systemName: "flag.checkered.2.crossed")
-                    case .ongoing:
-                        Image(systemName: "flag.checkered")
-                    case .upcoming:
-                        Image(systemName: "clock")
-                    }
-                }
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
+    struct SessionView: View {
+        let nextRace: RaceData
+        let session: Season.Race.Session
+        let currentDate: Date
+        let notificationController: NotificationController
+        
+        var sessionStatus: Season.Race.Session.Status {
+            if (currentDate >= session.endDate) {
+                return .finished
+            } else if (currentDate >= session.startDate && currentDate < session.endDate) {
+                return .ongoing
+            } else {
+                return .upcoming
             }
-            
-            HStack {
-                VStack(alignment: .leading) {
-                    Label {
-                        Text("\(session.dayString), \(session.dateString)")
-                    } icon: {
-                        Image(systemName: "calendar")
+        }
+        
+        var body: some View {
+            VStack(alignment: .leading, spacing: 15) {
+                HStack {
+                    Text(session.longName)
+                        .font(.headline)
+                        .foregroundStyle(.red)
+                    
+                    Spacer()
+                    
+                    HStack {
+                        Text(sessionStatus.rawValue)
+                        
+                        switch sessionStatus {
+                        case .finished:
+                            Image(systemName: "flag.checkered.2.crossed")
+                        case .ongoing:
+                            Image(systemName: "flag.checkered")
+                        case .upcoming:
+                            Image(systemName: "clock")
+                        }
+                    }
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                }
+                
+                HStack {
+                    VStack(alignment: .leading) {
+                        Label {
+                            Text("\(session.dayString), \(session.dateString)")
+                        } icon: {
+                            Image(systemName: "calendar")
+                        }
+                        
+                        Label {
+                            Text(DateInterval(start: session.startDate, end: session.endDate))
+                        } icon: {
+                            Image(systemName: "clock")
+                        }
                     }
                     
-                    Label {
-                        Text(DateInterval(start: session.startDate, end: session.endDate))
-                    } icon: {
-                        Image(systemName: "clock")
-                    }
+                    Spacer()
+                    
+                    NotificationButton(session: session, sessionStatus: sessionStatus, race: nextRace, notificationController: notificationController)
                 }
+                .font(.body)
                 
-                Spacer()
-                
-                NotificationButton(session: session, sessionStatus: sessionStatus, race: nextRace, notificationController: notificationController)
-            }
-            .font(.body)
-            
-            HStack {
                 if (sessionStatus == .upcoming) {
-                    Text("Session starts in \(session.startDate, style: .relative)")
+                    Text("Session starts in \(session.startDate, style: .relative)").font(.callout)
                 } else if (sessionStatus == .ongoing) {
-                    Text("Session ends in \(session.endDate, style: .relative)")
+                    Text("Session ends in \(session.endDate, style: .relative)").font(.callout)
                 } else {
-                    Text("Session has ended.")
+                    Text("Session has ended.").font(.callout)
                 }
-                
-                Spacer()
             }
-            .font(.callout)
         }
-        .padding(10)
-        .background(
-            RoundedRectangle(cornerRadius: 10)
-                .fill(.regularMaterial)
-        )
     }
-}
 
-struct FlagBackgroundView: View {
-    let flag: String
-    
-    var body: some View {
-        GeometryReader { geo in
-            Text(flag)
-                .font(.system(size: 1000))
-                .minimumScaleFactor(0.005)
-                .lineLimit(1)
-                .frame(width: geo.size.width, height: geo.size.height)
-                .rotationEffect(.degrees(90))
-                .blur(radius: 50)
+    struct FlagBackgroundView: View {
+        let flag: String
+        
+        var body: some View {
+            GeometryReader { geo in
+                Text(flag)
+                    .font(.system(size: 1000))
+                    .minimumScaleFactor(0.005)
+                    .lineLimit(1)
+                    .frame(width: geo.size.width, height: geo.size.height)
+                    .rotationEffect(.degrees(90))
+                    .blur(radius: 50)
+            }
         }
     }
 }
 
 #Preview {
-    TimerTabView(seriesRaces: sampleRaces, selectedSeries: "f1", notificationController: NotificationController())
+    TimerTabView(seriesRaces: sampleRaces, selectedSeries: .constant("f1"), notificationController: NotificationController())
 }
