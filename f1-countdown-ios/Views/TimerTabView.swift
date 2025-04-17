@@ -35,11 +35,11 @@ struct TimerTabView: View {
                         Section {
                             SessionView(nextRace: nextRace, session: session, currentDate: currentDate, notificationController: notificationController)
                         }
-                        .listRowBackground(
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(.regularMaterial)
-                        )
                     }
+                    .listRowBackground(
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(.regularMaterial)
+                    )
                 } else {
                     Label {
                         Text("It seems like there is no data available to display here.")
@@ -49,7 +49,6 @@ struct TimerTabView: View {
                     .bold()
                     .symbolRenderingMode(.multicolor)
                 }
-                
             }
             .listSectionSpacing(10)
             .navigationTitle(nextRace?.race.title ?? "No data available.")

@@ -30,7 +30,7 @@ struct ContentView: View {
             Tab {
                 UpcomingTabCalendarView(allRaces: allRaces, notificationController: notificationController)
             } label: {
-                Label("Upcoming", systemImage: "calendar")
+                Label("Calendar", systemImage: "calendar")
             }
             
             Tab {

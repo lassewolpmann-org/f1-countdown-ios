@@ -9,7 +9,7 @@ import Foundation
 
 struct Season: Codable {
     struct Race: Codable {
-        struct Session: Codable, Equatable {
+        struct Session: Codable, Equatable, Hashable {
             enum Status: String, Codable {
                 case finished = "Finished"
                 case ongoing = "Ongoing"

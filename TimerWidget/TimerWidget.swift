@@ -80,7 +80,7 @@ struct TimerWidgetProvider: TimelineProvider {
     func getTimeline(in context: Context, completion: @escaping (Timeline<TimerEntry>) -> Void) {
         Task {
             let entry = try await createEntryData()
-            let timeline = Timeline(entries: [entry], policy: .atEnd);
+            let timeline = Timeline(entries: [entry], policy: .after(entry.date));
             
             completion(timeline)
         }
@@ -99,25 +99,25 @@ struct TimerWidgetProvider: TimelineProvider {
 
         let (racesData, _) = try await URLSession.shared.data(from: racesURL)
         let rawRaces = try JSONDecoder().decode(RawAPIData.Races.self, from: racesData).races
-        let allRaces = rawRaces.map { newRace in
-            return parseRace(rawRace: newRace, sessionLengths: config.sessionLengths)
+        let allRaces = rawRaces.map { rawRace in
+            return parseRace(rawRace: rawRace, sessionLengths: config.sessionLengths)
         }
         
-        let race = allRaces.first { race in
+        let nextRace = allRaces.first { race in
             guard let lastSessionEndDate = race.sessions.last?.endDate else { return false }
             return lastSessionEndDate > Date()
         }
-        
+                
         var allDates: [Date] = []
         
-        race?.sessions.forEach { session in
+        nextRace?.sessions.forEach { session in
             allDates.append(session.startDate)
             allDates.append(session.endDate)
         }
         
         let updateDate = allDates.first { $0 > Date() } ?? Date()
         
-        return TimerEntry(date: updateDate, race: race)
+        return TimerEntry(date: updateDate, race: nextRace)
     }
     
     func parseRace(rawRace: RawAPIData.Races.Race, sessionLengths: [String: Int]) -> Season.Race {

@@ -9,13 +9,7 @@
 import Foundation
 
 let rawSampleRaces: [RawAPIData.Races.Race] = [
-    RawAPIData.Races.Race(name: "Australian", location: "Melbourne", slug: "australian-grand-prix", sessions: [
-        "fp1": ISO8601DateFormatter().string(from: .now.addingTimeInterval(10)),
-        "fp2": ISO8601DateFormatter().string(from: .now.addingTimeInterval(20)),
-        "fp3": ISO8601DateFormatter().string(from: .now.addingTimeInterval(30)),
-        "qualifying": ISO8601DateFormatter().string(from: .now.addingTimeInterval(40)),
-        "gp": ISO8601DateFormatter().string(from: .now.addingTimeInterval(50))
-    ]),
+
     RawAPIData.Races.Race(name: "Chinese", location: "Shanghai", slug: "chinese-grand-prix", sessions: [
         "fp1": "2025-03-21T03:30:00Z",
         "sprintQualifying": "2025-03-21T07:30:00Z",
@@ -23,12 +17,19 @@ let rawSampleRaces: [RawAPIData.Races.Race] = [
         "qualifying": "2025-03-22T07:00:00Z",
         "gp": "2025-03-23T07:00:00Z"
     ]),
+    RawAPIData.Races.Race(name: "Australian", location: "Melbourne", slug: "australian-grand-prix", sessions: [
+        "fp1": ISO8601DateFormatter().string(from: .now.addingTimeInterval(10)),
+        "fp2": ISO8601DateFormatter().string(from: .now.addingTimeInterval(20)),
+        "fp3": ISO8601DateFormatter().string(from: .now.addingTimeInterval(30)),
+        "qualifying": ISO8601DateFormatter().string(from: .now.addingTimeInterval(40)),
+        "gp": ISO8601DateFormatter().string(from: .now.addingTimeInterval(50))
+    ]),
     RawAPIData.Races.Race(name: "Japanese", location: "Suzuka", slug: "japanese-grand-prix", sessions: [
-        "fp1": "2025-04-04T02:30:00Z",
-        "fp2": "2025-04-04T06:00:00Z",
-        "fp3": "2025-04-05T02:30:00Z",
-        "qualifying": "2025-04-05T06:00:00Z",
-        "gp": "2025-04-06T05:00:00Z"
+        "fp1": ISO8601DateFormatter().string(from: .now.addingTimeInterval(60 * 60 * 24 * 7)),
+        "fp2": ISO8601DateFormatter().string(from: .now.addingTimeInterval(60 * 60 * 24 * 8)),
+        "fp3": ISO8601DateFormatter().string(from: .now.addingTimeInterval(60 * 60 * 24 * 9)),
+        "qualifying": ISO8601DateFormatter().string(from: .now.addingTimeInterval(60 * 60 * 24 * 10)),
+        "gp": ISO8601DateFormatter().string(from: .now.addingTimeInterval(60 * 60 * 24 * 11))
     ])
 ]
 
