@@ -31,7 +31,7 @@ struct TimerTabView: View {
                 SeriesPickerView(selectedSeries: $selectedSeries)
                 
                 if let nextRace {
-                    ForEach(nextRace.race.sessions, id: \.shortName) { session in
+                    ForEach(nextRace.race.sessions, id: \.startDate) { session in
                         Section {
                             SessionView(nextRace: nextRace, session: session, currentDate: currentDate, notificationController: notificationController)
                         }
@@ -79,7 +79,7 @@ struct TimerTabView: View {
         var body: some View {
             Section {
                 Picker(selection: $selectedSeries) {
-                    ForEach(availableSeries, id:\.self) { series in
+                    ForEach(availableSeries, id: \.self) { series in
                         Text(series.uppercased())
                     }
                 } label: {
@@ -95,6 +95,8 @@ struct TimerTabView: View {
     }
     
     struct SessionView: View {
+        @State private var collapsedView: Bool = false
+        
         let nextRace: RaceData
         let session: Season.Race.Session
         let currentDate: Date
@@ -113,6 +115,9 @@ struct TimerTabView: View {
         var body: some View {
             VStack(alignment: .leading, spacing: 15) {
                 HStack {
+                    Image(systemName: collapsedView ? "plus" : "minus")
+                        .foregroundStyle(.selection)
+                    
                     Text(session.longName)
                         .font(.headline)
                         .foregroundStyle(.red)
@@ -135,34 +140,43 @@ struct TimerTabView: View {
                     .foregroundStyle(.secondary)
                 }
                 
-                HStack {
-                    VStack(alignment: .leading) {
-                        Label {
-                            Text("\(session.dayString), \(session.dateString)")
-                        } icon: {
-                            Image(systemName: "calendar")
+                if (!collapsedView) {
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Label {
+                                Text("\(session.dayString), \(session.dateString)")
+                            } icon: {
+                                Image(systemName: "calendar")
+                            }
+                            
+                            Label {
+                                Text(DateInterval(start: session.startDate, end: session.endDate))
+                            } icon: {
+                                Image(systemName: "clock")
+                            }
                         }
                         
-                        Label {
-                            Text(DateInterval(start: session.startDate, end: session.endDate))
-                        } icon: {
-                            Image(systemName: "clock")
-                        }
+                        Spacer()
+                        
+                        NotificationButton(session: session, sessionStatus: sessionStatus, race: nextRace, notificationController: notificationController)
                     }
+                    .font(.body)
                     
-                    Spacer()
-                    
-                    NotificationButton(session: session, sessionStatus: sessionStatus, race: nextRace, notificationController: notificationController)
+                    if (sessionStatus == .upcoming) {
+                        Text("Session starts in \(session.startDate, style: .relative)").font(.callout)
+                    } else if (sessionStatus == .ongoing) {
+                        Text("Session ends in \(session.endDate, style: .relative)").font(.callout)
+                    } else {
+                        Text("Session has ended.").font(.callout)
+                    }
                 }
-                .font(.body)
-                
-                if (sessionStatus == .upcoming) {
-                    Text("Session starts in \(session.startDate, style: .relative)").font(.callout)
-                } else if (sessionStatus == .ongoing) {
-                    Text("Session ends in \(session.endDate, style: .relative)").font(.callout)
-                } else {
-                    Text("Session has ended.").font(.callout)
-                }
+            }
+            .sensoryFeedback(.selection, trigger: collapsedView)
+            .onTapGesture {
+                collapsedView.toggle()
+            }
+            .onAppear {
+                collapsedView = sessionStatus == .finished
             }
         }
     }
