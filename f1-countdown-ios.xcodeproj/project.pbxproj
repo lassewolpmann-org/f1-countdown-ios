@@ -25,6 +25,9 @@
 		257959D82B04FB000033DFAB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257959D72B04FB000033DFAB /* ContentView.swift */; };
 		257959DA2B04FB010033DFAB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 257959D92B04FB010033DFAB /* Assets.xcassets */; };
 		257959DD2B04FB010033DFAB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 257959DC2B04FB010033DFAB /* Preview Assets.xcassets */; };
+		2596A14D2EE0877E001571AD /* formulacountdown.icon in Resources */ = {isa = PBXBuildFile; fileRef = 2596A14C2EE0877E001571AD /* formulacountdown.icon */; };
+		2596A14E2EE0877E001571AD /* formulacountdown.icon in Resources */ = {isa = PBXBuildFile; fileRef = 2596A14C2EE0877E001571AD /* formulacountdown.icon */; };
+		2596A14F2EE0877E001571AD /* formulacountdown.icon in Resources */ = {isa = PBXBuildFile; fileRef = 2596A14C2EE0877E001571AD /* formulacountdown.icon */; };
 		25A9E4FA2D92834C0037901B /* UpcomingTabCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A9E4F92D92834C0037901B /* UpcomingTabCalendarView.swift */; };
 		25AB92BC2D25986D00295255 /* RawAPIData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AB92BB2D25986D00295255 /* RawAPIData.swift */; };
 		25AB92BD2D25986D00295255 /* RawAPIData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AB92BB2D25986D00295255 /* RawAPIData.swift */; };
@@ -126,6 +129,7 @@
 		257959D72B04FB000033DFAB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		257959D92B04FB010033DFAB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		257959DC2B04FB010033DFAB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		2596A14C2EE0877E001571AD /* formulacountdown.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = formulacountdown.icon; sourceTree = "<group>"; };
 		25A9E4F92D92834C0037901B /* UpcomingTabCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingTabCalendarView.swift; sourceTree = "<group>"; };
 		25AB92BB2D25986D00295255 /* RawAPIData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawAPIData.swift; sourceTree = "<group>"; };
 		25AB92BF2D25989300295255 /* SeasonData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonData.swift; sourceTree = "<group>"; };
@@ -206,6 +210,7 @@
 		257959C92B04FB000033DFAB = {
 			isa = PBXGroup;
 			children = (
+				2596A14C2EE0877E001571AD /* formulacountdown.icon */,
 				25C3DA662D23190B00B24C61 /* TimerWidgetExtension.entitlements */,
 				25BC66F82B6A9384006DCE8D /* LICENSE.md */,
 				25BC66F72B6A9310006DCE8D /* README.md */,
@@ -418,6 +423,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2596A14F2EE0877E001571AD /* formulacountdown.icon in Resources */,
 				25C06D4F2BD2AF6500A375A4 /* PrivacyInfo.xcprivacy in Resources */,
 				2505E6A12B0F844000876783 /* Assets.xcassets in Resources */,
 			);
@@ -430,6 +436,7 @@
 				25C06D4E2BD2AF6500A375A4 /* PrivacyInfo.xcprivacy in Resources */,
 				257959DD2B04FB010033DFAB /* Preview Assets.xcassets in Resources */,
 				257959DA2B04FB010033DFAB /* Assets.xcassets in Resources */,
+				2596A14E2EE0877E001571AD /* formulacountdown.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,6 +447,7 @@
 				25C06D502BD2AF6500A375A4 /* PrivacyInfo.xcprivacy in Resources */,
 				25F11C8D2BD01E98007D0DE6 /* Preview Assets.xcassets in Resources */,
 				25F11C8A2BD01E98007D0DE6 /* Assets.xcassets in Resources */,
+				2596A14D2EE0877E001571AD /* formulacountdown.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -717,8 +725,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 25125EFB2B14914400CA10EE /* Config.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = formulacountdown;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "f1-countdown-ios/f1-countdown-ios.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = "$(BUILD_NUMBER)";
@@ -755,8 +764,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 25125EFB2B14914400CA10EE /* Config.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = formulacountdown;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "f1-countdown-ios/f1-countdown-ios.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = "$(BUILD_NUMBER)";
