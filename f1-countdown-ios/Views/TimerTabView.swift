@@ -46,7 +46,6 @@ struct TimerTabView: View {
                     } icon: {
                         Image(systemName: "exclamationmark.triangle.fill")
                     }
-                    .bold()
                     .symbolRenderingMode(.multicolor)
                 }
             }
@@ -146,13 +145,13 @@ struct TimerTabView: View {
                             Label {
                                 Text("\(session.dayString), \(session.dateString)")
                             } icon: {
-                                Image(systemName: "calendar")
+                                Image(systemName: "calendar").padding(.vertical, 5)
                             }
                             
                             Label {
                                 Text(DateInterval(start: session.startDate, end: session.endDate))
                             } icon: {
-                                Image(systemName: "clock")
+                                Image(systemName: "clock").padding(.vertical, 5)
                             }
                         }
                         
